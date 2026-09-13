@@ -18,7 +18,13 @@ let cards = [];
 let hasUserInteracted = false;
 let animTimer = null;
 
-const TAB_H = 64; // px (height of compact header strip when expanded)
+function getTabH() {
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth <= 640) return 64;
+    if (window.innerWidth <= 1024) return 68;
+  }
+  return 76;
+}
 
 function getDeck() {
   if (!deckContainer) deckContainer = document.getElementById('aboutStackDeck');
@@ -115,15 +121,17 @@ export function activateCard(targetIdx, animate = true) {
   if (!deck || !cList[targetIdx]) return;
 
   if (animTimer) clearTimeout(animTimer);
+  resetAccordionRollingText();
 
+  const tabH = getTabH();
   const targetCard = cList[targetIdx];
   if (window.lineupMasonry && targetCard.querySelector('#aboutRosterStage')) {
     window.lineupMasonry.relayout();
   }
   const targetBody = targetCard.querySelector('.sb-card-body');
   const naturalBodyH = getNaturalBodyHeight(targetCard);
-  const targetActiveH = TAB_H + naturalBodyH;
-  const targetTotalDeckH = targetActiveH + (cList.length - 1) * TAB_H;
+  const targetActiveH = tabH + naturalBodyH;
+  const targetTotalDeckH = targetActiveH + (cList.length - 1) * tabH;
 
   if (!animate) {
     // Instant layout application (e.g. for hash deep links on load)
@@ -133,13 +141,13 @@ export function activateCard(targetIdx, animate = true) {
       c.classList.toggle('is-active', isActive);
       c.style.transition = 'none';
       c.style.flex = 'none';
-      c.style.height = isActive ? 'auto' : `${TAB_H}px`;
+      c.style.height = isActive ? 'auto' : `${tabH}px`;
 
       const tab = c.querySelector('.sb-card-tab');
       if (tab) {
         tab.style.transition = 'none';
         tab.style.flex = 'none';
-        tab.style.height = `${TAB_H}px`;
+        tab.style.height = `${tabH}px`;
       }
 
       const body = c.querySelector('.sb-card-body');
@@ -180,7 +188,7 @@ export function activateCard(targetIdx, animate = true) {
   const currentBandHeights = cList.map(c => c.offsetHeight);
   const currentTabHeights = cList.map(c => {
     const tab = c.querySelector('.sb-card-tab');
-    return tab ? tab.offsetHeight : TAB_H;
+    return tab ? tab.offsetHeight : tabH;
   });
 
   // 2. Lock starting heights explicitly and remove all-collapsed class
@@ -216,7 +224,7 @@ export function activateCard(targetIdx, animate = true) {
 
   cList.forEach((c, i) => {
     const tab = c.querySelector('.sb-card-tab');
-    if (tab) tab.style.height = `${TAB_H}px`;
+    if (tab) tab.style.height = `${tabH}px`;
 
     const b = c.querySelector('.sb-card-body');
     if (i === targetIdx) {
@@ -230,7 +238,7 @@ export function activateCard(targetIdx, animate = true) {
         window.lineupMasonry.playEntranceAnimation(0.12);
       }
     } else {
-      c.style.height = `${TAB_H}px`;
+      c.style.height = `${tabH}px`;
       if (b) {
         b.style.height = '0px';
         b.style.opacity = '0';
@@ -276,6 +284,7 @@ export function collapseAll(animate = true) {
   if (!deck || !cList.length) return;
 
   if (animTimer) clearTimeout(animTimer);
+  resetAccordionRollingText();
 
   const activeIdx = cList.findIndex(c => c.classList.contains('is-active'));
   const targetDeckH = getCollapsedDeckH();
@@ -389,10 +398,28 @@ if (typeof window !== 'undefined') {
  * Initializes the Stacked Cards deck on the About page.
  */
 /**
+ * Resets any active rolling animations cleanly so labels never freeze in an intermediate cut-off state.
+ */
+function resetAccordionRollingText() {
+  const deck = getDeck();
+  if (!deck || !window.gsap) return;
+  deck.querySelectorAll('.sb-roll-primary').forEach(el => {
+    window.gsap.killTweensOf(el);
+    window.gsap.set(el, { yPercent: 0, opacity: 1 });
+  });
+  deck.querySelectorAll('.sb-roll-clone').forEach(el => {
+    window.gsap.killTweensOf(el);
+    window.gsap.set(el, { yPercent: 120, opacity: 0 });
+  });
+}
+
+/**
  * Setup rolling text animation on hover for accordion card headers.
  * When hovered, current text goes UP, and duplicate text from the bottom goes UP.
  */
 function setupAccordionRollingText(tab, label) {
+  // Never attach rolling text on touch/mobile devices to avoid sticky tap clipping
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
   if (!label || label.dataset.rollingSetup) return;
   label.dataset.rollingSetup = 'true';
 
@@ -438,11 +465,11 @@ function setupAccordionRollingText(tab, label) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (window.gsap) {
       pairs.forEach((p, idx) => {
-        const delay = idx * 0.035;
+        const delay = idx * 0.025;
         window.gsap.to(p.primary, {
           yPercent: -120,
           opacity: 0,
-          duration: 0.75,
+          duration: 0.45,
           delay,
           ease: 'power3.out',
           overwrite: 'auto'
@@ -450,7 +477,7 @@ function setupAccordionRollingText(tab, label) {
         window.gsap.to(p.clone, {
           yPercent: 0,
           opacity: 1,
-          duration: 0.75,
+          duration: 0.45,
           delay,
           ease: 'power3.out',
           overwrite: 'auto'
@@ -470,11 +497,11 @@ function setupAccordionRollingText(tab, label) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (window.gsap) {
       pairs.forEach((p, idx) => {
-        const delay = idx * 0.025;
+        const delay = idx * 0.018;
         window.gsap.to(p.primary, {
           yPercent: 0,
           opacity: 1,
-          duration: 0.65,
+          duration: 0.4,
           delay,
           ease: 'power3.out',
           overwrite: 'auto'
@@ -482,7 +509,7 @@ function setupAccordionRollingText(tab, label) {
         window.gsap.to(p.clone, {
           yPercent: 120,
           opacity: 0,
-          duration: 0.65,
+          duration: 0.4,
           delay,
           ease: 'power3.out',
           overwrite: 'auto'
@@ -502,6 +529,9 @@ function setupAccordionRollingText(tab, label) {
   tab.addEventListener('mouseleave', onLeave);
   tab.addEventListener('focus', onEnter);
   tab.addEventListener('blur', onLeave);
+  tab.addEventListener('click', () => {
+    resetAccordionRollingText();
+  });
 }
 
 export function initStackedCards() {
