@@ -21,7 +21,7 @@ export const merchItems = [
   },
   {
     id: 'merch-tee',
-    name: 'Build.Power.Lead. Tee',
+    name: 'Build.Grow.Lead. Tee',
     blurb: 'Everyday crewneck tee featuring the official three-motion summit lockup.',
     icon: '<path d="M7 4h10l2 4-3 2v10H8V10L5 8z"/>',
     imgUrl: null

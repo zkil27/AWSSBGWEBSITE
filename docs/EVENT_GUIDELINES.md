@@ -3,13 +3,13 @@
 **EVENT OVERVIEW**
 
 **EVENT TITLE:** *AWS Student Community Day: South Summit 2026 (AWS SCD: SS 2026\)*   
-**THEME:** *Cloud x AI: BUILD. POWER. LEAD.*
+**THEME:** *Cloud x AI: BUILD. GROW. LEAD.*
 
 **I. OVERVIEW**
 
 AWS Student Community Day: South Summit 2026 is a student-centered technology and leadership conference designed to empower the next generation of innovators, builders, and future tech leaders across South Luzon. Organized by the AWS Student Builder Group, the summit aims to create an engaging and inclusive environment where students can explore the evolving landscape of Cloud Computing, Artificial Intelligence, leadership, and career development.trff
 
-With the theme **“Cloud x AI: BUILD. POWER. LEAD.”**, the event will gather approximately 200 students, student leaders, and technology advocates for a full-day immersive experience focused on inspiration, accessibility, innovation, and community.
+With the theme **“Cloud x AI: BUILD. GROW. LEAD.”**, the event will gather approximately 200 students, student leaders, and technology advocates for a full-day immersive experience focused on inspiration, accessibility, innovation, and community.
 
 Unlike traditional highly technical conferences, AWS SCD: South Summit 2026 is designed to balance technical exposure with human-centered experiences. The summit will feature **inspiring keynote sessions, beginner-friendly cloud and AI discussions, women in tech empowerment talks, career development sessions, community networking activities**, and **interactive sponsor booths** that help students identify their first steps into the tech industry.
 
@@ -43,7 +43,7 @@ The event aims to:
 
 ### **Event Title : AWS Student Community Day: South Summit 2026**
 
-### **Theme: “Cloud x AI: BUILD. POWER. LEAD.”**
+### **Theme: “Cloud x AI: BUILD. GROW. LEAD.”**
 
 ### **Organizer :** AWS Student Builder Groups in South Luzon (CALABARZON)
 
@@ -116,8 +116,8 @@ By the end of the summit, participants are expected to:
 | `NAME OF PROJECT` | `AWS Student Community Day: South Summit 2026` |
 | :---- | :---- |
 | `DATE` | `October 7, 2026` |
-| `THEME` | `Cloud x AI: BUILD. POWER. LEAD.` |
-| **`PROJECT DESCRIPTION`** |      `AWS Student Community Day: South Summit 2026 (AWS SCD: South Summit 2026) is a one-day student-led technology conference that brings together students, educators, industry professionals, and technology communities across South Luzon to explore the future of Cloud Computing and Artificial Intelligence.      Guided by the theme "Cloud x AI: BUILD. POWER. LEAD.", the event features keynote sessions, beginner-friendly technical talks, career development discussions, community networking, and interactive partner booths designed to inspire innovation, foster collaboration, and empower the next generation of technology leaders.` |
+| `THEME` | `Cloud x AI: BUILD. GROW. LEAD.` |
+| **`PROJECT DESCRIPTION`** |      `AWS Student Community Day: South Summit 2026 (AWS SCD: South Summit 2026) is a one-day student-led technology conference that brings together students, educators, industry professionals, and technology communities across South Luzon to explore the future of Cloud Computing and Artificial Intelligence.      Guided by the theme "Cloud x AI: BUILD. GROW. LEAD.", the event features keynote sessions, beginner-friendly technical talks, career development discussions, community networking, and interactive partner booths designed to inspire innovation, foster collaboration, and empower the next generation of technology leaders.` |
 | **`OBJECTIVES`** | `Introduce students to emerging trends and opportunities in Cloud Computing and Artificial Intelligence. Inspire students through stories, experiences, and insights from industry professionals, student leaders, and technology advocates. Provide beginner-friendly and practical learning opportunities related to cloud, AI, leadership, and career development. Promote diversity, inclusivity, and representation in technology, especially by empowering women in tech and underrepresented communities. Strengthen collaboration among universities, student organizations, technology communities, and industry partners across South Luzon. Create meaningful networking opportunities between students, mentors, sponsors, and professionals. Encourage students to pursue continuous learning, innovation, and community involvement within the technology ecosystem.` |
 | **`GUEST`** | `Partners Sponsors Speakers` |
 | **`VENUE`** | `Biñan People Center Auditorium 2nd and 3rd Floor Auditorium` |
@@ -716,7 +716,7 @@ Post:
 
 ### **Post 1**
 
-Cloud South Summit 2026: Build. Power. Lead.
+Cloud South Summit 2026: Build. Grow. Lead.
 
 ### **Post 2**
 

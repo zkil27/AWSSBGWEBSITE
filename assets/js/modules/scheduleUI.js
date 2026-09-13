@@ -39,7 +39,7 @@ export const scheduleSessions = [
     duration: '90 MIN',
     category: 'OPENING & KEYNOTE',
     categoryTheme: 'theme-orange',
-    title: 'Opening Ceremony & Keynote: Cloud × AI: Build. Power. Lead.',
+    title: 'Opening Ceremony & Keynote: Cloud × AI: Build. Grow. Lead.',
     location: 'Main Auditorium · 4th Floor',
     description: 'National Anthem, Opening Remarks by university representatives, and the vision keynote exploring emerging trends in AWS Cloud architecture and generative applied AI across CALABARZON.',
     speakerIndices: [0, 2, 6, 7, 10, 11] // Gaile, Trisha, Maxine, Ace, Kimi, Kate

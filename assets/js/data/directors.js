@@ -72,7 +72,7 @@ export const directors = [
     department: 'Technology',
     deptTag: 'TECH',
     focus: 'Front-end web implementations, modular architecture maintenance, digital asset optimization, and live technical ops.',
-    avatar: null,
+    avatar: 'assets/images/directors/Technology Assoc. Director - Franz Anthony Navarro .jfif',
     accentColor: '--blue'
   },
   {
@@ -172,7 +172,7 @@ export const directors = [
     department: 'Finance',
     deptTag: 'FIN',
     focus: 'Purchase requests verification, expense reconciliation, receipts accounting, and post-summit liquidation.',
-    avatar: null,
+    avatar: 'assets/images/directors/Finance Assoc. Director - Coleen Legaspi.jfif',
     accentColor: '--orange'
   }
 ];
