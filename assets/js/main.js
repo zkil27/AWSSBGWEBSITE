@@ -23,6 +23,7 @@ import { initVenueUI } from './modules/venueUI.js';
 import { initStackedCards } from './modules/stackedCards.js';
 import { initSplitText } from './modules/splitText.js';
 import { initPixelTransition, initSplashPixelTransition } from './modules/pixelTransition.js';
+import { initFooterLedger } from './modules/footerLedger.js';
 
 // Arm splash transition immediately so early clicks/timers are captured
 initSplashPixelTransition();
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDirectors();
     initSponsors();
     initVenueUI();
+    initFooterLedger();
 
     // 3. Reactive background animation (sits behind all content)
     initComputeGrid();
