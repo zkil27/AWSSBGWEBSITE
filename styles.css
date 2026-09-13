@@ -8803,6 +8803,7 @@ footer {
   height: 50px;
   flex-shrink: 0;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .director-monogram {
