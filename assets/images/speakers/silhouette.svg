@@ -1,0 +1,38 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="400" height="480">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1322"/>
+      <stop offset="50%" stop-color="#111c30"/>
+      <stop offset="100%" stop-color="#080e1a"/>
+    </linearGradient>
+    <linearGradient id="silhouetteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a3b5c"/>
+      <stop offset="100%" stop-color="#162238"/>
+    </linearGradient>
+    <radialGradient id="ambientGlow" cx="50%" cy="38%" r="45%">
+      <stop offset="0%" stop-color="#44B3FE" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#A759FF" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="480" fill="url(#bgGrad)"/>
+  <rect width="400" height="480" fill="url(#ambientGlow)"/>
+
+  <!-- Subtle Cyber Grid Accent Lines -->
+  <path d="M0 120 H400 M0 240 H400 M0 360 H400 M100 0 V480 M200 0 V480 M300 0 V480" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+
+  <!-- Person Silhouette -->
+  <!-- Head -->
+  <circle cx="200" cy="180" r="64" fill="url(#silhouetteGrad)"/>
+
+  <!-- Neck & Shoulders -->
+  <path d="M182 238 H218 V265 C218 275 230 282 248 290 C290 310 338 340 348 410 C350 424 340 435 325 435 H75 C60 435 50 424 52 410 C62 340 110 310 152 290 C170 282 182 275 182 265 Z" fill="url(#silhouetteGrad)"/>
+
+  <!-- Gentle rim highlight on head -->
+  <circle cx="200" cy="180" r="64" fill="none" stroke="rgba(68,179,254,0.18)" stroke-width="1.5"/>
+
+  <!-- Gentle rim highlight on shoulders -->
+  <path d="M182 238 H218 V265 C218 275 230 282 248 290 C290 310 338 340 348 410 C350 424 340 435 325 435 H75 C60 435 50 424 52 410 C62 340 110 310 152 290 C170 282 182 275 182 265 Z" fill="none" stroke="rgba(68,179,254,0.12)" stroke-width="1.5"/>
+</svg>

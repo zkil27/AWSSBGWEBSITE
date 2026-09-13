@@ -2273,7 +2273,8 @@ html.bp-active .sched-block-rows {
   color: var(--purple-text, var(--purple));
 }
 
-.sched-tag-pill.community {
+.sched-tag-pill.community,
+.sched-tag-pill.lunch {
   color: var(--blue-text, var(--blue));
 }
 
@@ -9063,5 +9064,49 @@ html.in-page-transition {
   }
 }
 
+/* ==========================================================================
+   Unconfirmed Speakers & Silhouette Styles
+   ========================================================================== */
+.is-silhouette {
+  background: #0b1322;
+  object-fit: cover !important;
+}
 
+.item-wrapper:has(.item-coming-soon) {
+  cursor: default;
+}
 
+.item-img.item-coming-soon:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.35);
+}
+
+.item-img.item-coming-soon .lt-name {
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+}
+
+.pf-chip-coming-soon {
+  cursor: default !important;
+  opacity: 0.88;
+}
+
+.pf-chip-coming-soon:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.speaker-inline-card.is-coming-soon {
+  cursor: default !important;
+  opacity: 0.88;
+}
+
+.speaker-inline-card.is-coming-soon:hover {
+  transform: none !important;
+}
+
+.pf-speaker-chip-avatar.is-silhouette,
+.speaker-inline-avatar.is-silhouette {
+  background: #0b1322;
+}
