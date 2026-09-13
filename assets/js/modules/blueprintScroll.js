@@ -158,6 +158,67 @@ function setPinState(scroll) {
   }
 }
 
+/**
+ * Dynamic curved arch transition when entering from the sponsors section.
+ * Works seamlessly on both desktop (full-bleed horizontal pan) and mobile (full-bleed vertical stack).
+ */
+function updateCurve(scroll, isMobile = false) {
+  if (!section || !pin) return;
+  if (!clipPathEl) clipPathEl = document.getElementById('bpCurveClipPath');
+  if (!strokePathEl) strokePathEl = document.getElementById('bpCurveStrokePath');
+  if (!strokeWrapEl) strokeWrapEl = document.querySelector('.bp-curve-stroke-wrap');
+  if (!clipPathEl) return;
+
+  const viewportHeight = window.innerHeight;
+  const viewportWidth = window.innerWidth;
+  const currentSectionTop = isMobile ? documentOffsetTop(section) : sectionTop;
+  const enterStart = currentSectionTop - viewportHeight;
+  const enterDistance = isMobile ? Math.min(viewportHeight * 0.85, 600) : Math.min(viewportHeight * 0.95, 850);
+  const currentY = scroll - enterStart;
+
+  let enterProgress = 0;
+  if (currentY <= 0) {
+    enterProgress = 0;
+  } else if (currentY >= enterDistance) {
+    enterProgress = 1;
+  } else {
+    enterProgress = currentY / enterDistance;
+  }
+
+  if (enterProgress > 0 && enterProgress < 1) {
+    const maxArch = isMobile
+      ? Math.min(160, Math.max(50, Math.round(viewportWidth * 0.16)))
+      : Math.min(240, Math.max(120, Math.round(viewportWidth * 0.15)));
+    const ease = 1 - Math.pow(1 - enterProgress, 2.2);
+    const arch = parseFloat((maxArch * (1 - ease)).toFixed(1));
+
+    if (Math.abs(arch - lastArch) >= 0.5) {
+      lastArch = arch;
+      const w = viewportWidth;
+      const h = isMobile
+        ? Math.max(viewportHeight * 3, (pin ? pin.scrollHeight : 0) + 2000, 25000)
+        : viewportHeight + 200;
+      const curveD = `M 0,${arch} Q ${w / 2},${-arch} ${w},${arch}`;
+      const clipD = `${curveD} L ${w},${h} L 0,${h} Z`;
+
+      clipPathEl.setAttribute('d', clipD);
+      pin.style.clipPath = `url(#bpCurveClip)`;
+      pin.style.webkitClipPath = `url(#bpCurveClip)`;
+      if (strokePathEl) strokePathEl.setAttribute('d', curveD);
+      if (strokeWrapEl) strokeWrapEl.style.opacity = '1';
+    }
+  } else {
+    if (lastArch !== 0 || (pin && (pin.style.clipPath || pin.style.webkitClipPath))) {
+      lastArch = 0;
+      if (pin) {
+        pin.style.clipPath = '';
+        pin.style.webkitClipPath = '';
+      }
+      if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
+    }
+  }
+}
+
 /** Map the given (smoothed) scroll value to the track transform + progress. */
 function render(scroll) {
   if (!active || !track) return;
@@ -174,46 +235,8 @@ function render(scroll) {
   // Update WebGL procedural noise gradient shader with horizontal scroll progress
   setShaderScroll(progress);
 
-  // Dynamic curved arch transition when entering from the sponsors section
-  const viewportHeight = window.innerHeight;
-  const enterStart = sectionTop - viewportHeight;
-  const enterDistance = Math.min(viewportHeight * 0.95, 850);
-  const currentY = scroll - enterStart;
-
-  let enterProgress = 0;
-  if (currentY <= 0) {
-    enterProgress = 0;
-  } else if (currentY >= enterDistance) {
-    enterProgress = 1;
-  } else {
-    enterProgress = currentY / enterDistance;
-  }
-
-  if (enterProgress > 0 && enterProgress < 1 && clipPathEl && strokePathEl) {
-    // Big prominent arch curvature: up to 240px peak in center, flattening as enterProgress -> 1
-    const maxArch = Math.min(240, Math.max(120, Math.round(viewportWidth * 0.15)));
-    const ease = 1 - Math.pow(1 - enterProgress, 2.2);
-    const arch = parseFloat((maxArch * (1 - ease)).toFixed(1));
-
-    if (Math.abs(arch - lastArch) >= 0.5) {
-      lastArch = arch;
-      const w = viewportWidth;
-      const h = viewportHeight + 200;
-      const curveD = `M 0,${arch} Q ${w / 2},${-arch} ${w},${arch}`;
-      const clipD = `${curveD} L ${w},${h} L 0,${h} Z`;
-
-      clipPathEl.setAttribute('d', clipD);
-      pin.style.clipPath = `url(#bpCurveClip)`;
-      strokePathEl.setAttribute('d', curveD);
-      if (strokeWrapEl) strokeWrapEl.style.opacity = '1';
-    }
-  } else {
-    if (lastArch !== 0 || (pin && pin.style.clipPath)) {
-      lastArch = 0;
-      if (pin) pin.style.clipPath = '';
-      if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
-    }
-  }
+  // Dynamic curved arch transition
+  updateCurve(scroll, false);
 
   // Dynamic horizontal scroll animation for each panel in the spread
   if (!panelData.length) measurePanels();
@@ -365,6 +388,7 @@ function deactivate() {
       pin.classList.remove('bp-engaged', 'is-before', 'is-pinned', 'is-after');
       pin.style.backgroundPosition = '';
       pin.style.clipPath = '';
+      pin.style.webkitClipPath = '';
     }
     if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
     lastArch = -1;
@@ -374,6 +398,44 @@ function deactivate() {
       section.style.removeProperty('--bp-extra');
     }
   }
+}
+
+/* ======================== Mobile Scroll Arch ============================ */
+
+let mobileListening = false;
+let mobileRaf = 0;
+
+function handleMobileScroll() {
+  if (!mobileListening) return;
+  if (mobileRaf) return;
+  mobileRaf = requestAnimationFrame(() => {
+    mobileRaf = 0;
+    if (mobileListening && homeVisible()) {
+      updateCurve(window.scrollY, true);
+    }
+  });
+}
+
+function activateMobile() {
+  if (mobileListening) return;
+  mobileListening = true;
+  window.addEventListener('scroll', handleMobileScroll, { passive: true });
+  updateCurve(window.scrollY, true);
+}
+
+function deactivateMobile() {
+  if (!mobileListening) return;
+  mobileListening = false;
+  window.removeEventListener('scroll', handleMobileScroll);
+  if (mobileRaf) {
+    cancelAnimationFrame(mobileRaf);
+    mobileRaf = 0;
+  }
+  if (pin) {
+    pin.style.clipPath = '';
+    pin.style.webkitClipPath = '';
+  }
+  lastArch = -1;
 }
 
 /** Expose synchronous measurement for page transitions to query accurate geometry. */
@@ -390,14 +452,21 @@ window.__reconcileBlueprint = function() {
 
 /** Enable or disable to match the current guard + page visibility. */
 function reconcile() {
-  if (shouldEnhance() && homeVisible()) {
-    activate();
-    measure();
-    render(currentScroll());
-    // A late measure after layout settles keeps the final panel flush.
-    requestAnimationFrame(measure);
+  if (homeVisible()) {
+    if (shouldEnhance()) {
+      deactivateMobile();
+      activate();
+      measure();
+      render(currentScroll());
+      // A late measure after layout settles keeps the final panel flush.
+      requestAnimationFrame(measure);
+    } else {
+      deactivate();
+      activateMobile();
+    }
   } else {
     deactivate();
+    deactivateMobile();
   }
 }
 
@@ -446,7 +515,12 @@ export function initBlueprintScroll() {
     cancelAnimationFrame(resizeRaf);
     resizeRaf = requestAnimationFrame(() => {
       reconcile();
-      if (active) { measure(); render(currentScroll()); }
+      if (active) {
+        measure();
+        render(currentScroll());
+      } else if (mobileListening) {
+        updateCurve(window.scrollY, true);
+      }
     });
   });
 

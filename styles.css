@@ -1471,8 +1471,8 @@ html[data-theme="dark"] .blueprint-panel--agenda .bp-num {
 }
 
 #program {
-  background-color: var(--bp-backdrop-base, #f5edfc);
-  background-image: var(--bp-bg-image);
+  background-color: transparent !important;
+  background-image: none !important;
   color: var(--bp-text);
   --text-strong: var(--bp-text-strong);
   --text: var(--bp-text);
@@ -1484,8 +1484,13 @@ html[data-theme="dark"] .blueprint-panel--agenda .bp-num {
   --card-bg: var(--bp-card-bg);
   --card-border: var(--bp-card-border);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  padding: 0 !important;
   transition: background-color 0.3s ease;
+}
+
+#program .deco-layer {
+  display: none !important;
 }
 
 html.bp-active #program {
@@ -1495,10 +1500,6 @@ html.bp-active #program {
   padding: 0;
   position: relative;
   margin-top: clamp(60px, 8vh, 120px);
-}
-
-html.bp-active #program .deco-layer {
-  display: none !important;
 }
 
 html.bp-active #program .wrap {
@@ -1513,12 +1514,32 @@ html.bp-active #program .section-head {
   display: none;
 }
 
-.blueprint-pin {
-  /* Fallback (no bp-active): behave like a normal block; JS/CSS below stacks
-     the track vertically so all content reads top-to-bottom. */
+.bp-content-wrap {
   position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--container, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+  box-sizing: border-box;
+}
+
+html.bp-active .bp-content-wrap {
+  display: contents;
+}
+
+.blueprint-pin {
+  /* Fallback (no bp-active): behave like a normal full-bleed block; JS/CSS below stacks
+     the track vertically so all content reads top-to-bottom encased in the gradient. */
+  position: relative;
+  width: 100%;
   overflow: hidden;
   background-color: var(--bp-backdrop-base, #f5edfc);
+  background-image: var(--bp-bg-image);
+  padding: clamp(64px, 9vh, 96px) 0 clamp(72px, 10vh, 110px) 0;
+  box-sizing: border-box;
   transition: background-color 0.3s ease;
 }
 
@@ -2424,7 +2445,7 @@ html.bp-active .blueprint-pin.bp-engaged .blueprint-hint {
 }
 
 html:not(.bp-active) #program {
-  padding: clamp(48px, 8vh, 96px) 0;
+  padding: 0 !important;
 }
 html:not(.bp-active) #program .section-head {
   margin-bottom: clamp(28px, 4vh, 44px);
@@ -2601,28 +2622,28 @@ html:not(.bp-active) .blueprint-panel {
 
 /* Live WebGL Shader Canvas: active and visible on mobile to project living chromatic waves */
 html:not(.bp-active) .bp-shader-canvas {
-  position: absolute;
-  inset: 0;
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
   z-index: 0;
   display: block !important;
-  border-radius: 20px;
+  border-radius: 0 !important;
   overflow: hidden;
   opacity: 0.88;
 }
 
 @media (max-width: 1023px) {
   .bp-shader-canvas {
-    position: absolute;
-    inset: 0;
+    position: absolute !important;
+    inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
     pointer-events: none;
     z-index: 0;
     display: block !important;
-    border-radius: 20px;
+    border-radius: 0 !important;
     overflow: hidden;
     opacity: 0.88;
   }
@@ -2630,7 +2651,6 @@ html:not(.bp-active) .bp-shader-canvas {
 
 /* Hide desktop-only artifacts that don't belong in mobile vertical stack */
 html:not(.bp-active) .bp-curve-stroke-wrap,
-html:not(.bp-active) .bp-clip-def,
 html:not(.bp-active) .blueprint-progress,
 html:not(.bp-active) .blueprint-hint {
   display: none !important;
@@ -2638,49 +2658,52 @@ html:not(.bp-active) .blueprint-hint {
 
 @media (max-width: 1023px) {
   .bp-curve-stroke-wrap,
-  .bp-clip-def,
   .blueprint-progress,
   .blueprint-hint {
     display: none !important;
   }
 }
 
-/* Ambient pin stage on mobile fallback */
+/* Ambient pin stage on mobile fallback — full-bleed edge-to-edge encasement */
 html:not(.bp-active) .blueprint-pin {
   position: relative !important;
-  background: rgba(13, 21, 39, 0.45) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
   height: auto !important;
-  padding: clamp(20px, 3vw, 32px) clamp(14px, 2.5vw, 24px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
-}
-
-html[data-theme="light"]:not(.bp-active) .blueprint-pin {
-  background: rgba(255, 255, 255, 0.5) !important;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+  min-height: 100vh;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: var(--bp-backdrop-base, #f5edfc) !important;
+  background-image: var(--bp-bg-image);
+  padding: clamp(64px, 9vh, 96px) 0 clamp(72px, 10vh, 110px) 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden;
 }
 
 @media (max-width: 1023px) {
   .blueprint-pin {
     position: relative !important;
-    background: rgba(13, 21, 39, 0.45) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
-    padding: clamp(20px, 3vw, 32px) clamp(14px, 2.5vw, 24px);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+    min-height: 100vh;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: var(--bp-backdrop-base, #f5edfc) !important;
+    background-image: var(--bp-bg-image);
+    padding: clamp(64px, 9vh, 96px) 0 clamp(72px, 10vh, 110px) 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
   }
 
   html[data-theme="light"] .blueprint-pin {
-    background: rgba(255, 255, 255, 0.5) !important;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+    background-color: var(--bp-backdrop-base, #f5edfc) !important;
+    border: none !important;
+    box-shadow: none !important;
   }
-
+}
   /* Frosted glass for schedule block cards on mobile */
   .blueprint-panel--schedule .sched-block {
     background: rgba(13, 21, 39, 0.85) !important;
@@ -6441,11 +6464,13 @@ footer {
   align-items: center;
   gap: 12px;
   padding: 0 clamp(24px, 5.5vw, 84px);
-  min-height: 64px;
+  min-height: 76px;
   cursor: pointer;
   user-select: none;
   position: relative;
   transition: background-color 0.2s ease;
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .sb-card-tab:hover {
@@ -6502,9 +6527,10 @@ footer {
   font-size: clamp(1.1rem, 1.8vw, 1.5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.25;
   margin: 0;
   color: inherit;
+  overflow: visible;
   /* transition managed in animation block below */
 }
 
@@ -6513,17 +6539,20 @@ footer {
   display: inline-flex;
   align-items: center;
   overflow: hidden;
-  line-height: 1.55em !important;
+  line-height: 1.6em !important;
   vertical-align: middle;
+  padding: 4px 0;
 }
 
 .sb-roll-char {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  height: 1.55em;
-  line-height: 1.55em;
+  height: 1.65em;
+  line-height: 1.65em;
   vertical-align: middle;
+  padding-bottom: 0.12em;
+  box-sizing: content-box;
 }
 
 .sb-roll-space {
@@ -6533,8 +6562,8 @@ footer {
 
 .sb-roll-item {
   display: block;
-  height: 1.55em;
-  line-height: 1.55em;
+  height: 1.65em;
+  line-height: 1.65em;
   text-align: center;
   will-change: transform, opacity;
   transform: translateZ(0);
@@ -6689,11 +6718,12 @@ footer {
 
 /* ── Expanded States ───────────────────────────────────────────────────── */
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) {
-  height: 64px;
+  height: 76px;
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-tab {
-  height: 64px;
+  height: 76px;
+  min-height: 76px;
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-label {
@@ -6707,7 +6737,8 @@ footer {
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-tab {
-  height: 64px;
+  height: 76px;
+  min-height: 76px;
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-label {
@@ -7112,70 +7143,296 @@ footer {
 }
 
 /* Directors Grid Inside Band */
-#card-directors .directors-filter-wrapper {
-  margin-bottom: 12px;
+#card-directors .directors-filter-wrapper,
+.directors-filter-wrapper {
+  margin-top: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 0 6px;
 }
 
-#card-directors .directors-filter-bar {
+#card-directors .directors-filter-wrapper::-webkit-scrollbar,
+.directors-filter-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+#card-directors .directors-filter-bar,
+.directors-filter-bar {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  min-width: 0;
+}
+
+#card-directors .director-filter-pill,
+.director-filter-pill {
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
-}
-
-#card-directors .director-filter-pill {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 7px 15px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
   color: #18181b;
-  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(22, 28, 36, 0.14);
   border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.18s ease,
+              background-color 0.18s ease,
+              border-color 0.18s ease,
+              transform 0.18s ease,
+              box-shadow 0.18s ease;
+  white-space: nowrap;
 }
 
-#card-directors .director-filter-pill:hover {
+#card-directors .director-filter-pill:hover,
+.director-filter-pill:hover {
   background: #ffffff;
-  color: #18181b;
+  border-color: rgba(22, 28, 36, 0.24);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-#card-directors .director-filter-pill.active {
-  background: #18181b;
-  border-color: #18181b;
-  color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+#card-directors .director-filter-pill:active,
+.director-filter-pill:active {
+  transform: translateY(0) scale(0.96);
 }
 
-#card-directors .directors-grid {
+#card-directors .director-filter-pill.active,
+.director-filter-pill.active {
+  background: #18181b !important;
+  border-color: #18181b !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(22, 28, 36, 0.22) !important;
+}
+
+#card-directors .director-filter-pill.active .filter-dot,
+.director-filter-pill.active .filter-dot {
+  background: currentColor !important;
+  opacity: 0.85;
+}
+
+/* =========================================================
+   HONEYCOMB NODE MESH: 4x4 BALANCED MESH & 3D GRAVITY TILT
+   ========================================================= */
+#card-directors.is-active {
+  min-height: calc(100vh - 76px);
+}
+
+#card-directors .section-light {
+  background: transparent;
+  padding: clamp(36px, 4vw, 64px) 0 clamp(48px, 5vw, 76px);
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 76px);
+  display: flex;
+  flex-direction: column;
+}
+
+#card-directors .wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#card-directors .directors-grid,
+#card-directors .hive-container {
   max-height: none;
   overflow: visible;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  padding-right: 0;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 0 32px;
+  position: relative;
+  z-index: 5;
+  min-height: 580px;
+}
+
+#card-directors .hive-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 5;
+}
+
+/* Symmetrical alternating hexagonal stagger offset */
+#card-directors .hive-row:nth-child(even) {
+  transform: translateX(65px);
+}
+
+/* Reset stagger offset when filtering so active cards center naturally */
+#card-directors .hive-container.is-filtered .hive-row {
+  transform: none !important;
 }
 
 #card-directors .director-card {
+  width: clamp(280px, 20vw, 316px);
+  min-width: 280px;
+  max-width: 320px;
+  flex-shrink: 0;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
+  border-radius: 14px;
   color: #18181b;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 18px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  user-select: none;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
 }
+
 #card-directors .director-card:hover {
   background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.16);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
+  z-index: 25;
 }
-#card-directors .director-card h4,
-#card-directors .director-card .director-name {
+
+
+
+#card-directors .director-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+#card-directors .director-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+#card-directors .dept-badge-exec { background: rgba(252, 153, 7, 0.15); color: #d97706; }
+#card-directors .dept-badge-tech { background: rgba(68, 179, 254, 0.15); color: #0284c7; }
+#card-directors .dept-badge-crea { background: rgba(254, 87, 234, 0.15); color: #db2777; }
+#card-directors .dept-badge-ops  { background: rgba(7, 227, 131, 0.16); color: #059669; }
+#card-directors .dept-badge-mktg { background: rgba(167, 89, 255, 0.15); color: #7c3aed; }
+#card-directors .dept-badge-rels { background: rgba(68, 179, 254, 0.15); color: #0284c7; }
+#card-directors .dept-badge-fin  { background: rgba(252, 153, 7, 0.15); color: #d97706; }
+
+#card-directors .director-role-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #6b7280;
+  text-transform: uppercase;
+  background: transparent;
+}
+
+#card-directors .director-role-badge.director {
+  color: #000000;
+  border-color: #000000;
+  background: #f3f4f6;
+}
+
+#card-directors .director-header-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#card-directors .director-avatar-frame {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#card-directors .director-monogram {
+  width: 100%;
+  height: 100%;
+  background: #182030;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+#card-directors .director-card:hover .director-monogram {
+  transform: scale(1.05);
+}
+
+#card-directors .monogram-text {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--dept-accent, #44b3fe);
+  letter-spacing: 0.04em;
+}
+
+#card-directors .director-identity {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+#card-directors .director-name {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
   color: #18181b;
+  margin: 0;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-#card-directors .director-card .director-role {
-  color: #52525b;
+
+#card-directors .director-role-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: #4b5563;
+  margin-top: 3px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#card-directors .director-dept-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #9ca3af;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Stacked Deck: Wide Screen Container Spacing */
@@ -7337,19 +7594,44 @@ footer {
   color: rgba(24, 24, 27, 0.85) !important;
 }
 
+@media (max-width: 1200px) and (min-width: 769px) {
+  #card-directors .hive-row .director-card {
+    width: 240px;
+    min-width: 240px;
+    max-width: 240px;
+  }
+  #card-directors .hive-row {
+    gap: 12px;
+  }
+  #card-directors .hive-row:nth-child(even) {
+    transform: translateX(48px);
+  }
+}
+
 /* Tablet Responsiveness */
 @media (max-width: 1024px) {
   .sb-card-tab {
     padding: 0 24px;
-    min-height: 56px;
+    min-height: 68px;
+  }
+  .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) {
+    height: 68px;
+  }
+  .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-tab {
+    height: 68px;
+    min-height: 68px;
+  }
+  .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-tab {
+    height: 68px;
+    min-height: 68px;
   }
 
   #card-chapters .chapter-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  #card-directors .directors-grid {
-    grid-template-columns: repeat(2, 1fr);
+  #card-directors .hive-row:nth-child(even) {
+    transform: translateX(40px);
   }
 }
 
@@ -7357,15 +7639,43 @@ footer {
 @media (max-width: 640px) {
   .sb-card-tab {
     padding: 0 16px;
-    min-height: 52px;
+    min-height: 64px;
+  }
+  .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) {
+    height: 64px;
+  }
+  .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-tab {
+    height: 64px;
+    min-height: 64px;
+  }
+  .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-tab {
+    height: 64px;
+    min-height: 64px;
   }
 
   #card-chapters .chapter-grid {
     grid-template-columns: 1fr;
   }
 
-  #card-directors .directors-grid {
-    grid-template-columns: 1fr;
+  #card-directors .hive-container {
+    min-height: 460px;
+    padding: 10px 0 20px;
+  }
+
+  #card-directors .hive-row {
+    flex-wrap: wrap;
+    transform: none !important;
+    gap: 12px;
+  }
+
+  #card-directors .hive-row:nth-child(even) {
+    transform: none !important;
+  }
+
+  #card-directors .director-card {
+    width: min(100%, 300px);
+    min-width: 0;
+    max-width: 320px;
   }
 }
 
@@ -8366,80 +8676,7 @@ footer {
    ABOUT PAGE: SUMMIT DIRECTORS & ORGANIZING LEADERSHIP
    ========================================================================== */
 
-.directors-filter-wrapper {
-  margin-top: 24px;
-  margin-bottom: 28px;
-  position: relative;
-  z-index: 2;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-  padding: 4px 0 8px;
-}
 
-.directors-filter-wrapper::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
-  width: 0;
-  height: 0;
-}
-
-.directors-filter-bar {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-width: max-content;
-  background: var(--bg-2, rgba(15, 23, 42, 0.04));
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 5px;
-}
-
-.director-filter-pill {
-  appearance: none;
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 7px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  white-space: nowrap;
-}
-
-.director-filter-pill:hover {
-  color: var(--text-strong);
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.director-filter-pill.active {
-  background: var(--card-bg, #ffffff);
-  color: var(--text-strong);
-  border-color: var(--card-border, rgba(0, 0, 0, 0.12));
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-html[data-theme="dark"] .directors-filter-bar {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-html[data-theme="dark"] .director-filter-pill:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-html[data-theme="dark"] .director-filter-pill.active {
-  background: var(--bg-elevated, #1A2333);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
 
 .director-filter-pill .filter-dot {
   width: 7px;

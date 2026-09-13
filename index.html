@@ -388,47 +388,41 @@
         <span class="brand-box b4"></span>
         <span class="brand-box b5"></span>
       </div>
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Event Details</p>
-          <h2 class="section-title">The Blueprint</h2>
-          <p class="section-p">The theme runs through the whole day — three motions instead of one track: what you
-            build, what powers it, and how you lead with it. The agenda runs throughout the day at the Laguna venue.</p>
+      <!-- SVG ClipPath Definition for Dynamic Curved Arch Transition -->
+      <svg class="bp-clip-def" width="0" height="0" style="position:absolute;pointer-events:none;" aria-hidden="true">
+        <defs>
+          <clipPath id="bpCurveClip">
+            <path id="bpCurveClipPath" d="" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div class="blueprint-pin">
+        <!-- React Bits <Grainient /> WebGL Procedural Noise Gradient Container -->
+        <div class="grainient-container bp-shader-canvas" id="agendaGrainient" aria-hidden="true"></div>
+
+        <!-- Dynamic Curved Arch Top Border Stroke -->
+        <div class="bp-curve-stroke-wrap" aria-hidden="true">
+          <svg class="bp-curve-stroke-svg" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bpCurveStrokeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FC9907" stop-opacity="0.95"/>
+                <stop offset="25%" stop-color="#A759FF" stop-opacity="0.95"/>
+                <stop offset="50%" stop-color="#44B3FE" stop-opacity="1.0"/>
+                <stop offset="75%" stop-color="#07E383" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#FE57EA" stop-opacity="0.95"/>
+              </linearGradient>
+            </defs>
+            <path id="bpCurveStrokePath" fill="none" stroke="url(#bpCurveStrokeGrad)" stroke-width="3" />
+          </svg>
         </div>
 
-        <!-- HORIZONTAL PANEL TRACK
-             On desktop/pointer (no reduced-motion) this section pins to the
-             viewport and the .blueprint-track pans sideways as you scroll,
-             driven by Lenis (see modules/blueprintScroll.js). On touch /
-             reduced-motion / narrow screens it degrades to a normal vertical
-             stack via the CSS fallback — all content stays identical. -->
-        <!-- SVG ClipPath Definition for Dynamic Curved Arch Transition -->
-        <svg class="bp-clip-def" width="0" height="0" style="position:absolute;pointer-events:none;" aria-hidden="true">
-          <defs>
-            <clipPath id="bpCurveClip">
-              <path id="bpCurveClipPath" d="" />
-            </clipPath>
-          </defs>
-        </svg>
-
-        <div class="blueprint-pin">
-          <!-- React Bits <Grainient /> WebGL Procedural Noise Gradient Container -->
-          <div class="grainient-container bp-shader-canvas" id="agendaGrainient" aria-hidden="true"></div>
-
-          <!-- Dynamic Curved Arch Top Border Stroke -->
-          <div class="bp-curve-stroke-wrap" aria-hidden="true">
-            <svg class="bp-curve-stroke-svg" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="bpCurveStrokeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#FC9907" stop-opacity="0.95"/>
-                  <stop offset="25%" stop-color="#A759FF" stop-opacity="0.95"/>
-                  <stop offset="50%" stop-color="#44B3FE" stop-opacity="1.0"/>
-                  <stop offset="75%" stop-color="#07E383" stop-opacity="0.95"/>
-                  <stop offset="100%" stop-color="#FE57EA" stop-opacity="0.95"/>
-                </linearGradient>
-              </defs>
-              <path id="bpCurveStrokePath" fill="none" stroke="url(#bpCurveStrokeGrad)" stroke-width="3" />
-            </svg>
+        <div class="wrap bp-content-wrap">
+          <div class="section-head">
+            <p class="eyebrow">Event Details</p>
+            <h2 class="section-title">The Blueprint</h2>
+            <p class="section-p">The theme runs through the whole day — three motions instead of one track: what you
+              build, what powers it, and how you lead with it. The agenda runs throughout the day at the Laguna venue.</p>
           </div>
 
           <div class="blueprint-track">
@@ -602,13 +596,13 @@
               </div>
             </article>
 
-          </div>
+          </div><!-- /blueprint-track -->
+        </div><!-- /bp-content-wrap -->
 
-          <!-- Horizontal progress bar + scroll hint (populated/animated by JS) -->
-          <div class="blueprint-progress" aria-hidden="true"><span class="blueprint-progress-fill"></span></div>
-          <div class="blueprint-hint" aria-hidden="true">Scroll <span class="bp-hint-arrow">&rarr;</span></div>
-        </div>
-      </div>
+        <!-- Horizontal progress bar + scroll hint (populated/animated by JS) -->
+        <div class="blueprint-progress" aria-hidden="true"><span class="blueprint-progress-fill"></span></div>
+        <div class="blueprint-hint" aria-hidden="true">Scroll <span class="bp-hint-arrow">&rarr;</span></div>
+      </div><!-- /blueprint-pin -->
     </section>
 
     <!-- INLINE VENUES -->
@@ -1035,7 +1029,7 @@
 
               <!-- Filter Pills Navigation -->
               <div class="directors-filter-wrapper">
-                <nav class="directors-filter-bar font-mono" aria-label="Filter directors by department">
+                <nav class="directors-filter-bar font-mono" id="directorsFilterBar" aria-label="Filter directors by department">
                   <button type="button" class="director-filter-pill active" data-target="all" aria-selected="true">
                     All (16)
                   </button>
@@ -1063,7 +1057,7 @@
                 </nav>
               </div>
 
-              <div class="directors-grid" id="directorsGrid"></div>
+              <div class="directors-grid hive-container" id="directorsGrid"></div>
             </div>
           </section>
         </div>
