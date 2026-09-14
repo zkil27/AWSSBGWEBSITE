@@ -189,8 +189,8 @@ By the end of the summit, participants are expected to:
 | **`Creatives Assoc. Dir`** | `Alyssa Marie T. Valera` |
 | **`Marketing Director`** | `Jana Lumbreras` |
 | **`Marketing Assoc. Dir`** | `Beatrice Blando` |
-| **`Technology Director`** | `Elijah Tamayo` |
-| **`Technology Assoc. Dir`** | `Anthony Navarro` |
+| **`Technology Director`** | `Elijah Job Tamayo` |
+| **`Technology Assoc. Dir`** | `Franz Anthony Navarro` |
 
 #  **`COMMITTEE ROLES AND RESPONSIBILITIES`**
 

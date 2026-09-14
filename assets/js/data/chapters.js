@@ -16,7 +16,7 @@ export const chapters = [
   {
     name: 'AWS SBG – Philippine Christian University Cavite',
     university: 'PCU Cavite Campus',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/AWSSBGPCUCavite',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - PCU Cavite.png'
@@ -24,7 +24,7 @@ export const chapters = [
   {
     name: 'AWS SBG – Mapúa Malayan Digital College',
     university: 'Mapúa Malayan Digital College',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/aws.sbg.mmdc',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - MMDC.png'
@@ -32,7 +32,7 @@ export const chapters = [
   {
     name: 'AWS SBG – University of Perpetual Help System Laguna – Biñan',
     university: 'UPHSL Biñan Campus',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/awssbg',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - UPHSL.png'
@@ -40,7 +40,7 @@ export const chapters = [
   {
     name: 'AWS SBG – Cavite State University – Main',
     university: 'CvSU Indang Main Campus',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/awsccspade',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - Spade.png'
@@ -48,7 +48,7 @@ export const chapters = [
   {
     name: 'AWS SBG – Pamantasan ng Cabuyao',
     university: 'University of Cabuyao',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/awsccpnc',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - UC.png'
@@ -64,7 +64,7 @@ export const chapters = [
   {
     name: 'AWS Learning Club – Polar',
     university: 'PUP Santa Rosa Campus',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/profile.php?id=6158289347062',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWSLC - Polar.png'
@@ -72,7 +72,7 @@ export const chapters = [
   {
     name: 'AWS SBG – Aeris',
     university: 'City College of Calamba',
-    facebookUrl: '#',
+    facebookUrl: 'https://www.facebook.com/awssbg.aeris',
     linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - Aeris.png'

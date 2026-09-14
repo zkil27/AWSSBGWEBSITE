@@ -238,8 +238,9 @@ export function initRouter() {
         const page = target.getAttribute('data-page');
         if (page && PAGES.includes(page)) {
             e.preventDefault();
-            if (window.showPage) window.showPage(page);
-            else showPage(page);
+            const targetSection = target.getAttribute('data-section') || null;
+            if (window.showPage) window.showPage(page, true, true, targetSection);
+            else showPage(page, true, true, targetSection);
         }
     });
 

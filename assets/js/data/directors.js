@@ -57,7 +57,7 @@ export const directors = [
   },
   {
     id: 'dir-tech-1',
-    name: 'Elijah Tamayo',
+    name: 'Elijah Job Tamayo',
     role: 'Technology Director',
     department: 'Technology',
     deptTag: 'TECH',
@@ -67,7 +67,7 @@ export const directors = [
   },
   {
     id: 'dir-tech-2',
-    name: 'Anthony Navarro',
+    name: 'Franz Anthony Navarro',
     role: 'Technology Assoc. Director',
     department: 'Technology',
     deptTag: 'TECH',
