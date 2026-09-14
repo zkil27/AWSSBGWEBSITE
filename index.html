@@ -632,227 +632,137 @@
       </div>
       <div class="wrap">
         <div class="section-head venue-section-head" data-reveal>
-          <div class="venue-head-lockup">
-            <span class="venue-tier-num">04</span>
-            <span class="venue-tier-badge">LOCATION &amp; ACCESS</span>
-          </div>
           <p class="eyebrow" style="color:var(--teal);">Venue</p>
           <h2 class="section-title">Where builders gather</h2>
         </div>
 
-        <div class="venue-grid">
-          <!-- CARD 1 (LEFT): The Venue & Spaces -->
-          <article class="venue-card venue-card--spaces" data-reveal>
-            <!-- Photo Media Gallery Frame -->
-            <div class="venue-media-frame venue-gallery-frame" id="venueGallery" tabindex="0" role="region" aria-label="Venue photo gallery">
-              <!-- Slide Images (Organizers can swap or add more slides here!) -->
+        <div class="venue-editorial-stage" data-reveal>
+          <!-- LEFT COLUMN: The Grand Visual Stage (56%) -->
+          <div class="venue-media-stage">
+            <div class="venue-canvas-frame" id="venueGallery" tabindex="0" role="region" aria-label="Venue architectural visual and interactive map">
               <div class="venue-gallery-track">
-                <!-- Slide 1: Main Auditorium -->
+                <!-- Slide 1: Main Stage Auditorium -->
                 <div class="venue-gallery-slide active" 
                      data-index="0"
-                     data-tag="MAIN AUDITORIUM"
-                     data-tag-class="chip-primary"
-                     data-capacity="500+ CAPACITY"
-                     data-coords="14&deg;18'46.9&quot;N &middot; 121&deg;04'44.6&quot;E"
-                     data-label="Auditorium">
+                     data-label="Auditorium"
+                     data-caption="01 / MAIN STAGE AUDITORIUM &middot; LEVEL 04">
                   <img src="assets/images/venue pic/auditorium.JPG" 
                        alt="PUP – Biñan People's Center Auditorium interior" 
                        class="venue-media-img" 
                        id="venueHeroImg"
                        loading="lazy" />
                 </div>
-                <!-- Slide 2: Community Hub Expo Floor -->
+                <!-- Slide 2: Partner Community Hub -->
                 <div class="venue-gallery-slide" 
                      data-index="1"
-                     data-tag="COMMUNITY HUB"
-                     data-tag-class="chip-accent"
-                     data-capacity="EXPO &amp; DEMOS"
-                     data-coords="LEVEL 02 COMMONS"
-                     data-label="Expo Hub">
+                     data-label="Community Hub"
+                     data-caption="02 / PARTNER COMMUNITY HUB &middot; LEVEL 02">
                   <img src="assets/images/venue pic/comm hub.jpg" 
                        alt="PUP – Biñan People's Center Level 02 Partner Expo &amp; Community Hub" 
                        class="venue-media-img" 
                        loading="lazy" />
                 </div>
-                <!-- Slide 3: Civic Center Complex Exterior -->
+                <!-- Slide 3: Civic Center Grounds -->
                 <div class="venue-gallery-slide" 
                      data-index="2"
-                     data-tag="CIVIC COMPLEX"
-                     data-tag-class="chip-green"
-                     data-capacity="EVENT GROUNDS"
-                     data-coords="BI&Ntilde;AN &middot; LAGUNA"
-                     data-label="Civic Grounds">
+                     data-label="Civic Grounds"
+                     data-caption="03 / CIVIC CENTER GROUNDS &middot; EXTERIOR">
                   <img src="assets/images/venue pic/event grounds.jpg" 
                        alt="Biñan People's Center Auditorium Civic Complex Grounds" 
                        class="venue-media-img" 
                        loading="lazy" />
                 </div>
-              </div>
-
-              <!-- Navigation Arrows -->
-              <button type="button" class="venue-nav-btn venue-nav-prev" id="venuePrevBtn" aria-label="Previous photo">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-              <button type="button" class="venue-nav-btn venue-nav-next" id="venueNextBtn" aria-label="Next photo">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-
-              <!-- Gallery Overlay HUD -->
-              <div class="venue-media-overlay" aria-hidden="true">
-                <!-- Top Row: Tag & Counter / Capacity -->
-                <div class="venue-overlay-row venue-overlay-top">
-                  <div class="venue-chip chip-primary" id="venueGalleryTag">
-                    <span class="venue-chip-dot"></span>
-                    <span id="venueGalleryTagText">MAIN AUDITORIUM</span>
-                  </div>
-                  <div class="venue-overlay-badges">
-                    <span class="venue-chip venue-chip-counter" id="venueGalleryCounter">01 / 03</span>
-                    <div class="venue-chip chip-accent" id="venueGalleryCapacity">500+ CAPACITY</div>
-                  </div>
-                </div>
-
-                <!-- Bottom Row: Quick Space Switcher Tabs & GPS Coords -->
-                <div class="venue-overlay-row venue-overlay-bottom">
-                  <div class="venue-gallery-tabs" id="venueGalleryTabs" role="tablist" aria-label="Venue photo views">
-                    <button type="button" class="venue-tab-btn active" data-index="0" role="tab" aria-selected="true">Auditorium</button>
-                    <button type="button" class="venue-tab-btn" data-index="1" role="tab" aria-selected="false">Expo Hub</button>
-                    <button type="button" class="venue-tab-btn" data-index="2" role="tab" aria-selected="false">Civic Grounds</button>
-                  </div>
-                  <div class="venue-chip chip-coords" id="venueGalleryCoords">14&deg;18'46.9"N &middot; 121&deg;04'44.6"E</div>
+                <!-- Slide 4: Interactive Google Map -->
+                <div class="venue-gallery-slide venue-map-slide" 
+                     data-index="3"
+                     data-label="Interactive Map"
+                     data-caption="04 / LIVE INTERACTIVE MAP &middot; BI&Ntilde;AN, LAGUNA">
+                  <iframe loading="lazy"
+                    src="https://maps.google.com/maps?q=Bi%C3%B1an+People%27s+Center+Auditorium&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
+                    title="Interactive Map of Biñan People's Center Auditorium, Laguna"
+                    allowfullscreen></iframe>
                 </div>
               </div>
             </div>
 
-            <!-- Venue Details Content -->
-            <div class="venue-card-body">
-              <div class="venue-meta-header">
-                <span class="venue-subtag">HOST CHAPTER: AWS SBG PUP&ndash;BI&Ntilde;AN</span>
-                <h3 class="venue-name">PUP – Biñan People's Center Auditorium</h3>
-                <p class="venue-address">Biñan People's Center, Biñan, Laguna, Philippines</p>
-              </div>
-
-              <p class="venue-desc">
-                South Summit 2026's official gathering ground across two dedicated levels — bringing together 500+ student builders, keynote speakers, and cloud leaders from across CALABARZON.
-              </p>
-
-              <!-- Nested Floor Spaces (Click to jump to space photo!) -->
-              <div class="venue-floors-container">
-                <div class="venue-floor-row venue-floor-clickable active-floor" data-venue-target="0" role="button" tabindex="0" title="Click to view auditorium photo">
-                  <div class="floor-badge-col">
-                    <span class="floor-pill pill-cyan">LEVEL 04</span>
-                  </div>
-                  <div class="floor-info-col">
-                    <div class="floor-title-row">
-                      <h4>Main Stage Auditorium</h4>
-                      <span class="floor-view-cue" aria-hidden="true">View Photo &rarr;</span>
-                    </div>
-                    <span class="floor-spec">500+ Tiered Seats · Air-Conditioned</span>
-                  </div>
-                </div>
-
-                <div class="venue-floor-row venue-floor-clickable" data-venue-target="1" role="button" tabindex="0" title="Click to view community hub photo">
-                  <div class="floor-badge-col">
-                    <span class="floor-pill pill-green">LEVEL 02</span>
-                  </div>
-                  <div class="floor-info-col">
-                    <div class="floor-title-row">
-                      <h4>Community Hub</h4>
-                      <span class="floor-view-cue" aria-hidden="true">View Photo &rarr;</span>
-                    </div>
-                    <span class="floor-spec">Interactive Expo Commons · Networking</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="venue-feature-pills">
-                <span class="feature-pill">Tiered Auditorium</span>
-                <span class="feature-pill">Air-Conditioned</span>
-                <span class="feature-pill">High-Speed WiFi</span>
-                <span class="feature-pill">Twin Levels</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- CARD 2 (RIGHT): Map & Access Guide -->
-          <article class="venue-card venue-card--access" data-reveal>
-            <!-- Map Media Frame (Same height & aspect ratio as the photo!) -->
-            <div class="venue-media-frame venue-map-frame">
-              <iframe loading="lazy"
-                src="https://maps.google.com/maps?q=Bi%C3%B1an+People%27s+Center+Auditorium&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
-                title="Interactive Map of Biñan People's Center Auditorium, Laguna"
-                allowfullscreen></iframe>
-              <div class="venue-media-overlay" aria-hidden="true">
-                <div class="venue-chip chip-green">
-                  <span class="venue-chip-dot green"></span>
-                  <span>LIVE INTERACTIVE MAP</span>
-                </div>
-                <div class="venue-chip chip-coords">BI&Ntilde;AN &middot; LAGUNA</div>
-              </div>
-            </div>
-
-            <!-- Access & Commute Content -->
-            <div class="venue-card-body">
-              <div class="venue-meta-header">
-                <span class="venue-subtag">TRANSIT &amp; DIRECTIONS</span>
-                <h3 class="venue-name">Getting to the Summit</h3>
-                <p class="venue-address">Biñan People's Center, Biñan, Laguna 4024</p>
-              </div>
-
-              <!-- Transit Checklist -->
-              <div class="venue-transit-list">
-                <div class="transit-row">
-                  <div class="transit-icon-box" aria-hidden="true">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                  </div>
-                  <div class="transit-text">
-                    <strong>Exact Address</strong>
-                    <p>Biñan People's Center, Biñan, Laguna 4024</p>
-                  </div>
-                </div>
-
-                <div class="transit-row">
-                  <div class="transit-icon-box" aria-hidden="true">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="3" y1="21" x2="21" y2="21"></line>
-                      <line x1="6" y1="21" x2="6" y2="10"></line>
-                      <line x1="10" y1="21" x2="10" y2="10"></line>
-                      <line x1="14" y1="21" x2="14" y2="10"></line>
-                      <line x1="18" y1="21" x2="18" y2="10"></line>
-                      <polygon points="12 3 2 10 22 10 12 3"></polygon>
-                    </svg>
-                  </div>
-                  <div class="transit-text">
-                    <strong>Prominent Landmarks</strong>
-                    <p>Directly adjacent to Alonte Sports Arena and the Biñan City Hall Complex.</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="venue-btn-row">
-                <a class="btn btn-primary btn-sm"
-                  href="https://www.google.com/maps/place/Bi%C3%B1an+People's+Center+Auditorium/@14.3130254,121.0790571,17z/data=!3m1!4b1!4m6!3m5!1s0x3397d70042017c71:0x8933329e6ace6ce4!8m2!3d14.3130254!4d121.0790571!16s%2Fg%2F11zddgfh6z" 
-                  target="_blank"
-                  rel="noopener">
-                  Open Google Maps &nearr;
-                </a>
-                <button type="button" class="btn btn-ghost btn-sm" id="btnCopyVenueAddr" aria-label="Copy venue address to clipboard">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            <!-- Sleek Minimalist Footer Bar -->
+            <div class="venue-canvas-footer">
+              <span class="venue-canvas-caption font-mono" id="venueCanvasCaption">01 / MAIN STAGE AUDITORIUM &middot; LEVEL 04</span>
+              <div class="venue-canvas-nav">
+                <button type="button" class="venue-canvas-btn venue-nav-prev" id="venuePrevBtn" aria-label="Previous space view">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6"></polyline>
                   </svg>
-                  <span id="btnCopyText">Copy Address</span>
+                </button>
+                <span class="venue-canvas-counter font-mono" id="venueGalleryCounter">01 / 04</span>
+                <button type="button" class="venue-canvas-btn venue-nav-next" id="venueNextBtn" aria-label="Next space view">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
                 </button>
               </div>
             </div>
-          </article>
+          </div>
+
+          <!-- RIGHT COLUMN: Minimalist Typographic Column -->
+          <div class="venue-editorial-info">
+            <div class="venue-editorial-header">
+              <h3 class="venue-editorial-title">PUP – Biñan People's Center</h3>
+              <p class="venue-location-sub font-mono">Biñan, Laguna 4024 &middot; Adjacent to Alonte Sports Arena</p>
+            </div>
+
+            <!-- Ultra-clean single-line space list -->
+            <div class="venue-space-list" role="tablist" aria-label="Summit venue spaces">
+              <button type="button" class="venue-space-row active" data-venue-target="0" role="tab" aria-selected="true">
+                <span class="space-left-meta">
+                  <span class="space-num font-mono">01</span>
+                  <span class="space-name">Main Stage Auditorium</span>
+                </span>
+                <span class="space-meta font-mono">Level 04</span>
+              </button>
+
+              <button type="button" class="venue-space-row" data-venue-target="1" role="tab" aria-selected="false">
+                <span class="space-left-meta">
+                  <span class="space-num font-mono">02</span>
+                  <span class="space-name">Community Hub</span>
+                </span>
+                <span class="space-meta font-mono">Level 02</span>
+              </button>
+
+              <button type="button" class="venue-space-row" data-venue-target="2" role="tab" aria-selected="false">
+                <span class="space-left-meta">
+                  <span class="space-num font-mono">03</span>
+                  <span class="space-name">Civic Center Grounds</span>
+                </span>
+                <span class="space-meta font-mono">Exterior</span>
+              </button>
+
+              <button type="button" class="venue-space-row" data-venue-target="3" role="tab" aria-selected="false">
+                <span class="space-left-meta">
+                  <span class="space-num font-mono">04</span>
+                  <span class="space-name">Interactive Google Map</span>
+                </span>
+                <span class="space-meta font-mono">Live Map</span>
+              </button>
+            </div>
+
+            <!-- Minimal Symmetrical Action Buttons -->
+            <div class="venue-btn-row">
+              <a class="btn btn-primary btn-sm"
+                href="https://www.google.com/maps/place/Bi%C3%B1an+People's+Center+Auditorium/@14.3130254,121.0790571,17z/data=!3m1!4b1!4m6!3m5!1s0x3397d70042017c71:0x8933329e6ace6ce4!8m2!3d14.3130254!4d121.0790571!16s%2Fg%2F11zddgfh6z" 
+                target="_blank"
+                rel="noopener">
+                Open Google Maps &nearr;
+              </a>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnCopyVenueAddr" aria-label="Copy venue address to clipboard">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="btnCopyText">Copy Address</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

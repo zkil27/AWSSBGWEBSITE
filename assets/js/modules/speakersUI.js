@@ -387,21 +387,27 @@ export function initSpeakers() {
             const linkedin = s.linkedInUrl
                 || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
 
-            // Varied heights (child.height / 2 in layout) for dynamic masonry rhythm
-            let h = 500;
-            if (isKeynote) {
-                h = (index % 3 === 0) ? 660 : (index % 3 === 1 ? 600 : 560);
-            } else if (s.status === 'PANEL') {
-                h = (index % 3 === 0) ? 520 : (index % 3 === 1 ? 480 : 500);
-            } else {
-                h = (index % 2 === 0) ? 440 : 390;
-            }
+            // Harmonious heights calibrated for balanced 3-column greedy packing
+            // Col 0: Asi (480) + Panel TBA 1 (360) = 840px
+            // Col 1: Trisha (460) + Gaile (380) = 840px
+            // Col 2: Keynote TBA (340) + Jared (300) + Panel TBA 2 (200) = 840px
+            let targetH = 360;
+            if (s.id === 'speaker-isaeus-asi-guiang') targetH = 480;
+            else if (s.id === 'speaker-trisha-pelagio') targetH = 460;
+            else if (s.id === 'speaker-gaile-espinosa') targetH = 380;
+            else if (s.id === 'speaker-jared-remulta') targetH = 300;
+            else if (s.id === 'speaker-talk3-tba') targetH = 340;
+            else if (s.id === 'speaker-panel-tba-1') targetH = 360;
+            else if (s.id === 'speaker-panel-tba-2') targetH = 200;
+            else if (isKeynote) targetH = 440;
+            else targetH = 320;
 
             return {
                 id: s.id || `speaker-${s.originalIndex ?? index}`,
                 img: avatar,
                 url: linkedin,
-                height: h,
+                targetHeight: targetH,
+                height: targetH * 2,
                 speaker: s,
                 color,
                 isKeynote,
@@ -426,9 +432,29 @@ export function initSpeakers() {
               </a>` : '';
             const roleMarkup = (isComingSoon || !item.role) ? '' : `<span class="lt-role">${item.role}</span>`;
 
+            if (isComingSoon) {
+                const topic = item.speaker?.sessionTitle || 'Official speaker announcement coming soon.';
+                return `
+                <div class="item-img item-coming-soon" style="--tile-accent: var(--${item.color});">
+                  <img class="lt-photo is-silhouette" src="${item.img}" alt="${item.name}" loading="lazy" decoding="async"
+                       onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('lt-photo-fallback')">
+                  <span class="lt-scrim" aria-hidden="true"></span>
+                  <span class="sc-status-badge ${item.status.toLowerCase()}">${item.status}</span>
+                  <span class="lt-tba-radar" title="Speaker announcement pending">
+                    <span class="lt-tba-dot"></span>Revealing Soon
+                  </span>
+                  <span class="lt-info lt-info-tba">
+                    <span class="lt-tba-eyebrow font-mono">SPOTLIGHT PENDING</span>
+                    <h3 class="lt-name">Coming Soon</h3>
+                    <span class="lt-session-topic font-mono">${topic}</span>
+                  </span>
+                  <div class="color-overlay"></div>
+                </div>`;
+            }
+
             return `
-            <div class="item-img${isComingSoon ? ' item-coming-soon' : ''}" style="--tile-accent: var(--${item.color});">
-              <img class="lt-photo${isComingSoon ? ' is-silhouette' : ''}" src="${item.img}" alt="${item.name}" loading="lazy" decoding="async"
+            <div class="item-img" style="--tile-accent: var(--${item.color});">
+              <img class="lt-photo" src="${item.img}" alt="${item.name}" loading="lazy" decoding="async"
                    onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('lt-photo-fallback')">
               <span class="lt-scrim" aria-hidden="true"></span>
               <span class="sc-status-badge ${item.status.toLowerCase()}">${item.status}</span>

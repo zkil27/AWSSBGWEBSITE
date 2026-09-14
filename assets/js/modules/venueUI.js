@@ -68,7 +68,7 @@ function fallbackCopy(text, labelEl, btnEl) {
 }
 
 /**
- * Multi-Image Venue Gallery & Carousel
+ * Multi-Image Venue Gallery & Carousel — Concept B Editorial Split
  */
 function initVenueGallery() {
   const gallery = document.getElementById('venueGallery');
@@ -79,49 +79,21 @@ function initVenueGallery() {
 
   const prevBtn = document.getElementById('venuePrevBtn');
   const nextBtn = document.getElementById('venueNextBtn');
-  const tabsContainer = document.getElementById('venueGalleryTabs');
   const counterEl = document.getElementById('venueGalleryCounter');
-  const tagEl = document.getElementById('venueGalleryTag');
-  const tagTextEl = document.getElementById('venueGalleryTagText');
-  const capacityEl = document.getElementById('venueGalleryCapacity');
-  const coordsEl = document.getElementById('venueGalleryCoords');
-  const floorRows = Array.from(document.querySelectorAll('.venue-floor-clickable'));
+  const captionEl = document.getElementById('venueCanvasCaption');
+  const spaceItems = Array.from(document.querySelectorAll('.venue-space-row, .venue-space-item, .venue-floor-clickable'));
 
   let currentIndex = 0;
   const total = slides.length;
   let autoTimer = null;
   const AUTO_INTERVAL_MS = 6000;
 
-  // If only 1 image, hide navigation buttons and tabs
+  // If only 1 image, hide navigation buttons
   if (total <= 1) {
     if (prevBtn) prevBtn.style.display = 'none';
     if (nextBtn) nextBtn.style.display = 'none';
-    if (tabsContainer) tabsContainer.style.display = 'none';
     if (counterEl) counterEl.style.display = 'none';
     return;
-  }
-
-  // Populate or synchronize space tabs
-  if (tabsContainer) {
-    tabsContainer.innerHTML = '';
-    slides.forEach((slide, idx) => {
-      const label = slide.dataset.label || `Space ${idx + 1}`;
-      const tabBtn = document.createElement('button');
-      tabBtn.type = 'button';
-      tabBtn.className = `venue-tab-btn ${idx === 0 ? 'active' : ''}`;
-      tabBtn.setAttribute('data-index', idx);
-      tabBtn.setAttribute('role', 'tab');
-      tabBtn.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
-      tabBtn.textContent = label;
-
-      tabBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        goToSlide(idx);
-        restartAutoTimer();
-      });
-
-      tabsContainer.appendChild(tabBtn);
-    });
   }
 
   function goToSlide(newIndex) {
@@ -146,52 +118,31 @@ function initVenueGallery() {
       }
     });
 
-    // 2. Update tabs
-    if (tabsContainer) {
-      const tabBtns = tabsContainer.querySelectorAll('.venue-tab-btn');
-      tabBtns.forEach((btn, idx) => {
-        if (idx === currentIndex) {
-          btn.classList.add('active');
-          btn.setAttribute('aria-selected', 'true');
-        } else {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-selected', 'false');
-        }
-      });
+    // 2. Update caption
+    if (captionEl && activeSlide) {
+      captionEl.innerHTML = activeSlide.dataset.caption || activeSlide.dataset.label || '';
     }
 
-    // 3. Update HUD chips
+    // 3. Update counter
     if (counterEl) {
       const curStr = String(currentIndex + 1).padStart(2, '0');
       const totStr = String(total).padStart(2, '0');
       counterEl.textContent = `${curStr} / ${totStr}`;
     }
 
-    if (tagTextEl && activeSlide.dataset.tag) {
-      tagTextEl.textContent = activeSlide.dataset.tag;
-    }
-
-    if (tagEl && activeSlide.dataset.tagClass) {
-      tagEl.className = `venue-chip ${activeSlide.dataset.tagClass}`;
-    }
-
-    if (capacityEl && activeSlide.dataset.capacity) {
-      capacityEl.textContent = activeSlide.dataset.capacity;
-    }
-
-    if (coordsEl && activeSlide.dataset.coords) {
-      coordsEl.textContent = activeSlide.dataset.coords;
-    }
-
-    // 4. Update corresponding floor row highlight
-    floorRows.forEach(row => {
-      const targetIdx = parseInt(row.dataset.venueTarget, 10);
-      if (targetIdx === currentIndex) {
-        row.classList.add('active-floor');
-      } else {
-        row.classList.remove('active-floor');
-      }
+    // 4. Update corresponding space item highlight
+    spaceItems.forEach(item => {
+      const targetIdx = parseInt(item.dataset.venueTarget, 10);
+      const isActive = (targetIdx === currentIndex);
+      item.classList.toggle('active', isActive);
+      item.classList.toggle('active-floor', isActive);
+      item.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
+
+    // Pause auto-advance when attendee navigates to the interactive map
+    if (activeSlide && activeSlide.classList.contains('venue-map-slide')) {
+      pauseAutoTimer();
+    }
   }
 
   // Prev / Next button clicks
@@ -211,18 +162,18 @@ function initVenueGallery() {
     });
   }
 
-  // Interactive Floor Rows (Click to jump to that photo!)
-  floorRows.forEach(row => {
+  // Interactive Space Items (Click or keyboard to jump to that visual!)
+  spaceItems.forEach(item => {
     const handleActivate = () => {
-      const targetIdx = parseInt(row.dataset.venueTarget, 10);
+      const targetIdx = parseInt(item.dataset.venueTarget, 10);
       if (!isNaN(targetIdx)) {
         goToSlide(targetIdx);
         restartAutoTimer();
       }
     };
 
-    row.addEventListener('click', handleActivate);
-    row.addEventListener('keydown', (e) => {
+    item.addEventListener('click', handleActivate);
+    item.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         handleActivate();
