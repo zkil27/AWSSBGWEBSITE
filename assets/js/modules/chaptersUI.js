@@ -32,7 +32,6 @@ function chapterCardHTML(c) {
       </div>
       <div class="chapter-socials">
         ${social(c.facebookUrl, `${name} Facebook`, 'fb-icon')}
-        ${social(c.linkedInUrl, `${name} LinkedIn`, 'li-icon')}
       </div>
     </div>
   `;

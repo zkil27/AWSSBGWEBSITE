@@ -227,19 +227,71 @@ export function initRouter() {
     updateNavState();
     initNavAutoHide();
 
-    // Delegated click handler for all interactive [data-page] elements (nav, footer, brand, hero CTA, HUD)
+    // Delegated click handler for all interactive [data-page], [data-section], and section anchor links
     document.addEventListener('click', (e) => {
         // Never intercept external links or target=_blank links
         const extLink = e.target.closest('a[target="_blank"], a[href^="http"], a[href^="mailto:"]');
         if (extLink) return;
 
-        const target = e.target.closest('button[data-page], a[data-page], [role="button"][data-page]');
-        if (!target || target === document.documentElement || target === document.body) return;
-        const page = target.getAttribute('data-page');
-        if (page && PAGES.includes(page)) {
+        // 1. Page navigation ([data-page])
+        const pageTarget = e.target.closest('button[data-page], a[data-page], [role="button"][data-page]');
+        if (pageTarget && pageTarget !== document.documentElement && pageTarget !== document.body) {
+            const page = pageTarget.getAttribute('data-page');
+            if (page && PAGES.includes(page)) {
+                e.preventDefault();
+                if (window.showPage) window.showPage(page);
+                else showPage(page);
+                return;
+            }
+        }
+
+        // 2. Section navigation ([data-section] or in-page hash links like href="#venue", href="#sponsors")
+        const sectionTarget = e.target.closest('[data-section], a[href^="#"]');
+        if (sectionTarget && sectionTarget !== document.documentElement && sectionTarget !== document.body) {
+            const href = sectionTarget.getAttribute('href');
+            const dataSec = sectionTarget.getAttribute('data-section');
+            let rawSec = dataSec || (href && href.startsWith('#') ? href.slice(1) : null);
+            if (!rawSec || rawSec === '' || rawSec === '!') return;
+
+            // If it matches a standalone page route like #about, let page handler deal with it
+            if (PAGES.includes(rawSec)) return;
+
+            // Map aliases to element IDs
+            let sectionId = rawSec;
+            if (sectionId === 'agenda' || sectionId === 'schedule') sectionId = 'program';
+            if (sectionId === 'venues') sectionId = 'venue';
+
+            const targetSelector = '#' + sectionId;
+            const el = document.querySelector(targetSelector);
+            if (!el) return;
+
             e.preventDefault();
-            if (window.showPage) window.showPage(page);
-            else showPage(page);
+
+            const curPage = document.documentElement.getAttribute('data-page') || 'home';
+            if (curPage !== 'home') {
+                if (window.showPage) {
+                    window.showPage('home', true, true, targetSelector);
+                } else {
+                    showPage('home', true, true, targetSelector);
+                }
+            } else {
+                if (window.__measureBlueprint) window.__measureBlueprint();
+                if (window.__lenis) window.__lenis.resize();
+
+                const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 76;
+                const docTop = getElementDocTop(el);
+                const targetY = Math.max(0, docTop - navH + 10);
+
+                if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+                    window.__lenis.scrollTo(targetY, {
+                        duration: 1.1,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                    });
+                } else {
+                    window.scrollTo({ top: targetY, behavior: 'smooth' });
+                }
+                history.pushState({ page: 'home', section: sectionId }, '', targetSelector);
+            }
         }
     });
 
@@ -250,7 +302,10 @@ export function initRouter() {
         document.documentElement.setAttribute('data-page', 'home');
         const hashTarget = (location.hash || '').replace(/^#/, '');
         if (hashTarget && !PAGES.includes(hashTarget)) {
-            const targetSelector = hashTarget === 'agenda' ? '#program' : '#' + hashTarget;
+            let sectionId = hashTarget;
+            if (sectionId === 'agenda' || sectionId === 'schedule') sectionId = 'program';
+            if (sectionId === 'venues') sectionId = 'venue';
+            const targetSelector = '#' + sectionId;
             setTimeout(() => {
                 const el = document.querySelector(targetSelector);
                 if (el) {

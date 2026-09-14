@@ -360,15 +360,15 @@
 
             <!-- Dual-Track Marquee Wrapper with Gradient Masks -->
             <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
-              <!-- Track 1: Marquee Left -->
-              <div class="marquee-row marquee-row--left">
+              <!-- Track 1: Pro Partners (Marquee Left) -->
+              <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
                 <div class="marquee-track" id="marqueeTrack1">
                   <!-- Populated dynamically by sponsorsUI.js -->
                 </div>
               </div>
 
-              <!-- Track 2: Marquee Right -->
-              <div class="marquee-row marquee-row--right">
+              <!-- Track 2: Lite Partners (Marquee Right) -->
+              <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
                 <div class="marquee-track" id="marqueeTrack2">
                   <!-- Populated dynamically by sponsorsUI.js -->
                 </div>
@@ -945,10 +945,10 @@
         </div>
       </div>
 
-      <!-- CARD 04: LEADERSHIP -->
+      <!-- CARD 04: CORE TEAM -->
       <div class="sb-band sb-band-pink stack-card" id="card-directors" data-card-index="3">
-        <div class="sb-card-tab" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Leadership section">
-          <h2 class="sb-card-label">Leadership</h2>
+        <div class="sb-card-tab" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Core Team section">
+          <h2 class="sb-card-label">Core Team</h2>
           <span class="sb-card-chevron" aria-hidden="true">›</span>
         </div>
         <div class="sb-card-body">
@@ -956,14 +956,14 @@
           <section id="about-directors" class="section-light grid-bg light">
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow" style="color:var(--blue-text);">Organizing Leadership</p>
-                <h2 class="section-title">Summit Directorate</h2>
-                <p class="section-p">The student directors, associate directors, and executive leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
+                <p class="eyebrow" style="color:var(--blue-text);">Organizing Team</p>
+                <h2 class="section-title">Summit Core Team</h2>
+                <p class="section-p">The student directors, associate directors, and core team leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
               </div>
 
               <!-- Filter Pills Navigation -->
               <div class="directors-filter-wrapper">
-                <nav class="directors-filter-bar font-mono" id="directorsFilterBar" aria-label="Filter directors by department">
+                <nav class="directors-filter-bar font-mono" id="directorsFilterBar" aria-label="Filter core team by department">
                   <button type="button" class="director-filter-pill active" data-target="all" aria-selected="true">
                     All (16)
                   </button>
@@ -1159,8 +1159,9 @@
         <div class="foot-col">
           <h6 class="foot-header">Event</h6>
           <nav class="foot-nav-links" aria-label="Event navigation">
-            <a href="#program" class="foot-nav-item">Schedule</a>
-            <a href="#venue" class="foot-nav-item">Venues</a>
+            <a href="#program" class="foot-nav-item" data-section="program">Schedule</a>
+            <a href="#sponsors" class="foot-nav-item" data-section="sponsors">Sponsors</a>
+            <a href="#venue" class="foot-nav-item" data-section="venue">Venue</a>
             <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item">Register</a>
           </nav>
         </div>

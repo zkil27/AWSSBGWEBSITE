@@ -52,7 +52,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Administrative management, records upkeep, volunteer roster collation, and communications tracking.',
-    avatar: null,
+    avatar: 'assets/images/directors/Executive Secretary - Renae Chloe O. Bautista.png',
     accentColor: '--orange'
   },
   {
@@ -162,7 +162,7 @@ export const directors = [
     department: 'Finance',
     deptTag: 'FIN',
     focus: 'Fiscal budgeting, sponsorship fund allocation, procurement audit trails, merchandise costing, and financial transparency.',
-    avatar: null,
+    avatar: 'assets/images/directors/Finance Director - John Cyphrey D. Madulid.png',
     accentColor: '--orange'
   },
   {
