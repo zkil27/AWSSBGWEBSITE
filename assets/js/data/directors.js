@@ -22,7 +22,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Overall summit direction, master timeline orchestration, institutional permits, and inter-departmental governance.',
-    avatar: null,
+    avatar: 'assets/images/directors/Event Director - John Lexter Reyes.jpg',
     accentColor: '--orange'
   },
   {
@@ -32,7 +32,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Cross-functional operations oversight, department KPI alignment, risk management, and ground execution management.',
-    avatar: null,
+    avatar: 'assets/images/directors/Event Associate Director \u2013 Helena Tantoco.jpg',
     accentColor: '--orange'
   },
   {
@@ -42,7 +42,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Executive correspondence, official summit documentation, inter-chapter minutes, and administrative compliance.',
-    avatar: null,
+    avatar: 'assets/images/directors/Executive Secretary - Althea Kim Peria.jpg',
     accentColor: '--orange'
   },
   {
@@ -62,7 +62,7 @@ export const directors = [
     department: 'Technology',
     deptTag: 'TECH',
     focus: 'Summit digital infrastructure, official web platform engineering, interactive attendee tools, and technical delivery.',
-    avatar: null,
+    avatar: 'assets/images/directors/Technology Director - Elijah Job R. Tamayo.jpeg',
     accentColor: '--blue'
   },
   {
@@ -72,7 +72,7 @@ export const directors = [
     department: 'Technology',
     deptTag: 'TECH',
     focus: 'Front-end web implementations, modular architecture maintenance, digital asset optimization, and live technical ops.',
-    avatar: null,
+    avatar: 'assets/images/directors/Technology Assoc. Director - Franz Anthony Navarro .jfif',
     accentColor: '--blue'
   },
   {
@@ -82,7 +82,7 @@ export const directors = [
     department: 'Creatives',
     deptTag: 'CREA',
     focus: 'Visual identity direction, Cyber-Grid aesthetic design systems, multimedia assets, stage graphics, and branding.',
-    avatar: null,
+    avatar: 'assets/images/directors/Creatives Director - Maja Samaniego.png',
     accentColor: '--pink'
   },
   {
@@ -102,7 +102,7 @@ export const directors = [
     department: 'Operations',
     deptTag: 'OPS',
     focus: 'Physical event logistics, Biñan People Center venue staging, technical AV setups, safety, and attendee ingress.',
-    avatar: null,
+    avatar: 'assets/images/directors/Operations Director - Sebastian Rafael Belando_.jpg',
     accentColor: '--green'
   },
   {
@@ -112,7 +112,7 @@ export const directors = [
     department: 'Operations',
     deptTag: 'OPS',
     focus: 'Floor flow management, registration check-in logistics, marshaling coordination, and technical AV backup.',
-    avatar: null,
+    avatar: 'assets/images/directors/Operations Associate Director - Rain Jade C. De Castro.png',
     accentColor: '--green'
   },
   {
@@ -122,7 +122,7 @@ export const directors = [
     department: 'Marketing',
     deptTag: 'MKTG',
     focus: 'Audience growth across CALABARZON, public relations outreach, social media campaigns, and registration marketing.',
-    avatar: null,
+    avatar: 'assets/images/directors/Marketing Director - Jana Lei Lumbreras.jpg',
     accentColor: '--purple'
   },
   {
@@ -132,7 +132,7 @@ export const directors = [
     department: 'Marketing',
     deptTag: 'MKTG',
     focus: 'Multi-platform content scheduling, student community engagement, attendee interaction, and promotional copy.',
-    avatar: null,
+    avatar: 'assets/images/directors/Marketing Associate Director - Beatrice Danica Blando.jpg',
     accentColor: '--purple'
   },
   {
@@ -142,7 +142,7 @@ export const directors = [
     department: 'Relations',
     deptTag: 'RELS',
     focus: 'Strategic industry partnerships, sponsor package management, VIP speaker hospitality, and institutional linkages.',
-    avatar: null,
+    avatar: 'assets/images/directors/Relations Director - Queency Zyrel Santos_.png',
     accentColor: '--blue'
   },
   {
@@ -152,7 +152,7 @@ export const directors = [
     department: 'Relations',
     deptTag: 'RELS',
     focus: 'Sponsor deliverable fulfillment, partner liaison communications, and university community relations.',
-    avatar: null,
+    avatar: 'assets/images/directors/Relations Associate Director - Patrick Dohn Joseph A. Lontok.jpeg',
     accentColor: '--blue'
   },
   {
@@ -172,7 +172,7 @@ export const directors = [
     department: 'Finance',
     deptTag: 'FIN',
     focus: 'Purchase requests verification, expense reconciliation, receipts accounting, and post-summit liquidation.',
-    avatar: null,
+    avatar: 'assets/images/directors/Finance Assoc. Director - Coleen Legaspi.jfif',
     accentColor: '--orange'
   }
 ];

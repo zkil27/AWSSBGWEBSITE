@@ -18,100 +18,182 @@ let closeScheduleTimeout = null;
 /* ============================ Schedule Data ============================= */
 
 export const scheduleSessions = [
+  // ==================== BLOCK 01: MORNING ====================
   {
-    id: 'session-doors-open',
+    id: 'session-registration',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '8:00 AM – 9:00 AM',
-    duration: '60 MIN',
-    category: 'REGISTRATION & CHECK-IN',
+    time: '9:30 AM – 10:00 AM',
+    duration: '30 MIN',
+    category: 'REGISTRATION',
     categoryTheme: 'theme-orange',
-    title: 'Doors Open & Registration',
-    location: 'Biñan People\'s Center · 2nd Floor & 4th Floor',
-    description: 'Attendee check-in, Summit ID kit & lanyard pickup, early sponsor booth tours, community hub setup, and interactive photobooth activation.',
+    title: 'Attendee Registration & Summit Check-In',
+    location: 'Biñan People\'s Center · Registration Desk & 2nd Floor Hub',
+    description: 'Attendee check-in, Summit ID kit & lanyard distribution, early sponsor booth tours, community hub setup, and interactive photobooth activation.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-opening-ceremony',
+    block: 'morning',
+    blockName: 'BLOCK 01 // MORNING',
+    time: '10:00 AM – 10:15 AM',
+    duration: '15 MIN',
+    category: 'OPENING CEREMONY',
+    categoryTheme: 'theme-orange',
+    title: 'Opening Ceremony: Invocation, National Anthem & Program',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'Solemn Invocation, Philippine National Anthem, opening video showcase, and official event kickoff led by the South Summit 2026 hosts and organizing committee.',
     speakerIndices: []
   },
   {
     id: 'session-keynote',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '9:00 AM – 10:30 AM',
-    duration: '90 MIN',
-    category: 'OPENING & KEYNOTE',
+    time: '10:15 AM – 10:30 AM',
+    duration: '15 MIN',
+    category: 'OPENING KEYNOTE',
     categoryTheme: 'theme-orange',
-    title: 'Opening Ceremony & Keynote: Cloud × AI: Build. Power. Lead.',
+    title: 'Opening Keynote: Cloud × AI: Building the Future Together',
     location: 'Main Auditorium · 4th Floor',
-    description: 'National Anthem, Opening Remarks by university representatives, and the vision keynote exploring emerging trends in AWS Cloud architecture and generative applied AI across CALABARZON.',
-    speakerIndices: [0, 2, 6, 7, 10, 11] // Gaile, Trisha, Maxine, Ace, Kimi, Kate
+    description: 'Welcome Remarks and Opening Keynote by Sir Isaeus "Asi" Guiang (AWS User Groups Leader Philippines), exploring emerging trends in AWS Cloud architecture, developer communities, and applied AI in CALABARZON.',
+    speakerIndices: [{ index: 0, role: 'Opening Remarks' }]
   },
   {
-    id: 'session-tracks',
+    id: 'session-icebreaker',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '10:30 AM – 12:00 PM',
-    duration: '90 MIN',
-    category: 'TECHNICAL & CAREER TRACKS',
-    categoryTheme: 'theme-green',
-    title: 'Technical & Career Tracks: Cloud Foundations & Applied AI',
-    location: 'Main Auditorium · 4th Floor',
-    description: 'Practical demos and beginner-friendly sessions on cloud fundamentals, scalable infrastructure, open community pipelines, and student builder career acceleration.',
-    speakerIndices: [1, 9, 12, 13] // Isaeus (Asi), John Danmel, Darla, Samuel Jedidiah
-  },
-  {
-    id: 'session-women-in-tech',
-    block: 'afternoon',
-    blockName: 'BLOCK 02 // AFTERNOON',
-    time: '1:00 PM – 2:30 PM',
-    duration: '90 MIN',
-    category: 'PANEL & SHOWCASE',
-    categoryTheme: 'theme-purple',
-    title: 'Women in Tech & Industry Flagship Panel: Beyond the Hype',
-    location: 'Main Auditorium · 4th Floor',
-    description: 'Unfiltered debates, enterprise startup journeys, tech leadership realities, and empowering women builders to architect solutions and lead organizations.',
-    speakerIndices: [3, 4, 5, 8, 14, 15, 16] // Indaleen, Mc Joben, Jon, Mark Achiles, Sonny, Raphael, David
-  },
-  {
-    id: 'session-booths',
-    block: 'afternoon',
-    blockName: 'BLOCK 02 // AFTERNOON',
-    time: '2:30 PM – 4:15 PM',
-    duration: '105 MIN',
-    category: 'COMMUNITY & SPONSOR HUB',
+    time: '10:30 AM – 11:40 AM',
+    duration: '70 MIN',
+    category: 'COMMUNITY & ICEBREAKER',
     categoryTheme: 'theme-blue',
-    title: 'Sponsor & Community Booths: Interactive Challenges & Networking',
-    location: 'Community Hub · 2nd Floor & Exhibition Hall',
-    description: 'Hands-on developer challenges, speed mentorship with industry leads, cloud quiz raffles, merch booth, partner community displays, and peer networking.',
+    title: 'Community Icebreaker, Audience Engagement & Giveaways',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'High-energy interactive icebreakers, audience mini-challenges, summit trivia, and partner giveaways led by host Cyphrey Madulid and the emcee team.',
     speakerIndices: []
   },
   {
-    id: 'session-closing',
+    id: 'session-talk1',
+    block: 'morning',
+    blockName: 'BLOCK 01 // MORNING',
+    time: '11:40 AM – 12:30 PM',
+    duration: '50 MIN',
+    category: 'BUILDER STORY & TALK #1',
+    categoryTheme: 'theme-green',
+    title: 'Talk #1: Built by Community: From Student Builder to Tech Professional',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'Student story from being an AWS Student Builder Group Lead / Captain into a full-fledged technology professional. Includes 40-minute main talk (11:40 AM – 12:20 PM) and a 10-minute audience Q&A session (12:20 PM – 12:30 PM).',
+    speakerIndices: [0]
+  },
+
+  // ==================== BLOCK 02: AFTERNOON ====================
+  {
+    id: 'session-lunch',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
-    time: '4:15 PM – 5:00 PM',
-    duration: '45 MIN',
-    category: 'FINALE & RECOGNITION',
-    categoryTheme: 'theme-pink',
-    title: 'Closing Ceremony, Grand Raffle & Community Photo',
+    time: '12:30 PM – 2:00 PM',
+    duration: '90 MIN',
+    category: 'LUNCH BREAK',
+    categoryTheme: 'theme-orange',
+    title: 'Lunch Break, Networking & Hub Experience',
+    location: '2nd Floor Hub & Exhibition Hall',
+    description: 'Lunch, sponsor and partner booth exploration, hands-on developer challenges, speed mentoring with cloud architects, photobooth, and peer networking.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-energizer',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '2:00 PM – 2:20 PM',
+    duration: '20 MIN',
+    category: 'ENERGIZER & SPONSOR TALK',
+    categoryTheme: 'theme-blue',
+    title: 'Afternoon Energizer & Partner Sponsor Spotlight',
     location: 'Main Auditorium · 4th Floor',
-    description: 'Major sponsor raffle prize drawing, recognition of student volunteers, organizers, and partner chapters, followed by the official South Summit 2026 group photo.',
+    description: 'Audience energizer games, booth challenge updates, sponsor lightning presentations (5 mins each), and exclusive partner swag giveaways.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-talk2',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '2:20 PM – 3:10 PM',
+    duration: '50 MIN',
+    category: 'WOMEN IN TECH KEYNOTE & TALK #2',
+    categoryTheme: 'theme-pink',
+    title: 'Talk #2: Building Smarter Systems with AI and Cloud',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'Flagship Women in Tech keynote on modern architectural patterns, generative AI integration, and scalable cloud solutions on AWS. Includes 40-minute presentation (2:20 PM – 3:00 PM) and 10-minute live Q&A (3:00 PM – 3:10 PM).',
+    speakerIndices: [1]
+  },
+  {
+    id: 'session-talk3',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '3:10 PM – 4:00 PM',
+    duration: '50 MIN',
+    category: 'AI ADOPTION & TALK #3',
+    categoryTheme: 'theme-green',
+    title: 'Talk #3: Human in the Loop: Preparing People for an AI-Driven Future',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'In-depth exploration of organizational AI adoption, workforce readiness, and ethical AI deployment. Includes 40-minute main session (3:10 PM – 3:50 PM) and 10-minute live Q&A (3:50 PM – 4:00 PM).',
+    speakerIndices: [2]
+  },
+  {
+    id: 'session-panel',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '4:00 PM – 4:40 PM',
+    duration: '40 MIN',
+    category: 'FLAGSHIP PANEL DISCUSSION',
+    categoryTheme: 'theme-purple',
+    title: 'Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'Flagship panel featuring AWS Community Leaders, former Student Builder Group Captains, and student tech officers on community leadership and tech career acceleration. Includes 30-minute panel (4:00 PM – 4:30 PM) and 10-minute live Q&A (4:30 PM – 4:40 PM).',
+    speakerIndices: [3, 4, 5, 6]
+  },
+  {
+    id: 'session-raffle',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '4:40 PM – 4:55 PM',
+    duration: '15 MIN',
+    category: 'GRAND RAFFLE & RECOGNITION',
+    categoryTheme: 'theme-pink',
+    title: 'Grand Raffle, Sponsor & Partner Appreciation & Closing Remarks',
+    location: 'Main Auditorium · 4th Floor',
+    description: 'Major raffle prize draws, recognition of industry sponsors, partners, speakers, and volunteer teams, followed by official South Summit Event Director closing remarks.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-finale',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '4:55 PM – 5:30 PM',
+    duration: '35 MIN',
+    category: 'FINALE & GROUP PHOTO',
+    categoryTheme: 'theme-blue',
+    title: 'Official Community Group Photo & Hall Egress',
+    location: 'Main Auditorium & Grand Stage · 4th Floor',
+    description: 'Official South Summit 2026 commemorative group photo with all attendees, speakers, directors, and organizers, followed by hall egress and final networking.',
     speakerIndices: []
   }
 ];
 
 /* ============================ HTML Builders ============================= */
 
-function renderSpeakerChipHTML(speaker, originalIndex) {
+function renderSpeakerChipHTML(speaker, originalIndex, roleOverride = '') {
   if (!speaker) return '';
   const avatar = speaker.picUrl || 'assets/images/south-summit-logo.svg';
   const name = speaker.name || 'Speaker';
-  const role = speaker.role ? speaker.role.split('·')[0].trim() : 'Leader';
+  const isComingSoon = speaker.isComingSoon || name === 'Coming Soon';
+  const role = isComingSoon ? '' : (roleOverride || (speaker.role ? speaker.role.split('·')[0].trim() : ''));
 
   return `
-    <div class="pf-speaker-chip" data-speaker-index="${originalIndex}" role="button" tabindex="0" title="View bio for ${name}">
-      <img src="${avatar}" alt="${name}" class="pf-speaker-chip-avatar" loading="lazy">
+    <div class="pf-speaker-chip${isComingSoon ? ' pf-chip-coming-soon' : ''}" data-speaker-index="${originalIndex}" role="${isComingSoon ? 'presentation' : 'button'}" ${isComingSoon ? '' : 'tabindex="0" '}title="${isComingSoon ? 'Coming Soon' : 'View bio for ' + name}">
+      <img src="${avatar}" alt="${name}" class="pf-speaker-chip-avatar${isComingSoon ? ' is-silhouette' : ''}" loading="lazy">
       <div class="pf-speaker-chip-info">
         <span class="pf-speaker-chip-name">${name}</span>
-        <span class="pf-speaker-chip-role">${role}</span>
+        ${role ? `<span class="pf-speaker-chip-role">${role}</span>` : ''}
       </div>
     </div>
   `;
@@ -119,9 +201,11 @@ function renderSpeakerChipHTML(speaker, originalIndex) {
 
 function renderSessionCardHTML(session) {
   const sessionSpeakers = (session.speakerIndices || [])
-    .map(idx => {
+    .map(item => {
+      const idx = (typeof item === 'object' && item !== null) ? item.index : item;
+      const roleOverride = (typeof item === 'object' && item !== null) ? item.role : '';
       const spk = speakers[idx];
-      return spk ? renderSpeakerChipHTML(spk, idx) : '';
+      return spk ? renderSpeakerChipHTML(spk, idx, roleOverride) : '';
     })
     .filter(Boolean)
     .join('');
@@ -343,11 +427,15 @@ export function initScheduleUI() {
 
       const idx = Number(chip.getAttribute('data-speaker-index'));
       if (!Number.isNaN(idx) && speakers[idx]) {
+        const spk = speakers[idx];
+        if (spk.isComingSoon || spk.name === 'Coming Soon') {
+          return;
+        }
         // Find parent card theme for matching tile color
         const parentCard = chip.closest('.pf-session-card');
         const themeMatch = parentCard ? parentCard.className.match(/theme-(orange|purple|green|blue|pink)/) : null;
         const theme = themeMatch ? themeMatch[0] : '';
-        openSpeakerModal(speakers[idx], theme);
+        openSpeakerModal(spk, theme);
       }
     });
 

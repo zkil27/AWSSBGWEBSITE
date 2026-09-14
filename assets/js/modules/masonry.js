@@ -44,19 +44,22 @@ async function preloadImages(urls) {
 }
 
 /**
- * Responsive column count matching React Bits breakpoints
+ * Responsive column count matching layout density
+ * Optimized for current catalog size (5-8 items -> 3 columns on desktop)
  */
-function getColumnCount() {
+function getColumnCount(count = 7) {
   if (typeof window === 'undefined') return 1;
-  const queries = [
-    '(min-width: 1500px)',
-    '(min-width: 1000px)',
-    '(min-width: 600px)',
-    '(min-width: 400px)'
-  ];
-  const values = [5, 4, 3, 2];
-  const idx = queries.findIndex(q => window.matchMedia(q).matches);
-  return idx !== -1 ? values[idx] : 1;
+  if (window.matchMedia('(min-width: 1400px)').matches) {
+    if (count >= 10) return 4;
+    return Math.max(1, Math.min(3, count));
+  }
+  if (window.matchMedia('(min-width: 900px)').matches) {
+    return Math.max(1, Math.min(3, count));
+  }
+  if (window.matchMedia('(min-width: 560px)').matches) {
+    return Math.max(1, Math.min(2, count));
+  }
+  return 1;
 }
 
 /**
@@ -160,10 +163,9 @@ export class Masonry {
 
     // Media query listeners for responsive column transitions
     const queries = [
-      '(min-width: 1500px)',
-      '(min-width: 1000px)',
-      '(min-width: 600px)',
-      '(min-width: 400px)'
+      '(min-width: 1400px)',
+      '(min-width: 900px)',
+      '(min-width: 560px)'
     ];
     queries.forEach(q => {
       const mql = window.matchMedia(q);
@@ -181,19 +183,29 @@ export class Masonry {
   }
 
   /**
+   * Resolve dynamic column count for instance
+   */
+  getColumnCount(count = this.items.length) {
+    if (typeof this.options.columns === 'function') {
+      return this.options.columns(this.width, count);
+    }
+    return getColumnCount(count);
+  }
+
+  /**
    * Computes grid positions for all items using shortest-column greedy packing
    */
   computeGrid() {
     if (!this.width || this.items.length === 0) return [];
 
-    const columns = getColumnCount();
+    const columns = this.getColumnCount(this.items.length);
     const colHeights = new Array(columns).fill(0);
     const columnWidth = this.width / columns;
 
     return this.items.map(child => {
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = columnWidth * col;
-      const height = (child.height || 400) / 2;
+      const height = child.targetHeight || (child.height ? child.height / 2 : 400);
       const y = colHeights[col];
 
       colHeights[col] += height;
@@ -229,7 +241,7 @@ export class Masonry {
 
     // Calculate total height needed and set container height so parents (e.g. accordion)
     // can measure scrollHeight correctly without collapsing.
-    const columns = getColumnCount();
+    const columns = this.getColumnCount(this.items.length);
     const colHeights = new Array(columns).fill(0);
     this.grid.forEach(item => {
       if (item.col !== undefined) {
@@ -470,7 +482,7 @@ export class Masonry {
     this.grid = this.computeGrid();
 
     // Set container height for parent accordion
-    const columns = getColumnCount();
+    const columns = this.getColumnCount(this.items.length);
     const colHeights = new Array(columns).fill(0);
     this.grid.forEach(item => {
       if (item.col !== undefined) {

@@ -46,6 +46,7 @@ let isModalOpen = false;
 let closeSpeakerTimeout = null;
 
 export function openSpeakerModal(speaker, tileTheme = '') {
+    if (!speaker || speaker.isComingSoon || speaker.name === 'Coming Soon') return;
     const modal = document.getElementById('speakerModal');
     if (!modal) return;
 
@@ -69,22 +70,19 @@ export function openSpeakerModal(speaker, tileTheme = '') {
         } else if (speaker?.tileTheme) {
             const clean = speaker.tileTheme.replace('bg-tile-', '').replace('theme-', '');
             finalTheme = `theme-${clean}`;
-        } else if (speaker?.id === 'speaker-kimi-annika-villareal' || speaker?.id === 'speaker-maxine-sofia-llamas') {
-            finalTheme = 'theme-pink';
-        } else if (speaker?.id === 'speaker-kate-callao' || speaker?.id === 'speaker-trisha-pelagio' || speaker?.id === 'speaker-isaeus-asi-guiang') {
-            finalTheme = 'theme-blue';
         } else if (speaker?.status === 'KEYNOTE' || (speaker?.sessionTitle && speaker.sessionTitle.toLowerCase().includes('keynote'))) {
             finalTheme = 'theme-orange';
         } else if (speaker?.status === 'PANEL' || (speaker?.sessionTitle && speaker.sessionTitle.toLowerCase().includes('panel'))) {
             finalTheme = 'theme-purple';
         } else {
-            finalTheme = 'theme-green';
+            finalTheme = 'theme-orange';
         }
         modalCard.classList.add(finalTheme, 'sm-pass-card');
     }
 
     const name = speaker?.name || 'Speaker Name';
-    const role = speaker?.role || 'Speaker Role · Company';
+    const isComingSoon = speaker?.isComingSoon || name === 'Coming Soon';
+    const role = isComingSoon ? '' : (speaker?.role || 'Speaker Role · Company');
     const status = speaker?.status
         || (speaker?.sessionTitle?.toLowerCase().includes('keynote')
             ? 'KEYNOTE'
@@ -94,7 +92,10 @@ export function openSpeakerModal(speaker, tileTheme = '') {
     if (nameEl) nameEl.textContent = name;
 
     const roleEl = document.getElementById('smRole');
-    if (roleEl) roleEl.textContent = role;
+    if (roleEl) {
+        roleEl.textContent = role;
+        roleEl.style.display = isComingSoon ? 'none' : '';
+    }
 
     const badgeEl = document.getElementById('smBadge');
     if (badgeEl) {
@@ -111,21 +112,27 @@ export function openSpeakerModal(speaker, tileTheme = '') {
 
     const bioEl = document.getElementById('smBio');
     if (bioEl) {
-        bioEl.innerHTML = speaker?.abstract
-            || 'A brief biography highlighting their journey into tech, their work with Cloud & AI, and community contributions.';
+        bioEl.innerHTML = isComingSoon
+            ? 'Official speaker announcement coming soon.'
+            : (speaker?.abstract
+                || 'A brief biography highlighting their journey into tech, their work with Cloud & AI, and community contributions.');
     }
 
     const avatarEl = document.getElementById('smAvatar');
     if (avatarEl) {
-        avatarEl.className = 'sm-avatar-img';
+        avatarEl.className = `sm-avatar-img${isComingSoon ? ' is-silhouette' : ''}`;
         avatarEl.src = speaker?.picUrl || FALLBACK_AVATAR;
         avatarEl.alt = name;
     }
 
     const linkedInBtn = document.getElementById('smLinkedIn');
     if (linkedInBtn) {
-        linkedInBtn.href = speaker?.linkedInUrl
-            || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
+        if (isComingSoon || !speaker?.linkedInUrl) {
+            linkedInBtn.style.display = 'none';
+        } else {
+            linkedInBtn.style.display = '';
+            linkedInBtn.href = speaker.linkedInUrl;
+        }
     }
 
     isModalOpen = true;
@@ -245,32 +252,23 @@ export function closeSpeakerModal(options = {}) {
 
 function speakerCardHTML(speaker, index, isClone = false, extraClasses = '', isHero = false) {
     const color = colors[index % colors.length];
+    const isComingSoon = speaker.isComingSoon || speaker.name === 'Coming Soon';
     const name = speaker.name || `Speaker ${index + 1}`;
-    const role = speaker.role || 'Cloud Engineer · AWS Partner';
-    const abstract = speaker.abstract || 'A brief intro about what this speaker will cover during their slot at the summit.';
+    const role = isComingSoon ? '' : (speaker.role || 'Cloud Engineer · AWS Partner');
+    const abstract = isComingSoon ? 'Official speaker announcement coming soon.' : (speaker.abstract || 'A brief intro about what this speaker will cover during their slot at the summit.');
     const status = speaker.status || 'TBA';
     const avatar = speaker.picUrl || FALLBACK_AVATAR;
-    const linkedin = speaker.linkedInUrl || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
+    const linkedin = (!isComingSoon && speaker.linkedInUrl) ? speaker.linkedInUrl : '';
     const eager = index < 4;
 
-    return `
-    <div class="speaker-card ${color} ${extraClasses}${isClone ? ' marquee-clone' : ''}" data-speaker-index="${index}"${isClone ? ' aria-hidden="true"' : ''}>
-      ${isHero ? '<span class="sc-hero-badge">★ KEYNOTE HERO</span>' : ''}
-      <div class="sc-img-wrap">
-        <img class="sc-portrait" src="${avatar}" alt="${name}" width="260" height="270"
-             loading="${eager ? 'eager' : 'lazy'}" decoding="async" ${eager ? 'fetchpriority="high"' : ''}
-             onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('sc-portrait-fallback')">
-        <span class="sc-status-badge ${status.toLowerCase()}">${status}</span>
+    const linkedinOverlayBtn = linkedin ? `
         <a class="sc-li-overlay-btn" href="${linkedin}" target="_blank" rel="noopener"${isClone ? ' tabindex="-1"' : ''} title="View ${name} on LinkedIn" onclick="event.stopPropagation()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
           </svg>
-        </a>
-      </div>
-      <div class="sc-info">
-        <h4 class="sc-name">${name}</h4>
-        <span class="sc-role">${role}</span>
-        <p class="sc-bio">${abstract}</p>
+        </a>` : '';
+
+    const cardFoot = linkedin ? `
         <div class="sc-card-foot">
           <a class="sc-li-link" href="${linkedin}" target="_blank" rel="noopener"${isClone ? ' tabindex="-1"' : ''} onclick="event.stopPropagation()">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
@@ -278,7 +276,23 @@ function speakerCardHTML(speaker, index, isClone = false, extraClasses = '', isH
             </svg>
             LinkedIn Profile
           </a>
-        </div>
+        </div>` : '';
+
+    return `
+    <div class="speaker-card ${color} ${extraClasses}${isClone ? ' marquee-clone' : ''}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}"${isClone ? ' aria-hidden="true"' : ''}>
+      ${isHero ? '<span class="sc-hero-badge">★ KEYNOTE HERO</span>' : ''}
+      <div class="sc-img-wrap">
+        <img class="sc-portrait${isComingSoon ? ' is-silhouette' : ''}" src="${avatar}" alt="${name}" width="260" height="270"
+             loading="${eager ? 'eager' : 'lazy'}" decoding="async" ${eager ? 'fetchpriority="high"' : ''}
+             onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('sc-portrait-fallback')">
+        <span class="sc-status-badge ${status.toLowerCase()}">${status}</span>
+        ${linkedinOverlayBtn}
+      </div>
+      <div class="sc-info">
+        <h4 class="sc-name">${name}</h4>
+        ${role ? `<span class="sc-role">${role}</span>` : ''}
+        <p class="sc-bio">${abstract}</p>
+        ${cardFoot}
       </div>
     </div>
   `;
@@ -288,23 +302,23 @@ export function initSpeakers() {
     const marqueeTrack = document.getElementById('marqueeTrack');
     const speakerGrid = document.getElementById('speakerGridStatic');
     const schedKeynotesGrid = document.getElementById('schedGridKeynotes');
+    const schedTalk1Grid = document.getElementById('schedGridTalk1');
+    const schedTalk2Grid = document.getElementById('schedGridTalk2');
+    const schedTalk3Grid = document.getElementById('schedGridTalk3');
     const schedPanelsGrid = document.getElementById('schedGridPanels');
     const schedSessionsGrid = document.getElementById('schedGridSessions');
     const modal = document.getElementById('speakerModal');
 
-    // Categorize speakers by role: Panels, Keynotes, Builders
+    // Categorize speakers into two categories: Panels and Keynotes
     const panels = [];
     const keynotes = [];
-    const builders = [];
 
     speakers.forEach((s, idx) => {
         const item = { ...s, originalIndex: idx };
         if (s.status === 'PANEL') {
             panels.push(item);
-        } else if (s.status === 'KEYNOTE') {
-            keynotes.push(item);
         } else {
-            builders.push(item);
+            keynotes.push(item);
         }
     });
 
@@ -334,13 +348,9 @@ export function initSpeakers() {
         if (s.tileTheme) {
             return s.tileTheme.replace('bg-tile-', '').replace('theme-', '');
         }
-        const id = s.id || '';
-        if (id === 'speaker-kimi-annika-villareal' || id === 'speaker-maxine-sofia-llamas') return 'pink';
-        if (id === 'speaker-kate-callao' || id === 'speaker-trisha-pelagio' || id === 'speaker-isaeus-asi-guiang') return 'blue';
-        if (s.status === 'PANEL') return 'purple';
         if (s.status === 'KEYNOTE') return 'orange';
-        if (s.status === 'BUILDER') return 'green';
-        return 'blue';
+        if (s.status === 'PANEL') return 'purple';
+        return 'orange';
     }
 
     // ---------------------------------------------------------------------
@@ -364,8 +374,7 @@ export function initSpeakers() {
         function getWallList() {
             if (wallCategory === 'panels') return panels;
             if (wallCategory === 'keynotes') return keynotes;
-            if (wallCategory === 'builders' || wallCategory === 'sessions') return builders;
-            return [...keynotes, ...panels, ...builders];
+            return [...keynotes, ...panels];
         }
 
         function speakerToMasonryItem(s, index) {
@@ -378,21 +387,27 @@ export function initSpeakers() {
             const linkedin = s.linkedInUrl
                 || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
 
-            // Varied heights (child.height / 2 in layout) for dynamic masonry rhythm
-            let h = 500;
-            if (isKeynote) {
-                h = (index % 3 === 0) ? 660 : (index % 3 === 1 ? 600 : 560);
-            } else if (s.status === 'PANEL') {
-                h = (index % 3 === 0) ? 520 : (index % 3 === 1 ? 480 : 500);
-            } else {
-                h = (index % 2 === 0) ? 440 : 390;
-            }
+            // Harmonious heights calibrated for balanced 3-column greedy packing
+            // Col 0: Asi (480) + Panel TBA 1 (360) = 840px
+            // Col 1: Trisha (460) + Gaile (380) = 840px
+            // Col 2: Keynote TBA (340) + Jared (300) + Panel TBA 2 (200) = 840px
+            let targetH = 360;
+            if (s.id === 'speaker-isaeus-asi-guiang') targetH = 480;
+            else if (s.id === 'speaker-trisha-pelagio') targetH = 460;
+            else if (s.id === 'speaker-gaile-espinosa') targetH = 380;
+            else if (s.id === 'speaker-jared-remulta') targetH = 300;
+            else if (s.id === 'speaker-talk3-tba') targetH = 340;
+            else if (s.id === 'speaker-panel-tba-1') targetH = 360;
+            else if (s.id === 'speaker-panel-tba-2') targetH = 200;
+            else if (isKeynote) targetH = 440;
+            else targetH = 320;
 
             return {
                 id: s.id || `speaker-${s.originalIndex ?? index}`,
                 img: avatar,
                 url: linkedin,
-                height: h,
+                targetHeight: targetH,
+                height: targetH * 2,
                 speaker: s,
                 color,
                 isKeynote,
@@ -407,21 +422,46 @@ export function initSpeakers() {
         }
 
         function renderLineupItem(item) {
+            const isComingSoon = item.speaker?.isComingSoon || item.name === 'Coming Soon';
+            const linkedinMarkup = (!isComingSoon && item.linkedin && item.linkedin.includes('linkedin.com/in/')) ? `
+              <a class="lt-li" href="${item.linkedin}" target="_blank" rel="noopener"
+                 onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="${item.name} on LinkedIn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
+                </svg>
+              </a>` : '';
+            const roleMarkup = (isComingSoon || !item.role) ? '' : `<span class="lt-role">${item.role}</span>`;
+
+            if (isComingSoon) {
+                const topic = item.speaker?.sessionTitle || 'Official speaker announcement coming soon.';
+                return `
+                <div class="item-img item-coming-soon" style="--tile-accent: var(--${item.color});">
+                  <img class="lt-photo is-silhouette" src="${item.img}" alt="${item.name}" loading="lazy" decoding="async"
+                       onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('lt-photo-fallback')">
+                  <span class="lt-scrim" aria-hidden="true"></span>
+                  <span class="sc-status-badge ${item.status.toLowerCase()}">${item.status}</span>
+                  <span class="lt-tba-radar" title="Speaker announcement pending">
+                    <span class="lt-tba-dot"></span>Revealing Soon
+                  </span>
+                  <span class="lt-info lt-info-tba">
+                    <span class="lt-tba-eyebrow font-mono">SPOTLIGHT PENDING</span>
+                    <h3 class="lt-name">Coming Soon</h3>
+                    <span class="lt-session-topic font-mono">${topic}</span>
+                  </span>
+                  <div class="color-overlay"></div>
+                </div>`;
+            }
+
             return `
             <div class="item-img" style="--tile-accent: var(--${item.color});">
               <img class="lt-photo" src="${item.img}" alt="${item.name}" loading="lazy" decoding="async"
                    onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('lt-photo-fallback')">
               <span class="lt-scrim" aria-hidden="true"></span>
               <span class="sc-status-badge ${item.status.toLowerCase()}">${item.status}</span>
-              <a class="lt-li" href="${item.linkedin}" target="_blank" rel="noopener"
-                 onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="${item.name} on LinkedIn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
-                </svg>
-              </a>
+              ${linkedinMarkup}
               <span class="lt-info">
                 <h3 class="lt-name">${item.name}</h3>
-                <span class="lt-role">${item.role}</span>
+                ${roleMarkup}
               </span>
               <div class="color-overlay"></div>
             </div>`;
@@ -442,6 +482,7 @@ export function initSpeakers() {
             renderItem: renderLineupItem,
             onItemClick: (e, item) => {
                 if (e.target.closest('.lt-li') || e.target.closest('a')) return;
+                if (item.speaker?.isComingSoon || item.name === 'Coming Soon') return;
                 openSpeakerModal(item.speaker, item.tileTheme);
             }
         });
@@ -452,9 +493,7 @@ export function initSpeakers() {
             wallCategory = cat;
             [pillAll, pillPanels, pillKeynotes, pillBuilders].forEach((p) => {
                 if (!p) return;
-                const isMatch = p.dataset.target === cat
-                    || ((cat === 'sessions' || cat === 'builders')
-                        && (p.dataset.target === 'sessions' || p.dataset.target === 'builders'));
+                const isMatch = p.dataset.target === cat;
                 p.classList.toggle('active', isMatch);
             });
             const updatedItems = getWallList().map(speakerToMasonryItem);
@@ -465,7 +504,7 @@ export function initSpeakers() {
         if (pillAll) pillAll.addEventListener('click', () => setWallCategory('all'));
         if (pillPanels) pillPanels.addEventListener('click', () => setWallCategory('panels'));
         if (pillKeynotes) pillKeynotes.addEventListener('click', () => setWallCategory('keynotes'));
-        if (pillBuilders) pillBuilders.addEventListener('click', () => setWallCategory(pillBuilders.dataset.target || 'sessions'));
+        if (pillBuilders) pillBuilders.addEventListener('click', () => setWallCategory('all'));
     }
 
     if (rosterList && spotlightCard) {
@@ -475,18 +514,14 @@ export function initSpeakers() {
 
         function getFilteredGroups() {
             if (activeCategory === 'panels') {
-                return [{ id: 'panels', title: 'Panels', color: 'purple', items: panels }];
+                return [{ id: 'panels', title: 'Panel Discussion', color: 'purple', items: panels }];
             }
             if (activeCategory === 'keynotes') {
                 return [{ id: 'keynotes', title: 'Keynotes', color: 'orange', items: keynotes }];
             }
-            if (activeCategory === 'builders' || activeCategory === 'sessions') {
-                return [{ id: 'builders', title: 'Builders', color: 'green', items: builders }];
-            }
             return [
-                { id: 'panels', title: 'Panels', color: 'purple', items: panels },
                 { id: 'keynotes', title: 'Keynotes', color: 'orange', items: keynotes },
-                { id: 'builders', title: 'Builders', color: 'green', items: builders }
+                { id: 'panels', title: 'Panel Discussion', color: 'purple', items: panels }
             ];
         }
 
@@ -497,21 +532,34 @@ export function initSpeakers() {
 
         function renderSpotlight(speaker, displayIndex, totalCount, animate = false) {
             if (!spotlightCard || !speaker) return;
+            const isComingSoon = speaker.isComingSoon || speaker.name === 'Coming Soon';
             const color = getSpeakerColor(speaker);
             const num = String(displayIndex + 1).padStart(2, '0');
-            const name = speaker.name || 'Speaker';
-            const role = speaker.role || 'Cloud Leader';
+            const name = isComingSoon ? 'Coming Soon' : (speaker.name || 'Speaker');
+            const role = isComingSoon ? '' : (speaker.role || '');
             const status = speaker.status || 'KEYNOTE';
             const avatar = speaker.picUrl || FALLBACK_AVATAR;
-            const linkedin = speaker.linkedInUrl || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
             const tileClass = `bg-tile-${color}`;
 
             spotlightCard.style.setProperty('--sp-accent', `var(--${color})`);
-            spotlightCard.className = `roster-spotlight-card ${tileClass}`;
+            spotlightCard.className = `roster-spotlight-card ${tileClass}${isComingSoon ? ' item-coming-soon' : ''}`;
             spotlightCard.dataset.speakerIndex = speaker.originalIndex;
 
+            const actionsMarkup = isComingSoon ? '' : `
+                <div class="sp-actions">
+                  <button type="button" class="sp-btn-bio" data-speaker-index="${speaker.originalIndex}">
+                    Bio &amp; Abstract &rarr;
+                  </button>
+                  ${speaker.linkedInUrl ? `
+                  <a class="sp-li-btn" href="${speaker.linkedInUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
+                    </svg>
+                  </a>` : ''}
+                </div>`;
+
             spotlightCard.innerHTML = `
-              <img class="sp-img" src="${avatar}" alt="${name}" loading="lazy" decoding="async"
+              <img class="sp-img${isComingSoon ? ' is-silhouette' : ''}" src="${avatar}" alt="${name}" loading="lazy" decoding="async"
                    onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}'">
               <div class="sp-overlay-gradient" aria-hidden="true"></div>
 
@@ -525,19 +573,9 @@ export function initSpeakers() {
               <div class="sp-info">
                 <div class="sp-headline">
                   <h3 class="sp-name">${name}</h3>
-                  <span class="sp-role">${role}</span>
+                  ${role ? `<span class="sp-role">${role}</span>` : ''}
                 </div>
-
-                <div class="sp-actions">
-                  <button type="button" class="sp-btn-bio" data-speaker-index="${speaker.originalIndex}">
-                    Bio &amp; Abstract &rarr;
-                  </button>
-                  <a class="sp-li-btn" href="${linkedin}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="LinkedIn Profile">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
-                    </svg>
-                  </a>
-                </div>
+                ${actionsMarkup}
               </div>
             `;
 
@@ -605,17 +643,30 @@ export function initSpeakers() {
                     const currentIdx = globalIdx;
                     const isActive = currentIdx === activeSpeakerIndex;
                     const isExpanded = currentIdx === expandedMobileIndex;
+                    const isComingSoon = s.isComingSoon || s.name === 'Coming Soon';
                     const color = getSpeakerColor(s);
                     const num = String(currentIdx + 1).padStart(2, '0');
-                    const name = s.name || 'Speaker';
+                    const name = isComingSoon ? 'Coming Soon' : (s.name || 'Speaker');
                     const track = s.status || 'SPEAKER';
-                    const role = s.role || 'Cloud Leader';
+                    const role = isComingSoon ? '' : (s.role || '');
                     const avatar = s.picUrl || FALLBACK_AVATAR;
-                    const linkedin = s.linkedInUrl || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
                     const tileClass = `bg-tile-${color}`;
 
+                    const bloomActions = isComingSoon ? '' : `
+                      <div class="sp-actions">
+                        <button type="button" class="sp-btn-bio" data-speaker-index="${s.originalIndex}">
+                          Bio &amp; Abstract &rarr;
+                        </button>
+                        ${s.linkedInUrl ? `
+                        <a class="sp-li-btn" href="${s.linkedInUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
+                          </svg>
+                        </a>` : ''}
+                      </div>`;
+
                     html += `
-                    <div class="roster-item ${isActive ? 'is-active' : ''} ${isExpanded ? 'is-expanded-mobile' : ''}" 
+                    <div class="roster-item ${isActive ? 'is-active' : ''} ${isExpanded ? 'is-expanded-mobile' : ''}${isComingSoon ? ' item-coming-soon' : ''}" 
                          data-speaker-index="${s.originalIndex}" 
                          data-display-index="${currentIdx}"
                          style="--item-accent: var(--${color}); --item-accent-text: var(--${color}-text, var(--${color})); --sp-accent: var(--${color});"
@@ -630,13 +681,13 @@ export function initSpeakers() {
                             <span class="ri-track">${track}</span>
                           </div>
                           <h4 class="ri-name">${name}</h4>
-                          <span class="ri-role">${role}</span>
+                          ${role ? `<span class="ri-role">${role}</span>` : ''}
                         </div>
                         <div class="ri-arrow" aria-hidden="true">&rarr;</div>
                       </div>
 
-                      <div class="ri-bloom-card ${tileClass}" data-speaker-index="${s.originalIndex}" aria-hidden="${isExpanded ? 'false' : 'true'}">
-                        <img class="sp-img" src="${avatar}" alt="${name}" loading="lazy" decoding="async"
+                      <div class="ri-bloom-card ${tileClass}${isComingSoon ? ' item-coming-soon' : ''}" data-speaker-index="${s.originalIndex}" aria-hidden="${isExpanded ? 'false' : 'true'}">
+                        <img class="sp-img${isComingSoon ? ' is-silhouette' : ''}" src="${avatar}" alt="${name}" loading="lazy" decoding="async"
                              onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}'">
                         <div class="sp-overlay-gradient" aria-hidden="true"></div>
 
@@ -645,19 +696,10 @@ export function initSpeakers() {
                         <div class="sp-info">
                           <div class="sp-headline">
                             <h3 class="sp-name">${name}</h3>
-                            <span class="sp-role">${role}</span>
+                            ${role ? `<span class="sp-role">${role}</span>` : ''}
                           </div>
 
-                          <div class="sp-actions">
-                            <button type="button" class="sp-btn-bio" data-speaker-index="${s.originalIndex}">
-                              Bio &amp; Abstract &rarr;
-                            </button>
-                            <a class="sp-li-btn" href="${linkedin}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="LinkedIn Profile">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
-                              </svg>
-                            </a>
-                          </div>
+                          ${bloomActions}
                         </div>
                       </div>
                     </div>
@@ -792,8 +834,7 @@ export function initSpeakers() {
             expandedMobileIndex = 0;
             [pillAll, pillPanels, pillKeynotes, pillBuilders].forEach((p) => {
                 if (p) {
-                    const isMatch = p.dataset.target === cat || 
-                        ((cat === 'sessions' || cat === 'builders') && (p.dataset.target === 'sessions' || p.dataset.target === 'builders'));
+                    const isMatch = p.dataset.target === cat;
                     p.classList.toggle('active', isMatch);
                 }
             });
@@ -803,7 +844,7 @@ export function initSpeakers() {
         if (pillAll) pillAll.addEventListener('click', () => setCategory('all'));
         if (pillPanels) pillPanels.addEventListener('click', () => setCategory('panels'));
         if (pillKeynotes) pillKeynotes.addEventListener('click', () => setCategory('keynotes'));
-        if (pillBuilders) pillBuilders.addEventListener('click', () => setCategory(pillBuilders.dataset.target || 'sessions'));
+        if (pillBuilders) pillBuilders.addEventListener('click', () => setCategory('all'));
 
         renderRoster(true); // initial staggered entrance
     }
@@ -811,24 +852,44 @@ export function initSpeakers() {
     // Render tiny inline cards for schedule on Home page
     function speakerInlineHTML(speaker, index) {
         const color = colors[index % colors.length];
+        const isComingSoon = speaker.isComingSoon || speaker.name === 'Coming Soon';
         const name = speaker.name || `Speaker ${index + 1}`;
         const avatar = speaker.picUrl || FALLBACK_AVATAR;
         return `
-        <div class="speaker-inline-card ${color}" data-speaker-index="${index}">
-          <img src="${avatar}" alt="${name}" class="speaker-inline-avatar">
+        <div class="speaker-inline-card ${color}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}">
+          <img src="${avatar}" alt="${name}" class="speaker-inline-avatar${isComingSoon ? ' is-silhouette' : ''}">
           <span class="speaker-inline-name">${name}</span>
         </div>
         `;
     }
 
-    if (schedKeynotesGrid) {
-        schedKeynotesGrid.innerHTML = '<div class="speaker-inline-row">' + keynotes.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
+    const isaeusSpeaker = speakers.find(s => s.id === 'speaker-isaeus-asi-guiang');
+    const isaeusIdx = isaeusSpeaker ? speakers.findIndex(s => s.id === isaeusSpeaker.id) : 0;
+
+    const trishaSpeaker = speakers.find(s => s.id === 'speaker-trisha-pelagio');
+    const trishaIdx = trishaSpeaker ? speakers.findIndex(s => s.id === trishaSpeaker.id) : 1;
+
+    const talk3Speaker = speakers.find(s => s.id === 'speaker-talk3-tba');
+    const talk3Idx = talk3Speaker ? speakers.findIndex(s => s.id === talk3Speaker.id) : 2;
+
+    if (schedKeynotesGrid && isaeusSpeaker) {
+        schedKeynotesGrid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(isaeusSpeaker, isaeusIdx) + '</div>';
+    }
+    if (schedTalk1Grid && isaeusSpeaker) {
+        schedTalk1Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(isaeusSpeaker, isaeusIdx) + '</div>';
+    }
+    if (schedTalk2Grid && trishaSpeaker) {
+        schedTalk2Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(trishaSpeaker, trishaIdx) + '</div>';
+    }
+    if (schedTalk3Grid && talk3Speaker) {
+        schedTalk3Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(talk3Speaker, talk3Idx) + '</div>';
     }
     if (schedPanelsGrid) {
         schedPanelsGrid.innerHTML = '<div class="speaker-inline-row">' + panels.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
     }
     if (schedSessionsGrid) {
-        schedSessionsGrid.innerHTML = '<div class="speaker-inline-row">' + builders.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
+        const afternoonKeynotes = keynotes.filter(s => s.id !== 'speaker-isaeus-asi-guiang');
+        schedSessionsGrid.innerHTML = '<div class="speaker-inline-row">' + afternoonKeynotes.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
     }
 
     function handleCardClick(e) {
@@ -840,6 +901,11 @@ export function initSpeakers() {
 
         const index = Number(card.dataset.speakerIndex);
         if (!Number.isNaN(index) && speakers[index]) {
+            const spk = speakers[index];
+            if (spk.isComingSoon || spk.name === 'Coming Soon') {
+                // Do not open details modal for unconfirmed speaker
+                return;
+            }
             const parentWithTile = card.closest('[class*="bg-tile-"]');
             const tileMatch = (card.className && card.className.match && card.className.match(/bg-tile-(orange|purple|green|blue|pink)/))
                 || (card.className && card.className.match && card.className.match(/\b(blue|green|pink)\b/))
@@ -849,7 +915,7 @@ export function initSpeakers() {
         }
     }
 
-    [marqueeTrack, speakerGrid, aboutRosterStage, schedKeynotesGrid, schedPanelsGrid, schedSessionsGrid].forEach((container) => {
+    [marqueeTrack, speakerGrid, aboutRosterStage, schedKeynotesGrid, schedTalk1Grid, schedTalk2Grid, schedTalk3Grid, schedPanelsGrid, schedSessionsGrid].forEach((container) => {
         if (container) container.addEventListener('click', handleCardClick);
     });
 
