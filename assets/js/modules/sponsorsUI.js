@@ -20,6 +20,7 @@ function renderHeroCard(s) {
   const tierTagLabel = s.tier === 'quantum' 
     ? 'QUANTUM SPONSOR' 
     : (s.tier === 'cluster' ? 'CLUSTER SPONSOR' : 'VENUE PARTNER');
+  const tagClass = (s.tier === 'quantum' && s.color === 'blue') ? 'learning' : s.tier;
 
   const logoMarkup = darkLogoSrc ? `
           <img class="hero-logo hero-logo--theme-light"
@@ -53,7 +54,7 @@ function renderHeroCard(s) {
     <article class="sponsors-hero-card color-${color}" data-card-color="${color}" aria-label="${name} - ${tierTagLabel}" data-reveal>
       <div class="hero-card-spotlight" aria-hidden="true"></div>
       <div class="hero-card-top">
-        <span class="hero-tier-tag ${s.tier}">${tierTagLabel}</span>
+        <span class="hero-tier-tag ${tagClass}">${tierTagLabel}</span>
       </div>
       <div class="hero-card-media">
         <div class="hero-logo-frame ${s.tier === 'venue' ? 'emblem' : ''}">
@@ -131,22 +132,32 @@ function buildMarqueeLoopHTML(list, minCount = 10) {
 }
 
 export function initSponsors() {
-  const heroGrid = document.getElementById('sponsorsHeroGrid');
+  const quantumGrid = document.getElementById('sponsorsQuantumGrid') || document.getElementById('sponsorsHeroGrid');
+  const clusterVenueGrid = document.getElementById('sponsorsClusterVenueGrid') || document.getElementById('sponsorsClusterGrid');
   const track1 = document.getElementById('marqueeTrack1');
   const track2 = document.getElementById('marqueeTrack2');
 
-  const headlineSponsors = sponsors.filter(s => s.tier === 'quantum' || s.tier === 'cluster' || s.tier === 'venue');
+  const quantumSponsors = sponsors.filter(s => s.tier === 'quantum');
+  const clusterVenueSponsors = sponsors.filter(s => s.tier === 'cluster' || s.tier === 'venue');
   const proPartners = sponsors.filter(s => s.tier === 'pro');
   const litePartners = sponsors.filter(s => s.tier === 'lite');
 
-  // 1. Render Hero Showcase Cards if container exists
-  if (heroGrid && headlineSponsors.length > 0) {
-    heroGrid.innerHTML = headlineSponsors.map(renderHeroCard).join('');
-    wireLogoFallbacks(heroGrid);
-    initSpotlightEffect();
+  // 1. Render Quantum Sponsors (Section 01)
+  if (quantumGrid && quantumSponsors.length > 0) {
+    quantumGrid.innerHTML = quantumSponsors.map(renderHeroCard).join('');
+    wireLogoFallbacks(quantumGrid);
   }
 
-  // 2. Populate and duplicate Marquee tracks by category
+  // 2. Render Cluster Sponsor & Venue Partner (Section 02)
+  if (clusterVenueGrid && clusterVenueSponsors.length > 0) {
+    clusterVenueGrid.innerHTML = clusterVenueSponsors.map(renderHeroCard).join('');
+    wireLogoFallbacks(clusterVenueGrid);
+  }
+
+  // Initialize interactive spotlight on all cards
+  initSpotlightEffect();
+
+  // 3. Populate and duplicate Marquee tracks by category
   // Track 1: Pro Partners (Marquee Left)
   if (track1 && proPartners.length > 0) {
     track1.innerHTML = buildMarqueeLoopHTML(proPartners, 10);

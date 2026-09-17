@@ -391,8 +391,8 @@ export function initSpeakers() {
             else if (s.id === 'speaker-trisha-pelagio') targetH = 460;
             else if (s.id === 'speaker-gaile-espinosa') targetH = 380;
             else if (s.id === 'speaker-jared-remulta') targetH = 300;
-            else if (s.id === 'speaker-talk3-tba') targetH = 340;
-            else if (s.id === 'speaker-panel-tba-1') targetH = 360;
+            else if (s.id === 'speaker-kevin-john-ventura' || s.id === 'speaker-talk3-tba') targetH = 340;
+            else if (s.id === 'speaker-karenina-comia' || s.id === 'speaker-panel-tba-1') targetH = 360;
             else if (s.id === 'speaker-panel-tba-2') targetH = 200;
             else if (isKeynote) targetH = 440;
             else targetH = 320;
@@ -864,7 +864,7 @@ export function initSpeakers() {
     const trishaSpeaker = speakers.find(s => s.id === 'speaker-trisha-pelagio');
     const trishaIdx = trishaSpeaker ? speakers.findIndex(s => s.id === trishaSpeaker.id) : 1;
 
-    const talk3Speaker = speakers.find(s => s.id === 'speaker-talk3-tba');
+    const talk3Speaker = speakers.find(s => s.id === 'speaker-kevin-john-ventura' || s.id === 'speaker-talk3-tba');
     const talk3Idx = talk3Speaker ? speakers.findIndex(s => s.id === talk3Speaker.id) : 2;
 
     if (schedKeynotesGrid && isaeusSpeaker) {

@@ -293,21 +293,21 @@ export const tierMeta = {
   },
   cluster: {
     index: '02',
-    name: 'Cluster',
-    title: 'Cluster Sponsors'
+    name: 'Cluster & Venue',
+    title: 'Cluster Sponsor & Venue Partner'
   },
   venue: {
-    index: '03',
-    name: 'Venue',
-    title: 'Venue Partner'
+    index: '02',
+    name: 'Cluster & Venue',
+    title: 'Cluster Sponsor & Venue Partner'
   },
   pro: {
-    index: '04',
+    index: '03',
     name: 'Pro',
     title: 'Pro Partners'
   },
   lite: {
-    index: '05',
+    index: '03',
     name: 'Lite',
     title: 'Lite Partners'
   }

@@ -26,15 +26,15 @@ export const speakers = [
     "isComingSoon": false
   },
   {
-    "id": "speaker-talk3-tba",
-    "name": "Coming Soon",
-    "role": "",
+    "id": "speaker-kevin-john-ventura",
+    "name": "Kevin John Ventura",
+    "role": "Senior Engineering Manager · Stratpoint Technologies, Inc.",
     "sessionTitle": "Talk #3: Human in the Loop: Preparing People for an AI-Driven Future",
-    "abstract": "Official speaker announcement coming soon.",
+    "abstract": "Kevin John Ventura brings 15 years of experience across Web, Cloud, DevOps & Agentic AI Engineering delivering scalable platforms and leading teams that build reliable, production-ready systems. He has worked across the full engineering lifecycle—from building applications from the ground up, designing cloud architectures, and establishing DevOps practices, to leading engineers, mentoring senior talent, and aligning technical execution with business goals.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/silhouette.svg",
+    "picUrl": "assets/images/speakers/kevin-john-ventura.webp",
     "linkedInUrl": "",
-    "isComingSoon": true
+    "isComingSoon": false
   },
   {
     "id": "speaker-jared-remulta",
@@ -59,15 +59,15 @@ export const speakers = [
     "isComingSoon": false
   },
   {
-    "id": "speaker-panel-tba-1",
-    "name": "Coming Soon",
-    "role": "",
+    "id": "speaker-karenina-comia",
+    "name": "Karenina Marie Frances M. Comia",
+    "role": "Lead Data Engineer · Data Engineering Pilipinas | Team Lead, eCloudvalley Philippines",
     "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Official speaker announcement coming soon.",
+    "abstract": "Nina is a community builder with Data Engineering Pilipinas (DEP), where she designs curriculums and training programs, mentorship, and enablement that strengthen data and AI capabilities across universities and government institutions. She also serves as a Data Engineering Team Lead at eCloudvalley Philippines, an AWS Premier Partner, delivering cloud-native data platforms across solution architecture, presales, and hands-on engineering with tools like AWS, Snowflake, Terraform, and more.",
     "status": "PANEL",
-    "picUrl": "assets/images/speakers/silhouette.svg",
+    "picUrl": "assets/images/speakers/karenina-comia.webp",
     "linkedInUrl": "",
-    "isComingSoon": true
+    "isComingSoon": false
   },
   {
     "id": "speaker-panel-tba-2",
