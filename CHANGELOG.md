@@ -4,6 +4,16 @@ All notable changes to the **AWS Student Community Day: South Summit 2026** webs
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) principles, and versioning follows [Semantic Versioning](https://semver.org/).
 
+## [1.8.0] - 2026-09-17
+
+### Changed — Merchandise Drop Experience
+
+- **Transformed** `#page-merch` from a mock item catalog into an official **"Coming Soon"** drop teaser showcase, building anticipation ahead of official merchandise reveals.
+- **Added** a neo-brutal hero feature capsule vault with blueprint crosshairs, South Summit coordinates (`14.3130° N, 121.0791° E`), release window metadata, and locked status indicators.
+- **Introduced** a 3-card mystery teaser grid showcasing upcoming apparel (Hoodie & Tee), collectibles (Pins & Holographic Stickers), and field gear (Reinforced Tote & Jacquard Lanyard).
+- **Embedded** a live pulsing drop status indicator (`DROP STATUS: IN PREPARATION`) and an attendee swag eligibility call-to-action linking to Luma registration.
+- **Streamlined** `merchUI.js` and updated `scrollReveal.js` card selectors to ensure smooth scroll transitions and full compatibility with the existing router.
+
 ---
 
 ## [1.7.0] - 2026-08-12

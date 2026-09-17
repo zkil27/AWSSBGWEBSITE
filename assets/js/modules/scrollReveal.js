@@ -48,6 +48,8 @@ const CARD_SELECTORS = [
   '.chapter-card',
   '.director-card',
   '.merch-card',
+  '.merch-soon-hero',
+  '.merch-soon-card',
   '.about-outcomes li',
 ];
 
