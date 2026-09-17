@@ -575,8 +575,8 @@ export function initStackedCards() {
   const hash = window.location.hash.toLowerCase();
   let initialIndex = -1;
   if (hash.includes('lineup') || hash.includes('speakers')) initialIndex = 1;
-  else if (hash.includes('chapters') || hash.includes('network')) initialIndex = 2;
-  else if (hash.includes('directors') || hash.includes('leadership')) initialIndex = 3;
+  else if (hash.includes('chapters') || hash.includes('network') || hash.includes('organizers')) initialIndex = 2;
+  else if (hash.includes('directors') || hash.includes('leadership') || hash.includes('core-team') || hash.includes('coreteam')) initialIndex = 3;
   else if (hash.includes('manifesto')) initialIndex = 0;
 
   if (initialIndex >= 0) {
@@ -604,8 +604,8 @@ export function initStackedCards() {
   window.addEventListener('hashchange', () => {
     const h = window.location.hash.toLowerCase();
     if (h.includes('lineup') || h.includes('speakers')) activateCard(1, true);
-    else if (h.includes('chapters') || h.includes('network')) activateCard(2, true);
-    else if (h.includes('directors') || h.includes('leadership')) activateCard(3, true);
+    else if (h.includes('chapters') || h.includes('network') || h.includes('organizers')) activateCard(2, true);
+    else if (h.includes('directors') || h.includes('leadership') || h.includes('core-team') || h.includes('coreteam')) activateCard(3, true);
     else if (h.includes('manifesto')) activateCard(0, true);
     else if (h === '#about' && !hasUserInteracted) collapseAll(false);
   });
@@ -619,8 +619,8 @@ export function initStackedCards() {
         const updateCards = () => {
           const h = window.location.hash.toLowerCase();
           if (h.includes('lineup') || h.includes('speakers')) activateCard(1, false);
-          else if (h.includes('chapters') || h.includes('network')) activateCard(2, false);
-          else if (h.includes('directors') || h.includes('leadership')) activateCard(3, false);
+          else if (h.includes('chapters') || h.includes('network') || h.includes('organizers')) activateCard(2, false);
+          else if (h.includes('directors') || h.includes('leadership') || h.includes('core-team') || h.includes('coreteam')) activateCard(3, false);
           else if (h.includes('manifesto')) activateCard(0, false);
           else if (!hasUserInteracted && cards.length > 0) collapseAll(false);
         };
