@@ -79,24 +79,48 @@ function initMagneticTilt(container) {
 
   let rafId = null;
   let mouse = { x: -1000, y: -1000, active: false };
+  let cardCache = [];
+  let cacheDirty = true;
+
+  function refreshCardCache() {
+    const cards = container.querySelectorAll('.director-card:not(.is-filtered-out)');
+    cardCache = Array.from(cards).map((card) => {
+      const rect = card.getBoundingClientRect();
+      return {
+        card,
+        cx: rect.left + rect.width / 2,
+        cy: rect.top + rect.height / 2
+      };
+    });
+    cacheDirty = false;
+  }
+
+  function invalidateCache() {
+    cacheDirty = true;
+  }
+
+  container.__invalidateTiltCache = invalidateCache;
+  window.addEventListener('scroll', invalidateCache, { passive: true });
+  window.addEventListener('resize', invalidateCache, { passive: true });
 
   function updateCardTilts() {
     rafId = null;
-    const cards = container.querySelectorAll('.director-card:not(.is-filtered-out)');
     if (!mouse.active) {
+      const cards = container.querySelectorAll('.director-card');
       cards.forEach((c) => {
         if (c.style.transform) c.style.transform = '';
       });
       return;
     }
 
-    cards.forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      const cardCenterX = rect.left + rect.width / 2;
-      const cardCenterY = rect.top + rect.height / 2;
+    if (cacheDirty) {
+      refreshCardCache();
+    }
 
-      const dx = mouse.x - cardCenterX;
-      const dy = mouse.y - cardCenterY;
+    for (let i = 0; i < cardCache.length; i++) {
+      const item = cardCache[i];
+      const dx = mouse.x - item.cx;
+      const dy = mouse.y - item.cy;
       const dist = Math.hypot(dx, dy);
 
       // Proximity threshold: 420px
@@ -105,11 +129,11 @@ function initMagneticTilt(container) {
         const rotX = (-dy / 420) * 12 * factor;
         const rotY = (dx / 420) * 12 * factor;
         const lift = 3 * factor;
-        card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-${lift.toFixed(1)}px)`;
-      } else if (card.style.transform) {
-        card.style.transform = '';
+        item.card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-${lift.toFixed(1)}px)`;
+      } else if (item.card.style.transform) {
+        item.card.style.transform = '';
       }
-    });
+    }
   }
 
   section.addEventListener('mousemove', (e) => {
@@ -272,6 +296,8 @@ export function initDirectors() {
               row.style.display = visibleCount > 0 ? 'flex' : 'none';
             });
           }
+
+          directorsGrid.__invalidateTiltCache?.();
 
           const incomingCards = allCards.filter((c) => !c.classList.contains('is-filtered-out'));
 

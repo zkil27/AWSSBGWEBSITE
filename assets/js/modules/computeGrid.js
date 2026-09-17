@@ -259,12 +259,27 @@ const mobileAmbientBlocks = [
   lastAnimTs: Math.random() * 2000
 }));
 
+let ambientTimerId = 0;
+
+function scheduleNextAmbientStep() {
+  if (ambientTimerId) clearTimeout(ambientTimerId);
+  if (!pageVisible || reducedMotion || isLowSpec() || !hasHover) return;
+  ambientTimerId = setTimeout(() => {
+    ambientTimerId = 0;
+    if (pageVisible && !running) {
+      start();
+    }
+  }, CFG.blockAnimIntervalMs);
+}
+
 function updateAmbientBlocks(ts, dt) {
-  if (reducedMotion) return;
+  if (reducedMotion) return false;
   const currentW = viewW || window.innerWidth;
   const totalCols = Math.floor(document.body.clientWidth / gridSize);
   const isMobile = currentW < 1024 || totalCols < 20;
   const blocks = isMobile ? mobileAmbientBlocks : ambientBlocks;
+
+  let anyMoving = false;
 
   for (const b of blocks) {
     if (ts - b.lastAnimTs > CFG.blockAnimIntervalMs) {
@@ -313,9 +328,19 @@ function updateAmbientBlocks(ts, dt) {
     }
 
     // Smoothly interpolate current to target position
-    b.currentC += (b.targetC - b.currentC) * 14 * dt;
-    b.currentR += (b.targetR - b.currentR) * 14 * dt;
+    const diffC = Math.abs(b.targetC - b.currentC);
+    const diffR = Math.abs(b.targetR - b.currentR);
+    if (diffC > 0.005 || diffR > 0.005) {
+      b.currentC += (b.targetC - b.currentC) * 14 * dt;
+      b.currentR += (b.targetR - b.currentR) * 14 * dt;
+      anyMoving = true;
+    } else {
+      b.currentC = b.targetC;
+      b.currentR = b.targetR;
+    }
   }
+
+  return anyMoving;
 }
 
 function drawAmbientBlocks() {
@@ -380,6 +405,11 @@ function onPointerMove(e) {
       if (brightness > 0.02) lightCell(col + dc, row + dr, brightness);
     }
   }
+
+  // Wake up loop if sleeping
+  if (!running && shouldRun()) {
+    start();
+  }
 }
 
 function onPointerLeave() {
@@ -396,7 +426,7 @@ function frame(ts) {
   ctx.clearRect(0, 0, viewW, viewH);
 
   runBootSweep(elapsed);
-  updateAmbientBlocks(ts, dt);
+  const blocksMoving = updateAmbientBlocks(ts, dt);
   updateLitCells(dt);
 
   // Z-index ordering from back to front:
@@ -410,6 +440,14 @@ function frame(ts) {
   if (isLowSpec() || !hasHover) {
     if (elapsed > CFG.bootSweepMs + 400 && litCells.size === 0) {
       stop();
+      return;
+    }
+  } else {
+    // On desktop: if boot sweep is done, lit cells have faded out, and ambient blocks have settled,
+    // sleep the loop to drop CPU/GPU usage to 0% until next cursor movement, scroll, or block shift.
+    if (elapsed > CFG.bootSweepMs + 400 && litCells.size === 0 && !blocksMoving) {
+      stop();
+      scheduleNextAmbientStep();
       return;
     }
   }
@@ -426,6 +464,10 @@ function shouldRun() {
 
 function start() {
   if (running || !ctx) return;
+  if (ambientTimerId) {
+    clearTimeout(ambientTimerId);
+    ambientTimerId = 0;
+  }
   if (reducedMotion) {
     // Minimal static state: one clear, no loop. (Cursor glow still works via
     // the pointermove handler painting a single frame; see maybePaintStatic.)
@@ -514,7 +556,7 @@ export function initComputeGrid() {
 
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
-    if (!running && (isLowSpec() || !hasHover) && ctx) {
+    if (!running && ctx) {
       if (!scrollTicking) {
         scrollTicking = true;
         requestAnimationFrame(() => {

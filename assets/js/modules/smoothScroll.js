@@ -110,19 +110,39 @@ async function createLenis() {
   active = true;
   window.__lenis = lenis;
 
-  lenis.on('scroll', ({ scroll }) => emitScroll(scroll));
+  lenis.on('scroll', ({ scroll }) => {
+    emitScroll(scroll);
+    if (window.ScrollTrigger) {
+      window.ScrollTrigger.update();
+    }
+  });
 
-  const raf = (time) => {
-    lenis.raf(time);
+  // If GSAP is loaded, drive Lenis from GSAP's ticker for unified frame synchronization on 120Hz/144Hz displays
+  if (window.gsap && window.gsap.ticker) {
+    const gsapRaf = (time) => {
+      lenis.raf(time * 1000);
+    };
+    window.gsap.ticker.add(gsapRaf);
+    window.gsap.ticker.lagSmoothing(0);
+    lenis.__gsapRaf = gsapRaf;
+  } else {
+    const raf = (time) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
     rafId = requestAnimationFrame(raf);
-  };
-  rafId = requestAnimationFrame(raf);
+  }
 }
 
 function destroyLenis() {
   if (!lenis) return;
-  cancelAnimationFrame(rafId);
-  rafId = 0;
+  if (lenis.__gsapRaf && window.gsap && window.gsap.ticker) {
+    window.gsap.ticker.remove(lenis.__gsapRaf);
+  }
+  if (rafId) {
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
   lenis.destroy();
   lenis = null;
   window.__lenis = null;

@@ -167,7 +167,7 @@ export function createGrainient(container, initialProps = {}) {
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: props.dpr || Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.25 : 2)
+      dpr: props.dpr || Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.0 : 1.5)
     });
   } catch (err) {
     console.warn('[Grainient] WebGL 2 not supported:', err);
