@@ -215,15 +215,10 @@ export function closeSpeakerModal(options = {}) {
             if (elements.length) window.gsap.set(elements, { clearProps: 'all' });
         }
 
-        const scheduleModal = document.getElementById('programFlowModal');
-        const isScheduleOpen = scheduleModal && scheduleModal.classList.contains('open');
-
-        if (!isScheduleOpen) {
-            document.documentElement.classList.remove('modal-scroll-lock');
-            const lenis = getLenis();
-            if (lenis && typeof lenis.start === 'function') {
-                lenis.start();
-            }
+        document.documentElement.classList.remove('modal-scroll-lock');
+        const lenis = getLenis();
+        if (lenis && typeof lenis.start === 'function') {
+            lenis.start();
         }
     };
 

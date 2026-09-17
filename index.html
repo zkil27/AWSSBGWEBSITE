@@ -495,18 +495,6 @@
                   <span class="bp-meta-index">04</span>
                   <span class="bp-meta-label">Program Flow</span>
                 </div>
-                <button type="button" class="bp-focus-btn" id="btnFocusSchedule" aria-label="Open full program flow in focus mode">
-                  <span class="bp-focus-dot" aria-hidden="true"></span>
-                  <span class="bp-focus-text">Full Screen Focus</span>
-                  <span class="bp-focus-icon" aria-hidden="true">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;">
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <polyline points="9 21 3 21 3 15"></polyline>
-                      <line x1="21" y1="3" x2="14" y2="10"></line>
-                      <line x1="3" y1="21" x2="10" y2="14"></line>
-                    </svg>
-                  </span>
-                </button>
               </header>
 
               <div class="bp-sched-headline-row">
@@ -526,7 +514,7 @@
                 </div>
               </div>
 
-              <div class="schedule-container sched-clickable-card" id="schedInteractiveTrigger" role="button" tabindex="0" aria-label="Click to open program flow in focus view">
+              <div class="schedule-container">
                 <div class="schedule sched-blocks-split" id="schedBlocksContainer">
                   <!-- BLOCK 01: MORNING -->
                   <div class="sched-block block-morning">
@@ -1092,52 +1080,6 @@
             </a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ PROGRAM FLOW FOCUS MODAL ============ -->
-  <div class="modal-overlay pf-modal-overlay" id="programFlowModal" role="dialog" aria-modal="true" aria-labelledby="pfModalTitle" aria-hidden="true">
-    <div class="modal-card pf-modal-card">
-      <button class="modal-close pf-modal-close" id="pfModalClose" aria-label="Close program flow modal">&#10005;</button>
-
-      <div class="pf-crosshair top-left">+</div>
-      <div class="pf-crosshair top-right">+</div>
-      <div class="pf-crosshair bottom-left">+</div>
-      <div class="pf-crosshair bottom-right">+</div>
-
-      <!-- Modal Header -->
-      <div class="pf-modal-header">
-        <div class="pf-header-top-meta">
-          <span class="pf-header-tag">EVENT SCHEDULE // ONE DAY RUNNING ORDER</span>
-          <span class="pf-header-badge">OCTOBER 7, 2026 · 09:30 AM – 05:30 PM</span>
-        </div>
-        <h2 id="pfModalTitle" class="pf-modal-title">Program Flow &amp; Running Order</h2>
-        <p class="pf-modal-desc">
-          Biñan People's Center Auditorium · Laguna — Explore the complete schedule across keynotes, hands-on tracks, Women in Tech spotlights, and community panels.
-        </p>
-
-        <!-- Block Filter Tabs -->
-        <div class="pf-filter-bar" role="tablist" aria-label="Filter schedule by block">
-          <button type="button" class="pf-filter-btn active" data-filter="all" role="tab" aria-selected="true">
-            <span class="pf-filter-dot"></span> All Sessions <span class="pf-count">(12)</span>
-          </button>
-          <button type="button" class="pf-filter-btn" data-filter="morning" role="tab" aria-selected="false">
-            <span class="pf-filter-dot dot-orange"></span> Block 01 // Morning <span class="pf-count">(5)</span>
-          </button>
-          <button type="button" class="pf-filter-btn" data-filter="afternoon" role="tab" aria-selected="false">
-            <span class="pf-filter-dot dot-purple"></span> Block 02 // Afternoon <span class="pf-count">(7)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal Body (Cards dynamically rendered by scheduleUI.js) -->
-      <div class="pf-modal-body" id="pfModalBody"></div>
-
-      <!-- Modal Footer -->
-      <div class="pf-modal-footer">
-        <span class="pf-modal-note">* Schedule timing subject to slight adjustments on event day. Tap any speaker chip to view their profile.</span>
-        <button type="button" class="btn btn-secondary pf-btn-done" id="pfBtnDone">Back to Blueprint &rarr;</button>
       </div>
     </div>
   </div>
