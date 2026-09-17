@@ -52,16 +52,12 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Administrative management, records upkeep, volunteer roster collation, and communications tracking.',
-<<<<<<< Updated upstream
-    avatar: null,
-=======
     avatar: 'assets/images/directors/Executive Secretary - Renae Chloe O. Bautista.webp',
->>>>>>> Stashed changes
     accentColor: '--orange'
   },
   {
     id: 'dir-tech-1',
-    name: 'Elijah Job Tamayo',
+    name: 'Elijah Tamayo',
     role: 'Technology Director',
     department: 'Technology',
     deptTag: 'TECH',
@@ -71,7 +67,7 @@ export const directors = [
   },
   {
     id: 'dir-tech-2',
-    name: 'Franz Anthony Navarro',
+    name: 'Anthony Navarro',
     role: 'Technology Assoc. Director',
     department: 'Technology',
     deptTag: 'TECH',
@@ -166,11 +162,7 @@ export const directors = [
     department: 'Finance',
     deptTag: 'FIN',
     focus: 'Fiscal budgeting, sponsorship fund allocation, procurement audit trails, merchandise costing, and financial transparency.',
-<<<<<<< Updated upstream
-    avatar: null,
-=======
     avatar: 'assets/images/directors/Finance Director - John Cyphrey D. Madulid.webp',
->>>>>>> Stashed changes
     accentColor: '--orange'
   },
   {

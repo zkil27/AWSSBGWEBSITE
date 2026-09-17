@@ -5,6 +5,7 @@
  */
 
 import { directors } from '../data/directors.js';
+import { isLowSpec } from './perfManager.js';
 
 /**
  * Generate 2-letter monogram initials from a person's full name.
@@ -54,7 +55,7 @@ function directorCardHTML(d) {
         <div class="director-identity">
           <h4 class="director-name" title="${d.name}">${d.name}</h4>
           <span class="director-role-title">${d.role}</span>
-          <span class="director-dept-label">${d.department} Directorate</span>
+          <span class="director-dept-label">${d.department} Team</span>
         </div>
       </div>
     </article>
@@ -68,6 +69,7 @@ function directorCardHTML(d) {
  */
 function initMagneticTilt(container) {
   if (typeof window === 'undefined') return;
+  if (isLowSpec()) return;
   if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -273,7 +275,7 @@ export function initDirectors() {
 
           const incomingCards = allCards.filter((c) => !c.classList.contains('is-filtered-out'));
 
-          if (window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          if (window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isLowSpec()) {
             // Option 1: Linear Studio Switch - Calibrated micro-depth focus arrival
             window.gsap.fromTo(
               incomingCards,
@@ -307,7 +309,8 @@ export function initDirectors() {
         if (
           currentlyVisible.length > 0 &&
           window.gsap &&
-          !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+          !isLowSpec()
         ) {
           isFiltering = true;
           // Option 1: Linear Studio Switch - Swift aperture dissolve with micro-depth

@@ -17,7 +17,6 @@ export const chapters = [
     name: 'AWS SBG – Philippine Christian University Cavite',
     university: 'PCU Cavite Campus',
     facebookUrl: 'https://www.facebook.com/AWSSBGPCUCavite',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - PCU Cavite.webp'
   },
@@ -25,7 +24,6 @@ export const chapters = [
     name: 'AWS SBG – Mapúa Malayan Digital College',
     university: 'Mapúa Malayan Digital College',
     facebookUrl: 'https://www.facebook.com/aws.sbg.mmdc',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - MMDC.webp'
   },
@@ -33,7 +31,6 @@ export const chapters = [
     name: 'AWS SBG – University of Perpetual Help System Laguna – Biñan',
     university: 'UPHSL Biñan Campus',
     facebookUrl: 'https://www.facebook.com/awssbg',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - UPHSL.webp'
   },
@@ -41,7 +38,6 @@ export const chapters = [
     name: 'AWS SBG – Cavite State University – Main',
     university: 'CvSU Indang Main Campus',
     facebookUrl: 'https://www.facebook.com/awsccspade',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - Spade.webp'
   },
@@ -49,7 +45,6 @@ export const chapters = [
     name: 'AWS SBG – Pamantasan ng Cabuyao',
     university: 'University of Cabuyao',
     facebookUrl: 'https://www.facebook.com/awsccpnc',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - UC.webp'
   },
@@ -57,7 +52,6 @@ export const chapters = [
     name: 'AWS SBG – Polytechnic University of the Philippines – Biñan',
     university: 'PUP Biñan Campus',
     facebookUrl: 'https://www.facebook.com/share/1F7y2K5yxg/',
-    linkedInUrl: '#',
     email: 'sbg.pupbinan@gmail.com',
     imgUrl: 'assets/images/organizations/AWS SBG - PUP Biñan.svg'
   },
@@ -65,7 +59,6 @@ export const chapters = [
     name: 'AWS Learning Club – Polar',
     university: 'PUP Santa Rosa Campus',
     facebookUrl: 'https://www.facebook.com/profile.php?id=6158289347062',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWSLC - Polar.webp'
   },
@@ -73,7 +66,6 @@ export const chapters = [
     name: 'AWS SBG – Aeris',
     university: 'City College of Calamba',
     facebookUrl: 'https://www.facebook.com/awssbg.aeris',
-    linkedInUrl: '#',
     email: '',
     imgUrl: 'assets/images/organizations/AWS SBG - Aeris.webp'
   }

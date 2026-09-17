@@ -12,7 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet" media="print" onload="this.media='all'">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
   </noscript>
   <link rel="stylesheet" href="theme.css?v=20260911-rect">
   <link rel="stylesheet" href="styles.css?v=20260911-sponsors-v3">
@@ -21,8 +22,8 @@
   <link rel="stylesheet" href="assets/css/masonry.css">
   <link rel="stylesheet" href="assets/css/splitText.css">
   <link rel="stylesheet" href="assets/css/pixelTransition.css">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
     /* Apply saved theme before paint to avoid flash */
     (function () {
@@ -59,7 +60,7 @@
     <div class="nav-inner">
       <div class="header-left">
         <button class="brand" data-page="home" aria-label="Go to home page">
-          <img class="chip" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day: South Summit 2026">
+          <img class="chip" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day: South Summit 2026" width="36" height="36">
           <div class="brand-text">AWS SCD: SOUTH SUMMIT 2026<span>AWS STUDENT BUILDER GROUPS</span></div>
         </button>
       </div>
@@ -309,8 +310,8 @@
                 </div>
                 <div class="hero-card-media">
                   <div class="hero-logo-frame">
-                    <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" loading="lazy">
-                    <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" loading="lazy">
+                    <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+                    <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
                   </div>
                 </div>
                 <div class="hero-card-body">
@@ -326,7 +327,7 @@
                 </div>
                 <div class="hero-card-media">
                   <div class="hero-logo-frame">
-                    <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="800" height="354" loading="lazy" decoding="async">
+                    <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="220" height="90" loading="lazy" decoding="async">
                   </div>
                 </div>
                 <div class="hero-card-body">
@@ -342,7 +343,7 @@
                 </div>
                 <div class="hero-card-media">
                   <div class="hero-logo-frame emblem">
-                    <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" loading="lazy">
+                    <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" width="220" height="90" loading="lazy" decoding="async">
                   </div>
                 </div>
                 <div class="hero-card-body">
@@ -364,15 +365,15 @@
 
             <!-- Dual-Track Marquee Wrapper with Gradient Masks -->
             <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
-              <!-- Track 1: Marquee Left -->
-              <div class="marquee-row marquee-row--left">
+              <!-- Track 1: Pro Partners (Marquee Left) -->
+              <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
                 <div class="marquee-track" id="marqueeTrack1">
                   <!-- Populated dynamically by sponsorsUI.js -->
                 </div>
               </div>
 
-              <!-- Track 2: Marquee Right -->
-              <div class="marquee-row marquee-row--right">
+              <!-- Track 2: Lite Partners (Marquee Right) -->
+              <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
                 <div class="marquee-track" id="marqueeTrack2">
                   <!-- Populated dynamically by sponsorsUI.js -->
                 </div>
@@ -493,6 +494,18 @@
                   <span class="bp-meta-index">04</span>
                   <span class="bp-meta-label">Program Flow</span>
                 </div>
+                <button type="button" class="bp-focus-btn" id="btnFocusSchedule" aria-label="Open full program flow in focus mode">
+                  <span class="bp-focus-dot" aria-hidden="true"></span>
+                  <span class="bp-focus-text">Full Screen Focus</span>
+                  <span class="bp-focus-icon" aria-hidden="true">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;">
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <polyline points="9 21 3 21 3 15"></polyline>
+                      <line x1="21" y1="3" x2="14" y2="10"></line>
+                      <line x1="3" y1="21" x2="10" y2="14"></line>
+                    </svg>
+                  </span>
+                </button>
               </header>
 
               <div class="bp-sched-headline-row">
@@ -512,7 +525,7 @@
                 </div>
               </div>
 
-              <div class="schedule-container">
+              <div class="schedule-container sched-clickable-card" id="schedInteractiveTrigger" role="button" tabindex="0" aria-label="Click to open program flow in focus view">
                 <div class="schedule sched-blocks-split" id="schedBlocksContainer">
                   <!-- BLOCK 01: MORNING -->
                   <div class="sched-block block-morning">
@@ -644,8 +657,8 @@
                        id="venueHeroImg"
                        width="1200"
                        height="900"
-                       decoding="async"
-                       loading="lazy" />
+                       loading="lazy"
+                       decoding="async" />
                 </div>
                 <!-- Slide 2: Partner Community Hub -->
                 <div class="venue-gallery-slide" 
@@ -657,8 +670,8 @@
                        class="venue-media-img" 
                        width="1200"
                        height="535"
-                       decoding="async"
-                       loading="lazy" />
+                       loading="lazy"
+                       decoding="async" />
                 </div>
                 <!-- Slide 3: Civic Center Grounds -->
                 <div class="venue-gallery-slide" 
@@ -670,8 +683,8 @@
                        class="venue-media-img" 
                        width="825"
                        height="550"
-                       decoding="async"
-                       loading="lazy" />
+                       loading="lazy"
+                       decoding="async" />
                 </div>
                 <!-- Slide 4: Interactive Google Map -->
                 <div class="venue-gallery-slide venue-map-slide" 
@@ -946,10 +959,10 @@
         </div>
       </div>
 
-      <!-- CARD 04: LEADERSHIP -->
+      <!-- CARD 04: CORE TEAM -->
       <div class="sb-band sb-band-pink stack-card" id="card-directors" data-card-index="3">
-        <div class="sb-card-tab" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Leadership section">
-          <h2 class="sb-card-label">Leadership</h2>
+        <div class="sb-card-tab" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Core Team section">
+          <h2 class="sb-card-label">Core Team</h2>
           <span class="sb-card-chevron" aria-hidden="true">›</span>
         </div>
         <div class="sb-card-body">
@@ -957,14 +970,14 @@
           <section id="about-directors" class="section-light grid-bg light">
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow" style="color:var(--blue-text);">Organizing Leadership</p>
-                <h2 class="section-title">Summit Directorate</h2>
-                <p class="section-p">The student directors, associate directors, and executive leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
+                <p class="eyebrow" style="color:var(--blue-text);">Organizing Team</p>
+                <h2 class="section-title">Summit Core Team</h2>
+                <p class="section-p">The student directors, associate directors, and core team leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
               </div>
 
               <!-- Filter Pills Navigation -->
               <div class="directors-filter-wrapper">
-                <nav class="directors-filter-bar font-mono" id="directorsFilterBar" aria-label="Filter directors by department">
+                <nav class="directors-filter-bar font-mono" id="directorsFilterBar" aria-label="Filter core team by department">
                   <button type="button" class="director-filter-pill active" data-target="all" aria-selected="true">
                     All (16)
                   </button>
@@ -1005,18 +1018,28 @@
 
   <!-- ================================================================= -->
   <div class="page" id="page-merch">
-    <section class="merch-minimal-stage">
-      <div class="wrap merch-minimal-wrap">
-        <span class="merch-minimal-eyebrow font-mono">OFFICIAL MERCHANDISE</span>
-        <h1 class="merch-minimal-heading">
-          <span>COMING</span>
-          <span>SOON</span>
-        </h1>
-        <p class="merch-minimal-desc font-mono">Collection reveals closer to October 7, 2026 &middot; Biñan, Laguna</p>
-        <div class="merch-minimal-action">
-          <button type="button" class="btn btn-ghost" data-page="home">
-            &larr; Back to Summit
-          </button>
+    <section class="page-intro">
+      <div class="deco-layer deco-plus" aria-hidden="true">
+        <span class="brand-box b1"></span>
+        <span class="brand-box b2"></span>
+        <span class="brand-box b3"></span>
+        <span class="brand-box b4"></span>
+      </div>
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Merch</p>
+          <h2 class="section-title">Wear the summit</h2>
+          <p class="section-p">Official SCD South Summit merch — details drop closer to October 7. Click a card to
+            preview.</p>
+        </div>
+        <div class="merch-explorer" id="merchExplorer" data-mode="grid">
+          <div class="merch-rail" id="merchRail"></div>
+          <div class="merch-spotlight" id="merchSpotlight" aria-live="polite">
+            <div class="merch-spotlight-placeholder">
+              <p>Select a merch item</p>
+              <span>Tap a card to zoom the preview</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1072,6 +1095,52 @@
     </div>
   </div>
 
+  <!-- ============ PROGRAM FLOW FOCUS MODAL ============ -->
+  <div class="modal-overlay pf-modal-overlay" id="programFlowModal" role="dialog" aria-modal="true" aria-labelledby="pfModalTitle" aria-hidden="true">
+    <div class="modal-card pf-modal-card">
+      <button class="modal-close pf-modal-close" id="pfModalClose" aria-label="Close program flow modal">&#10005;</button>
+
+      <div class="pf-crosshair top-left">+</div>
+      <div class="pf-crosshair top-right">+</div>
+      <div class="pf-crosshair bottom-left">+</div>
+      <div class="pf-crosshair bottom-right">+</div>
+
+      <!-- Modal Header -->
+      <div class="pf-modal-header">
+        <div class="pf-header-top-meta">
+          <span class="pf-header-tag">EVENT SCHEDULE // ONE DAY RUNNING ORDER</span>
+          <span class="pf-header-badge">OCTOBER 7, 2026 · 09:30 AM – 05:30 PM</span>
+        </div>
+        <h2 id="pfModalTitle" class="pf-modal-title">Program Flow &amp; Running Order</h2>
+        <p class="pf-modal-desc">
+          Biñan People's Center Auditorium · Laguna — Explore the complete schedule across keynotes, hands-on tracks, Women in Tech spotlights, and community panels.
+        </p>
+
+        <!-- Block Filter Tabs -->
+        <div class="pf-filter-bar" role="tablist" aria-label="Filter schedule by block">
+          <button type="button" class="pf-filter-btn active" data-filter="all" role="tab" aria-selected="true">
+            <span class="pf-filter-dot"></span> All Sessions <span class="pf-count">(12)</span>
+          </button>
+          <button type="button" class="pf-filter-btn" data-filter="morning" role="tab" aria-selected="false">
+            <span class="pf-filter-dot dot-orange"></span> Block 01 // Morning <span class="pf-count">(5)</span>
+          </button>
+          <button type="button" class="pf-filter-btn" data-filter="afternoon" role="tab" aria-selected="false">
+            <span class="pf-filter-dot dot-purple"></span> Block 02 // Afternoon <span class="pf-count">(7)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Cards dynamically rendered by scheduleUI.js) -->
+      <div class="pf-modal-body" id="pfModalBody"></div>
+
+      <!-- Modal Footer -->
+      <div class="pf-modal-footer">
+        <span class="pf-modal-note">* Schedule timing subject to slight adjustments on event day. Tap any speaker chip to view their profile.</span>
+        <button type="button" class="btn btn-secondary pf-btn-done" id="pfBtnDone">Back to Blueprint &rarr;</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer" id="siteFooter">
     <div class="wrap">
@@ -1104,8 +1173,9 @@
         <div class="foot-col">
           <h6 class="foot-header">Event</h6>
           <nav class="foot-nav-links" aria-label="Event navigation">
-            <a href="#program" class="foot-nav-item">Schedule</a>
-            <a href="#venue" class="foot-nav-item">Venues</a>
+            <a href="#program" class="foot-nav-item" data-section="program">Schedule</a>
+            <a href="#sponsors" class="foot-nav-item" data-section="sponsors">Sponsors</a>
+            <a href="#venue" class="foot-nav-item" data-section="venue">Venue</a>
             <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item">Register</a>
           </nav>
         </div>

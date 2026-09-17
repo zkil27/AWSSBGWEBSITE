@@ -189,8 +189,8 @@ By the end of the summit, participants are expected to:
 | **`Creatives Assoc. Dir`** | `Alyssa Marie T. Valera` |
 | **`Marketing Director`** | `Jana Lumbreras` |
 | **`Marketing Assoc. Dir`** | `Beatrice Blando` |
-| **`Technology Director`** | `Elijah Job Tamayo` |
-| **`Technology Assoc. Dir`** | `Franz Anthony Navarro` |
+| **`Technology Director`** | `Elijah Tamayo` |
+| **`Technology Assoc. Dir`** | `Anthony Navarro` |
 
 #  **`COMMITTEE ROLES AND RESPONSIBILITIES`**
 
@@ -208,7 +208,7 @@ By the end of the summit, participants are expected to:
 | `Role` | `Responsibilities` |
 | ----- | ----- |
 | `Executive Department` | `Provides overall leadership for the summit, removing blockers and enforcing the master timeline without micromanaging other departments. Manages high-level university/government coordination (permits, memorandums) and serves as the final decision-maker during execution.` |
-| `Operations Department` | `Handles the event's logistical backbone — venue setup, materials, and technical requirements. Manages registration desks and check-in, ushers attendees, oversees security and safety, and provides on-site AV and technical support.` |
+| `Operations Department` | `Handles the event's logistical backbone — venue setup, materials, and technical requirements. Manages registration desks and check-in, ushers attendees, oversees security and safety, and provides on-site AV/technical and workshop support.` |
 | `Relations Department` | `Manages internal and external communication and partnerships. Handles guest/speaker logistics, builds sponsor and organizational partnerships, upholds the event's public image, and coordinates cross-department communication and documentation.` |
 | `Multimedia Department` | `Owns the event's branding, content creation, and promotions. Designs visual materials, captures and edits event photos/videos, and manages the content calendar, social media platforms, and audience engagement across Facebook, TikTok, and Instagram.` |
 | `Finance Department` | `Manages budgeting, fund-sourcing, and sponsorship packages. Handles procurement of merchandise and supplies, ensures financial transparency through audits, and processes post-event liquidation and inventory tracking.` |
@@ -912,7 +912,7 @@ Joining the core team goes beyond just fulfilling responsibilities—it is an op
 * **Networking Opportunities:** Build meaningful connections with fellow leaders, industry professionals, and student innovators across different organizations.  
 * **Exposure to AWS & Partners:** Gain insights and opportunities through collaborations with AWS, partnered organizations, and sponsors.  
 * **Professional Growth:** Enhance your leadership, communication, and project management skills through hands-on experiences.  
-* **Exclusive Access:** Be at the forefront of AWS-related initiatives and events in collaboration with industry leaders.  
+* **Exclusive Access:** Be at the forefront of AWS-related initiatives, workshops, and events in collaboration with industry leaders.  
 * **Career Advantage:** Strengthen your resume with real-world experiences and industry-backed collaborations.  
 * **Certificate:** As a token of appreciation, volunteers will receive a certificate.
 
@@ -939,11 +939,12 @@ The Operations Department is the logistical backbone of the event. It handles ve
 
 > **Note:** Applicants for this department must reside near Laguna.
 
-* **Logistics Officer:** Coordinates the setup, breakdown, and physical arrangements of event spaces. Manages equipment placement, signage installation, crowd flow between venues, and ensures all materials are properly positioned throughout the conference venue.  
-* **Registration Officer:** Handles attendee check-in processes, manages registration desks, distributes event materials and badges, maintains accurate attendance records, and manages attendee queries during registration periods.  
-* **Usher:** Guides attendees throughout the venue, assists with seating arrangements, manages crowd movement between conference spaces, and provides directional support. Helps maintain organized transitions throughout the event.  
+* **Logistics Officer:** Coordinates the setup, breakdown, and physical arrangements of event spaces. Manages equipment placement, signage installation, crowd flow between venues, and ensures all materials are properly positioned throughout the conference and workshop areas.  
+* **Registration Officer:** Handles attendee check-in processes, manages registration desks, distributes event materials and badges, and maintains accurate attendance records. Assists with workshop sign-ups and manages attendee queries during registration periods.  
+* **Usher:** Guides attendees throughout the venue, assists with seating arrangements, manages crowd movement between main conference and workshop sessions, and provides directional support. Helps maintain organized transitions during breakout sessions.  
 * **Security and Safety Officer:** Ensures venue security and emergency preparedness protocols are followed. Monitors access points, manages crowd safety during high-traffic periods, responds to incidents, and coordinates with venue security for overall event safety.  
-* **Technical Officer:** Provides hands-on technical support for audio-visual equipment, troubleshoots technology issues during presentations, assists speakers with equipment setup, and ensures all technical systems function properly throughout the event.
+* **Technical Officer:** Provides hands-on technical support for audio-visual equipment, troubleshoots technology issues during presentations, assists speakers with equipment setup, and ensures all technical systems function properly throughout the event.  
+* **Workshop Assistant:** Supports AWS workshop instructors with hands-on technical assistance during lab sessions. Helps participants with coding challenges, troubleshoots individual technical issues, and ensures smooth workshop execution in computer lab environments.
 
 ### **3\. Relations Department**
 

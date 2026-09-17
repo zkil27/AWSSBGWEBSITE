@@ -29,15 +29,14 @@ export function setShaderScroll(progress) {
  */
 export function initBlueprintShader() {
   const container = document.querySelector('#agendaGrainient') || document.querySelector('.bp-shader-canvas');
-  if (!container) return null;
+  if (!container) return;
 
   if (grainientInstance) {
     grainientInstance.destroy();
     grainientInstance = null;
   }
 
-  // On low-spec mobile hardware, bypass heavy WebGL fragment shader compilation
-  // and use the instant, zero-cost CSS gradient mesh fallback.
+  // On low-spec devices or slow mobile connections, skip WebGL compilation and use CSS gradient
   if (isLowSpec()) {
     container.classList.add('bp-css-gradient');
     return null;
@@ -72,23 +71,24 @@ export function initBlueprintShader() {
     lightMode: false
   });
 
-  // Observe vertical scroll on mobile/stacked view to drive scroll progress (throttled via rAF)
+  // Observe vertical scroll on mobile/stacked view to drive scroll progress
   const section = document.getElementById('program');
   if (section) {
-    let scrollScheduled = false;
+    let ticking = false;
     window.addEventListener('scroll', () => {
       if (document.documentElement.classList.contains('bp-active')) return;
-      if (scrollScheduled) return;
-      scrollScheduled = true;
-      requestAnimationFrame(() => {
-        scrollScheduled = false;
-        const rect = section.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        if (total > 0) {
-          const progress = Math.max(0, Math.min(1, -rect.top / total));
-          setShaderScroll(progress);
-        }
-      });
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = section.getBoundingClientRect();
+          const total = rect.height - window.innerHeight;
+          if (total > 0) {
+            const progress = Math.max(0, Math.min(1, -rect.top / total));
+            setShaderScroll(progress);
+          }
+          ticking = false;
+        });
+      }
     }, { passive: true });
   }
 

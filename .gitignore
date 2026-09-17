@@ -32,3 +32,5 @@ pnpm-debug.log*
 tmp/
 temp/
 .gemini/
+assets/images/_originals/
+

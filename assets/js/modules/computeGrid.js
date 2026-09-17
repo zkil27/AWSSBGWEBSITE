@@ -141,8 +141,7 @@ function resize() {
   if (!canvas || !ctx) return;
   viewW = window.innerWidth;
   viewH = window.innerHeight;
-  const effectiveDprCap = isLowSpec() ? 1.0 : CFG.dprCap;
-  dpr = Math.min(window.devicePixelRatio || 1, effectiveDprCap);
+  dpr = Math.min(window.devicePixelRatio || 1, isLowSpec() ? 1 : CFG.dprCap);
   canvas.width = Math.round(viewW * dpr);
   canvas.height = Math.round(viewH * dpr);
   canvas.style.width = viewW + 'px';
@@ -406,12 +405,13 @@ function frame(ts) {
   // 2. Ambient Blocks (on top of everything so the cursor glow goes behind them)
   drawAmbientBlocks();
 
-  // On coarse pointer (mobile touch) or low-spec devices:
-  // Once the boot sweep finishes and lit cells have faded, stop the continuous 60fps loop!
-  // This completely eliminates continuous 60fps canvas repaints on mobile when idle.
-  if ((!hasHover || isLowSpec()) && elapsed > CFG.bootSweepMs + 400 && litCells.size === 0) {
-    stop();
-    return;
+  // If on low-spec device or touch without hover: once boot sweep finishes and lit cells decay,
+  // freeze into static state to eliminate continuous 60fps canvas drain.
+  if (isLowSpec() || !hasHover) {
+    if (elapsed > CFG.bootSweepMs + 400 && litCells.size === 0) {
+      stop();
+      return;
+    }
   }
 
   rafId = requestAnimationFrame(frame);
@@ -449,9 +449,11 @@ function syncRunState() {
   else stop();
 }
 
-/* Paint a single static frame of lit cells + ambient blocks without an animation loop */
+/* For reduced-motion or idle low-spec mobile: paint a single static frame of
+   the lit cells and ambient blocks without running an rAF loop. */
 function maybePaintStatic() {
   if (!ctx) return;
+  if (!reducedMotion && running) return;
   ctx.clearRect(0, 0, viewW, viewH);
   drawLitCells();
   drawAmbientBlocks();
@@ -478,7 +480,7 @@ function watchTheme() {
     for (const m of mutations) {
       if (m.attributeName === 'data-theme') {
         refreshColors();
-        if (!running) maybePaintStatic();
+        maybePaintStatic();
         break;
       }
     }
@@ -508,6 +510,19 @@ export function initComputeGrid() {
   window.addEventListener('resize', () => {
     resize();
     maybePaintStatic();
+  }, { passive: true });
+
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!running && (isLowSpec() || !hasHover) && ctx) {
+      if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          maybePaintStatic();
+          scrollTicking = false;
+        });
+      }
+    }
   }, { passive: true });
 
   // Pointer reactivity (skipped on coarse pointers via the guard inside).

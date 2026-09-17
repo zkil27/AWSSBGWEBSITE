@@ -71,7 +71,7 @@ export const sponsors = [
   // ==========================================
   {
     id: 'partner-pro-alpha',
-    name: 'AWS Student Body Group - Alpha',
+    name: 'AWS Student Builder Group - Alpha',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'AWS Student Community',
@@ -83,19 +83,19 @@ export const sponsors = [
   },
   {
     id: 'partner-pro-colegio-de-abogados',
-    name: 'AWS Student Body Group - Colegio de Abogados',
+    name: 'AWS Cloud Club - Colegio de abogados',
     tier: 'pro',
     role: 'Pro Partner',
-    institution: 'AWS Student Community',
+    institution: 'Colegio de Abogados',
     location: 'Philippines',
-    track: 'Student Builder Community',
+    track: 'Student Cloud Community',
     color: 'teal',
     imgUrl: null,
     url: '#'
   },
   {
     id: 'partner-pro-colegio-de-muntinlupa',
-    name: 'AWS Student Body Group - Colegio de Muntinlupa',
+    name: 'AWS Student Builder Group - Colegio de Muntinlupa',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'Colegio de Muntinlupa',
@@ -107,7 +107,7 @@ export const sponsors = [
   },
   {
     id: 'partner-pro-tempest',
-    name: 'AWS Student Body Group - Tempest',
+    name: 'AWS Student Builder Group - Tempest',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'AWS Student Community',
@@ -119,7 +119,7 @@ export const sponsors = [
   },
   {
     id: 'partner-pro-nu-dasmarinas',
-    name: 'AWS Student Learning Club - NU Dasmariñas',
+    name: 'Amazon Web Services Learning Club - NU Dasmariñas',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'National University Dasmariñas',
@@ -177,13 +177,25 @@ export const sponsors = [
     imgUrl: null,
     url: '#'
   },
+  {
+    id: 'partner-pro-devcon-laguna',
+    name: 'DEVCON Laguna Chapter',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'Developer Connect Philippines',
+    location: 'Laguna Chapter',
+    track: 'Developer Ecosystem & Community',
+    color: 'blue',
+    imgUrl: null,
+    url: 'https://devcon.ph'
+  },
 
   // ==========================================
   // 04 // LITE PARTNERSHIP (Student Organizations)
   // ==========================================
   {
     id: 'partner-lite-accss-1',
-    name: 'Association of Committed Computer Science Students',
+    name: 'ACCESS - Association of Committed Computer Science Students',
     tier: 'lite',
     role: 'Lite Partner',
     institution: 'Student Organization',
@@ -193,7 +205,7 @@ export const sponsors = [
   },
   {
     id: 'partner-lite-acss-2',
-    name: 'Association of Computer Science Students',
+    name: 'Association of Computer Science Students (ACSS)',
     tier: 'lite',
     role: 'Lite Partner',
     institution: 'Student Organization',
@@ -203,7 +215,7 @@ export const sponsors = [
   },
   {
     id: 'partner-lite-bulsu',
-    name: 'AWS Student Body Group - BULSU',
+    name: 'AWS Student Builder Group - BULSU',
     tier: 'lite',
     role: 'Lite Partner',
     institution: 'Bulacan State University',
@@ -213,7 +225,7 @@ export const sponsors = [
   },
   {
     id: 'partner-lite-beradove',
-    name: 'AWS Student Body Group - Beradove',
+    name: 'AWS Student Builder Group Beredove',
     tier: 'lite',
     role: 'Lite Partner',
     institution: 'Student Builder Community',
@@ -239,6 +251,16 @@ export const sponsors = [
     institution: 'Saint Louis University',
     location: 'Baguio City',
     color: 'pink',
+    imgUrl: null
+  },
+  {
+    id: 'partner-lite-up-mindanao',
+    name: 'AWS Student Builder Group – UP Mindanao',
+    tier: 'lite',
+    role: 'Lite Partner',
+    institution: 'University of the Philippines Mindanao',
+    location: 'Davao City, Mindanao',
+    color: 'teal',
     imgUrl: null
   }
 ];

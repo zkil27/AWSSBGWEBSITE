@@ -123,7 +123,7 @@ interface Speaker {
   role: string;           // Title and affiliation (e.g., 'Solutions Architect · AWS')
   sessionTitle: string;   // Presentation title
   abstract: string;       // Detailed session summary
-  status: 'CONFIRMED' | 'TBA' | 'KEYNOTE' | 'PANEL'; // Dictates badge visual style
+  status: 'CONFIRMED' | 'TBA' | 'KEYNOTE' | 'WORKSHOP'; // Dictates badge visual style
   picUrl: string;         // Relative image path
 }
 ```

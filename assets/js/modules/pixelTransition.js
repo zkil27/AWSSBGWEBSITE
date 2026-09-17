@@ -272,7 +272,7 @@ export async function initSplashPixelTransition(options = {}) {
     }
     isDismissing = true;
 
-    // Accessibility & Performance: immediate dismissal if reduced-motion or low-spec hardware
+    // Immediate dismissal if reduced-motion preferred or low-spec device
     if (isReduced || isLowSpec()) {
       finishDismissal();
       return;

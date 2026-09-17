@@ -4,6 +4,7 @@
  * Option 3: Hero Showcase (Spotlight Keystone Cards) + Infinite Marquee Stream
  */
 import { sponsors } from '../data/sponsors.js';
+import { isLowSpec } from './perfManager.js';
 
 function escapeHTML(value) {
   return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({
@@ -67,9 +68,11 @@ function renderMarqueeChip(partner) {
   const name = escapeHTML(partner.name || '');
   const color = partner.color || 'blue';
   const logoSrc = escapeHTML(partner.imgUrl || 'assets/images/south-summit-logo.svg');
+  const tier = partner.tier || 'pro';
+  const tierLabel = tier === 'pro' ? 'PRO' : 'LITE';
 
   return `
-    <div class="marquee-chip chip-${color}" tabindex="0" role="listitem">
+    <div class="marquee-chip chip-${color} marquee-chip--${tier}" tabindex="0" role="listitem">
       <div class="marquee-chip-logo-wrap">
         <img class="marquee-chip-logo"
              src="${logoSrc}"
@@ -83,10 +86,12 @@ function renderMarqueeChip(partner) {
       <div class="marquee-chip-meta">
         <span class="marquee-chip-name">${name}</span>
       </div>
+      <span class="marquee-chip-badge marquee-chip-badge--${tier}">${tierLabel}</span>
     </div>`;
 }
 
 function initSpotlightEffect() {
+  if (isLowSpec() || window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
   const cards = document.querySelectorAll('.sponsors-hero-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -113,13 +118,27 @@ function wireLogoFallbacks(container) {
   });
 }
 
+/**
+ * Builds seamless duplicate marquee HTML ensuring enough items to fill ultra-wide viewports
+ */
+function buildMarqueeLoopHTML(list, minCount = 10) {
+  if (!list || list.length === 0) return '';
+  let items = [...list];
+  while (items.length < minCount) {
+    items = items.concat(list);
+  }
+  const chunk = items.map(renderMarqueeChip).join('');
+  return chunk + chunk;
+}
+
 export function initSponsors() {
   const heroGrid = document.getElementById('sponsorsHeroGrid');
   const track1 = document.getElementById('marqueeTrack1');
   const track2 = document.getElementById('marqueeTrack2');
 
   const headlineSponsors = sponsors.filter(s => s.tier === 'quantum' || s.tier === 'venue');
-  const networkPartners = sponsors.filter(s => s.tier === 'pro' || s.tier === 'lite');
+  const proPartners = sponsors.filter(s => s.tier === 'pro');
+  const litePartners = sponsors.filter(s => s.tier === 'lite');
 
   // 1. Render Hero Showcase Cards if container exists
   if (heroGrid && headlineSponsors.length > 0) {
@@ -128,20 +147,16 @@ export function initSponsors() {
     initSpotlightEffect();
   }
 
-  // 2. Populate and duplicate Marquee tracks for seamless loop
-  if (track1 && track2 && networkPartners.length > 0) {
-    const half = Math.ceil(networkPartners.length / 2);
-    const track1List = networkPartners.slice(0, half);
-    const track2List = networkPartners.slice(half);
-
-    // Render items and duplicate once to enable seamless 50% translation infinite loop
-    const track1HTML = track1List.map(renderMarqueeChip).join('');
-    const track2HTML = track2List.map(renderMarqueeChip).join('');
-
-    track1.innerHTML = track1HTML + track1HTML;
-    track2.innerHTML = track2HTML + track2HTML;
-
+  // 2. Populate and duplicate Marquee tracks by category
+  // Track 1: Pro Partners (Marquee Left)
+  if (track1 && proPartners.length > 0) {
+    track1.innerHTML = buildMarqueeLoopHTML(proPartners, 10);
     wireLogoFallbacks(track1);
+  }
+
+  // Track 2: Lite Partners (Marquee Right)
+  if (track2 && litePartners.length > 0) {
+    track2.innerHTML = buildMarqueeLoopHTML(litePartners, 10);
     wireLogoFallbacks(track2);
   }
 }

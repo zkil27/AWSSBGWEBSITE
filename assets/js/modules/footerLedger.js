@@ -96,8 +96,9 @@ function initBackToTop() {
 
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-            window.lenis.scrollTo(0);
+        const lenis = window.__lenis || window.lenis;
+        if (lenis && typeof lenis.scrollTo === 'function') {
+            lenis.scrollTo(0, { duration: 1.1 });
         } else {
             window.scrollTo({
                 top: 0,

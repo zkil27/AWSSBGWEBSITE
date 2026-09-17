@@ -215,10 +215,15 @@ export function closeSpeakerModal(options = {}) {
             if (elements.length) window.gsap.set(elements, { clearProps: 'all' });
         }
 
-        document.documentElement.classList.remove('modal-scroll-lock');
-        const lenis = getLenis();
-        if (lenis && typeof lenis.start === 'function') {
-            lenis.start();
+        const scheduleModal = document.getElementById('programFlowModal');
+        const isScheduleOpen = scheduleModal && scheduleModal.classList.contains('open');
+
+        if (!isScheduleOpen) {
+            document.documentElement.classList.remove('modal-scroll-lock');
+            const lenis = getLenis();
+            if (lenis && typeof lenis.start === 'function') {
+                lenis.start();
+            }
         }
     };
 
@@ -852,7 +857,7 @@ export function initSpeakers() {
         const avatar = speaker.picUrl || FALLBACK_AVATAR;
         return `
         <div class="speaker-inline-card ${color}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}">
-          <img src="${avatar}" alt="${name}" class="speaker-inline-avatar${isComingSoon ? ' is-silhouette' : ''}">
+          <img src="${avatar}" alt="${name}" class="speaker-inline-avatar${isComingSoon ? ' is-silhouette' : ''}" width="24" height="24" loading="lazy" decoding="async">
           <span class="speaker-inline-name">${name}</span>
         </div>
         `;

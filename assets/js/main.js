@@ -26,7 +26,7 @@ import { initSplitText } from './modules/splitText.js';
 import { initPixelTransition, initSplashPixelTransition } from './modules/pixelTransition.js';
 import { initFooterLedger } from './modules/footerLedger.js';
 
-// Initialize performance manager immediately
+// Detect hardware & network constraints immediately
 initPerfManager();
 
 // Arm splash transition immediately so early clicks/timers are captured

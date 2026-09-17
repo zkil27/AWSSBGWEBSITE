@@ -11,7 +11,7 @@ function chapterCardHTML(c) {
     const social = (url, label, icon) => {
         const live = url && url !== '#';
         return live
-            ? `<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${label}">
+            ? `<a href="${url}" target="_blank" rel="noopener" aria-label="${label}">
           <svg width="14" height="14"><use href="#${icon}"></use></svg>
         </a>`
             : `<span class="chapter-social-soon" aria-label="${label} — coming soon">
@@ -32,7 +32,6 @@ function chapterCardHTML(c) {
       </div>
       <div class="chapter-socials">
         ${social(c.facebookUrl, `${name} Facebook`, 'fb-icon')}
-        ${social(c.linkedInUrl, `${name} LinkedIn`, 'li-icon')}
       </div>
     </div>
   `;

@@ -105,13 +105,15 @@ export function setMerchFocus(index) {
 }
 
 export function initMerch() {
-    window.clearMerchFocus = clearMerchFocus;
-
     merchExplorer = document.getElementById('merchExplorer');
     merchRail = document.getElementById('merchRail');
     merchSpotlight = document.getElementById('merchSpotlight');
 
     if (!merchRail) return;
+
+    merchRail.innerHTML = merchItems.map((m, i) => merchCardHTML(m, i)).join('');
+
+    window.clearMerchFocus = clearMerchFocus;
 
     merchRail.addEventListener('click', (e) => {
         const card = e.target.closest('.merch-card');
