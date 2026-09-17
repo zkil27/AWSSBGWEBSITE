@@ -382,20 +382,19 @@ export function initSpeakers() {
             const linkedin = s.linkedInUrl
                 || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
 
-            // Harmonious heights calibrated for balanced 3-column greedy packing
-            // Col 0: Asi (480) + Panel TBA 1 (360) = 840px
-            // Col 1: Trisha (460) + Gaile (380) = 840px
-            // Col 2: Keynote TBA (340) + Jared (300) + Panel TBA 2 (200) = 840px
+            // Harmonious heights calibrated for balanced 3-column greedy packing (6 speakers)
+            // Col 0: Asi (460) + Karenina (380) = 840px
+            // Col 1: Trisha (440) + Gaile (400) = 840px
+            // Col 2: Kevin (420) + Jared (420) = 840px
             let targetH = 360;
-            if (s.id === 'speaker-isaeus-asi-guiang') targetH = 480;
-            else if (s.id === 'speaker-trisha-pelagio') targetH = 460;
-            else if (s.id === 'speaker-gaile-espinosa') targetH = 380;
-            else if (s.id === 'speaker-jared-remulta') targetH = 300;
-            else if (s.id === 'speaker-kevin-john-ventura' || s.id === 'speaker-talk3-tba') targetH = 340;
-            else if (s.id === 'speaker-karenina-comia' || s.id === 'speaker-panel-tba-1') targetH = 360;
-            else if (s.id === 'speaker-panel-tba-2') targetH = 200;
+            if (s.id === 'speaker-isaeus-asi-guiang') targetH = 460;
+            else if (s.id === 'speaker-trisha-pelagio') targetH = 440;
+            else if (s.id === 'speaker-gaile-espinosa') targetH = 400;
+            else if (s.id === 'speaker-jared-remulta') targetH = 420;
+            else if (s.id === 'speaker-kevin-john-ventura' || s.id === 'speaker-talk3-tba') targetH = 420;
+            else if (s.id === 'speaker-karenina-comia' || s.id === 'speaker-panel-tba-1') targetH = 380;
             else if (isKeynote) targetH = 440;
-            else targetH = 320;
+            else targetH = 360;
 
             return {
                 id: s.id || `speaker-${s.originalIndex ?? index}`,

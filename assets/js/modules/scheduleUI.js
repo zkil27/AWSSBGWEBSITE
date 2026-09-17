@@ -142,7 +142,7 @@ export const scheduleSessions = [
     title: 'Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech',
     location: 'Main Auditorium · 4th Floor',
     description: 'Flagship panel featuring AWS Community Leaders, former Student Builder Group Captains, and student tech officers on community leadership and tech career acceleration. Includes 30-minute panel (4:00 PM – 4:30 PM) and 10-minute live Q&A (4:30 PM – 4:40 PM).',
-    speakerIndices: [3, 4, 5, 6]
+    speakerIndices: [3, 4, 5]
   },
   {
     id: 'session-raffle',

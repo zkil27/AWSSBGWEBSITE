@@ -68,16 +68,5 @@ export const speakers = [
     "picUrl": "assets/images/speakers/karenina-comia.webp",
     "linkedInUrl": "",
     "isComingSoon": false
-  },
-  {
-    "id": "speaker-panel-tba-2",
-    "name": "Coming Soon",
-    "role": "",
-    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Official speaker announcement coming soon.",
-    "status": "PANEL",
-    "picUrl": "assets/images/speakers/silhouette.svg",
-    "linkedInUrl": "",
-    "isComingSoon": true
   }
 ];
