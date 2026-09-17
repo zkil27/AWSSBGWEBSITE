@@ -24,6 +24,8 @@
  * scroll position, across the full length of every page.
  */
 
+import { isLowSpec } from './perfManager.js';
+
 /* ============================ Tuning constants ============================ */
 const CFG = {
   fallbackGridSize: 52,       // matches --grid-size in theme.css
@@ -139,7 +141,8 @@ function resize() {
   if (!canvas || !ctx) return;
   viewW = window.innerWidth;
   viewH = window.innerHeight;
-  dpr = Math.min(window.devicePixelRatio || 1, CFG.dprCap);
+  const effectiveDprCap = isLowSpec() ? 1.0 : CFG.dprCap;
+  dpr = Math.min(window.devicePixelRatio || 1, effectiveDprCap);
   canvas.width = Math.round(viewW * dpr);
   canvas.height = Math.round(viewH * dpr);
   canvas.style.width = viewW + 'px';
@@ -403,6 +406,14 @@ function frame(ts) {
   // 2. Ambient Blocks (on top of everything so the cursor glow goes behind them)
   drawAmbientBlocks();
 
+  // On coarse pointer (mobile touch) or low-spec devices:
+  // Once the boot sweep finishes and lit cells have faded, stop the continuous 60fps loop!
+  // This completely eliminates continuous 60fps canvas repaints on mobile when idle.
+  if ((!hasHover || isLowSpec()) && elapsed > CFG.bootSweepMs + 400 && litCells.size === 0) {
+    stop();
+    return;
+  }
+
   rafId = requestAnimationFrame(frame);
 }
 
@@ -418,6 +429,7 @@ function start() {
   if (reducedMotion) {
     // Minimal static state: one clear, no loop. (Cursor glow still works via
     // the pointermove handler painting a single frame; see maybePaintStatic.)
+    maybePaintStatic();
     return;
   }
   running = true;
@@ -437,12 +449,12 @@ function syncRunState() {
   else stop();
 }
 
-/* For reduced-motion: paint a single static frame of just the lit cells
-   (driven by the cursor) without any animation loop. */
+/* Paint a single static frame of lit cells + ambient blocks without an animation loop */
 function maybePaintStatic() {
-  if (!reducedMotion || !ctx) return;
+  if (!ctx) return;
   ctx.clearRect(0, 0, viewW, viewH);
   drawLitCells();
+  drawAmbientBlocks();
 }
 
 /* ============================== Setup =================================== */
@@ -466,6 +478,7 @@ function watchTheme() {
     for (const m of mutations) {
       if (m.attributeName === 'data-theme') {
         refreshColors();
+        if (!running) maybePaintStatic();
         break;
       }
     }

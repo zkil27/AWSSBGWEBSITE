@@ -6,6 +6,8 @@
  * Provides both standalone interactive card support and full-screen splash transition.
  */
 
+import { isLowSpec } from './perfManager.js';
+
 const GSAP_CDN = 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 
 let gsap = window.gsap || null;
@@ -270,8 +272,8 @@ export async function initSplashPixelTransition(options = {}) {
     }
     isDismissing = true;
 
-    // Accessibility: immediate dismissal if reduced-motion preferred
-    if (isReduced) {
+    // Accessibility & Performance: immediate dismissal if reduced-motion or low-spec hardware
+    if (isReduced || isLowSpec()) {
       finishDismissal();
       return;
     }

@@ -19,7 +19,7 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/AWSSBGPCUCavite',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWS SBG - PCU Cavite.png'
+    imgUrl: 'assets/images/organizations/AWS SBG - PCU Cavite.webp'
   },
   {
     name: 'AWS SBG – Mapúa Malayan Digital College',
@@ -27,7 +27,7 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/aws.sbg.mmdc',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWS SBG - MMDC.png'
+    imgUrl: 'assets/images/organizations/AWS SBG - MMDC.webp'
   },
   {
     name: 'AWS SBG – University of Perpetual Help System Laguna – Biñan',
@@ -35,7 +35,7 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/awssbg',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWS SBG - UPHSL.png'
+    imgUrl: 'assets/images/organizations/AWS SBG - UPHSL.webp'
   },
   {
     name: 'AWS SBG – Cavite State University – Main',
@@ -43,7 +43,7 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/awsccspade',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWS SBG - Spade.png'
+    imgUrl: 'assets/images/organizations/AWS SBG - Spade.webp'
   },
   {
     name: 'AWS SBG – Pamantasan ng Cabuyao',
@@ -51,7 +51,7 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/awsccpnc',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWS SBG - UC.png'
+    imgUrl: 'assets/images/organizations/AWS SBG - UC.webp'
   },
   {
     name: 'AWS SBG – Polytechnic University of the Philippines – Biñan',
@@ -67,7 +67,7 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/profile.php?id=6158289347062',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWSLC - Polar.png'
+    imgUrl: 'assets/images/organizations/AWSLC - Polar.webp'
   },
   {
     name: 'AWS SBG – Aeris',
@@ -75,6 +75,6 @@ export const chapters = [
     facebookUrl: 'https://www.facebook.com/awssbg.aeris',
     linkedInUrl: '#',
     email: '',
-    imgUrl: 'assets/images/organizations/AWS SBG - Aeris.png'
+    imgUrl: 'assets/images/organizations/AWS SBG - Aeris.webp'
   }
 ];

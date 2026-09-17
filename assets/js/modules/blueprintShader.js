@@ -6,6 +6,7 @@
  */
 
 import { createGrainient } from './grainient.js';
+import { isLowSpec } from './perfManager.js';
 
 let grainientInstance = null;
 
@@ -28,11 +29,18 @@ export function setShaderScroll(progress) {
  */
 export function initBlueprintShader() {
   const container = document.querySelector('#agendaGrainient') || document.querySelector('.bp-shader-canvas');
-  if (!container) return;
+  if (!container) return null;
 
   if (grainientInstance) {
     grainientInstance.destroy();
     grainientInstance = null;
+  }
+
+  // On low-spec mobile hardware, bypass heavy WebGL fragment shader compilation
+  // and use the instant, zero-cost CSS gradient mesh fallback.
+  if (isLowSpec()) {
+    container.classList.add('bp-css-gradient');
+    return null;
   }
 
   // Exact React Bits Grainient configuration matching Summit Brand Palette:
@@ -64,17 +72,23 @@ export function initBlueprintShader() {
     lightMode: false
   });
 
-  // Observe vertical scroll on mobile/stacked view to drive scroll progress
+  // Observe vertical scroll on mobile/stacked view to drive scroll progress (throttled via rAF)
   const section = document.getElementById('program');
   if (section) {
+    let scrollScheduled = false;
     window.addEventListener('scroll', () => {
       if (document.documentElement.classList.contains('bp-active')) return;
-      const rect = section.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      if (total > 0) {
-        const progress = Math.max(0, Math.min(1, -rect.top / total));
-        setShaderScroll(progress);
-      }
+      if (scrollScheduled) return;
+      scrollScheduled = true;
+      requestAnimationFrame(() => {
+        scrollScheduled = false;
+        const rect = section.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        if (total > 0) {
+          const progress = Math.max(0, Math.min(1, -rect.top / total));
+          setShaderScroll(progress);
+        }
+      });
     }, { passive: true });
   }
 

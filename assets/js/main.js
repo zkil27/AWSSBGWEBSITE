@@ -3,6 +3,7 @@
  * Main Application Entry Point
  */
 
+import { initPerfManager } from './modules/perfManager.js';
 import { initTheme } from './modules/theme.js';
 import { initRouter } from './modules/routing.js';
 import { initStaggeredMenu } from './modules/staggeredMenu.js';
@@ -24,6 +25,9 @@ import { initStackedCards } from './modules/stackedCards.js';
 import { initSplitText } from './modules/splitText.js';
 import { initPixelTransition, initSplashPixelTransition } from './modules/pixelTransition.js';
 import { initFooterLedger } from './modules/footerLedger.js';
+
+// Initialize performance manager immediately
+initPerfManager();
 
 // Arm splash transition immediately so early clicks/timers are captured
 initSplashPixelTransition();

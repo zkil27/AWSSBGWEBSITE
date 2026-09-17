@@ -4,6 +4,8 @@
  * Splits text into lines and orchestrates scroll-triggered GSAP entrance animations.
  */
 
+import { isLowSpec } from './perfManager.js';
+
 const GSAP_CDN = 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 const SCROLL_TRIGGER_CDN = 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
 
@@ -405,7 +407,7 @@ function wrapShowPage() {
  */
 export async function initSplitText(config = {}) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reducedMotion) {
+  if (reducedMotion || isLowSpec()) {
     return;
   }
 

@@ -22,18 +22,27 @@ function renderHeroCard(s) {
           <img class="hero-logo hero-logo--theme-light"
                src="${logoSrc}"
                alt="${name}"
+               width="220"
+               height="90"
                loading="lazy"
+               decoding="async"
                onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
           <img class="hero-logo hero-logo--theme-dark"
                src="${darkLogoSrc}"
                alt="${name}"
+               width="220"
+               height="90"
                loading="lazy"
+               decoding="async"
                onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
   ` : `
           <img class="hero-logo"
                src="${logoSrc}"
                alt="${name}"
+               width="220"
+               height="90"
                loading="lazy"
+               decoding="async"
                onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
   `;
 
@@ -65,7 +74,10 @@ function renderMarqueeChip(partner) {
         <img class="marquee-chip-logo"
              src="${logoSrc}"
              alt="${name}"
+             width="28"
+             height="28"
              loading="lazy"
+             decoding="async"
              onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
       </div>
       <div class="marquee-chip-meta">

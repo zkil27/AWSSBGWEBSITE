@@ -57,7 +57,7 @@ Open `assets/js/data/speakers.js` and edit or append a speaker object:
   role: 'Solutions Architect · AWS',
   sessionTitle: 'Deploying Generative AI at Scale with AWS Bedrock',
   abstract: 'An overview of foundation models and serverless architectures on AWS.',
-  status: 'CONFIRMED', // or 'TBA', 'KEYNOTE', 'WORKSHOP'
+  status: 'CONFIRMED', // or 'TBA', 'KEYNOTE', 'PANEL'
   picUrl: 'assets/images/speakers/jane-doe.png'
 }
 ```

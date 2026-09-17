@@ -35,7 +35,7 @@ export const sponsors = [
     tier: 'quantum',
     role: 'Quantum Sponsor & Official Cloud Learning Partner',
     description: 'Industry-leading cloud learning and certification platform empowering student builders with practical AWS architectural insights, practice exams, and career pathways.',
-    imgUrl: 'assets/images/sponsors and partners/tutorialsdojo_transparent_background.png',
+    imgUrl: 'assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp',
     featured: true,
     location: 'Philippines / Global',
     color: 'blue',

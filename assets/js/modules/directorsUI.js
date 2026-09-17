@@ -32,7 +32,7 @@ function directorCardHTML(d) {
   const roleType = isAssoc ? 'ASSOCIATE' : isSecretary ? 'SECRETARY' : 'DIRECTOR';
 
   const avatarMarkup = d.avatar
-    ? `<img class="director-avatar-img" src="${d.avatar}" alt="${d.name}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">
+    ? `<img class="director-avatar-img" src="${d.avatar}" alt="${d.name}" width="50" height="50" loading="lazy" decoding="async" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">
        <div class="director-monogram" aria-hidden="true" style="display:none; --dept-accent: var(${d.accentColor || '--blue'});">
          <span class="monogram-text">${initials}</span>
        </div>`

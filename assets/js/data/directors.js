@@ -22,7 +22,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Overall summit direction, master timeline orchestration, institutional permits, and inter-departmental governance.',
-    avatar: 'assets/images/directors/Event Director - John Lexter Reyes.jpg',
+    avatar: 'assets/images/directors/Event Director - John Lexter Reyes.webp',
     accentColor: '--orange'
   },
   {
@@ -32,7 +32,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Cross-functional operations oversight, department KPI alignment, risk management, and ground execution management.',
-    avatar: 'assets/images/directors/Event Associate Director \u2013 Helena Tantoco.jpg',
+    avatar: 'assets/images/directors/Event Associate Director - Helena Tantoco.webp',
     accentColor: '--orange'
   },
   {
@@ -42,7 +42,7 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Executive correspondence, official summit documentation, inter-chapter minutes, and administrative compliance.',
-    avatar: 'assets/images/directors/Executive Secretary - Althea Kim Peria.jpg',
+    avatar: 'assets/images/directors/Executive Secretary - Althea Kim Peria.webp',
     accentColor: '--orange'
   },
   {
@@ -52,7 +52,11 @@ export const directors = [
     department: 'Executive',
     deptTag: 'EXEC',
     focus: 'Administrative management, records upkeep, volunteer roster collation, and communications tracking.',
+<<<<<<< Updated upstream
     avatar: null,
+=======
+    avatar: 'assets/images/directors/Executive Secretary - Renae Chloe O. Bautista.webp',
+>>>>>>> Stashed changes
     accentColor: '--orange'
   },
   {
@@ -62,7 +66,7 @@ export const directors = [
     department: 'Technology',
     deptTag: 'TECH',
     focus: 'Summit digital infrastructure, official web platform engineering, interactive attendee tools, and technical delivery.',
-    avatar: 'assets/images/directors/Technology Director - Elijah Job R. Tamayo.jpeg',
+    avatar: 'assets/images/directors/Technology Director - Elijah Job R. Tamayo.webp',
     accentColor: '--blue'
   },
   {
@@ -72,7 +76,7 @@ export const directors = [
     department: 'Technology',
     deptTag: 'TECH',
     focus: 'Front-end web implementations, modular architecture maintenance, digital asset optimization, and live technical ops.',
-    avatar: 'assets/images/directors/Technology Assoc. Director - Franz Anthony Navarro .jfif',
+    avatar: 'assets/images/directors/Technology Assoc. Director - Franz Anthony Navarro .webp',
     accentColor: '--blue'
   },
   {
@@ -82,7 +86,7 @@ export const directors = [
     department: 'Creatives',
     deptTag: 'CREA',
     focus: 'Visual identity direction, Cyber-Grid aesthetic design systems, multimedia assets, stage graphics, and branding.',
-    avatar: 'assets/images/directors/Creatives Director - Maja Samaniego.png',
+    avatar: 'assets/images/directors/Creatives Director - Maja Samaniego.webp',
     accentColor: '--pink'
   },
   {
@@ -102,7 +106,7 @@ export const directors = [
     department: 'Operations',
     deptTag: 'OPS',
     focus: 'Physical event logistics, Biñan People Center venue staging, technical AV setups, safety, and attendee ingress.',
-    avatar: 'assets/images/directors/Operations Director - Sebastian Rafael Belando_.jpg',
+    avatar: 'assets/images/directors/Operations Director - Sebastian Rafael Belando_.webp',
     accentColor: '--green'
   },
   {
@@ -112,7 +116,7 @@ export const directors = [
     department: 'Operations',
     deptTag: 'OPS',
     focus: 'Floor flow management, registration check-in logistics, marshaling coordination, and technical AV backup.',
-    avatar: 'assets/images/directors/Operations Associate Director - Rain Jade C. De Castro.png',
+    avatar: 'assets/images/directors/Operations Associate Director - Rain Jade C. De Castro.webp',
     accentColor: '--green'
   },
   {
@@ -122,7 +126,7 @@ export const directors = [
     department: 'Marketing',
     deptTag: 'MKTG',
     focus: 'Audience growth across CALABARZON, public relations outreach, social media campaigns, and registration marketing.',
-    avatar: 'assets/images/directors/Marketing Director - Jana Lei Lumbreras.jpg',
+    avatar: 'assets/images/directors/Marketing Director - Jana Lei Lumbreras.webp',
     accentColor: '--purple'
   },
   {
@@ -132,7 +136,7 @@ export const directors = [
     department: 'Marketing',
     deptTag: 'MKTG',
     focus: 'Multi-platform content scheduling, student community engagement, attendee interaction, and promotional copy.',
-    avatar: 'assets/images/directors/Marketing Associate Director - Beatrice Danica Blando.jpg',
+    avatar: 'assets/images/directors/Marketing Associate Director - Beatrice Danica Blando.webp',
     accentColor: '--purple'
   },
   {
@@ -142,7 +146,7 @@ export const directors = [
     department: 'Relations',
     deptTag: 'RELS',
     focus: 'Strategic industry partnerships, sponsor package management, VIP speaker hospitality, and institutional linkages.',
-    avatar: 'assets/images/directors/Relations Director - Queency Zyrel Santos_.png',
+    avatar: 'assets/images/directors/Relations Director - Queency Zyrel Santos_.webp',
     accentColor: '--blue'
   },
   {
@@ -152,7 +156,7 @@ export const directors = [
     department: 'Relations',
     deptTag: 'RELS',
     focus: 'Sponsor deliverable fulfillment, partner liaison communications, and university community relations.',
-    avatar: 'assets/images/directors/Relations Associate Director - Patrick Dohn Joseph A. Lontok.jpeg',
+    avatar: 'assets/images/directors/Relations Associate Director - Patrick Dohn Joseph A. Lontok.webp',
     accentColor: '--blue'
   },
   {
@@ -162,7 +166,11 @@ export const directors = [
     department: 'Finance',
     deptTag: 'FIN',
     focus: 'Fiscal budgeting, sponsorship fund allocation, procurement audit trails, merchandise costing, and financial transparency.',
+<<<<<<< Updated upstream
     avatar: null,
+=======
+    avatar: 'assets/images/directors/Finance Director - John Cyphrey D. Madulid.webp',
+>>>>>>> Stashed changes
     accentColor: '--orange'
   },
   {
@@ -172,7 +180,7 @@ export const directors = [
     department: 'Finance',
     deptTag: 'FIN',
     focus: 'Purchase requests verification, expense reconciliation, receipts accounting, and post-summit liquidation.',
-    avatar: 'assets/images/directors/Finance Assoc. Director - Coleen Legaspi.jfif',
+    avatar: 'assets/images/directors/Finance Assoc. Director - Coleen Legaspi.webp',
     accentColor: '--orange'
   }
 ];

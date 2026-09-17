@@ -24,7 +24,7 @@ function chapterCardHTML(c) {
     return `
     <div class="chapter-card" data-no-split="true">
       <div class="mark">
-        <img class="chip" src="${logoSrc}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
+        <img class="chip" src="${logoSrc}" alt="${name}" width="48" height="48" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
       </div>
       <div class="chapter-card-info">
         <h5>${name}</h5>
