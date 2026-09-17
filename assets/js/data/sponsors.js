@@ -47,7 +47,27 @@ export const sponsors = [
   },
 
   // ==========================================
-  // 02 // VENUE PARTNER (Official Venue Host)
+  // 02 // CLUSTER TIER (Cluster Sponsor)
+  // ==========================================
+  {
+    id: 'sponsor-cluster-cloudsensei',
+    name: 'Cloud Sensei',
+    tier: 'cluster',
+    role: 'Cluster Sponsor',
+    description: 'Cloud training, architecture consultancy, and community enablement empowering builders to master Amazon Web Services and modern cloud engineering.',
+    imgUrl: 'assets/images/sponsors and partners/cloudsensei-light.webp',
+    imgDarkUrl: 'assets/images/sponsors and partners/cloudsensei-dark.webp',
+    featured: true,
+    location: 'Philippines',
+    color: 'teal',
+    url: '#',
+    meta: [
+      { label: 'Role', value: 'Cluster Sponsor' }
+    ]
+  },
+
+  // ==========================================
+  // 03 // VENUE PARTNER (Official Venue Host)
   // ==========================================
   {
     id: 'partner-venue-binan-lgu',
@@ -271,18 +291,23 @@ export const tierMeta = {
     name: 'Quantum',
     title: 'Quantum Sponsors'
   },
-  venue: {
+  cluster: {
     index: '02',
+    name: 'Cluster',
+    title: 'Cluster Sponsors'
+  },
+  venue: {
+    index: '03',
     name: 'Venue',
     title: 'Venue Partner'
   },
   pro: {
-    index: '03',
+    index: '04',
     name: 'Pro',
     title: 'Pro Partners'
   },
   lite: {
-    index: '04',
+    index: '05',
     name: 'Lite',
     title: 'Lite Partners'
   }

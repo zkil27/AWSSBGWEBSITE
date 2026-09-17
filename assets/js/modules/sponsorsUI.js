@@ -17,7 +17,9 @@ function renderHeroCard(s) {
   const color = s.color || 'purple';
   const logoSrc = escapeHTML(s.imgUrl || 'assets/images/south-summit-logo.svg');
   const darkLogoSrc = s.imgDarkUrl ? escapeHTML(s.imgDarkUrl) : null;
-  const tierTagLabel = s.tier === 'quantum' ? 'QUANTUM SPONSOR' : 'VENUE PARTNER';
+  const tierTagLabel = s.tier === 'quantum' 
+    ? 'QUANTUM SPONSOR' 
+    : (s.tier === 'cluster' ? 'CLUSTER SPONSOR' : 'VENUE PARTNER');
 
   const logoMarkup = darkLogoSrc ? `
           <img class="hero-logo hero-logo--theme-light"
@@ -48,7 +50,7 @@ function renderHeroCard(s) {
   `;
 
   return `
-    <article class="sponsors-hero-card color-${color}" data-card-color="${color}" data-reveal>
+    <article class="sponsors-hero-card color-${color}" data-card-color="${color}" aria-label="${name} - ${tierTagLabel}" data-reveal>
       <div class="hero-card-spotlight" aria-hidden="true"></div>
       <div class="hero-card-top">
         <span class="hero-tier-tag ${s.tier}">${tierTagLabel}</span>
@@ -57,9 +59,6 @@ function renderHeroCard(s) {
         <div class="hero-logo-frame ${s.tier === 'venue' ? 'emblem' : ''}">
 ${logoMarkup}
         </div>
-      </div>
-      <div class="hero-card-body">
-        <h3 class="hero-card-title">${name}</h3>
       </div>
     </article>`;
 }
@@ -136,7 +135,7 @@ export function initSponsors() {
   const track1 = document.getElementById('marqueeTrack1');
   const track2 = document.getElementById('marqueeTrack2');
 
-  const headlineSponsors = sponsors.filter(s => s.tier === 'quantum' || s.tier === 'venue');
+  const headlineSponsors = sponsors.filter(s => s.tier === 'quantum' || s.tier === 'cluster' || s.tier === 'venue');
   const proPartners = sponsors.filter(s => s.tier === 'pro');
   const litePartners = sponsors.filter(s => s.tier === 'lite');
 
