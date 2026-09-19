@@ -4,6 +4,16 @@ All notable changes to the **AWS Student Community Day: South Summit 2026** webs
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) principles, and versioning follows [Semantic Versioning](https://semver.org/).
 
+## [1.9.0] - 2026-09-19
+
+### Changed — Mobile Typography Scaling
+
+- **Scaled down** display typography across mobile breakpoints, reducing the hero headline from `clamp(40px, 13vw, 60px)` down to `clamp(25px, 7.2vw, 32px)` on phones and `21px` on compact displays.
+- **Refined** section titles, subheadlines, paragraphs, and drop caps proportionally across `theme.css`, `styles.css`, and `staggeredMenu.css`.
+- **Adjusted** mobile menu drawer panel items and assistive navigation sizing for improved fit and hierarchy on handheld screens.
+
+---
+
 ## [1.8.0] - 2026-09-17
 
 ### Changed — Merchandise Drop Experience

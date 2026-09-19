@@ -647,4 +647,16 @@ html[data-theme="dark"] .theme-toggle-thumb {
   :root {
     --nav-h: 64px;
   }
+  body {
+    font-size: 15px;
+    line-height: 1.55;
+  }
 }
+
+@media (max-width: 380px) {
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
