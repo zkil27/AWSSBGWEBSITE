@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="dciGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07E383" />
+      <stop offset="50%" stop-color="#44B3FE" />
+      <stop offset="100%" stop-color="#A759FF" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141d30" />
+      <stop offset="100%" stop-color="#080e1a" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <path id="textArcTop" d="M 76 256 A 180 180 0 0 1 436 256" fill="none" />
+    <path id="textArcBottom" d="M 436 256 A 180 180 0 0 1 76 256" fill="none" />
+  </defs>
+
+  <!-- Outer Ring -->
+  <circle cx="256" cy="256" r="248" fill="url(#bgGrad)" stroke="url(#dciGrad)" stroke-width="8" />
+  <circle cx="256" cy="256" r="228" fill="none" stroke="#2a3b5c" stroke-width="2" stroke-dasharray="6 6" />
+
+  <!-- Circular Text Tracks -->
+  <text fill="#A0AEC0" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" letter-spacing="4.5">
+    <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">
+      CITY COLLEGE OF CALAMBA
+    </textPath>
+  </text>
+  <text fill="#07E383" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" letter-spacing="3.5">
+    <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">
+      DEPT. OF COMPUTING &amp; INFORMATICS
+    </textPath>
+  </text>
+
+  <!-- Inner Medallion Frame -->
+  <circle cx="256" cy="256" r="148" fill="#0c1322" stroke="url(#dciGrad)" stroke-width="3" />
+
+  <!-- Background Grid & Tech Elements -->
+  <g opacity="0.25" stroke="#44B3FE" stroke-width="1.5">
+    <line x1="160" y1="210" x2="352" y2="210" />
+    <line x1="160" y1="256" x2="352" y2="256" />
+    <line x1="160" y1="302" x2="352" y2="302" />
+    <line x1="210" y1="160" x2="210" y2="352" />
+    <line x1="256" y1="160" x2="256" y2="352" />
+    <line x1="302" y1="160" x2="302" y2="352" />
+  </g>
+
+  <!-- Central Circuit / Code Icon -->
+  <g transform="translate(256, 215) scale(0.9)">
+    <!-- Terminal / Chip Shape -->
+    <rect x="-64" y="-45" width="128" height="90" rx="14" fill="#142038" stroke="url(#dciGrad)" stroke-width="3.5" />
+    <!-- Code Brackets -->
+    <path d="M -38 -18 L -52 0 L -38 18" fill="none" stroke="#07E383" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 38 -18 L 52 0 L 38 18" fill="none" stroke="#44B3FE" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Slash -->
+    <line x1="8" y1="-22" x2="-8" y2="22" stroke="#FE57EA" stroke-width="4" stroke-linecap="round" />
+  </g>
+
+  <!-- Monogram DCI -->
+  <text x="256" y="305" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" letter-spacing="4" text-anchor="middle">
+    DCI
+  </text>
+  <text x="256" y="328" fill="#44B3FE" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="3" text-anchor="middle">
+    CCC &middot; EST. 2006
+  </text>
+
+  <!-- Accent Corner Nodes -->
+  <circle cx="108" cy="256" r="5" fill="#07E383" />
+  <circle cx="404" cy="256" r="5" fill="#07E383" />
+</svg>

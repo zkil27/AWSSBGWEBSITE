@@ -23,15 +23,17 @@ function chapterCardHTML(c) {
 
     return `
     <div class="chapter-card" data-no-split="true">
-      <div class="mark">
-        <img class="chip" src="${logoSrc}" alt="${name}" width="48" height="48" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
+      <div class="chapter-card-banner">
+        <img class="chapter-banner-logo" src="${logoSrc}" alt="${name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
       </div>
-      <div class="chapter-card-info">
-        <h5>${name}</h5>
-        <span>${university}</span>
-      </div>
-      <div class="chapter-socials">
-        ${social(c.facebookUrl, `${name} Facebook`, 'fb-icon')}
+      <div class="chapter-card-body">
+        <div class="chapter-card-info">
+          <h5>${name}</h5>
+          <span>${university}</span>
+        </div>
+        <div class="chapter-socials">
+          ${social(c.facebookUrl, `${name} Facebook`, 'fb-icon')}
+        </div>
       </div>
     </div>
   `;

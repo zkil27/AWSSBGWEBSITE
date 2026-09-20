@@ -90,51 +90,27 @@ export const sponsors = [
   // 03 // PRO PARTNERSHIP (Community & Tech Partners)
   // ==========================================
   {
-    id: 'partner-pro-alpha',
-    name: 'AWS Student Builder Group - Alpha',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'AWS Student Community',
-    location: 'Philippines',
-    track: 'Student Builder Community',
-    color: 'green',
-    imgUrl: null,
-    url: '#'
-  },
-  {
-    id: 'partner-pro-colegio-de-abogados',
-    name: 'AWS Cloud Club - Colegio de abogados',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'Colegio de Abogados',
-    location: 'Philippines',
-    track: 'Student Cloud Community',
-    color: 'teal',
-    imgUrl: null,
-    url: '#'
-  },
-  {
-    id: 'partner-pro-colegio-de-muntinlupa',
-    name: 'AWS Student Builder Group - Colegio de Muntinlupa',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'Colegio de Muntinlupa',
-    location: 'Muntinlupa City',
-    track: 'Academic & Builder Partner',
-    color: 'blue',
-    imgUrl: null,
-    url: '#'
-  },
-  {
     id: 'partner-pro-tempest',
-    name: 'AWS Student Builder Group - Tempest',
+    name: 'AWS Student Builder Group – Tempest',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'AWS Student Community',
     location: 'Philippines',
     track: 'Student Builder Community',
     color: 'purple',
-    imgUrl: null,
+    imgUrl: 'assets/images/sponsors and partners/AWS SBG - Tempest Logo.png',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-ccc-dci',
+    name: 'CCC - Department of Computing and Informatics',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'City College of Calamba',
+    location: 'Calamba, Laguna',
+    track: 'Academic Department Partner',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/ccc-dci.svg',
     url: '#'
   },
   {
@@ -146,43 +122,7 @@ export const sponsors = [
     location: 'Dasmariñas, Cavite',
     track: 'Academic Cloud Chapter',
     color: 'green',
-    imgUrl: null,
-    url: '#'
-  },
-  {
-    id: 'partner-pro-asug-ph',
-    name: 'AWS Student User Group Philippines',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'National Student Community',
-    location: 'Philippines',
-    track: 'National Builder Network',
-    color: 'teal',
-    imgUrl: null,
-    url: '#'
-  },
-  {
-    id: 'partner-pro-enovators',
-    name: 'AWS User Group e:Novators Philippines',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'Professional User Group',
-    location: 'Philippines',
-    track: 'Enterprise & Innovation Network',
-    color: 'blue',
-    imgUrl: null,
-    url: '#'
-  },
-  {
-    id: 'partner-pro-ccc-dci',
-    name: 'CCC - Department of Computing and Informatics',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'City College of Calamba',
-    location: 'Calamba, Laguna',
-    track: 'Academic Partner',
-    color: 'purple',
-    imgUrl: null,
+    imgUrl: 'assets/images/sponsors and partners/AWSLC_NU Dasma.png',
     url: '#'
   },
   {
@@ -194,7 +134,103 @@ export const sponsors = [
     location: 'Indang, Cavite',
     track: 'IT Student Organization',
     color: 'green',
-    imgUrl: null,
+    imgUrl: 'assets/images/sponsors and partners/ELITS.jpg',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-colegio-de-abogados',
+    name: 'AWS Cloud Club - Colegio de abogados',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'Colegio de Muntinlupa',
+    location: 'Muntinlupa City',
+    track: 'Academic & Builder Partner',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/AWS FB PFP (7).png',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-adamson',
+    name: 'AWS Student Builder Group - Adamson University',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'Adamson University',
+    location: 'Manila',
+    track: 'Academic Cloud Chapter',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/AWSSBG Adamson University.jpg',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-hugo',
+    name: 'AWS Student Builder Group - HUGO',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'Technological University of the Philippines Manila',
+    location: 'Manila',
+    track: 'Student Builder Chapter',
+    color: 'teal',
+    imgUrl: 'assets/images/sponsors and partners/AWSSBG - Hugo Logo.png',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-aeris',
+    name: 'AWS Student Builder Group - Aeris',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'City College of Calamba',
+    location: 'Calamba, Laguna',
+    track: 'Student Builder Chapter',
+    color: 'purple',
+    imgUrl: 'assets/images/sponsors and partners/Aeris-Logo.png',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-pcu-cavite',
+    name: 'AWS Student Builder Group - PCU Cavite',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'Philippine Christian University - Cavite',
+    location: 'Dasmariñas, Cavite',
+    track: 'Academic Cloud Chapter',
+    color: 'green',
+    imgUrl: 'assets/images/sponsors and partners/AWS SBG - PCU Cavite.jpg',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-enovators',
+    name: 'AWS User Group e:Novators Philippines',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'Professional User Group',
+    location: 'Philippines',
+    track: 'Enterprise & Innovation Network',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/AWS User Group e_Novators Philippines.png',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-polar',
+    name: 'AWS Learning Club – Polar',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'AWS Learning Community',
+    location: 'Philippines',
+    track: 'Student Learning Community',
+    color: 'purple',
+    imgUrl: 'assets/images/sponsors and partners/AWSLC-Polar-Logo (1).png',
+    url: '#'
+  },
+  {
+    id: 'partner-pro-uc',
+    name: 'AWS Student Builder Group - University of Cabuyao',
+    tier: 'pro',
+    role: 'Pro Partner',
+    institution: 'University of Cabuyao',
+    location: 'Cabuyao, Laguna',
+    track: 'Academic Cloud Chapter',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/AWSSBG UC Profile (1).png',
     url: '#'
   },
   {
@@ -206,33 +242,13 @@ export const sponsors = [
     location: 'Laguna Chapter',
     track: 'Developer Ecosystem & Community',
     color: 'blue',
-    imgUrl: null,
+    imgUrl: 'assets/images/sponsors and partners/DEVCON Laguna Chapter logo - Black.png',
     url: 'https://devcon.ph'
   },
 
   // ==========================================
   // 04 // LITE PARTNERSHIP (Student Organizations)
   // ==========================================
-  {
-    id: 'partner-lite-accss-1',
-    name: 'ACCESS - Association of Committed Computer Science Students',
-    tier: 'lite',
-    role: 'Lite Partner',
-    institution: 'Student Organization',
-    location: 'Philippines',
-    color: 'blue',
-    imgUrl: null
-  },
-  {
-    id: 'partner-lite-acss-2',
-    name: 'Association of Computer Science Students (ACSS)',
-    tier: 'lite',
-    role: 'Lite Partner',
-    institution: 'Student Organization',
-    location: 'Philippines',
-    color: 'pink',
-    imgUrl: null
-  },
   {
     id: 'partner-lite-bulsu',
     name: 'AWS Student Builder Group - BULSU',
@@ -241,7 +257,17 @@ export const sponsors = [
     institution: 'Bulacan State University',
     location: 'Bulacan',
     color: 'green',
-    imgUrl: null
+    imgUrl: 'assets/images/sponsors and partners/Bulacan State University.png'
+  },
+  {
+    id: 'partner-lite-acss-2',
+    name: 'Association of Computer Science Students (ACSS)',
+    tier: 'lite',
+    role: 'Lite Partner',
+    institution: 'Student Organization',
+    location: 'Philippines',
+    color: 'purple',
+    imgUrl: 'assets/images/sponsors and partners/ACSS logo.png'
   },
   {
     id: 'partner-lite-beradove',
@@ -251,7 +277,7 @@ export const sponsors = [
     institution: 'Student Builder Community',
     location: 'Philippines',
     color: 'purple',
-    imgUrl: null
+    imgUrl: 'assets/images/sponsors and partners/Beredove Regular.png'
   },
   {
     id: 'partner-lite-feu-alabang-acm',
@@ -261,7 +287,7 @@ export const sponsors = [
     institution: 'FEU Alabang',
     location: 'Alabang, Muntinlupa',
     color: 'blue',
-    imgUrl: null
+    imgUrl: 'assets/images/sponsors and partners/FEUA-ACM_LOGO_.png'
   },
   {
     id: 'partner-lite-slu-lc',
@@ -270,8 +296,18 @@ export const sponsors = [
     role: 'Lite Partner',
     institution: 'Saint Louis University',
     location: 'Baguio City',
-    color: 'pink',
-    imgUrl: null
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/SLU AWS Learning Club.png'
+  },
+  {
+    id: 'partner-lite-accss-1',
+    name: 'ACCESS - Association of Committed Computer Science',
+    tier: 'lite',
+    role: 'Lite Partner',
+    institution: 'Student Organization',
+    location: 'Philippines',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/ACCESS Logo.png'
   },
   {
     id: 'partner-lite-up-mindanao',
@@ -281,7 +317,37 @@ export const sponsors = [
     institution: 'University of the Philippines Mindanao',
     location: 'Davao City, Mindanao',
     color: 'teal',
-    imgUrl: null
+    imgUrl: 'assets/images/sponsors and partners/awscc-upmin-logo.png'
+  },
+  {
+    id: 'partner-lite-buildhers',
+    name: 'AWS User Group BuildHers+ Philippines',
+    tier: 'lite',
+    role: 'Lite Partner',
+    institution: 'AWS User Group BuildHers Philippines',
+    location: 'Philippines',
+    color: 'purple',
+    imgUrl: 'assets/images/sponsors and partners/AWS User Group BuildHers Philippines.png'
+  },
+  {
+    id: 'partner-lite-itsoc',
+    name: 'Mapúa MCL InfoTech Society',
+    tier: 'lite',
+    role: 'Lite Partner',
+    institution: 'Mapúa Malayan Colleges Laguna',
+    location: 'Cabuyao, Laguna',
+    color: 'green',
+    imgUrl: 'assets/images/sponsors and partners/InfoTechSociety ITSOC Logo.png'
+  },
+  {
+    id: 'partner-lite-nu-cebu',
+    name: 'AWS Student Builder Group - NU Cebu',
+    tier: 'lite',
+    role: 'Lite Partner',
+    institution: 'National University Cebu',
+    location: 'Cebu',
+    color: 'blue',
+    imgUrl: 'assets/images/sponsors and partners/AWS Student Builder Group - NU Cebu.png'
   }
 ];
 

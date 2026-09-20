@@ -3,7 +3,7 @@
  * AWS Student Community Day: South Summit 2026
  * Option 3: Hero Showcase (Spotlight Keystone Cards) + Infinite Marquee Stream
  */
-import { sponsors } from '../data/sponsors.js';
+import { sponsors } from '../data/sponsors.js?v=20260921-partners-labels';
 import { isLowSpec } from './perfManager.js';
 
 function escapeHTML(value) {
@@ -69,24 +69,17 @@ function renderMarqueeChip(partner) {
   const color = partner.color || 'blue';
   const logoSrc = escapeHTML(partner.imgUrl || 'assets/images/south-summit-logo.svg');
   const tier = partner.tier || 'pro';
-  const tierLabel = tier === 'pro' ? 'PRO' : 'LITE';
 
   return `
-    <div class="marquee-chip chip-${color} marquee-chip--${tier}" tabindex="0" role="listitem">
+    <div class="marquee-chip chip-${color} marquee-chip--${tier}" title="${name}" aria-label="${name}" tabindex="0" role="listitem">
       <div class="marquee-chip-logo-wrap">
         <img class="marquee-chip-logo"
              src="${logoSrc}"
              alt="${name}"
-             width="28"
-             height="28"
-             loading="lazy"
+             loading="eager"
              decoding="async"
              onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
       </div>
-      <div class="marquee-chip-meta">
-        <span class="marquee-chip-name">${name}</span>
-      </div>
-      <span class="marquee-chip-badge marquee-chip-badge--${tier}">${tierLabel}</span>
     </div>`;
 }
 
@@ -120,15 +113,17 @@ function wireLogoFallbacks(container) {
 
 /**
  * Builds seamless duplicate marquee HTML ensuring enough items to fill ultra-wide viewports
+ * Each half must span at least 45 items (~5000px) so neither 1080p, 1440p, 4K, nor Ultrawide
+ * screens ever encounter blank space during the 50% transform cycle.
  */
-function buildMarqueeLoopHTML(list, minCount = 10) {
+function buildMarqueeLoopHTML(list, minHalfCount = 45) {
   if (!list || list.length === 0) return '';
-  let items = [...list];
-  while (items.length < minCount) {
-    items = items.concat(list);
+  let half = [];
+  while (half.length < minHalfCount) {
+    half = half.concat(list);
   }
-  const chunk = items.map(renderMarqueeChip).join('');
-  return chunk + chunk;
+  const halfHTML = half.map(renderMarqueeChip).join('');
+  return halfHTML + halfHTML;
 }
 
 export function initSponsors() {
@@ -160,13 +155,13 @@ export function initSponsors() {
   // 3. Populate and duplicate Marquee tracks by category
   // Track 1: Pro Partners (Marquee Left)
   if (track1 && proPartners.length > 0) {
-    track1.innerHTML = buildMarqueeLoopHTML(proPartners, 10);
+    track1.innerHTML = buildMarqueeLoopHTML(proPartners, 45);
     wireLogoFallbacks(track1);
   }
 
   // Track 2: Lite Partners (Marquee Right)
   if (track2 && litePartners.length > 0) {
-    track2.innerHTML = buildMarqueeLoopHTML(litePartners, 10);
+    track2.innerHTML = buildMarqueeLoopHTML(litePartners, 45);
     wireLogoFallbacks(track2);
   }
 }

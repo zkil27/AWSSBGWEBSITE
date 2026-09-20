@@ -15,7 +15,7 @@ import { initScheduleUI } from './modules/scheduleUI.js';
 import { initMerch } from './modules/merchUI.js';
 import { initChapters } from './modules/chaptersUI.js';
 import { initDirectors } from './modules/directorsUI.js';
-import { initSponsors } from './modules/sponsorsUI.js';
+import { initSponsors } from './modules/sponsorsUI.js?v=20260921-partners-labels';
 import { initComputeGrid } from './modules/computeGrid.js';
 import { initScrollReveal } from './modules/scrollReveal.js';
 import { initBlueprintScroll } from './modules/blueprintScroll.js';
