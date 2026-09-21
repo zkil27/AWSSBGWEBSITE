@@ -57,7 +57,7 @@ export const chapters = [
   },
   {
     name: 'AWS Learning Club – Polar',
-    university: 'PUP Santa Rosa Campus',
+    university: 'Santa Rosa City',
     facebookUrl: 'https://www.facebook.com/profile.php?id=6158289347062',
     email: '',
     imgUrl: 'assets/images/organizations/AWSLC - Polar.webp'

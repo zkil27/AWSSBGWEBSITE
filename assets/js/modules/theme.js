@@ -10,6 +10,9 @@ export function getTheme() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved === 'dark' || saved === 'light') return saved;
     } catch (e) { }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
     return 'light';
 }
 

@@ -16,9 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet">
   </noscript>
-  <link rel="stylesheet" href="theme.css?v=20260919-mobile-text">
-  <link rel="stylesheet" href="styles.css?v=20260919-mobile-text">
-  <link rel="stylesheet" href="assets/css/staggeredMenu.css?v=20260919-mobile-text">
+  <link rel="stylesheet" href="theme.css?v=20260920-manifesto-dark">
+  <link rel="stylesheet" href="styles.css?v=20260921-manifesto-dark">
+  <link rel="stylesheet" href="assets/css/staggeredMenu.css?v=20260920-manifesto-dark">
   <link rel="stylesheet" href="assets/css/grainient.css">
   <link rel="stylesheet" href="assets/css/masonry.css">
   <link rel="stylesheet" href="assets/css/splitText.css">
@@ -30,6 +30,9 @@
     (function () {
       try {
         var t = localStorage.getItem('scd-theme');
+        if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          t = 'dark';
+        }
         if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
       } catch (e) { }
     })();
@@ -368,16 +371,28 @@
             <!-- Dual-Track Marquee Wrapper with Gradient Masks -->
             <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
               <!-- Track 1: Pro Partners (Marquee Left) -->
-              <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
-                <div class="marquee-track" id="marqueeTrack1">
-                  <!-- Populated dynamically by sponsorsUI.js -->
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag pro"><span class="tag-dot" aria-hidden="true"></span>PRO PARTNERS</span>
+                  <span class="marquee-tier-count">13 Partner Organizations</span>
+                </div>
+                <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
+                  <div class="marquee-track" id="marqueeTrack1">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
                 </div>
               </div>
 
               <!-- Track 2: Lite Partners (Marquee Right) -->
-              <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
-                <div class="marquee-track" id="marqueeTrack2">
-                  <!-- Populated dynamically by sponsorsUI.js -->
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag lite"><span class="tag-dot" aria-hidden="true"></span>LITE PARTNERS</span>
+                  <span class="marquee-tier-count">10 Partner Organizations</span>
+                </div>
+                <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
+                  <div class="marquee-track" id="marqueeTrack2">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -781,7 +796,7 @@
         <span class="brand-box b5"></span>
       </div>
       <div class="wrap quote-inner">
-        <p class="quote-mark">"Cloud × AI: Build. Grow. Lead. — three motions, one day, one community of student builders."</p>
+        <p class="quote-mark">"<span class="quote-cloud-ai">Cloud × AI:</span> <span class="quote-build">Build.</span> <span class="quote-grow">Grow.</span> <span class="quote-lead">Lead.</span> — three motions, one day, one community of student builders."</p>
         <p class="quote-attr font-mono">— AWS SCD: SOUTH SUMMIT 2026</p>
       </div>
     </section>
@@ -854,7 +869,7 @@
             </div>
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow">What is SCD?</p>
+                <p class="eyebrow"><strong>AWS Student Community Day</strong></p>
                 <h2 class="section-title">A student-first stage for Cloud &amp; AI</h2>
               </div>
               <div class="about-grid">
@@ -901,13 +916,13 @@
                 <div class="ar-hud-center">
                   <nav class="ar-category-pills" aria-label="Speaker categories">
                     <button type="button" class="ar-pill active" data-target="all" id="pillAll">
-                      All (7)
+                      All (6)
                     </button>
                     <button type="button" class="ar-pill" data-target="keynotes" id="pillKeynotes">
                       <span class="pill-dot orange"></span>Keynotes (3)
                     </button>
                     <button type="button" class="ar-pill" data-target="panels" id="pillPanels">
-                      <span class="pill-dot purple"></span>Panel Discussion (4)
+                      <span class="pill-dot purple"></span>Panel Discussion (3)
                     </button>
                   </nav>
                 </div>
@@ -938,7 +953,6 @@
           <section class="section-light grid-bg light">
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow" style="color:var(--orange-text);">Organizers</p>
                 <h2 class="section-title">AWS Student Builder Groups — South Luzon</h2>
                 <p class="section-p">Co-organized by 8 AWS SBG &amp; AWS LC chapters across CALABARZON. One community working
                   together to make this summit happen.</p>
@@ -960,8 +974,7 @@
           <section id="about-directors" class="section-light grid-bg light">
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow" style="color:var(--blue-text);">Organizing Team</p>
-                <h2 class="section-title">Summit Core Team</h2>
+                <h2 class="section-title">South Summit Core Team</h2>
                 <p class="section-p">The student directors, associate directors, and core team leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
               </div>
 
@@ -978,7 +991,7 @@
                     <span class="filter-dot blue"></span>Technology (2)
                   </button>
                   <button type="button" class="director-filter-pill" data-target="creatives" aria-selected="false">
-                    <span class="filter-dot pink"></span>Creatives (2)
+                    <span class="filter-dot purple"></span>Creatives (2)
                   </button>
                   <button type="button" class="director-filter-pill" data-target="operations" aria-selected="false">
                     <span class="filter-dot green"></span>Operations (2)
@@ -990,7 +1003,7 @@
                     <span class="filter-dot blue"></span>Relations (2)
                   </button>
                   <button type="button" class="director-filter-pill" data-target="finance" aria-selected="false">
-                    <span class="filter-dot orange"></span>Finance (2)
+                    <span class="filter-dot green"></span>Finance (2)
                   </button>
                 </nav>
               </div>
@@ -1094,12 +1107,12 @@
           <div class="brand" style="display:flex; align-items:center; gap:10px;">
             <img class="chip" src="assets/images/south-summit-logo.svg" alt="South Summit 2026" width="36" height="36">
             <div class="brand-text">
-              SCD SOUTH SUMMIT 2026
+              AWS SCD SOUTH SUMMIT 2026
               <span>AWS STUDENT BUILDER GROUPS</span>
             </div>
           </div>
           <p class="foot-mission">
-            The flagship student-led cloud conference across CALABARZON. Empowering future builders, developers, and leaders through Cloud and AI.
+            The flagship student-led cloud conference across <b>CALABARZON</b>. Empowering future student builders, developers, and leaders through <b>Cloud and AI</b>.
           </p>
         </div>
 
@@ -1131,7 +1144,6 @@
             <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="blue" aria-label="AWS SCD South Summit Facebook">Facebook</a>
             <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="purple" aria-label="AWS SCD South Summit LinkedIn">LinkedIn</a>
             <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="pink" aria-label="AWS SCD South Summit Instagram">Instagram</a>
-            <a href="mailto:partners@awsscd2026.org" class="social-link-item" data-brand="orange" aria-label="Email AWS SCD South Summit Partners">Contact Us</a>
           </nav>
         </div>
       </div>
@@ -1240,7 +1252,7 @@
     </div>
   </aside>
 
-  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/main.js?v=20260921-partners-labels"></script>
 
   <script>
     /* Branded splash intro: show on entry, then fade out to reveal the site.

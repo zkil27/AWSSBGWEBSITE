@@ -352,8 +352,9 @@ function updateAmbientBlocks(ts, dt) {
 
 function drawAmbientBlocks() {
   const currentW = viewW || window.innerWidth;
+  const bodyW = document.body.clientWidth;
   const offsetX = getGridOffsetX();
-  const totalCols = Math.floor((currentW - offsetX) / gridSize);
+  const totalCols = Math.floor((bodyW - offsetX) / gridSize);
   const isMobile = currentW < 1024 || totalCols < 20;
 
   const blocks = isMobile ? mobileAmbientBlocks : ambientBlocks;
@@ -366,11 +367,34 @@ function drawAmbientBlocks() {
   const visRows = Math.ceil(viewH / gridSize) + 2;
   const startVisRow = Math.floor(scrollY / gridSize) - 1;
 
+  // Compute safe gutter bounds: content is centered up to ~1160px.
+  // Ambient blocks must NEVER render inside the content column.
+  const contentW = isMobile ? bodyW - 40 : Math.min(1160, bodyW - 48);
+  const gutterPx = Math.max(0, (bodyW - contentW) / 2);
+  const maxLeftGutterCol = Math.max(0, Math.floor(gutterPx / gridSize) - 1);
+  const minRightGutterCol = Math.max(maxLeftGutterCol + 1, totalCols - Math.max(0, Math.floor(gutterPx / gridSize)));
+
+  // Safety guard: cull blocks that overlap the marquee partner stream
+  const marqueeEl = document.querySelector('.sponsors-marquee-shell');
+  let marqueeStartRow = -999;
+  let marqueeEndRow = -999;
+  if (marqueeEl) {
+    const marqueeRect = marqueeEl.getBoundingClientRect();
+    const docTop = marqueeRect.top + scrollY;
+    marqueeStartRow = Math.floor((docTop - 12) / gridSize);
+    marqueeEndRow = Math.ceil((docTop + marqueeRect.height + 12) / gridSize);
+  }
+
   for (const b of blocks) {
-    ctx.fillStyle = rgba(colors[b.color % colors.length], opacity);
-    
     // Resolve right-aligned columns
     const actualCol = b.currentC < 0 ? totalCols + b.currentC : b.currentC;
+
+    // Safety guard: if block is inside the content column on any resolution, cull it
+    if (!isMobile && actualCol > maxLeftGutterCol && actualCol < minRightGutterCol) {
+      continue;
+    }
+
+    ctx.fillStyle = rgba(colors[b.color % colors.length], opacity);
     
     // Repeat vertically so the pattern covers the whole page
     for (let rep = -1; rep <= Math.ceil((startVisRow + visRows) / CFG.blockRepeatY) + 1; rep++) {
@@ -378,6 +402,7 @@ function drawAmbientBlocks() {
       
       // Culling
       if (actualRow < startVisRow || actualRow > startVisRow + visRows) continue;
+      if (actualRow >= marqueeStartRow && actualRow <= marqueeEndRow) continue;
 
       // Snap to full integers to eliminate sub-pixel jitter/blur during movement
       const x = Math.round(offsetX + actualCol * gridSize - scrollX);

@@ -83,7 +83,7 @@ export const directors = [
     deptTag: 'CREA',
     focus: 'Visual identity direction, Cyber-Grid aesthetic design systems, multimedia assets, stage graphics, and branding.',
     avatar: 'assets/images/directors/Creatives Director - Maja Samaniego.webp',
-    accentColor: '--pink'
+    accentColor: '--purple'
   },
   {
     id: 'dir-crea-2',
@@ -93,7 +93,7 @@ export const directors = [
     deptTag: 'CREA',
     focus: 'Design production workflow, summit digital collaterals, visual design review, and brand consistency.',
     avatar: null,
-    accentColor: '--pink'
+    accentColor: '--purple'
   },
   {
     id: 'dir-ops-1',
@@ -163,7 +163,7 @@ export const directors = [
     deptTag: 'FIN',
     focus: 'Fiscal budgeting, sponsorship fund allocation, procurement audit trails, merchandise costing, and financial transparency.',
     avatar: 'assets/images/directors/Finance Director - John Cyphrey D. Madulid.webp',
-    accentColor: '--orange'
+    accentColor: '--green'
   },
   {
     id: 'dir-fin-2',
@@ -173,6 +173,6 @@ export const directors = [
     deptTag: 'FIN',
     focus: 'Purchase requests verification, expense reconciliation, receipts accounting, and post-summit liquidation.',
     avatar: 'assets/images/directors/Finance Assoc. Director - Coleen Legaspi.webp',
-    accentColor: '--orange'
+    accentColor: '--green'
   }
 ];
