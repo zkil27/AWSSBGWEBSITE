@@ -156,7 +156,7 @@ html[data-theme="light"] {
   --ambient-tl: rgba(68, 179, 254, 0.28);
   --ambient-tr: rgba(254, 87, 234, 0.24);
   --ambient-br: rgba(7, 227, 131, 0.26);
-  --ambient-bl: rgba(68, 179, 254, 0.16);
+  --ambient-bl: rgba(167, 89, 255, 0.22);
 
   color-scheme: light;
 }
@@ -245,7 +245,7 @@ html[data-theme="dark"] {
   --ambient-tl: rgba(68, 179, 254, 0.18);
   --ambient-tr: rgba(254, 87, 234, 0.16);
   --ambient-br: rgba(7, 227, 131, 0.18);
-  --ambient-bl: rgba(68, 179, 254, 0.12);
+  --ambient-bl: rgba(167, 89, 255, 0.16);
 
   color-scheme: dark;
 }
@@ -286,8 +286,8 @@ body {
     repeat, repeat,
     no-repeat, no-repeat, no-repeat, no-repeat;
   background-position:
-    left 0 top 0,
-    left 0 top 0,
+    center top,
+    center top,
     0 0,
     100% 0,
     100% 100%,
