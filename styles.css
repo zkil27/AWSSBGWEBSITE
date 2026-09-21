@@ -5223,6 +5223,7 @@ footer.site-footer {
 .social-link-item[data-brand="blue"]:hover { color: var(--blue-text, var(--blue)); }
 .social-link-item[data-brand="purple"]:hover { color: var(--purple-text, var(--purple)); }
 .social-link-item[data-brand="pink"]:hover { color: var(--pink-text, var(--pink)); }
+.social-link-item[data-brand="green"]:hover { color: var(--green-text, var(--green)); }
 .social-link-item[data-brand="orange"]:hover { color: var(--orange-text, var(--orange)); }
 
 /* Foot Bottom Bar */
