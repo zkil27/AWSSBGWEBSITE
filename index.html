@@ -213,61 +213,44 @@
   <div class="page active" id="page-home">
 
     <!-- HERO -->
-    <section class="hero">
-      <div class="primer-edge primer-edge--top" aria-hidden="true">
-        <span class="brand-box pe-blue"></span>
-        <span class="brand-box pe-green"></span>
-        <span class="brand-box pe-pink"></span>
-        <span class="brand-box pe-orange"></span>
-        <span class="brand-box pe-purple"></span>
-      </div>
-      <div class="deco-layer deco-corners" aria-hidden="true">
-        <span class="brand-box b1"></span>
-        <span class="brand-box b2"></span>
-        <span class="brand-box b3"></span>
-        <span class="brand-box b4"></span>
-        <span class="brand-box b5"></span>
-      </div>
-      <span class="box-floating" aria-hidden="true"></span>
-
-      <div class="editorial-hero">
-        <div class="ed-header">
-          <p class="eyebrow ed-eyebrow">AWS Student Community Day</p>
-          <h1 class="hero-title">South Summit <span class="accent">2026</span></h1>
+    <section class="hero" id="hero">
+      <!-- Poster Layout: Title at top, official emblem in the center -->
+      <div class="hero-poster-wrap">
+        <div class="hero-poster-inner">
+          <p class="hero-poster-kicker">AWS Student Community Day</p>
+          <h1 class="hero-poster-title">South Summit 2026</h1>
+          <div class="hero-meta-row">
+            <span class="hero-meta-tagline">Cloud &times; AI: BUILD. GROW. LEAD.</span>
+            <span class="hero-meta-sep" aria-hidden="true">&bull;</span>
+            <span class="hero-meta-date">October 7, 2026</span>
+          </div>
         </div>
 
-        <hr class="ed-rule">
+        <div class="hero-logo-center" aria-hidden="true">
+          <img class="hero-emblem" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day South Summit 2026 Emblem" width="200" height="200">
+        </div>
 
-        <div class="ed-content-grid">
-          <div class="ed-col ed-meta">
-            <div class="ed-meta-block">
-              <span class="ed-meta-label">Date</span>
-              <span class="ed-meta-value">Oct 7, 2026</span>
-              <span class="ed-meta-sub">8:00 AM – 5:00 PM</span>
+        <!-- React Bits CountUp Countdown Timer -->
+        <div class="hero-timer-wrap" id="countdown" aria-label="Countdown to South Summit 2026">
+          <div class="countup-card">
+            <div class="countup-seg seg-days">
+              <span class="countup-num" id="cd-days">00</span>
+              <span class="countup-label"><span class="label-dot dot-pink" aria-hidden="true"></span>Days</span>
             </div>
-            <div class="ed-meta-block" style="margin-top: 24px;">
-              <span class="ed-meta-label">Location</span>
-              <span class="ed-meta-value">Biñan, Laguna</span>
-              <span class="ed-meta-sub">Biñan People's Center Auditorium</span>
+            <span class="countup-divider" aria-hidden="true">:</span>
+            <div class="countup-seg seg-hours">
+              <span class="countup-num" id="cd-hours">00</span>
+              <span class="countup-label"><span class="label-dot dot-purple" aria-hidden="true"></span>Hours</span>
             </div>
-          </div>
-          
-          <div class="ed-col ed-desc">
-            <h3 class="ed-subheadline">Cloud × AI: Build. Grow. Lead.</h3>
-            <p class="ed-body-lead">A full-day, student-led summit bringing builders, student leaders, and tech advocates from CALABARZON together to explore cloud computing and AI — and to build the confidence to lead with it.</p>
-            <div class="hero-actions ed-actions">
-              <a class="btn btn-primary" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now!</a>
-              <button class="btn btn-ghost" data-page="merch">Check Out Merch</button>
+            <span class="countup-divider" aria-hidden="true">:</span>
+            <div class="countup-seg seg-mins">
+              <span class="countup-num" id="cd-mins">00</span>
+              <span class="countup-label"><span class="label-dot dot-blue" aria-hidden="true"></span>Mins</span>
             </div>
-          </div>
-
-          <div class="ed-col ed-clock" id="countdown" aria-label="Countdown to event">
-            <span class="ed-meta-label" style="display:block; margin-bottom:12px;">T-Minus</span>
-            <div class="editorial-clock">
-              <div class="seg"><b id="cd-days">00</b><small>Days</small></div>
-              <div class="seg"><b id="cd-hours">00</b><small>Hrs</small></div>
-              <div class="seg"><b id="cd-mins">00</b><small>Min</small></div>
-              <div class="seg"><b id="cd-secs">00</b><small>Sec</small></div>
+            <span class="countup-divider" aria-hidden="true">:</span>
+            <div class="countup-seg seg-secs">
+              <span class="countup-num" id="cd-secs">00</span>
+              <span class="countup-label"><span class="label-dot dot-green" aria-hidden="true"></span>Secs</span>
             </div>
           </div>
         </div>

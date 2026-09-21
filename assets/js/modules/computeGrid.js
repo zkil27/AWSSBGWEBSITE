@@ -104,6 +104,12 @@ function refreshGridSize() {
   gridSize = Number.isFinite(n) && n > 0 ? n : CFG.fallbackGridSize;
 }
 
+function getGridOffsetX() {
+  const currentW = viewW || window.innerWidth;
+  const offset = ((currentW - gridSize) * 0.5) % gridSize;
+  return offset < 0 ? offset + gridSize : offset;
+}
+
 function hexToRgb(hex) {
   let h = hex.replace('#', '');
   if (h.length === 3) h = h.split('').map((c) => c + c).join('');
@@ -165,11 +171,12 @@ function drawLitCells() {
   // fixed canvas so they stay locked to the CSS grid painted on <body>.
   const scrollX = window.scrollX || window.pageXOffset || 0;
   const scrollY = window.scrollY || window.pageYOffset || 0;
+  const offsetX = getGridOffsetX();
   for (const [key, cell] of litCells) {
     const comma = key.indexOf(',');
     const col = +key.slice(0, comma);
     const row = +key.slice(comma + 1);
-    const x = col * gridSize - scrollX + CFG.cellInset;
+    const x = offsetX + col * gridSize - scrollX + CFG.cellInset;
     const y = row * gridSize - scrollY + CFG.cellInset;
     if (x > viewW || y > viewH || x < -gridSize || y < -gridSize) continue;
     const a = themeAlpha.cell * cell.b;
@@ -213,23 +220,23 @@ function runBootSweep(elapsed) {
 /* Desktop ambient blocks (wide side gutters) */
 const ambientBlocks = [
   // Left side
-  { c: 1, r: 3, color: 4 }, { c: 2, r: 6, color: 0 }, { c: 1, r: 9, color: 3 }, { c: 2, r: 9, color: 2 },
-  { c: 3, r: 13, color: 1 }, { c: 1, r: 17, color: 0 }, { c: 1, r: 21, color: 4 }, { c: 2, r: 21, color: 3 },
-  { c: 1, r: 22, color: 2 }, { c: 3, r: 26, color: 1 }, { c: 1, r: 31, color: 0 }, { c: 2, r: 36, color: 4 },
-  { c: 3, r: 36, color: 3 }, { c: 1, r: 41, color: 2 }, { c: 2, r: 47, color: 1 }, { c: 1, r: 53, color: 0 },
+  { c: 1, r: 3, color: 4 }, { c: 2, r: 6, color: 0 }, { c: 0, r: 9, color: 3 }, { c: 2, r: 9, color: 2 },
+  { c: 3, r: 13, color: 1 }, { c: 1, r: 17, color: 0 }, { c: 0, r: 21, color: 4 }, { c: 2, r: 21, color: 3 },
+  { c: 1, r: 22, color: 2 }, { c: 3, r: 26, color: 1 }, { c: 0, r: 31, color: 0 }, { c: 2, r: 36, color: 4 },
+  { c: 3, r: 36, color: 3 }, { c: 1, r: 41, color: 2 }, { c: 2, r: 47, color: 1 }, { c: 0, r: 53, color: 0 },
   // Left side extra
-  { c: 2, r: 1, color: 2 }, { c: 4, r: 4, color: 1 }, { c: 1, r: 12, color: 0 }, { c: 4, r: 18, color: 3 },
-  { c: 2, r: 24, color: 4 }, { c: 5, r: 29, color: 2 }, { c: 1, r: 34, color: 1 }, { c: 3, r: 39, color: 0 },
-  { c: 2, r: 44, color: 4 }, { c: 4, r: 49, color: 3 }, { c: 1, r: 7, color: 2 }, { c: 3, r: 19, color: 1 },
+  { c: 2, r: 1, color: 2 }, { c: 3, r: 4, color: 1 }, { c: 1, r: 12, color: 0 }, { c: 3, r: 18, color: 3 },
+  { c: 2, r: 24, color: 4 }, { c: 0, r: 29, color: 2 }, { c: 1, r: 34, color: 1 }, { c: 3, r: 39, color: 0 },
+  { c: 2, r: 44, color: 4 }, { c: 3, r: 49, color: 3 }, { c: 0, r: 7, color: 2 }, { c: 2, r: 19, color: 1 },
   // Right side (negative col = from right edge)
   { c: -1, r: 2, color: 0 }, { c: -2, r: 5, color: 3 }, { c: -1, r: 8, color: 4 }, { c: -2, r: 8, color: 1 },
   { c: -3, r: 12, color: 2 }, { c: -1, r: 15, color: 0 }, { c: -2, r: 19, color: 3 }, { c: -1, r: 19, color: 4 },
   { c: -2, r: 20, color: 2 }, { c: -3, r: 24, color: 1 }, { c: -1, r: 29, color: 0 }, { c: -2, r: 34, color: 3 },
   { c: -1, r: 34, color: 4 }, { c: -3, r: 39, color: 2 }, { c: -1, r: 45, color: 1 }, { c: -2, r: 51, color: 3 },
   // Right side extra
-  { c: -2, r: 1, color: 1 }, { c: -4, r: 4, color: 2 }, { c: -1, r: 12, color: 4 }, { c: -4, r: 18, color: 0 },
-  { c: -2, r: 24, color: 3 }, { c: -5, r: 29, color: 1 }, { c: -1, r: 34, color: 2 }, { c: -4, r: 39, color: 4 },
-  { c: -2, r: 44, color: 0 }, { c: -4, r: 49, color: 1 }, { c: -1, r: 7, color: 3 }, { c: -3, r: 19, color: 2 }
+  { c: -2, r: 1, color: 1 }, { c: -3, r: 4, color: 2 }, { c: -1, r: 12, color: 4 }, { c: -3, r: 18, color: 0 },
+  { c: -2, r: 24, color: 3 }, { c: -1, r: 29, color: 1 }, { c: -1, r: 34, color: 2 }, { c: -3, r: 39, color: 4 },
+  { c: -2, r: 44, color: 0 }, { c: -3, r: 49, color: 1 }, { c: -1, r: 7, color: 3 }, { c: -2, r: 19, color: 2 }
 ].map(b => ({
   ...b,
   currentC: b.c, currentR: b.r,
@@ -295,14 +302,14 @@ function updateAmbientBlocks(ts, dt) {
             b.targetR = b.r;
           }
         } else {
-          // Desktop gutter behavior
+          // Desktop gutter behavior (strictly bounded within 3 columns of gutter)
           let tc, tr;
           if (b.targetC === b.c && b.targetR === b.r) {
             tc = b.c;
             tr = b.r;
             const rand = Math.random();
-            if (rand < 0.25) tc = b.c - 1;
-            else if (rand < 0.5) tc = b.c + 1;
+            if (rand < 0.25) tc = b.c >= 0 ? Math.max(0, b.c - 1) : Math.min(-1, b.c - 1);
+            else if (rand < 0.5) tc = b.c >= 0 ? Math.min(3, b.c + 1) : Math.max(-3, b.c + 1);
             else if (rand < 0.75) tr = b.r - 1;
             else tr = b.r + 1;
           } else {
@@ -345,7 +352,8 @@ function updateAmbientBlocks(ts, dt) {
 
 function drawAmbientBlocks() {
   const currentW = viewW || window.innerWidth;
-  const totalCols = Math.floor(document.body.clientWidth / gridSize);
+  const offsetX = getGridOffsetX();
+  const totalCols = Math.floor((currentW - offsetX) / gridSize);
   const isMobile = currentW < 1024 || totalCols < 20;
 
   const blocks = isMobile ? mobileAmbientBlocks : ambientBlocks;
@@ -372,7 +380,7 @@ function drawAmbientBlocks() {
       if (actualRow < startVisRow || actualRow > startVisRow + visRows) continue;
 
       // Snap to full integers to eliminate sub-pixel jitter/blur during movement
-      const x = Math.round(actualCol * gridSize - scrollX);
+      const x = Math.round(offsetX + actualCol * gridSize - scrollX);
       const y = Math.round(actualRow * gridSize - scrollY);
 
       // Wrap-around bounds guard for rendering
@@ -391,9 +399,10 @@ function onPointerMove(e) {
   if (now - lastPointerSampleTs < CFG.pointerMoveThrottleMs) return;
   lastPointerSampleTs = now;
 
+  const offsetX = getGridOffsetX();
   const docX = e.clientX + (window.scrollX || window.pageXOffset || 0);
   const docY = e.clientY + (window.scrollY || window.pageYOffset || 0);
-  const col = Math.floor(docX / gridSize);
+  const col = Math.floor((docX - offsetX) / gridSize);
   const row = Math.floor(docY / gridSize);
   pointerCell = { col, row };
 
