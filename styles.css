@@ -6870,14 +6870,14 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
 /* Directors Grid Inside Band */
 #card-directors .directors-filter-wrapper,
 .directors-filter-wrapper {
-  margin-top: 20px;
-  margin-bottom: 24px;
+  margin-top: 16px;
+  margin-bottom: 20px;
   position: relative;
   z-index: 2;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 4px 0 6px;
+  padding: 10px 4px 14px;
 }
 
 #card-directors .directors-filter-wrapper::-webkit-scrollbar,
@@ -6890,7 +6890,7 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -6909,68 +6909,106 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
   font-weight: 800;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  border: none !important;
+  outline: none !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-  border: 1.5px solid transparent;
-  opacity: 0.88;
+  opacity: 0.9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 #card-directors .director-filter-pill:hover,
 .director-filter-pill:hover {
   transform: translateY(-2px);
   opacity: 1 !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 6px 18px rgba(0, 0, 0, 0.24);
 }
 
 #card-directors .director-filter-pill.active,
 .director-filter-pill.active {
   opacity: 1 !important;
   transform: translateY(-1px);
-  outline: 2.5px solid #ffffff;
-  outline-offset: 2px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3) !important;
+  outline: none !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.38), 0 0 0 2px #ffffff, 0 8px 22px rgba(0, 0, 0, 0.35) !important;
 }
 
 #card-directors .director-filter-pill[data-target="all"],
 .director-filter-pill[data-target="all"] {
-  background: #18181b !important;
-  color: #ffffff !important;
-  border-color: #18181b !important;
+  background: #ffffff !important;
+  color: #12182a !important;
+  border: none !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+#card-directors .director-filter-pill[data-target="all"].active,
+.director-filter-pill[data-target="all"].active {
+  box-shadow: inset 0 0 0 1.5px rgba(18, 24, 42, 0.25), 0 0 0 2px #ffffff, 0 8px 24px rgba(0, 0, 0, 0.35) !important;
 }
 
 #card-directors .director-filter-pill[data-target="executive"],
 .director-filter-pill[data-target="executive"] {
-  background: var(--orange, #fc9907) !important;
-  color: #12182a !important;
-  border-color: var(--orange, #fc9907) !important;
+  background: #0f1523 !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+#card-directors .director-filter-pill[data-target="finance"],
+.director-filter-pill[data-target="finance"] {
+  background: linear-gradient(165deg, #44b3fe 0%, #1fcbbe 52%, #07e383 100%) !important;
+  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--green, #07e383) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
 }
 
 #card-directors .director-filter-pill[data-target="creatives"],
-.director-filter-pill[data-target="creatives"],
+.director-filter-pill[data-target="creatives"] {
+  background: linear-gradient(165deg, #44b3fe 0%, #768bff 50%, #a759ff 100%) !important;
+  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--purple, #a759ff) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+}
+
 #card-directors .director-filter-pill[data-target="marketing"],
 .director-filter-pill[data-target="marketing"] {
-  background: var(--purple, #a759ff) !important;
+  background: linear-gradient(165deg, #07e383 0%, #1fd1cb 35%, #6395ff 68%, #a759ff 100%) !important;
+  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--purple, #a759ff) 100%) !important;
   color: #ffffff !important;
-  border-color: var(--purple, #a759ff) !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
 }
 
 #card-directors .director-filter-pill[data-target="technology"],
-.director-filter-pill[data-target="technology"],
+.director-filter-pill[data-target="technology"] {
+  background: linear-gradient(165deg, #a759ff 0%, #6395ff 32%, #1fd1cb 65%, #07e383 100%) !important;
+  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--green, #07e383) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+}
+
 #card-directors .director-filter-pill[data-target="relations"],
 .director-filter-pill[data-target="relations"] {
-  background: var(--blue, #44b3fe) !important;
-  color: #12182a !important;
-  border-color: var(--blue, #44b3fe) !important;
+  background: linear-gradient(165deg, #a759ff 0%, #768bff 50%, #44b3fe 100%) !important;
+  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--blue, #44b3fe) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
 }
 
 #card-directors .director-filter-pill[data-target="operations"],
-.director-filter-pill[data-target="operations"],
-#card-directors .director-filter-pill[data-target="finance"],
-.director-filter-pill[data-target="finance"] {
-  background: var(--green, #07e383) !important;
-  color: #12182a !important;
-  border-color: var(--green, #07e383) !important;
+.director-filter-pill[data-target="operations"] {
+  background: linear-gradient(165deg, #07e383 0%, #1fcbbe 50%, #44b3fe 100%) !important;
+  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--blue, #44b3fe) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
 }
 
 .director-filter-pill .filter-dot {
@@ -7056,13 +7094,112 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
 }
 
 #card-directors .director-card:hover {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.25);
+  border-color: rgba(0, 0, 0, 0.3);
   box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
   z-index: 25;
 }
 
+/* =========================================================
+   CORE TEAM: DEPARTMENT-COLORED TILES & UNIFIED READABILITY
+   ========================================================= */
 
+/* 1. EXECUTIVE — Black */
+#card-directors .director-card.dept-executive,
+.director-card.dept-executive {
+  background: #0f1523;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+#card-directors .director-card.dept-executive:hover,
+.director-card.dept-executive:hover {
+  background: #0b101b;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 20px 44px -8px rgba(0, 0, 0, 0.65);
+}
+
+/* 2. FINANCE — Blue (top) Green (bottom) */
+#card-directors .director-card.dept-finance,
+.director-card.dept-finance {
+  background: linear-gradient(165deg, #44b3fe 0%, #1fcbbe 52%, #07e383 100%);
+  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--green, #07e383) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 28px rgba(7, 227, 131, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+#card-directors .director-card.dept-finance:hover,
+.director-card.dept-finance:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(7, 227, 131, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 3. CREATIVES — Blue (top) Purple (bottom) */
+#card-directors .director-card.dept-creatives,
+.director-card.dept-creatives {
+  background: linear-gradient(165deg, #44b3fe 0%, #768bff 50%, #a759ff 100%);
+  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--purple, #a759ff) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 28px rgba(167, 89, 255, 0.28), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+#card-directors .director-card.dept-creatives:hover,
+.director-card.dept-creatives:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(167, 89, 255, 0.52), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 4. MARKETING — Green (top) Purple (bottom) */
+#card-directors .director-card.dept-marketing,
+.director-card.dept-marketing {
+  background: linear-gradient(165deg, #07e383 0%, #1fd1cb 35%, #6395ff 68%, #a759ff 100%);
+  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--purple, #a759ff) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 28px rgba(167, 89, 255, 0.28), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+#card-directors .director-card.dept-marketing:hover,
+.director-card.dept-marketing:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(167, 89, 255, 0.52), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 5. TECHNOLOGY — Purple (top) Green (bottom) */
+#card-directors .director-card.dept-technology,
+.director-card.dept-technology {
+  background: linear-gradient(165deg, #a759ff 0%, #6395ff 32%, #1fd1cb 65%, #07e383 100%);
+  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--green, #07e383) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 28px rgba(7, 227, 131, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+#card-directors .director-card.dept-technology:hover,
+.director-card.dept-technology:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(7, 227, 131, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 6. RELATIONS — Purple (top) Blue (bottom) */
+#card-directors .director-card.dept-relations,
+.director-card.dept-relations {
+  background: linear-gradient(165deg, #a759ff 0%, #768bff 50%, #44b3fe 100%);
+  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--blue, #44b3fe) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 28px rgba(68, 179, 254, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+#card-directors .director-card.dept-relations:hover,
+.director-card.dept-relations:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(68, 179, 254, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 7. OPERATIONS — Green (top) Blue (bottom) */
+#card-directors .director-card.dept-operations,
+.director-card.dept-operations {
+  background: linear-gradient(165deg, #07e383 0%, #1fcbbe 50%, #44b3fe 100%);
+  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--blue, #44b3fe) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 28px rgba(68, 179, 254, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+#card-directors .director-card.dept-operations:hover,
+.director-card.dept-operations:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(68, 179, 254, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
 #card-directors .director-card-top {
   display: flex;
@@ -7075,43 +7212,50 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 9px;
   letter-spacing: 0.06em;
   border-radius: 999px;
   text-transform: uppercase;
+  white-space: nowrap;
+  background: rgba(11, 16, 28, 0.85) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-
-#card-directors .dept-badge-exec { background: rgba(252, 153, 7, 0.15); color: #d97706; }
-#card-directors .dept-badge-tech { background: rgba(68, 179, 254, 0.15); color: #0284c7; }
-#card-directors .dept-badge-crea { background: rgba(167, 89, 255, 0.15); color: #7c3aed; }
-#card-directors .dept-badge-ops  { background: rgba(7, 227, 131, 0.16); color: #059669; }
-#card-directors .dept-badge-mktg { background: rgba(167, 89, 255, 0.15); color: #7c3aed; }
-#card-directors .dept-badge-rels { background: rgba(68, 179, 254, 0.15); color: #0284c7; }
-#card-directors .dept-badge-fin  { background: rgba(7, 227, 131, 0.16); color: #059669; }
 
 #card-directors .director-role-badge {
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.07em;
-  padding: 2px 7px;
+  padding: 3px 8px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: #6b7280;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
   text-transform: uppercase;
-  background: transparent;
+  background: rgba(11, 16, 28, 0.6) !important;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 #card-directors .director-role-badge.director {
-  color: #000000;
-  border-color: #000000;
-  background: #f3f4f6;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  background: rgba(11, 16, 28, 0.88) !important;
 }
 
+/* Frosted Architectural Dock: Enhances Contrast so Font Color is 100% Uniform */
 #card-directors .director-header-block {
   display: flex;
   align-items: center;
   gap: 12px;
+  background: rgba(11, 16, 28, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
 }
 
 #card-directors .director-avatar-frame {
@@ -7120,6 +7264,8 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
   flex-shrink: 0;
   border-radius: 10px;
   overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
 #card-directors .director-monogram {
@@ -7141,7 +7287,7 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 15px;
-  color: var(--dept-accent, #44b3fe);
+  color: #ffffff !important;
   letter-spacing: 0.04em;
 }
 
@@ -7151,38 +7297,39 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
   min-width: 0;
 }
 
+/* Uniform White Typography across ALL Cards */
 #card-directors .director-name {
   font-family: var(--font-sans);
   font-size: 14.5px;
-  font-weight: 700;
-  color: #18181b;
+  font-weight: 800;
+  color: #ffffff !important;
   margin: 0;
   line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 #card-directors .director-role-title {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  color: #4b5563;
+  color: rgba(255, 255, 255, 0.92) !important;
   margin-top: 3px;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.25;
+  white-space: normal;
 }
 
 #card-directors .director-dept-label {
   font-family: var(--font-mono);
   font-size: 9.5px;
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7) !important;
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 500;
 }
 
 /* Stacked Deck: Wide Screen Container Spacing */
@@ -8599,37 +8746,44 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
   border: none;
 }
 
-.dept-badge-exec {
+.dept-badge-exec,
+.dept-badge-executive {
   background: rgba(252, 153, 7, 0.14);
   color: var(--orange-text);
 }
 
-.dept-badge-tech {
+.dept-badge-tech,
+.dept-badge-technology {
   background: rgba(68, 179, 254, 0.14);
   color: var(--blue-text);
 }
 
-.dept-badge-crea {
+.dept-badge-crea,
+.dept-badge-creatives {
   background: rgba(167, 89, 255, 0.14);
   color: var(--purple-text, #7C3AED);
 }
 
-.dept-badge-ops {
+.dept-badge-ops,
+.dept-badge-operations {
   background: rgba(7, 227, 131, 0.16);
   color: var(--green-text, #059669);
 }
 
-.dept-badge-mktg {
+.dept-badge-mktg,
+.dept-badge-marketing {
   background: rgba(167, 89, 255, 0.14);
   color: var(--purple-text, #7C3AED);
 }
 
-.dept-badge-rels {
+.dept-badge-rels,
+.dept-badge-relations {
   background: rgba(68, 179, 254, 0.14);
   color: var(--blue-text);
 }
 
-.dept-badge-fin {
+.dept-badge-fin,
+.dept-badge-finance {
   background: rgba(7, 227, 131, 0.16);
   color: var(--green-text, #059669);
 }

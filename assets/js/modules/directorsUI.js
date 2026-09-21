@@ -170,9 +170,9 @@ export function initDirectors() {
 
   // 4 x 4 Balanced Hex Mesh Partition (16 directors)
   // Row 1: Executive 4 (JR, HT, AP, RB)
-  // Row 2: Tech 2 + Creatives 2 (ET, AN, MS, AV)
-  // Row 3: Ops 2 + Marketing 2 (SB, RC, JL, BB)
-  // Row 4: Relations 2 + Finance 2 (QS, JLO, JM, CL)
+  // Row 2: Finance 2 + Creatives 2 (JM, CL, MS, AV)
+  // Row 3: Marketing 2 + Technology 2 (JL, BB, ET, AN)
+  // Row 4: Relations 2 + Operations 2 (QS, JLO, SB, RC)
   const rowsIndices = [
     [0, 1, 2, 3],
     [4, 5, 6, 7],
@@ -260,7 +260,7 @@ export function initDirectors() {
 
         // Tactile micro-press feedback on the clicked pill
         if (window.gsap) {
-          window.gsap.fromTo(pill, { scale: 0.94 }, { scale: 1, duration: 0.2, ease: 'power2.out' });
+          window.gsap.fromTo(pill, { scale: 0.95 }, { scale: 1, duration: 0.22, ease: 'power2.out', clearProps: 'scale' });
         }
 
         const allCards = Array.from(directorsGrid.querySelectorAll('.director-card'));

@@ -63,7 +63,7 @@ export const speakers = [
     "name": "Karenina Marie Frances M. Comia",
     "role": "Lead Data Engineer · Data Engineering Pilipinas | Team Lead, eCloudvalley Philippines",
     "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Nina is a community builder with Data Engineering Pilipinas (DEP), where she designs curriculums and training programs, mentorship, and enablement that strengthen data and AI capabilities across universities and government institutions. She also serves as a Data Engineering Team Lead at eCloudvalley Philippines, an AWS Premier Partner, delivering cloud-native data platforms across solution architecture, presales, and hands-on engineering with tools like AWS, Snowflake, Terraform, and more.",
+    "abstract": "Nina is a community builder with Data Engineering Pilipinas (DEP), where she designs curriculums and training programs, mentorship, and enablement that strengthen data and AI capabilities across universities and government institutions. She also serves as a Data Engineering Team Lead at eCloudvalley Philippines, an AWS Premier Partner, delivering cloud-native data platforms across solution architecture, presales, and technical engineering with tools like AWS, Snowflake, Terraform, and more.",
     "status": "PANEL",
     "picUrl": "assets/images/speakers/karenina-comia.webp",
     "linkedInUrl": "",

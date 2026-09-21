@@ -911,7 +911,7 @@ Joining the core team goes beyond just fulfilling responsibilities—it is an op
 
 * **Networking Opportunities:** Build meaningful connections with fellow leaders, industry professionals, and student innovators across different organizations.  
 * **Exposure to AWS & Partners:** Gain insights and opportunities through collaborations with AWS, partnered organizations, and sponsors.  
-* **Professional Growth:** Enhance your leadership, communication, and project management skills through hands-on experiences.  
+* **Professional Growth:** Enhance your leadership, communication, and project management skills through practical experiences.  
 * **Exclusive Access:** Be at the forefront of AWS-related initiatives, workshops, and events in collaboration with industry leaders.  
 * **Career Advantage:** Strengthen your resume with real-world experiences and industry-backed collaborations.  
 * **Certificate:** As a token of appreciation, volunteers will receive a certificate.
@@ -943,8 +943,8 @@ The Operations Department is the logistical backbone of the event. It handles ve
 * **Registration Officer:** Handles attendee check-in processes, manages registration desks, distributes event materials and badges, and maintains accurate attendance records. Assists with workshop sign-ups and manages attendee queries during registration periods.  
 * **Usher:** Guides attendees throughout the venue, assists with seating arrangements, manages crowd movement between main conference and workshop sessions, and provides directional support. Helps maintain organized transitions during breakout sessions.  
 * **Security and Safety Officer:** Ensures venue security and emergency preparedness protocols are followed. Monitors access points, manages crowd safety during high-traffic periods, responds to incidents, and coordinates with venue security for overall event safety.  
-* **Technical Officer:** Provides hands-on technical support for audio-visual equipment, troubleshoots technology issues during presentations, assists speakers with equipment setup, and ensures all technical systems function properly throughout the event.  
-* **Workshop Assistant:** Supports AWS workshop instructors with hands-on technical assistance during lab sessions. Helps participants with coding challenges, troubleshoots individual technical issues, and ensures smooth workshop execution in computer lab environments.
+* **Technical Officer:** Provides direct technical support for audio-visual equipment, troubleshoots technology issues during presentations, assists speakers with equipment setup, and ensures all technical systems function properly throughout the event.  
+* **Seminar Assistant:** Supports stage coordinators and technical speakers during seminar sessions. Helps manage speaker presentations, coordinates Q&A microphones, and ensures smooth audio-visual and stage execution in the auditorium.
 
 ### **3\. Relations Department**
 
