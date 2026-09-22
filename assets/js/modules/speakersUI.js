@@ -474,7 +474,7 @@ export function initSpeakers() {
             stagger: 0.05,
             animateFrom: 'bottom',
             scaleOnHover: true,
-            hoverScale: 0.95,
+            hoverScale: 1.02,
             blurToFocus: true,
             colorShiftOnHover: false,
             renderItem: renderLineupItem,

@@ -3598,80 +3598,11 @@ html[data-theme="light"] .venue-space-row {
 .chapter-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 18px;
   position: relative;
   z-index: 2;
 }
 
-.chapter-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.chapter-card .mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 0;
-  background: var(--bg-3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.chapter-card h5 {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--text-strong);
-}
-
-.chapter-card span {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--muted);
-  display: block;
-  margin-top: 3px;
-}
-
-.chapter-socials {
-  display: flex;
-  gap: 8px;
-  margin-top: auto;
-}
-
-.chapter-socials a,
-.chapter-socials .chapter-social-soon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--bg-3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .18s ease;
-  color: var(--text-strong);
-}
-
-/* Chapters that haven't shared a page yet */
-.chapter-socials .chapter-social-soon {
-  opacity: .38;
-  cursor: default;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .chapter-socials a:hover { background: var(--blue); color: #fff; }
-}
-
-.chapter-socials svg {
-  width: 14px;
-  height: 14px;
-  fill: currentColor;
-}
 
 /* Speaker Status Badges (used in modals and chips) */
 .sc-status-badge {
@@ -4615,28 +4546,71 @@ html[data-theme="dark"] .tier-badge.chapters {
 
 .sponsors-hero-card {
   position: relative;
-  overflow: hidden;
-  background: var(--surface, #FFFFFF);
-  border: 1px solid var(--line, rgba(11, 21, 38, 0.12));
+  overflow: visible;
+  perspective: 1200px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent !important;
+  border: none !important;
   border-radius: 16px;
-  padding: 24px 20px;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 16px;
+  padding: 0 !important;
+  min-height: 200px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sponsors-hero-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+.sponsor-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  border-radius: 16px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.34, 1.35, 0.64, 1);
+}
+
+.sponsors-hero-card.is-flipped .sponsor-flipper {
+  transform: rotateY(180deg);
+}
+
+.sponsor-flip-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 20px;
+  background: var(--surface, #FFFFFF);
+  border: 1px solid var(--line, rgba(11, 21, 38, 0.12));
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.28s ease, box-shadow 0.28s ease;
+  overflow: hidden;
+}
+
+.sponsor-flip-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.sponsor-flip-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  text-align: center;
+  justify-content: space-between;
+  background: #ffffff;
 }
 
 /* Card Spotlight Layer */
@@ -4654,44 +4628,158 @@ html[data-theme="dark"] .tier-badge.chapters {
   opacity: 1;
 }
 
-.sponsors-hero-card.color-purple {
+.sponsors-hero-card.color-purple .sponsor-flip-face {
   --card-glow: rgba(167, 89, 255, 0.18);
 }
-.sponsors-hero-card.color-purple:hover {
+.sponsors-hero-card.color-purple:hover .sponsor-flip-face {
   border-color: rgba(167, 89, 255, 0.45);
 }
 
-.sponsors-hero-card.color-blue {
+.sponsors-hero-card.color-blue .sponsor-flip-face {
   --card-glow: rgba(68, 179, 254, 0.18);
 }
-.sponsors-hero-card.color-blue:hover {
+.sponsors-hero-card.color-blue:hover .sponsor-flip-face {
   border-color: rgba(68, 179, 254, 0.45);
 }
 
-.sponsors-hero-card.color-teal {
+.sponsors-hero-card.color-teal .sponsor-flip-face {
   --card-glow: rgba(43, 212, 173, 0.18);
 }
-.sponsors-hero-card.color-teal:hover {
+.sponsors-hero-card.color-teal:hover .sponsor-flip-face {
   border-color: rgba(43, 212, 173, 0.45);
 }
 
-.sponsors-hero-card.color-orange {
+.sponsors-hero-card.color-orange .sponsor-flip-face {
   --card-glow: rgba(252, 153, 7, 0.18);
 }
-.sponsors-hero-card.color-orange:hover {
+.sponsors-hero-card.color-orange:hover .sponsor-flip-face {
   border-color: rgba(252, 153, 7, 0.45);
 }
 
-html[data-theme="dark"] .sponsors-hero-card {
+html[data-theme="dark"] .sponsor-flip-face {
   background: #131b2e !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
-html[data-theme="dark"] .sponsors-hero-card:hover {
+html[data-theme="dark"] .sponsors-hero-card:hover .sponsor-flip-face {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Back body styling */
+.hero-back-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  flex-grow: 1;
+  text-align: center;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.hero-back-name {
+  font-family: var(--font-display, var(--font-sans));
+  font-size: clamp(19px, 1.8vw, 23px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-strong, #000000);
+  margin: 0;
+  line-height: 1.25;
+}
+
+html[data-theme="dark"] .hero-back-name {
+  color: #ffffff;
+}
+
+.hero-back-role {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--muted, #64748b);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 88%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+html[data-theme="dark"] .hero-back-role {
+  color: #94a3b8;
+}
+
+.hero-back-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-2, #94a3b8);
+}
+
+.hero-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.28);
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.hero-back-link:hover {
+  background: #0284c7;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .hero-back-link {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+html[data-theme="dark"] .hero-back-link:hover {
+  background: #38bdf8;
+  color: #0b1220;
+}
+
+/* Flip hints */
+.tile-flip-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--muted, #64748b);
+  opacity: 0.65;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity 0.2s ease;
+  margin-top: auto;
+  text-transform: uppercase;
+}
+
+.sponsors-hero-card:hover .tile-flip-hint {
+  opacity: 1;
+  color: var(--blue, #44b3fe);
+}
+
+.tile-flip-hint-icon {
+  font-size: 12px;
+  display: inline-block;
 }
 
 /* Card Content Stack */
@@ -4832,7 +4920,7 @@ html[data-theme="dark"] .hero-logo--theme-light {
    02 // UNIVERSITY BUILDER CHAPTERS & ECOSYSTEM NETWORK (INFINITE MARQUEE)
    ========================================================================== */
 
-/* Marquee Shell with Edge Gradient Masks */
+/* Marquee Shell with High-Performance Pseudo-Element Gradient Masks (Replaces expensive mask-image) */
 .sponsors-marquee-shell {
   position: relative;
   overflow: hidden;
@@ -4845,11 +4933,39 @@ html[data-theme="dark"] .hero-logo--theme-light {
   min-width: 0;
   box-sizing: border-box;
   padding: 8px 0;
-  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   display: flex;
   flex-direction: column;
   gap: 28px;
+  contain: layout paint;
+}
+
+.sponsors-marquee-shell::before,
+.sponsors-marquee-shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(60px, 8vw, 120px);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.sponsors-marquee-shell::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg, #fafbfc) 0%, transparent 100%);
+}
+
+.sponsors-marquee-shell::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg, #fafbfc) 0%, transparent 100%);
+}
+
+html[data-theme="dark"] .sponsors-marquee-shell::before {
+  background: linear-gradient(to right, var(--bg, #0b0f19) 0%, transparent 100%);
+}
+
+html[data-theme="dark"] .sponsors-marquee-shell::after {
+  background: linear-gradient(to left, var(--bg, #0b0f19) 0%, transparent 100%);
 }
 
 /* Track Group with Tier Label Bar */
@@ -4941,6 +5057,9 @@ html[data-theme="dark"] .marquee-tier-count {
   gap: 20px;
   width: max-content;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   --marquee-duration: 110s;
 }
 
@@ -4952,33 +5071,34 @@ html[data-theme="dark"] .marquee-tier-count {
   animation: marqueeScrollRight var(--marquee-duration) linear infinite;
 }
 
+/* Pause when offscreen, flipped open, or hovered */
+.sponsors-marquee-shell.is-offscreen .marquee-track,
+.sponsors-marquee-shell.is-paused .marquee-track,
 .sponsors-marquee-shell:hover .marquee-track {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
 }
 
 @keyframes marqueeScrollLeft {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 @keyframes marqueeScrollRight {
   0% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-/* Marquee Chip - Square & Height Aligned to Sponsors Hero Card (180px) */
+/* Marquee Chip - 3D Flipping Tile */
 .marquee-chip {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
   width: 180px;
   height: 180px;
@@ -4986,24 +5106,85 @@ html[data-theme="dark"] .marquee-tier-count {
   max-width: 180px;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
-  background: #ffffff !important;
-  border: 1px solid var(--line, rgba(11, 21, 38, 0.12));
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-  cursor: default;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
   user-select: none;
   flex-shrink: 0;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
-  overflow: hidden;
+  perspective: 1000px;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: visible;
   box-sizing: border-box;
+  contain: layout style;
 }
 
 .marquee-chip:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
-  border-color: rgba(68, 179, 254, 0.45);
 }
 
-html[data-theme="dark"] .marquee-chip {
+.chip-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.34, 1.35, 0.64, 1);
+}
+
+.marquee-chip.is-flipped .chip-flipper {
+  transform: rotateY(180deg);
+}
+
+.chip-flip-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--line, rgba(11, 21, 38, 0.12));
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.chip-flip-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+  padding: 8px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chip-flip-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  padding: 12px 10px 8px;
+  text-align: center;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.marquee-chip:hover .chip-flip-face {
+  border-color: rgba(68, 179, 254, 0.5);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Dark mode for marquee chip faces */
+html[data-theme="dark"] .chip-flip-face {
   background: #131b2e !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
@@ -5011,23 +5192,27 @@ html[data-theme="dark"] .marquee-chip {
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 
-html[data-theme="dark"] .marquee-chip:hover {
+html[data-theme="dark"] .chip-flip-back {
+  background: #0f172a !important;
+}
+
+html[data-theme="dark"] .marquee-chip:hover .chip-flip-face {
   border-color: rgba(68, 179, 254, 0.6) !important;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6) !important;
 }
 
 .marquee-chip-logo-wrap {
   width: 100%;
-  height: 100%;
+  flex: 1 1 0;
+  min-height: 0;
   border-radius: 0;
   background: transparent;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px 16px 4px;
   box-sizing: border-box;
-  flex-shrink: 0;
 }
 
 html[data-theme="dark"] .marquee-chip-logo-wrap {
@@ -5049,18 +5234,122 @@ html[data-theme="dark"] .marquee-chip img[src*="DEVCON"] {
   filter: brightness(0) invert(1);
 }
 
-.marquee-chip-meta {
+/* Back Face Content for Marquee Chip */
+.chip-back-top {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  justify-content: center;
+  align-items: center;
 }
 
-.marquee-chip-name {
-  font-family: var(--font-sans);
-  font-size: 13px;
+.chip-back-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  flex-grow: 1;
+  text-align: center;
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.marquee-back-name {
+  font-family: var(--font-display, var(--font-sans));
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--text-strong, #000000);
+  margin: 0;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+html[data-theme="dark"] .marquee-back-name {
+  color: #ffffff;
+}
+
+.marquee-back-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted, #64748b);
+  line-height: 1.3;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 95%;
+}
+
+html[data-theme="dark"] .marquee-back-sub {
+  color: #94a3b8;
+}
+
+.marquee-back-link {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
   font-weight: 700;
-  color: var(--text-strong);
-  white-space: nowrap;
+  color: #0284c7;
+  text-decoration: none;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  margin-top: 3px;
+  transition: all 0.2s ease;
+}
+
+.marquee-back-link:hover {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .marquee-back-link {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+html[data-theme="dark"] .marquee-back-link:hover {
+  background: #38bdf8;
+  color: #0b1220;
+}
+
+/* Chip flip cues */
+.chip-flip-cue {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted, #64748b);
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  line-height: 1;
+  padding: 2px 6px;
+  margin: 0 0 2px 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.marquee-chip:hover .chip-flip-cue {
+  opacity: 1;
+  color: var(--blue, #44b3fe);
+}
+
+.chip-flip-cue.is-back {
+  opacity: 0.75;
+  margin-top: auto;
 }
 
 .marquee-chip-badge {
@@ -5073,7 +5362,6 @@ html[data-theme="dark"] .marquee-chip img[src*="DEVCON"] {
   text-transform: uppercase;
   flex-shrink: 0;
   line-height: 1.4;
-  margin-left: 2px;
 }
 
 .marquee-chip-badge--pro {
@@ -5114,14 +5402,80 @@ html[data-theme="dark"] .marquee-chip-badge--lite {
     gap: 16px;
   }
   .marquee-chip {
-    width: 140px;
-    height: 140px;
-    min-width: 140px;
-    max-width: 140px;
+    width: 144px;
+    height: 144px;
+    min-width: 144px;
+    max-width: 144px;
     border-radius: 16px;
   }
+  .chip-flipper {
+    border-radius: 16px;
+    padding: 0 !important;
+  }
+  .chip-flip-face {
+    border-radius: 16px;
+  }
+  .chip-flip-front {
+    padding: 6px 8px 6px;
+  }
+  .chip-flip-back {
+    padding: 10px 8px 6px;
+  }
+  .marquee-back-name {
+    font-size: 11px;
+    line-height: 1.25;
+  }
   .marquee-chip-logo-wrap {
-    padding: 18px;
+    padding: 10px 10px 4px;
+  }
+  .chip-flip-cue {
+    font-size: 9px;
+    padding: 2px 4px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 580px) {
+  .marquee-chip {
+    width: 130px;
+    height: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    border-radius: 16px;
+  }
+  .chip-flipper {
+    border-radius: 16px;
+    padding: 0 !important;
+  }
+  .chip-flip-face {
+    border-radius: 16px;
+  }
+  .chip-flip-front {
+    padding: 6px 6px 4px;
+  }
+  .chip-flip-back {
+    padding: 8px 6px 6px;
+  }
+  .marquee-chip-logo-wrap {
+    padding: 6px 6px 2px;
+  }
+  .marquee-back-name {
+    font-size: 10.5px;
+    line-height: 1.25;
+  }
+  .marquee-back-sub {
+    display: none;
+  }
+  .marquee-chip-badge {
+    font-size: 8px;
+    padding: 2px 5px;
+  }
+  .chip-flip-cue {
+    font-size: 8.5px;
+    padding: 2px 4px;
+    margin: 0 0 2px 0;
+    line-height: 1;
+    opacity: 0.85;
   }
 }
 
@@ -5792,8 +6146,8 @@ footer.site-footer {
   .agenda-num { font-size: 18px; }
   .chapter-grid { grid-template-columns: 1fr; }
   .organizer-feature-card { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
-  .organizer-logo-frame { width: 88px; height: 88px; }
-  .sponsors-hero-card { padding: 22px 18px; }
+  .sponsors-hero-card { padding: 0 !important; }
+  .sponsor-flip-face { padding: 18px 14px; }
   .marquee-chip {
     width: 110px;
     height: 110px;
@@ -6674,109 +7028,205 @@ footer.site-footer {
   z-index: 2;
 }
 
+/* ==========================================================================
+   COLLECTIBLE PLAYER / TRADING CARD STYLE — CHAPTER ORGANIZERS
+   Reference: Name on Top -> Picture in Middle -> Social Links at Bottom
+   ========================================================================== */
+
 .chapter-card,
 #card-chapters .chapter-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
-  color: #18181b;
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #059669;
+  border-radius: 20px;
+  color: #0f172a;
   padding: 0 !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-  position: relative;
+  box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.28),
+              0 8px 24px rgba(6, 78, 59, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease;
   overflow: hidden;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .chapter-card:hover,
 #card-chapters .chapter-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(0, 0, 0, 0.16);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  border-color: #047857;
+  box-shadow: 0 0 0 1px rgba(4, 120, 87, 0.45),
+              0 18px 38px rgba(6, 78, 59, 0.22),
+              inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
-/* Card Top Banner */
-.chapter-card-banner,
-#card-chapters .chapter-card-banner {
+/* 1. TOP HEADER: Name of the Org on Top (Player Plate) */
+.chapter-card-header,
+#card-chapters .chapter-card-header {
+  position: relative;
   width: 100%;
-  height: 90px;
-  background: rgba(0, 0, 0, 0.035);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  min-height: 58px;
+  background: linear-gradient(180deg, #065f46 0%, #064e3b 100%);
+  border-bottom: 2px solid var(--green, #07e383);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(6, 78, 59, 0.28);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 20px;
+  padding: 10px 14px;
   box-sizing: border-box;
+  text-align: center;
   flex-shrink: 0;
-  transition: background-color 0.2s ease;
+  overflow: hidden;
 }
 
-.chapter-banner-logo,
-#card-chapters .chapter-banner-logo,
-.chapter-card .mark img {
-  max-width: 140px;
-  max-height: 60px;
-  height: auto;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.chapter-header-bevel {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.24), transparent 75%);
 }
 
-.chapter-card:hover .chapter-banner-logo {
-  transform: scale(1.08);
-}
-
-/* Card Body (Centered) */
-.chapter-card-body,
-#card-chapters .chapter-card-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: space-between;
-  padding: 18px 18px 16px;
-  flex-grow: 1;
-  gap: 12px;
-}
-
-.chapter-card-info,
-#card-chapters .chapter-card-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 4px;
-  width: 100%;
-}
-
-.chapter-card h5,
-#card-chapters .chapter-card h5 {
-  font-family: var(--font-sans, "Inter", sans-serif);
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.35;
-  color: #18181b;
+.chapter-org-name,
+#card-chapters .chapter-org-name {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display, var(--font-sans, "Inter", sans-serif));
+  font-size: 12.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  color: #ffffff;
   margin: 0;
-  text-align: center;
-  white-space: normal;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   word-break: normal;
   overflow-wrap: break-word;
 }
 
-.chapter-card span,
-#card-chapters .chapter-card span {
-  font-family: var(--font-mono, monospace);
-  font-size: 11.5px;
-  line-height: 1.4;
-  color: #52525b;
-  letter-spacing: 0.01em;
+/* 2. MIDDLE VIEWPORT: Picture in Middle (Framed Art Viewport) */
+.chapter-card-viewport,
+#card-chapters .chapter-card-viewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 14px 6px;
+  box-sizing: border-box;
+  background: rgba(5, 150, 105, 0.04);
+  flex-shrink: 0;
+}
+
+.chapter-media-frame,
+#card-chapters .chapter-media-frame {
+  width: 100%;
+  height: 140px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.chapter-media-logo,
+#card-chapters .chapter-media-logo {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapter-card:hover .chapter-media-logo {
+  transform: scale(1.06);
+}
+
+/* Decorative Notch / Pips Bar */
+.chapter-deco-notch,
+#card-chapters .chapter-deco-notch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0 2px;
+  width: 100%;
+}
+
+.notch-pip {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(5, 150, 105, 0.35);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.notch-pip--center {
+  width: 6px;
+  height: 6px;
+  background: #059669;
+}
+
+.chapter-card:hover .notch-pip {
+  background: #059669;
+}
+
+.chapter-card:hover .notch-pip--center {
+  transform: scale(1.2);
+  background: var(--green, #07e383);
+  box-shadow: 0 0 6px rgba(7, 227, 131, 0.7);
+}
+
+/* 3. BOTTOM DECK: University & Social Media Links */
+.chapter-card-footer,
+#card-chapters .chapter-card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px 16px;
+  background: linear-gradient(180deg, rgba(241, 245, 249, 0.6) 0%, #ffffff 100%);
+  border-top: 1px solid rgba(5, 150, 105, 0.16);
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.chapter-meta-tag,
+#card-chapters .chapter-meta-tag {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   text-align: center;
-  margin-top: 2px;
+}
+
+.chapter-uni-label,
+#card-chapters .chapter-uni-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  color: #334155;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .chapter-socials,
@@ -6784,80 +7234,156 @@ footer.site-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 4px;
+  gap: 10px;
   width: 100%;
+  margin-top: auto;
 }
 
+.chapter-social-btn,
 .chapter-socials a,
 .chapter-socials .chapter-social-soon,
 #card-chapters .chapter-socials a,
 #card-chapters .chapter-socials .chapter-social-soon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  display: flex;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #27272a;
-  transition: all 0.18s ease;
+  color: #047857;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
+  box-sizing: border-box;
 }
 
+.chapter-social-btn:hover,
 .chapter-socials a:hover,
 #card-chapters .chapter-socials a:hover {
-  background: #18181b;
+  background: #059669;
   color: #ffffff;
-  border-color: #18181b;
+  border-color: #059669;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
 }
 
+.chapter-social-email:hover {
+  background: #047857 !important;
+  border-color: #047857 !important;
+}
+
+.chapter-social-soon,
 .chapter-socials .chapter-social-soon,
 #card-chapters .chapter-socials .chapter-social-soon {
-  opacity: 0.35;
+  opacity: 0.38;
   cursor: default;
   pointer-events: none;
 }
 
-/* Chapter Cards Dark Mode */
+.chapter-socials svg,
+#card-chapters .chapter-socials svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   CHAPTER CARDS — DARK MODE (MATCHING REFERENCE HIGH-TECH GREEN BATTLE CARD)
+   ========================================================================== */
+
+html[data-theme="dark"] .chapter-card,
 html[data-theme="dark"] #card-chapters .chapter-card {
-  background: var(--bg-2, #192138);
-  border-color: var(--card-border, rgba(255, 255, 255, 0.08));
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  color: var(--text-strong, #ffffff);
+  background: linear-gradient(180deg, #0e1a14 0%, #08110d 100%);
+  border-color: var(--green, #07e383);
+  box-shadow: 0 0 0 1px rgba(7, 227, 131, 0.35),
+              0 10px 30px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
 }
 
+html[data-theme="dark"] .chapter-card:hover,
 html[data-theme="dark"] #card-chapters .chapter-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  border-color: #34d399;
+  box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.6),
+              0 20px 42px rgba(0, 0, 0, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-html[data-theme="dark"] #card-chapters .chapter-card-banner {
-  background: rgba(255, 255, 255, 0.04);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+html[data-theme="dark"] .chapter-card-header,
+html[data-theme="dark"] #card-chapters .chapter-card-header {
+  background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
+  border-bottom-color: var(--green, #07e383);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 3px 10px rgba(0, 0, 0, 0.5);
 }
 
-html[data-theme="dark"] #card-chapters .chapter-card h5 {
-  color: var(--text-strong, #ffffff);
-}
-
-html[data-theme="dark"] #card-chapters .chapter-card span {
-  color: var(--muted, #9ca3af);
-}
-
-html[data-theme="dark"] #card-chapters .chapter-socials a {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.12);
+html[data-theme="dark"] .chapter-org-name,
+html[data-theme="dark"] #card-chapters .chapter-org-name {
   color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
+html[data-theme="dark"] .chapter-card-viewport,
+html[data-theme="dark"] #card-chapters .chapter-card-viewport {
+  background: rgba(14, 26, 20, 0.6);
+}
+
+html[data-theme="dark"] .chapter-media-frame,
+html[data-theme="dark"] #card-chapters .chapter-media-frame {
+  background: radial-gradient(circle at 50% 50%, #0f2d1e 0%, #040d08 100%);
+  border-color: rgba(7, 227, 131, 0.25);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+html[data-theme="dark"] .chapter-media-logo,
+html[data-theme="dark"] #card-chapters .chapter-media-logo {
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.6));
+}
+
+html[data-theme="dark"] .notch-pip {
+  background: rgba(7, 227, 131, 0.35);
+}
+
+html[data-theme="dark"] .notch-pip--center {
+  background: var(--green, #07e383);
+  box-shadow: 0 0 6px rgba(7, 227, 131, 0.8);
+}
+
+html[data-theme="dark"] .chapter-card:hover .notch-pip {
+  background: var(--green, #07e383);
+}
+
+html[data-theme="dark"] .chapter-card:hover .notch-pip--center {
+  background: #34d399;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.9);
+}
+
+html[data-theme="dark"] .chapter-card-footer,
+html[data-theme="dark"] #card-chapters .chapter-card-footer {
+  background: linear-gradient(180deg, rgba(14, 26, 20, 0.7) 0%, rgba(8, 17, 13, 0.95) 100%);
+  border-top-color: rgba(7, 227, 131, 0.2);
+}
+
+html[data-theme="dark"] .chapter-uni-label,
+html[data-theme="dark"] #card-chapters .chapter-uni-label {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .chapter-social-btn,
+html[data-theme="dark"] .chapter-socials a,
+html[data-theme="dark"] #card-chapters .chapter-socials a {
+  background: rgba(7, 227, 131, 0.12);
+  border-color: rgba(7, 227, 131, 0.35);
+  color: var(--green, #07e383);
+}
+
+html[data-theme="dark"] .chapter-social-btn:hover,
+html[data-theme="dark"] .chapter-socials a:hover,
 html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: #12182a;
+  background: var(--green, #07e383);
+  color: #030712;
+  border-color: var(--green, #07e383);
+  box-shadow: 0 0 14px rgba(7, 227, 131, 0.5);
 }
 
 .chapter-socials svg,
@@ -7712,6 +8238,8 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
    .wrap, otherwise it leaves big empty side gutters inside the full-width
    band. Widen just this section's container. */
 .about-roster-section .wrap {
+  position: relative;
+  z-index: 2;
   max-width: 1220px;
   margin-left: auto;
   margin-right: auto;
@@ -7942,31 +8470,6 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
   margin-bottom: calc(var(--grid-size) * 0.75);
 }
 
-.ar-hud-left {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.ar-hud-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-  text-transform: uppercase;
-}
-
-.ar-hud-title {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2.4vw, 28px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink-block);
-  line-height: 1.1;
-  margin: 0;
-}
-
 .ar-hud-center {
   display: flex;
   align-items: center;
@@ -7974,70 +8477,81 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
 
 .ar-category-pills {
   display: flex;
-  gap: 8px;
-  background: transparent;
-  padding: 0;
-  border: none;
-  border-radius: 0;
+  gap: 6px;
+  background: rgba(6, 14, 26, 0.08);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .ar-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 15px;
+  gap: 7px;
+  padding: 8px 16px;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
-  color: var(--ink-block);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(22, 28, 36, 0.14);
+  color: var(--ink-block, #060e1a);
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
-  transition: color var(--lineup-move-dur-fast) var(--lineup-move-ease),
-              background-color var(--lineup-move-dur-fast) var(--lineup-move-ease),
-              border-color var(--lineup-move-dur-fast) var(--lineup-move-ease),
-              transform var(--lineup-move-dur-fast) var(--lineup-move-ease),
-              box-shadow var(--lineup-move-dur-fast) var(--lineup-move-ease);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ar-pill:hover {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(22, 28, 36, 0.22);
+  background: rgba(255, 255, 255, 0.55);
   transform: translateY(-1px);
 }
 
 /* Tactile press feedback */
 .ar-pill:active {
-  transform: translateY(0) scale(0.96);
+  transform: translateY(0) scale(0.97);
 }
 
-/* Active pill fills with a solid brand color matching its track. */
+/* Active pill fills with dark ink and glows subtly */
 .ar-pill.active {
   color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 4px 14px rgba(22, 28, 36, 0.18);
+  background: #060e1a;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 14px rgba(6, 14, 26, 0.25);
 }
 
 #pillAll.active {
-  background: var(--ink-block);
-}
-#pillKeynotes.active {
-  background: var(--orange);
-  color: var(--ink-block);
-}
-#pillPanels.active {
-  background: var(--purple);
-}
-#pillSessions.active {
-  background: var(--green);
-  color: var(--ink-block);
+  background: #060e1a;
+  color: #ffffff;
 }
 
-/* On the active (filled) pill the color dot would clash — hide it. */
+#pillKeynotes.active {
+  background: #060e1a;
+  color: #ffffff;
+  border-color: var(--orange, #fc9907);
+}
+
+#pillPanels.active {
+  background: #060e1a;
+  color: #ffffff;
+  border-color: var(--purple, #a759ff);
+}
+
+#pillSessions.active {
+  background: #060e1a;
+  color: #ffffff;
+  border-color: var(--green, #2bd4ad);
+}
+
+/* Glowing dot state on active pill */
 .ar-pill.active .pill-dot {
-  background: currentColor !important;
-  opacity: 0.85;
+  opacity: 1;
+}
+#pillKeynotes.active .pill-dot {
+  box-shadow: 0 0 8px var(--orange, #fc9907);
+}
+#pillPanels.active .pill-dot {
+  box-shadow: 0 0 8px var(--purple, #a759ff);
 }
 
 /* Category color dots inside the keynote/panel/session pills. Match the

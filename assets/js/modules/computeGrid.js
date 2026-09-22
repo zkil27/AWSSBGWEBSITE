@@ -143,6 +143,23 @@ function lightCell(col, row, brightness, colorIndex) {
 }
 
 /* ============================== Sizing ================================== */
+let cachedMarqueeStartRow = -999;
+let cachedMarqueeEndRow = -999;
+
+export function updateMarqueeBounds() {
+  const marqueeEl = document.querySelector('.sponsors-marquee-shell');
+  if (marqueeEl) {
+    const marqueeRect = marqueeEl.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const docTop = marqueeRect.top + scrollY;
+    cachedMarqueeStartRow = Math.floor((docTop - 12) / gridSize);
+    cachedMarqueeEndRow = Math.ceil((docTop + marqueeRect.height + 12) / gridSize);
+  } else {
+    cachedMarqueeStartRow = -999;
+    cachedMarqueeEndRow = -999;
+  }
+}
+
 function resize() {
   if (!canvas || !ctx) return;
   viewW = window.innerWidth;
@@ -154,6 +171,7 @@ function resize() {
   canvas.style.height = viewH + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   refreshGridSize();
+  updateMarqueeBounds();
 }
 
 /* ============================ Lit cells ================================= */
@@ -374,16 +392,9 @@ function drawAmbientBlocks() {
   const maxLeftGutterCol = Math.max(0, Math.floor(gutterPx / gridSize) - 1);
   const minRightGutterCol = Math.max(maxLeftGutterCol + 1, totalCols - Math.max(0, Math.floor(gutterPx / gridSize)));
 
-  // Safety guard: cull blocks that overlap the marquee partner stream
-  const marqueeEl = document.querySelector('.sponsors-marquee-shell');
-  let marqueeStartRow = -999;
-  let marqueeEndRow = -999;
-  if (marqueeEl) {
-    const marqueeRect = marqueeEl.getBoundingClientRect();
-    const docTop = marqueeRect.top + scrollY;
-    marqueeStartRow = Math.floor((docTop - 12) / gridSize);
-    marqueeEndRow = Math.ceil((docTop + marqueeRect.height + 12) / gridSize);
-  }
+  // Safety guard: cull blocks that overlap the marquee partner stream (cached bounds, zero layout thrashing)
+  const marqueeStartRow = cachedMarqueeStartRow;
+  const marqueeEndRow = cachedMarqueeEndRow;
 
   for (const b of blocks) {
     // Resolve right-aligned columns

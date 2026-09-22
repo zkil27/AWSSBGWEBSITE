@@ -17,10 +17,10 @@
       rel="stylesheet">
   </noscript>
   <link rel="stylesheet" href="theme.css?v=20260920-manifesto-dark">
-  <link rel="stylesheet" href="styles.css?v=20260921-manifesto-dark">
+  <link rel="stylesheet" href="styles.css?v=20260923-flip-fix">
   <link rel="stylesheet" href="assets/css/staggeredMenu.css?v=20260920-manifesto-dark">
   <link rel="stylesheet" href="assets/css/grainient.css">
-  <link rel="stylesheet" href="assets/css/masonry.css">
+  <link rel="stylesheet" href="assets/css/masonry.css?v=20260923-lineup-clean">
   <link rel="stylesheet" href="assets/css/splitText.css">
   <link rel="stylesheet" href="assets/css/pixelTransition.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -210,6 +210,9 @@
       <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2.2" />
       <path d="M12 2v2.5M12 19.5v2.5M2 12h2.5M19.5 12h2.5M4.93 4.93l1.8 1.8M17.27 17.27l1.8 1.8M4.93 19.07l1.8-1.8M17.27 6.73l1.8-1.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none" />
     </symbol>
+    <symbol id="mail-icon" viewBox="0 0 24 24">
+      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor" />
+    </symbol>
     <symbol id="icon-moon" viewBox="0 0 24 24">
       <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     </symbol>
@@ -297,28 +300,70 @@
             
             <div class="sponsors-hero-grid" id="sponsorsQuantumGrid">
               <!-- AWS (Quantum Sponsor) -->
-              <article class="sponsors-hero-card color-purple" data-card-color="purple" aria-label="Amazon Web Services - QUANTUM SPONSOR" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame">
-                    <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
-                    <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-purple" data-card-color="purple" aria-label="Amazon Web Services - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame">
+                        <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+                        <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">Amazon Web Services</h3>
+                      <p class="hero-back-role">Quantum Sponsor &amp; Global Cloud Platform</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
 
               <!-- Tutorials Dojo (Quantum Sponsor) -->
-              <article class="sponsors-hero-card color-blue" data-card-color="blue" aria-label="Tutorials Dojo - QUANTUM SPONSOR" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame">
-                    <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-blue" data-card-color="blue" aria-label="Tutorials Dojo - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame">
+                        <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">Tutorials Dojo</h3>
+                      <p class="hero-back-role">Quantum Sponsor &amp; Official Cloud Learning Partner</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -337,28 +382,70 @@
 
             <div class="sponsors-hero-grid" id="sponsorsClusterVenueGrid">
               <!-- Cloud Sensei (Cluster Sponsor) -->
-              <article class="sponsors-hero-card color-teal" data-card-color="teal" aria-label="Cloud Sensei - CLUSTER SPONSOR" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame">
-                    <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/cloudsensei-light.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
-                    <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/cloudsensei-dark.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-teal" data-card-color="teal" aria-label="Cloud Sensei - CLUSTER SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame">
+                        <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/cloudsensei-light.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
+                        <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/cloudsensei-dark.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">Cloud Sensei</h3>
+                      <p class="hero-back-role">Cluster Sponsor</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
 
               <!-- City Government of Biñan (Venue Partner) -->
-              <article class="sponsors-hero-card color-orange" data-card-color="orange" aria-label="City Government of Biñan (Biñan LGU) - VENUE PARTNER" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag venue">VENUE PARTNER</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame emblem">
-                    <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-orange" data-card-color="orange" aria-label="City Government of Biñan (Biñan LGU) - VENUE PARTNER. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag venue">VENUE PARTNER</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame emblem">
+                        <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag venue">VENUE PARTNER</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">City Government of Biñan (Biñan LGU)</h3>
+                      <p class="hero-back-role">Official Venue Partner</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -1260,7 +1347,7 @@
     </div>
   </aside>
 
-  <script type="module" src="assets/js/main.js?v=20260921-partners-labels"></script>
+  <script type="module" src="assets/js/main.js?v=20260923-lineup-clean"></script>
 
   <script>
     /* Branded splash intro: show on entry, then fade out to reveal the site.

@@ -44,13 +44,15 @@
   overflow: hidden;
   border: 1px solid var(--lineup-panel-border, rgba(255, 255, 255, 0.12));
   box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.35);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .item-wrapper:hover > .item-img {
   background-color: #060e1a !important;
   border-color: var(--tile-accent, var(--lineup-panel-border-strong, rgba(255, 255, 255, 0.35)));
-  box-shadow: 0 16px 44px -10px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.65), 0 0 24px -4px var(--tile-accent, rgba(68, 179, 254, 0.35));
 }
 
 /* Full-bleed portrait image */
@@ -67,7 +69,7 @@
 }
 
 .item-wrapper:hover .lt-photo {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .item-wrapper .lt-photo.lt-photo-fallback {
@@ -119,6 +121,21 @@
   left: 12px;
   right: auto;
   z-index: 3;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.item-wrapper:hover .sc-status-badge {
+  transform: translateY(-1px);
+}
+
+.item-wrapper:hover .sc-status-badge.keynote {
+  box-shadow: 0 0 14px rgba(252, 153, 7, 0.55);
+}
+
+.item-wrapper:hover .sc-status-badge.panel {
+  box-shadow: 0 0 14px rgba(167, 89, 255, 0.55);
 }
 
 /* Floating LinkedIn action button */
