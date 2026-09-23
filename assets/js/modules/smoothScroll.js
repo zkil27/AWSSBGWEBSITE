@@ -51,7 +51,8 @@ export function shouldEnhance() {
   return (
     !reducedMotionMQ.matches &&
     pointerFineMQ.matches &&
-    desktopMQ.matches
+    desktopMQ.matches &&
+    window.innerWidth >= DESKTOP_MIN_WIDTH
   );
 }
 

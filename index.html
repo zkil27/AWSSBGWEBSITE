@@ -41,6 +41,9 @@
 
 <body>
 
+  <!-- Accessible Skip to Main Content Link (WCAG 2.4.1) -->
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
   <!-- BRANDED SPLASH SCREEN -->
   <div id="splashScreen" aria-hidden="true">
     <div class="splash-lockup">
@@ -63,8 +66,8 @@
   <header class="nav nav-in-hero" id="siteNav" aria-label="Main navigation header">
     <div class="nav-inner">
       <div class="header-left">
-        <button class="brand" data-page="home" aria-label="Go to home page">
-          <img class="chip" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day: South Summit 2026" width="36" height="36">
+        <button class="brand" data-page="home" type="button" aria-label="Go to home page">
+          <img class="chip" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day: South Summit 2026" width="36" height="36" decoding="async">
           <div class="brand-text">AWS SCD: SOUTH SUMMIT 2026<span>AWS STUDENT BUILDER GROUPS</span></div>
         </button>
       </div>
@@ -218,6 +221,9 @@
     </symbol>
   </svg>
 
+  <!-- Primary Semantic Landmark: Main Content Area (WCAG 1.3.1 & 2.4.1) -->
+  <main id="mainContent" class="site-main" tabindex="-1">
+
   <!-- ================================================================= -->
   <!-- ============================ HOME PAGE =========================== -->
   <!-- ================================================================= -->
@@ -225,22 +231,34 @@
 
     <!-- HERO -->
     <section class="hero" id="hero">
-      <!-- Poster Layout: Title at top, official emblem in the center -->
-      <div class="hero-poster-wrap">
-        <div class="hero-poster-inner">
-          <p class="hero-poster-kicker">AWS Student Community Day</p>
-          <h1 class="hero-poster-title">South Summit 2026</h1>
-          <div class="hero-meta-row">
-            <span class="hero-meta-tagline">Cloud &times; AI: BUILD. GROW. LEAD.</span>
-            <span class="hero-meta-sep" aria-hidden="true">&bull;</span>
-            <span class="hero-meta-date">October 7, 2026</span>
-            <span class="hero-meta-sep" aria-hidden="true">&bull;</span>
-            <span class="hero-meta-venue">Biñan People's Center, Laguna</span>
-          </div>
+      <div class="hero-center-wrap" data-no-split="true">
+        <!-- Top Editorial Meta Bar -->
+        <div class="hero-kicker-meta">
+          <span class="hero-kicker-tag">AWS Student Community Day</span>
+          <span class="hero-kicker-dot" aria-hidden="true">&bull;</span>
+          <span class="hero-kicker-edition">South Luzon &bull; Edition 01</span>
         </div>
 
-        <div class="hero-logo-center" aria-hidden="true">
-          <img class="hero-emblem" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day South Summit 2026 Emblem" width="200" height="200">
+        <!-- Grand Emblem Showcase (Big, Attention-Grabbing) -->
+        <div class="hero-emblem-showcase">
+          <img class="hero-emblem-feature" src="assets/images/south-summit-logo.svg" alt="AWS SCD South Summit 2026 Official Emblem" width="200" height="200" fetchpriority="high" decoding="async">
+        </div>
+
+        <!-- Monumental Centered Typography -->
+        <h1 class="hero-monument-title">
+          <span class="hero-monument-word">SOUTH SUMMIT</span>
+          <span class="hero-monument-year">2026</span>
+        </h1>
+
+        <!-- Tagline & Venue -->
+        <div class="hero-info-stack">
+          <p class="hero-tagline-text">Cloud &times; AI: BUILD. GROW. LEAD.</p>
+          <p class="hero-venue-text">October 7, 2026 &bull; Biñan People's Center, Laguna</p>
+        </div>
+
+        <!-- Centered CTA -->
+        <div class="hero-cta-wrap">
+          <a class="btn btn-primary hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now &rarr;</a>
         </div>
 
         <!-- React Bits CountUp Countdown Timer -->
@@ -248,22 +266,22 @@
           <div class="countup-card">
             <div class="countup-seg seg-days">
               <span class="countup-num" id="cd-days">00</span>
-              <span class="countup-label">Days</span>
+              <span class="countup-label"><span class="label-dot dot-pink" aria-hidden="true"></span>Days</span>
             </div>
             <span class="countup-divider" aria-hidden="true">:</span>
             <div class="countup-seg seg-hours">
               <span class="countup-num" id="cd-hours">00</span>
-              <span class="countup-label">Hours</span>
+              <span class="countup-label"><span class="label-dot dot-purple" aria-hidden="true"></span>Hours</span>
             </div>
             <span class="countup-divider" aria-hidden="true">:</span>
             <div class="countup-seg seg-mins">
               <span class="countup-num" id="cd-mins">00</span>
-              <span class="countup-label">Mins</span>
+              <span class="countup-label"><span class="label-dot dot-blue" aria-hidden="true"></span>Mins</span>
             </div>
             <span class="countup-divider" aria-hidden="true">:</span>
             <div class="countup-seg seg-secs">
               <span class="countup-num" id="cd-secs">00</span>
-              <span class="countup-label">Secs</span>
+              <span class="countup-label"><span class="label-dot dot-green" aria-hidden="true"></span>Secs</span>
             </div>
           </div>
         </div>
@@ -880,51 +898,52 @@
       </div>
     </section>
 
-    <!-- QUOTE -->
-    <section class="quote-band">
-      <div class="deco-layer deco-scatter band-deco" aria-hidden="true">
-        <span class="brand-box b1"></span>
-        <span class="brand-box b2"></span>
-        <span class="brand-box b3"></span>
-        <span class="brand-box b4"></span>
-        <span class="brand-box b5"></span>
-      </div>
+    <!-- QUOTE / MANIFESTO (TYPOGRAPHIC EDITORIAL) -->
+    <section id="quote" class="quote-band" data-no-split="true">
       <div class="wrap quote-inner">
-        <p class="quote-mark">"<span class="quote-cloud-ai">Cloud × AI:</span> <span class="quote-build">Build.</span> <span class="quote-grow">Grow.</span> <span class="quote-lead">Lead.</span> — three motions, one day, one community of student builders."</p>
-        <p class="quote-attr font-mono">— AWS SCD: SOUTH SUMMIT 2026</p>
+        <p class="quote-mark">"<span class="quote-cloud-ai">Cloud &times; AI:</span> <span class="quote-build">Build.</span> <span class="quote-grow">Grow.</span> <span class="quote-lead">Lead.</span> &mdash; three motions, one day, one community of student builders."</p>
+        <p class="quote-attr font-mono">AWS SCD &bull; SOUTH SUMMIT 2026</p>
       </div>
     </section>
 
-    <!-- REGISTRATION (OPEN-AIR BLUEPRINT LAYOUT - ZERO CARDS, ZERO SCANNER GIMMICKS) -->
-    <section id="register" class="register-band grid-bg">
-      <div class="deco-layer deco-corners band-deco" aria-hidden="true">
-        <span class="brand-box b1"></span>
-        <span class="brand-box b2"></span>
-        <span class="brand-box b3"></span>
-        <span class="brand-box b4"></span>
-        <span class="brand-box b5"></span>
-      </div>
+    <!-- REGISTRATION (TYPOGRAPHY FOCUS HEROIC GATEWAY) -->
+    <section id="register" class="register-band" data-no-split="true">
       <div class="wrap register-inner">
         <div class="register-content-left">
-          <div class="register-eyebrow-row font-mono">
-            <span class="eyebrow-dot"></span>
-            <span class="eyebrow-text">REGISTRATION // OCTOBER 7, 2026</span>
+          <div class="register-editorial-kicker font-mono">
+            <span>CALABARZON</span>
+            <span class="kicker-sep">&bull;</span>
+            <span>OCTOBER 7, 2026</span>
+            <span class="kicker-sep">&bull;</span>
+            <span>BIÑAN PEOPLE'S CENTER</span>
           </div>
-          <h2 class="register-heading">Claim your summit spot.</h2>
+          <h2 class="register-heading">
+            <span class="reg-head-light">CLAIM YOUR</span>
+            <span class="reg-head-highlight">SUMMIT SPOT.</span>
+          </h2>
           <p class="register-summary">
             Free admission for student builders, cloud enthusiasts, and aspiring tech leaders across South Luzon. Join 1,000+ peers for a full day of technical seminars, keynote insights, and community networking.
           </p>
           <div class="register-action-group">
-            <a class="btn btn-register-main font-mono" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">
-              <span>Register on Luma &rarr;</span>
-            </a>
+            <div class="register-cta-row">
+              <a class="btn btn-register-main font-mono" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">
+                <span>Register on Luma &rarr;</span>
+              </a>
+              <span class="register-admit-badge font-mono">FREE ADMISSION &bull; RSVP REQUIRED</span>
+            </div>
           </div>
         </div>
 
         <div class="register-content-right">
           <div class="qr-clean-dock">
+            <div class="qr-pass-header font-mono">
+              <span class="qr-pass-title">OFFICIAL RSVP PASS</span>
+              <span class="qr-pass-badge">FREE</span>
+            </div>
             <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="qr-code-link" aria-label="Scan or click QR code to register on Luma">
-              <img src="assets/images/luma-qr.svg" class="qr-clean-img" width="160" height="160" alt="QR Code – scan to register on Luma at lu.ma/f8knjt7n" />
+              <div class="qr-code-plate">
+                <img src="assets/images/luma-qr.svg" class="qr-clean-img" width="160" height="160" alt="QR Code – scan to register on Luma at lu.ma/f8knjt7n" loading="lazy" decoding="async" />
+              </div>
             </a>
             <div class="qr-meta font-mono">
               <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="qr-url">lu.ma/f8knjt7n &rarr;</a>
@@ -1146,12 +1165,13 @@
   <div class="modal-overlay" id="speakerModal" role="dialog" aria-modal="true" aria-labelledby="smName"
     aria-hidden="true" onclick="if(event.target===this) closeSpeakerModal()">
     <div class="modal-card sm-pass-card">
-      <button class="modal-close sm-close-btn" onclick="closeSpeakerModal()" aria-label="Close modal">&#10005;</button>
+      <button class="modal-close sm-close-btn" type="button" onclick="closeSpeakerModal()" aria-label="Close modal">&#10005;</button>
 
       <div class="sm-pass-layout">
         <!-- LEFT COLUMN: Full-bleed Speaker Portrait Pane -->
         <div class="sm-col-media">
           <img id="smAvatar" class="sm-avatar-img" src="assets/images/south-summit-logo.svg" alt="Speaker Portrait"
+               width="320" height="320" loading="lazy" decoding="async"
                onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
         </div>
 
@@ -1191,62 +1211,127 @@
       </div>
     </div>
   </div>
+  </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer" id="siteFooter">
     <div class="wrap">
+      <h2 class="sr-only">Site Directory & Event Information</h2>
       <div class="foot-ledger-grid">
         <!-- Col 1: Brand & Mission -->
         <div class="foot-col-brand">
           <div class="brand" style="display:flex; align-items:center; gap:10px;">
-            <img class="chip" src="assets/images/south-summit-logo.svg" alt="South Summit 2026" width="36" height="36">
+            <img class="chip" src="assets/images/south-summit-logo.svg" alt="South Summit 2026" width="36" height="36" decoding="async">
             <div class="brand-text">
               AWS SCD SOUTH SUMMIT 2026
               <span>AWS STUDENT BUILDER GROUPS</span>
             </div>
           </div>
           <p class="foot-mission">
-            The flagship student-led cloud conference across <b>CALABARZON</b>. Empowering future student builders, developers, and leaders through <b>Cloud and AI</b>.
+            The flagship student-led cloud conference across <b>CALABARZON</b>. Empowering future student builders, developers, and leaders through <b>Cloud and&nbsp;AI.</b>
           </p>
+          <div class="foot-dispatch-meta font-mono">
+            <div class="dispatch-row">
+              <span class="dispatch-label">VENUE</span>
+              <span class="dispatch-val">Biñan People's Center, Laguna</span>
+            </div>
+            <div class="dispatch-row">
+              <span class="dispatch-label">DATE</span>
+              <span class="dispatch-val">Wednesday &bull; October 7, 2026</span>
+            </div>
+            <div class="dispatch-row">
+              <span class="dispatch-label">ACCESS</span>
+              <span class="dispatch-val">Free Admission (RSVP Required)</span>
+            </div>
+          </div>
         </div>
 
         <!-- Col 2: Navigation -->
         <div class="foot-col">
-          <h6 class="foot-header">Explore</h6>
+          <h3 class="foot-header">
+            <span class="foot-col-num">01</span>
+            <span>Explore</span>
+          </h3>
           <nav class="foot-nav-links" aria-label="Footer navigation">
-            <button type="button" class="foot-nav-item" data-page="home">Home</button>
-            <button type="button" class="foot-nav-item" data-page="about">About</button>
-            <button type="button" class="foot-nav-item" data-page="merch">Merch</button>
+            <button type="button" class="foot-nav-item" data-page="home">
+              <span class="nav-text">Home</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+            <button type="button" class="foot-nav-item" data-page="about">
+              <span class="nav-text">About</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+            <button type="button" class="foot-nav-item" data-page="merch">
+              <span class="nav-text">Merch</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </button>
           </nav>
         </div>
 
         <!-- Col 3: Event -->
         <div class="foot-col">
-          <h6 class="foot-header">Event</h6>
+          <h3 class="foot-header">
+            <span class="foot-col-num">02</span>
+            <span>Program</span>
+          </h3>
           <nav class="foot-nav-links" aria-label="Event navigation">
-            <a href="#program" class="foot-nav-item" data-section="program">Schedule</a>
-            <a href="#sponsors" class="foot-nav-item" data-section="sponsors">Sponsors</a>
-            <a href="#venue" class="foot-nav-item" data-section="venue">Venue</a>
-            <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item">Register</a>
+            <a href="#program" class="foot-nav-item" data-section="program">
+              <span class="nav-text">Schedule</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="#sponsors" class="foot-nav-item" data-section="sponsors">
+              <span class="nav-text">Sponsors</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="#venue" class="foot-nav-item" data-section="venue">
+              <span class="nav-text">Venue</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item">
+              <span class="nav-text">Register on Luma</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </a>
           </nav>
         </div>
 
         <!-- Col 4: Social Channels -->
         <div class="foot-col">
-          <h6 class="foot-header">Connect</h6>
+          <h3 class="foot-header">
+            <span class="foot-col-num">03</span>
+            <span>Connect</span>
+          </h3>
           <nav class="foot-social-links" aria-label="Social media channels">
-            <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="blue" aria-label="AWS SCD South Summit Facebook">Facebook</a>
-            <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="purple" aria-label="AWS SCD South Summit LinkedIn">LinkedIn</a>
-            <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="pink" aria-label="AWS SCD South Summit Instagram">Instagram</a>
-            <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="green" aria-label="AWS SCD South Summit TikTok">TikTok</a>
+            <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="blue" aria-label="AWS SCD South Summit Facebook">
+              <span class="nav-text">Facebook</span>
+              <span class="social-ext-icon" aria-hidden="true">&#8599;</span>
+            </a>
+            <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="purple" aria-label="AWS SCD South Summit LinkedIn">
+              <span class="nav-text">LinkedIn</span>
+              <span class="social-ext-icon" aria-hidden="true">&#8599;</span>
+            </a>
+            <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="pink" aria-label="AWS SCD South Summit Instagram">
+              <span class="nav-text">Instagram</span>
+              <span class="social-ext-icon" aria-hidden="true">&#8599;</span>
+            </a>
+            <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="green" aria-label="AWS SCD South Summit TikTok">
+              <span class="nav-text">TikTok</span>
+              <span class="social-ext-icon" aria-hidden="true">&#8599;</span>
+            </a>
           </nav>
         </div>
+      </div>
+
+      <!-- Monumental Typographic Horizon Sign-Off -->
+      <div class="foot-monument-banner" aria-label="South Summit 2026">
+        <span class="foot-monument-word">SOUTH</span>
+        <span class="foot-monument-word">SUMMIT</span>
+        <span class="foot-monument-year">2026</span>
       </div>
 
       <!-- Foot Bottom Bar -->
       <div class="foot-bottom">
         <div class="foot-bottom-left font-mono">
-          <span>&copy; 2026 AWS Student Builder Groups · South Luzon</span>
+          <span>&copy; 2026 AWS Student Builder Groups &bull; South Luzon</span>
           <span class="foot-meta-sep" aria-hidden="true">|</span>
           <span class="foot-meta-tag">BUILD. GROW. LEAD.</span>
         </div>

@@ -349,54 +349,61 @@ function activate() {
   rafId = requestAnimationFrame(tick);
 }
 
-function deactivate() {
-  if (!active) return;
-  active = false;
-  engaged = false;
+function cleanUpDesktopLayout() {
+  document.documentElement.classList.remove('bp-active');
 
+  if (track) {
+    track.style.transform = '';
+    track.style.willChange = '';
+    track.style.removeProperty('--bp-track-pad-right');
+  }
+  const allPanels = track ? track.querySelectorAll('.blueprint-panel') : [];
+  allPanels.forEach((el) => {
+    el.style.opacity = '';
+    el.style.transform = '';
+    el.classList.remove('is-focused');
+    const numEl = el.querySelector('.bp-num');
+    if (numEl) {
+      numEl.style.transform = '';
+      numEl.style.removeProperty('--bp-bar-scale');
+    }
+    const bodyEl = el.querySelector('.bp-agenda-body');
+    if (bodyEl) {
+      bodyEl.style.transform = '';
+    }
+  });
+  panelData = [];
+  if (fill) fill.style.width = '';
+  if (pin) {
+    pin.classList.remove('bp-engaged', 'is-before', 'is-pinned', 'is-after');
+    pin.style.position = '';
+    pin.style.top = '';
+    pin.style.bottom = '';
+    pin.style.height = '';
+    pin.style.backgroundPosition = '';
+    pin.style.clipPath = '';
+    pin.style.webkitClipPath = '';
+  }
+  if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
+  lastArch = -1;
+  setShaderScroll(0);
+  pinState = '';
+  if (section) {
+    section.style.removeProperty('--bp-extra');
+  }
+}
+
+function deactivate() {
   if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
   if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
 
-  // On desktop PC, preserve bp-active and layout styles across page switches
-  // so that navigating between pages never flashes the mobile fallback layout.
-  if (!shouldEnhance()) {
-    document.documentElement.classList.remove('bp-active');
+  active = false;
+  engaged = false;
 
-    if (track) {
-      track.style.transform = '';
-      track.style.willChange = '';
-      track.style.removeProperty('--bp-track-pad-right');
-    }
-    const allPanels = track ? track.querySelectorAll('.blueprint-panel') : [];
-    allPanels.forEach((el) => {
-      el.style.opacity = '';
-      el.style.transform = '';
-      el.classList.remove('is-focused');
-      const numEl = el.querySelector('.bp-num');
-      if (numEl) {
-        numEl.style.transform = '';
-        numEl.style.removeProperty('--bp-bar-scale');
-      }
-      const bodyEl = el.querySelector('.bp-agenda-body');
-      if (bodyEl) {
-        bodyEl.style.transform = '';
-      }
-    });
-    panelData = [];
-    if (fill) fill.style.width = '';
-    if (pin) {
-      pin.classList.remove('bp-engaged', 'is-before', 'is-pinned', 'is-after');
-      pin.style.backgroundPosition = '';
-      pin.style.clipPath = '';
-      pin.style.webkitClipPath = '';
-    }
-    if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
-    lastArch = -1;
-    setShaderScroll(0);
-    pinState = '';
-    if (section) {
-      section.style.removeProperty('--bp-extra');
-    }
+  // Whenever we are in mobile/fallback mode (or resizing from desktop),
+  // unconditionally tear down all desktop pinning styles, transforms, and classes.
+  if (!shouldEnhance()) {
+    cleanUpDesktopLayout();
   }
 }
 
@@ -406,31 +413,19 @@ let mobileListening = false;
 let mobileRaf = 0;
 
 function handleMobileScroll() {
-  if (!mobileListening) return;
-  if (mobileRaf) return;
-  mobileRaf = requestAnimationFrame(() => {
-    mobileRaf = 0;
-    if (mobileListening && homeVisible()) {
-      updateCurve(window.scrollY, true);
-    }
-  });
+  // Mobile uses clean natural vertical scrolling without dynamic clip-path clipping
 }
 
 function activateMobile() {
-  if (mobileListening) return;
-  mobileListening = true;
-  window.addEventListener('scroll', handleMobileScroll, { passive: true });
-  updateCurve(window.scrollY, true);
+  if (pin) {
+    pin.style.clipPath = '';
+    pin.style.webkitClipPath = '';
+  }
+  if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
+  lastArch = -1;
 }
 
 function deactivateMobile() {
-  if (!mobileListening) return;
-  mobileListening = false;
-  window.removeEventListener('scroll', handleMobileScroll);
-  if (mobileRaf) {
-    cancelAnimationFrame(mobileRaf);
-    mobileRaf = 0;
-  }
   if (pin) {
     pin.style.clipPath = '';
     pin.style.webkitClipPath = '';
