@@ -6094,16 +6094,27 @@ html[data-theme="dark"] .marquee-chip-badge--lite {
 
 /* ===== FOOTER (ARCHITECTURAL MONUMENT) ===== */
 footer.site-footer {
-  background: var(--bg-1, #080B11);
-  border-top: 1px solid var(--line-strong, rgba(255, 255, 255, 0.08));
+  background: var(--bg-1, #FFFFFF);
+  border-top: 1px solid var(--line-strong, rgba(0, 0, 0, 0.08));
   padding: clamp(60px, 8vh, 90px) 0 max(36px, calc(36px + var(--sab, 0px)));
   position: relative;
   z-index: 2;
-  --footer-text: #D1D5DB;
-  --footer-text-strong: #FFFFFF;
-  --footer-muted: #9CA3AF;
-  --footer-link: #9CA3AF;
-  color: #D1D5DB;
+  --footer-text: var(--text, #1E2535);
+  --footer-text-strong: var(--text-strong, #000000);
+  --footer-muted: var(--muted, #4B5563);
+  --footer-link: var(--footer-link, #4B5563);
+  color: var(--footer-text, #1E2535);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.foot-col-brand .brand-text {
+  color: var(--footer-text-strong, #000000);
+  transition: color 0.25s ease;
+}
+
+.foot-col-brand .brand-text span {
+  color: var(--footer-muted, #4B5563);
+  transition: color 0.25s ease;
 }
 
 .foot-ledger-grid {
@@ -6118,15 +6129,17 @@ footer.site-footer {
 }
 
 .foot-mission {
-  color: var(--footer-text, #D1D5DB);
+  color: var(--footer-text, #1E2535);
   font-size: 13.5px;
   line-height: 1.65;
   max-width: 360px;
   margin-bottom: 0;
+  transition: color 0.25s ease;
 }
 
 .foot-mission b {
-  color: var(--footer-text-strong, #FFFFFF);
+  color: var(--footer-text-strong, #000000);
+  transition: color 0.25s ease;
 }
 
 /* Tabular Dispatch Event Specs */
@@ -6136,8 +6149,9 @@ footer.site-footer {
   gap: 8px;
   margin-top: 20px;
   padding-top: 16px;
-  border-top: 1px solid var(--line-strong, rgba(255, 255, 255, 0.08));
+  border-top: 1px solid var(--line-strong, rgba(0, 0, 0, 0.08));
   max-width: 360px;
+  transition: border-color 0.25s ease;
 }
 
 .dispatch-row {
@@ -6149,17 +6163,19 @@ footer.site-footer {
 }
 
 .dispatch-label {
-  color: var(--footer-muted, #9CA3AF);
+  color: var(--footer-muted, #4B5563);
   letter-spacing: 0.12em;
   font-weight: 700;
   text-transform: uppercase;
+  transition: color 0.25s ease;
 }
 
 .dispatch-val {
-  color: var(--footer-text-strong, #FFFFFF);
+  color: var(--footer-text-strong, #000000);
   font-weight: 500;
   letter-spacing: 0.02em;
   text-align: right;
+  transition: color 0.25s ease;
 }
 
 /* Column Headers */
@@ -6170,18 +6186,20 @@ footer.site-footer {
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--footer-text-strong, #FFFFFF);
+  color: var(--footer-text-strong, #000000);
   margin-bottom: 20px;
   font-weight: 800;
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: color 0.25s ease;
 }
 
 .foot-col-num {
-  color: var(--blue, #42B2FE);
+  color: var(--blue-text, #0369A1);
   font-weight: 800;
-  opacity: 0.9;
+  opacity: 0.95;
+  transition: color 0.25s ease;
 }
 
 .foot-nav-links,
@@ -6198,7 +6216,7 @@ footer.site-footer {
   gap: 8px;
   min-height: 44px;
   font-size: 13.5px;
-  color: var(--footer-link, #9CA3AF);
+  color: var(--footer-link, #4B5563);
   text-align: left;
   transition: color 0.2s ease, transform 0.2s ease;
   background: none;
@@ -6214,18 +6232,18 @@ footer.site-footer {
   transform: translateX(-4px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   font-size: 13px;
-  color: var(--blue, #42B2FE);
+  color: var(--blue-text, #0369A1);
 }
 
 .social-link-item .social-ext-icon {
   font-size: 12px;
-  opacity: 0.45;
+  opacity: 0.55;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .foot-nav-item:hover {
-    color: var(--footer-text-strong, #FFFFFF);
+    color: var(--footer-text-strong, #000000);
     transform: translateX(4px);
   }
 
@@ -6235,7 +6253,7 @@ footer.site-footer {
   }
 
   .social-link-item:hover {
-    color: var(--footer-text-strong, #FFFFFF);
+    color: var(--footer-text-strong, #000000);
     transform: translateX(3px);
   }
 
@@ -6244,14 +6262,12 @@ footer.site-footer {
     transform: translate(2px, -2px);
   }
 
-  .social-link-item[data-brand="blue"]:hover { color: var(--blue); }
-  .social-link-item[data-brand="purple"]:hover { color: var(--purple); }
-  .social-link-item[data-brand="pink"]:hover { color: var(--pink); }
+  .social-link-item[data-brand="blue"]:hover { color: var(--blue-text, var(--blue)); }
+  .social-link-item[data-brand="purple"]:hover { color: var(--purple-text, var(--purple)); }
+  .social-link-item[data-brand="pink"]:hover { color: var(--pink-text, var(--pink)); }
+  .social-link-item[data-brand="green"]:hover { color: var(--green-text, var(--green)); }
+  .social-link-item[data-brand="orange"]:hover { color: var(--orange-text, var(--orange)); }
 }
-.social-link-item[data-brand="purple"]:hover { color: var(--purple-text, var(--purple)); }
-.social-link-item[data-brand="pink"]:hover { color: var(--pink-text, var(--pink)); }
-.social-link-item[data-brand="green"]:hover { color: var(--green-text, var(--green)); }
-.social-link-item[data-brand="orange"]:hover { color: var(--orange-text, var(--orange)); }
 
 /* Monumental Typographic Sign-Off Banner */
 .foot-monument-banner {
@@ -6261,8 +6277,8 @@ footer.site-footer {
   width: 100%;
   margin: clamp(36px, 5vh, 60px) 0 clamp(28px, 4vh, 44px);
   padding: clamp(20px, 3vh, 32px) 0;
-  border-top: 1px solid var(--line-strong, rgba(255, 255, 255, 0.08));
-  border-bottom: 1px solid var(--line-strong, rgba(255, 255, 255, 0.08));
+  border-top: 1px solid var(--line-strong, rgba(0, 0, 0, 0.08));
+  border-bottom: 1px solid var(--line-strong, rgba(0, 0, 0, 0.08));
   user-select: none;
   overflow: visible;
   transition: border-color 0.3s ease;
@@ -6275,7 +6291,7 @@ footer.site-footer {
   letter-spacing: -0.03em;
   line-height: 0.95;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.22);
+  color: var(--text-strong, #000000);
   -webkit-text-stroke: 0px transparent;
   transition: color 0.35s ease, text-shadow 0.35s ease;
 }
@@ -6305,12 +6321,12 @@ footer.site-footer {
 
 @media (hover: hover) and (pointer: fine) {
   .foot-monument-banner:hover {
-    border-color: rgba(66, 178, 254, 0.35);
+    border-color: var(--blue-text, #0369A1);
   }
 
   .foot-monument-banner:hover .foot-monument-word {
-    color: #ffffff;
-    text-shadow: 0 0 35px rgba(255, 255, 255, 0.25);
+    color: var(--blue-text, #0369A1);
+    text-shadow: 0 0 25px rgba(3, 105, 161, 0.2);
   }
 
   .foot-monument-banner:hover .foot-monument-year {
@@ -6326,11 +6342,12 @@ footer.site-footer {
   padding-top: 24px;
   font-family: var(--font-mono);
   font-size: 11.5px;
-  color: var(--footer-link, #9CA3AF);
+  color: var(--footer-link, #4B5563);
   flex-wrap: wrap;
   gap: 14px;
   position: relative;
   z-index: 2;
+  transition: color 0.25s ease;
 }
 
 .foot-bottom-left {
@@ -6357,22 +6374,128 @@ footer.site-footer {
   gap: 6px;
   min-height: 44px;
   background: none;
-  border: 1px solid var(--line-strong, rgba(255, 255, 255, 0.15));
+  border: 1px solid var(--line-strong, rgba(0, 0, 0, 0.12));
   padding: 8px 18px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;
-  color: var(--footer-link, #9CA3AF);
+  color: var(--footer-link, #4B5563);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn-back-top:hover {
-    color: var(--footer-text-strong, #FFFFFF);
-    border-color: var(--footer-muted, #9CA3AF);
+    color: var(--footer-text-strong, #000000);
+    border-color: var(--footer-muted, #4B5563);
     transform: translateY(-2px);
   }
+}
+
+/* Dark Mode Overrides for Footer */
+html[data-theme="dark"] footer.site-footer {
+  background: var(--bg-1, #080B11);
+  border-top-color: var(--line-strong, rgba(255, 255, 255, 0.08));
+  --footer-text: #D1D5DB;
+  --footer-text-strong: #FFFFFF;
+  --footer-muted: #9CA3AF;
+  --footer-link: #9CA3AF;
+  color: #D1D5DB;
+}
+
+html[data-theme="dark"] .foot-col-brand .brand-text {
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] .foot-col-brand .brand-text span {
+  color: #9CA3AF;
+}
+
+html[data-theme="dark"] .foot-mission {
+  color: #D1D5DB;
+}
+
+html[data-theme="dark"] .foot-mission b {
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] .foot-dispatch-meta {
+  border-top-color: var(--line-strong, rgba(255, 255, 255, 0.08));
+}
+
+html[data-theme="dark"] .dispatch-label {
+  color: #9CA3AF;
+}
+
+html[data-theme="dark"] .dispatch-val {
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] .foot-header,
+html[data-theme="dark"] .foot-col h3,
+html[data-theme="dark"] .foot-col h6 {
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] .foot-col-num {
+  color: var(--blue, #42B2FE);
+}
+
+html[data-theme="dark"] .foot-nav-item,
+html[data-theme="dark"] .social-link-item {
+  color: var(--footer-link, #9CA3AF);
+}
+
+html[data-theme="dark"] .foot-nav-item .nav-arrow {
+  color: var(--blue, #42B2FE);
+}
+
+html[data-theme="dark"] .foot-monument-banner {
+  border-top-color: var(--line-strong, rgba(255, 255, 255, 0.08));
+  border-bottom-color: var(--line-strong, rgba(255, 255, 255, 0.08));
+}
+
+html[data-theme="dark"] .foot-monument-word {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme="dark"] .foot-nav-item:hover {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .social-link-item:hover {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .foot-monument-banner:hover {
+    border-color: rgba(66, 178, 254, 0.35);
+  }
+
+  html[data-theme="dark"] .foot-monument-banner:hover .foot-monument-word {
+    color: #ffffff;
+    text-shadow: 0 0 35px rgba(255, 255, 255, 0.25);
+  }
+
+  html[data-theme="dark"] .social-link-item[data-brand="blue"]:hover { color: var(--blue); }
+  html[data-theme="dark"] .social-link-item[data-brand="purple"]:hover { color: var(--purple); }
+  html[data-theme="dark"] .social-link-item[data-brand="pink"]:hover { color: var(--pink); }
+  html[data-theme="dark"] .social-link-item[data-brand="green"]:hover { color: var(--green); }
+  html[data-theme="dark"] .social-link-item[data-brand="orange"]:hover { color: var(--orange); }
+
+  html[data-theme="dark"] .btn-back-top:hover {
+    color: #FFFFFF;
+    border-color: #9CA3AF;
+  }
+}
+
+html[data-theme="dark"] .foot-bottom {
+  color: var(--footer-link, #9CA3AF);
+}
+
+html[data-theme="dark"] .btn-back-top {
+  border-color: var(--line-strong, rgba(255, 255, 255, 0.15));
+  color: var(--footer-link, #9CA3AF);
 }
 
 /* Responsive Footer */

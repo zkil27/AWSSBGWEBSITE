@@ -28,6 +28,10 @@ export function setTheme(theme) {
         btn.setAttribute('aria-label', label);
         btn.setAttribute('title', label);
     });
+
+    try {
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+    } catch (e) { }
 }
 
 export function toggleTheme(e) {
