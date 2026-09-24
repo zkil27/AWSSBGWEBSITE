@@ -96,6 +96,7 @@
 :root,
 html[data-theme="light"] {
   --bg: #FAFBFC;
+  --bg-1: #FFFFFF;
   --bg-2: #F0F2F6;
   --bg-3: #E8EAEE;
   --bg-elevated: #FFFFFF;
@@ -181,6 +182,7 @@ html[data-theme="light"] {
 /* ---------- DARK MODE ---------- */
 html[data-theme="dark"] {
   --bg: #12182A;
+  --bg-1: #080B11;
   --bg-2: #192138;
   --bg-3: #222C47;
   --bg-elevated: #192138;
