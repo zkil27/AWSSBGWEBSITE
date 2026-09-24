@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="assets/css/masonry.css?v=20260923-lineup-clean">
   <link rel="stylesheet" href="assets/css/splitText.css">
   <link rel="stylesheet" href="assets/css/pixelTransition.css">
+  <link rel="stylesheet" href="assets/css/scrollExpand.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
@@ -63,7 +64,7 @@
   </div>
 
   <!-- Navigation Header Bar -->
-  <header class="nav nav-in-hero" id="siteNav" aria-label="Main navigation header">
+  <header class="nav" id="siteNav" aria-label="Main navigation header">
     <div class="nav-inner">
       <div class="header-left">
         <button class="brand" data-page="home" type="button" aria-label="Go to home page">
@@ -229,39 +230,37 @@
   <!-- ================================================================= -->
   <div class="page active" id="page-home">
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="hero-center-wrap" data-no-split="true">
-        <!-- Top Editorial Meta Bar -->
-        <div class="hero-kicker-meta">
-          <span class="hero-kicker-tag">AWS Student Community Day</span>
-          <span class="hero-kicker-dot" aria-hidden="true">&bull;</span>
-          <span class="hero-kicker-edition">South Luzon &bull; Edition 01</span>
-        </div>
+    <!-- MAIN POSTER V3 VIDEO HERO WITH REVERSE SCROLL-EXPAND -->
+    <section class="hero hero-stage" id="hero">
+      <div class="video-hero-card" id="heroVideoCard">
+        <video 
+          class="hero-video-player" 
+          id="heroVideoPlayer" 
+          autoplay 
+          muted 
+          loop 
+          playsinline 
+          preload="auto"
+          aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
+        >
+          <!-- Mobile Portrait: 9:16 vertical motion poster -->
+          <source src="assets/images/main-poster-v3-mobile.mp4" type="video/mp4" media="(max-width: 768px) and (orientation: portrait)">
+          <!-- Desktop & Landscape: 2:1 widescreen motion poster -->
+          <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
 
-        <!-- Grand Emblem Showcase (Big, Attention-Grabbing) -->
-        <div class="hero-emblem-showcase">
-          <img class="hero-emblem-feature" src="assets/images/south-summit-logo.svg" alt="AWS SCD South Summit 2026 Official Emblem" width="200" height="200" fetchpriority="high" decoding="async">
-        </div>
+        <!-- Video Play/Pause accessibility toggle button -->
+        <button type="button" class="hero-video-btn" id="heroVideoBtn" aria-label="Pause motion poster video" title="Pause / Play Video">
+          <span class="hero-video-btn-icon" id="heroVideoBtnIcon" aria-hidden="true">&#10074;&#10074;</span>
+        </button>
+      </div>
 
-        <!-- Monumental Centered Typography -->
-        <h1 class="hero-monument-title">
-          <span class="hero-monument-word">SOUTH SUMMIT</span>
-          <span class="hero-monument-year">2026</span>
-        </h1>
+      <!-- Action Dock: Register CTA, Countdown & Scroll Hint -->
+      <div class="hero-dock" id="heroDock">
+        <a class="btn btn-primary hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now &rarr;</a>
 
-        <!-- Tagline & Venue -->
-        <div class="hero-info-stack">
-          <p class="hero-tagline-text">Cloud &times; AI: BUILD. GROW. LEAD.</p>
-          <p class="hero-venue-text">October 7, 2026 &bull; Biñan People's Center, Laguna</p>
-        </div>
-
-        <!-- Centered CTA -->
-        <div class="hero-cta-wrap">
-          <a class="btn btn-primary hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now &rarr;</a>
-        </div>
-
-        <!-- React Bits CountUp Countdown Timer -->
+        <!-- Countdown Timer compatible with countdown.js -->
         <div class="hero-timer-wrap" id="countdown" aria-label="Countdown to South Summit 2026">
           <div class="countup-card">
             <div class="countup-seg seg-days">
@@ -284,6 +283,12 @@
               <span class="countup-label"><span class="label-dot dot-green" aria-hidden="true"></span>Secs</span>
             </div>
           </div>
+        </div>
+
+        <!-- Scroll Explore Hint -->
+        <div class="hero-scroll-hint" aria-hidden="true">
+          <span>Scroll to explore</span>
+          <span class="hero-scroll-hint-arrow">&darr;</span>
         </div>
       </div>
     </section>

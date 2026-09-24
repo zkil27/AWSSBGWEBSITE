@@ -22,7 +22,7 @@ export function updateNavSolid() {
 export function isHeroActive() {
     const page = document.documentElement.getAttribute('data-page') || 'home';
     if (page === 'home') {
-        const hero = document.querySelector('#page-home .hero');
+        const hero = document.querySelector('#page-home .hero-stage') || document.querySelector('#page-home #hero') || document.querySelector('#page-home .hero');
         if (!hero) return window.scrollY < 600;
         const rect = hero.getBoundingClientRect();
         return rect.bottom > 70;
@@ -32,8 +32,21 @@ export function isHeroActive() {
 
 export function updateHeroNavState() {
     if (!nav) return;
-    const inHero = isHeroActive();
-    nav.classList.toggle('nav-in-hero', inHero);
+    const page = document.documentElement.getAttribute('data-page') || 'home';
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+
+    if (page === 'home') {
+        // When first seeing the hero section at the top, navbar is hidden so it doesn't block the poster
+        if (scrollY < 80) {
+            nav.classList.remove('nav-visible');
+            nav.classList.remove('nav-in-hero');
+        } else {
+            nav.classList.add('nav-visible');
+        }
+    } else {
+        // On non-home pages (About, Merch, etc.), keep navbar visible
+        nav.classList.add('nav-visible');
+    }
 }
 
 export function updateNavState() {
@@ -345,11 +358,15 @@ function initNavAutoHide() {
     }
 
     function scheduleHide(delay = 240) {
-        if (isHeroActive()) return;
         if (hideTimer) clearTimeout(hideTimer);
         hideTimer = setTimeout(() => {
-            if (!isNavHovered && !nav.contains(document.activeElement)) {
-                nav.classList.remove('nav-visible');
+            const page = document.documentElement.getAttribute('data-page') || 'home';
+            const scrollY = window.scrollY || window.pageYOffset || 0;
+            // On home page at the top of hero, hide nav when mouse leaves
+            if (page === 'home' && scrollY < 80) {
+                if (!isNavHovered && !nav.contains(document.activeElement)) {
+                    nav.classList.remove('nav-visible');
+                }
             }
             hideTimer = null;
         }, delay);
@@ -365,24 +382,25 @@ function initNavAutoHide() {
         scheduleHide(260);
     });
 
-    // Intent detection: upward motion towards top or cursor close to top edge
+    // Intent detection: reveal when cursor is close to top edge
     window.addEventListener('mousemove', (e) => {
-        if (isHeroActive()) return;
+        const page = document.documentElement.getAttribute('data-page') || 'home';
+        const scrollY = window.scrollY || window.pageYOffset || 0;
 
         if (e.clientY <= 45) {
             showNav();
-        } else if (e.clientY <= 70 && e.movementY < -1) {
-            // User moving upward towards header
-            showNav();
         } else if (!isNavHovered && e.clientY > 75 && !nav.contains(document.activeElement)) {
-            // Smooth retreat when cursor moves away
-            scheduleHide(220);
+            if (page === 'home' && scrollY < 80) {
+                scheduleHide(220);
+            }
         }
     }, { passive: true });
 
-    // When mouse exits the browser window, gently schedule hide unless focused or in hero
+    // When mouse exits the browser window, gently schedule hide unless focused
     document.addEventListener('mouseleave', () => {
-        if (!isHeroActive() && !nav.contains(document.activeElement)) {
+        const page = document.documentElement.getAttribute('data-page') || 'home';
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        if (page === 'home' && scrollY < 80 && !nav.contains(document.activeElement)) {
             isNavHovered = false;
             scheduleHide(180);
         }

@@ -13,6 +13,16 @@
   --pink: #fe57ea;
   --ink-block: #161C24;
 
+  /* Main Poster v3 Palette Tokens */
+  --poster-cyan: #42B2FE;
+  --poster-pink: #FE55EB;
+  --poster-purple: #AD5CFD;
+  --poster-green: #00E681;
+  --poster-orange: #FF9900;
+  --poster-ink: #161C24;
+  --poster-glow-light: rgba(66, 178, 254, 0.24);
+  --poster-glow-dark: rgba(66, 178, 254, 0.45);
+
   /* Grid — shared cell size for line grid + colored boxes */
   --grid-size: 52px;
   --grid-line: 1px;

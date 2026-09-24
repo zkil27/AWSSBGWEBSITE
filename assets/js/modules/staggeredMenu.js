@@ -68,7 +68,7 @@ export async function initStaggeredMenu(config = {}) {
   const offscreen = options.position === 'left' ? -100 : 100;
 
   // Initial layout setup
-  gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1 });
+  gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1, visibility: 'hidden' });
   if (preLayersContainer) gsap.set(preLayersContainer, { xPercent: 0, opacity: 1 });
   if (plusH) gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
   if (plusV) gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
@@ -193,10 +193,12 @@ export async function initStaggeredMenu(config = {}) {
     if (tl) {
       tl.eventCallback('onComplete', () => {
         busy = false;
+        wrapper.classList.remove('is-animating');
       });
       tl.play(0);
     } else {
       busy = false;
+      wrapper.classList.remove('is-animating');
     }
   }
 
@@ -227,6 +229,8 @@ export async function initStaggeredMenu(config = {}) {
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
         if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+        gsap.set([panel, ...preLayers], { visibility: 'hidden' });
+        wrapper.classList.remove('is-animating');
         busy = false;
       }
     });
@@ -268,7 +272,9 @@ export async function initStaggeredMenu(config = {}) {
   function openMenu() {
     if (open) return;
     open = true;
+    wrapper.classList.add('is-animating');
     wrapper.setAttribute('data-open', 'true');
+    gsap.set([panel, ...preLayers], { visibility: 'visible' });
     document.documentElement.setAttribute('data-staggered-menu-open', 'true');
     document.body.classList.add('staggered-menu-open');
     panel.setAttribute('aria-hidden', 'false');
@@ -283,6 +289,7 @@ export async function initStaggeredMenu(config = {}) {
   function closeMenu() {
     if (!open) return;
     open = false;
+    wrapper.classList.add('is-animating');
     wrapper.removeAttribute('data-open');
     document.documentElement.removeAttribute('data-staggered-menu-open');
     document.body.classList.remove('staggered-menu-open');
@@ -431,6 +438,7 @@ export async function initStaggeredMenu(config = {}) {
       toggleBtn.setAttribute('aria-expanded', String(open));
       panel.style.transform = open ? 'translateX(0)' : 'translateX(100%)';
       panel.style.opacity = open ? '1' : '0';
+      panel.style.visibility = open ? 'visible' : 'hidden';
     });
   }
 }

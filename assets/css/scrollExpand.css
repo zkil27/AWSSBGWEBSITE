@@ -1,0 +1,238 @@
+/* =========================================================
+   Reverse Scroll-Expand (Scroll-Shrink) for Video Hero
+   Full-Screen Encapsulation (100vw, 100dvh) with Scroll Shrink
+   ========================================================= */
+
+.hero-stage,
+section#hero.hero-stage,
+section.hero.hero-stage {
+  position: relative;
+  width: 100vw;
+  width: 100%;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  contain: layout style paint;
+  background-color: var(--bg);
+  z-index: 1;
+}
+
+/* Full-bleed video card that encapsulates the whole screen at scroll = 0 and smoothly shrinks */
+.video-hero-card {
+  position: relative;
+  width: 100vw;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transform-origin: center center;
+  will-change: transform, border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #080c14;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, calc(var(--poster-shadow-opacity, 0) * 0.7)),
+              0 0 calc(var(--poster-shadow-opacity, 0) * 55px) var(--poster-glow, rgba(66, 178, 254, 0.4));
+  transition: border-color 0.25s ease;
+}
+
+html[data-theme="dark"] .video-hero-card {
+  --poster-glow: rgba(66, 178, 254, 0.55);
+}
+
+html[data-theme="light"] .video-hero-card {
+  --poster-glow: rgba(66, 178, 254, 0.32);
+}
+
+/* Motion Poster Video Player covering the full viewport */
+.hero-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  background-color: #080c14;
+}
+
+/* Play/Pause Button floating inside video hero */
+.hero-video-btn {
+  position: absolute;
+  top: clamp(16px, 2.5vh, 24px);
+  right: clamp(14px, 3vw, 32px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  background: rgba(11, 15, 25, 0.75);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-video-btn:hover {
+  background: rgba(66, 178, 254, 0.28);
+  border-color: rgba(66, 178, 254, 0.7);
+  transform: scale(1.08);
+}
+
+.hero-video-btn-icon {
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Floating Action Dock: Register CTA & Countdown Timer floating over bottom of hero */
+.hero-dock {
+  position: absolute;
+  bottom: clamp(18px, 3.5vh, 36px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.8vw, 24px);
+  background: var(--card-bg-alt, rgba(255, 255, 255, 0.88));
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--line-strong, rgba(0, 0, 0, 0.1));
+  border-radius: 6px;
+  padding: 8px 20px 8px 14px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+  max-width: 95%;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.25s ease, border-color 0.25s ease;
+  pointer-events: auto;
+}
+
+html[data-theme="dark"] .hero-dock {
+  background: rgba(18, 24, 42, 0.88);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.65);
+}
+
+.hero-dock .hero-cta-btn {
+  padding: 8px 20px;
+  font-size: 13.5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.hero-dock .countup-card {
+  gap: clamp(10px, 1.4vw, 18px);
+}
+
+.hero-dock .countup-num {
+  font-size: clamp(18px, 1.8vw, 24px);
+}
+
+.hero-dock .countup-label {
+  font-size: 9.5px;
+}
+
+.hero-dock .countup-divider {
+  font-size: 14px;
+}
+
+/* Scroll Hint */
+.hero-dock .hero-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  margin-left: 4px;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
+.hero-scroll-hint-arrow {
+  display: inline-block;
+  animation: hintArrowBounce 1.8s ease-in-out infinite;
+  color: var(--blue, #42b2fe);
+}
+
+@keyframes hintArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* Responsive Rules for Mobile Devices */
+@media (max-width: 768px) {
+  .hero-video-btn {
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+  }
+
+  .hero-dock {
+    bottom: clamp(14px, 2.5vh, 26px);
+    gap: 8px;
+    border-radius: 6px;
+    padding: 6px 14px 6px 10px;
+    max-width: min(350px, 92vw);
+  }
+
+  .hero-dock .hero-cta-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .hero-dock .countup-card {
+    gap: 6px;
+  }
+
+  .hero-dock .countup-num {
+    font-size: 14.5px;
+  }
+
+  .hero-dock .countup-label {
+    font-size: 7.5px;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .hero-dock .countup-divider {
+    font-size: 11px;
+    margin-top: -6px;
+  }
+
+  .hero-dock .hero-scroll-hint {
+    display: none;
+  }
+}
+
+/* Accessibility and Performance guards */
+html.is-reduced-motion .video-hero-card {
+  transform: none !important;
+  border-radius: 0px;
+}
