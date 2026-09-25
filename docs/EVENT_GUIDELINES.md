@@ -141,6 +141,32 @@ By the end of the summit, participants are expected to:
 
 # **`PROGRAM FLOW`**
 
+> **PUBLISHED RUNNING ORDER (website source of truth).**
+> The public website renders its schedule from `assets/js/modules/scheduleUI.js`
+> (`scheduleSessions`). That data is the single source of truth for what attendees
+> see and has been reconciled so the day **ends at 5:00 PM** (previously the site
+> showed 5:30 PM). Breaks/interstitials are typed explicitly (`type: 'break'`) so
+> there are no unexplained gaps. The published running order is:
+>
+> | Time | Type | Session |
+> | --- | --- | --- |
+> | 9:30 AM – 10:00 AM | session | Attendee Registration & Summit Check-In |
+> | 10:00 AM – 10:15 AM | session | Opening Ceremony |
+> | 10:15 AM – 10:30 AM | session | Opening Keynote — Cloud × AI |
+> | 10:30 AM – 11:40 AM | break | Community Icebreaker, Engagement & Giveaways |
+> | 11:40 AM – 12:30 PM | session | Talk #1 — Student Builder to Tech Professional |
+> | 12:30 PM – 2:00 PM | break | Lunch, Networking & Community Hub |
+> | 2:00 PM – 2:20 PM | break | Afternoon Energizer & Sponsor Spotlight |
+> | 2:20 PM – 3:10 PM | session | Talk #2 — Building Smarter Systems with AI and Cloud |
+> | 3:10 PM – 4:00 PM | session | Talk #3 — Human in the Loop |
+> | 4:00 PM – 4:40 PM | session | Flagship Panel Discussion |
+> | 4:40 PM – 4:55 PM | session | Grand Raffle, Appreciation & Closing Remarks |
+> | 4:55 PM – 5:00 PM | session | Group Photo & Hall Egress |
+>
+> **ACTION FOR ORGANIZERS:** Update the external Luma listing to also end at
+> **5:00 PM** so it matches this published running order. The tables below are
+> retained as earlier planning drafts and are superseded by the running order above.
+
 | `Time` | `Activity` | `Speaker Type / Target Speakers` | `Topic / Details` |
 | :---: | :---: | :---: | :---: |
 | `9:30 AM - 10:00 AM` | `Registration`  | `Organizers` | `Registration` |

@@ -7,13 +7,21 @@
  */
 
 import { getLenis } from './smoothScroll.js';
+import { speakers } from '../data/speakers.js';
 
 /* ============================ Schedule Data ============================= */
 
 export const scheduleSessions = [
   // ==================== BLOCK 01: MORNING ====================
+  // NOTE: Reconciled to canonical docs/EVENT_GUIDELINES.md — the day now ends at
+  // 5:00 PM (was 5:30 PM). Every entry declares an explicit `type`
+  // ('session' | 'break') so breaks/interstitials render with a clear label
+  // instead of reading as an unexplained gap. Blocks are contiguous: each entry's
+  // end time equals the next entry's start time (validated at render time in
+  // initScheduleUI via assertScheduleContiguity).
   {
     id: 'session-registration',
+    type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
     time: '9:30 AM – 10:00 AM',
@@ -27,6 +35,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-opening-ceremony',
+    type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
     time: '10:00 AM – 10:15 AM',
@@ -40,6 +49,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-keynote',
+    type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
     time: '10:15 AM – 10:30 AM',
@@ -52,7 +62,11 @@ export const scheduleSessions = [
     speakerIndices: [{ index: 0, role: 'Opening Remarks' }]
   },
   {
+    // Previously an untyped 70-min "session" that the QA review read as an
+    // unexplained gap between the 15-min keynote and Talk #1. Now explicitly a
+    // typed `break`/interstitial so the running order is unambiguous.
     id: 'session-icebreaker',
+    type: 'break',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
     time: '10:30 AM – 11:40 AM',
@@ -66,6 +80,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-talk1',
+    type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
     time: '11:40 AM – 12:30 PM',
@@ -81,6 +96,7 @@ export const scheduleSessions = [
   // ==================== BLOCK 02: AFTERNOON ====================
   {
     id: 'session-lunch',
+    type: 'break',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '12:30 PM – 2:00 PM',
@@ -94,6 +110,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-energizer',
+    type: 'break',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '2:00 PM – 2:20 PM',
@@ -107,6 +124,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-talk2',
+    type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '2:20 PM – 3:10 PM',
@@ -120,6 +138,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-talk3',
+    type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '3:10 PM – 4:00 PM',
@@ -133,6 +152,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-panel',
+    type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '4:00 PM – 4:40 PM',
@@ -146,6 +166,7 @@ export const scheduleSessions = [
   },
   {
     id: 'session-raffle',
+    type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '4:40 PM – 4:55 PM',
@@ -158,11 +179,16 @@ export const scheduleSessions = [
     speakerIndices: []
   },
   {
+    // Reconciled finale: was 4:55 PM – 5:30 PM (35 MIN). Canonical
+    // EVENT_GUIDELINES.md ends the day at 5:00 PM, so the closing group photo &
+    // egress is now the 4:55 PM – 5:00 PM slot. This is the single time change
+    // that brings the site's end time in line with the doc and Luma.
     id: 'session-finale',
+    type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
-    time: '4:55 PM – 5:30 PM',
-    duration: '35 MIN',
+    time: '4:55 PM – 5:00 PM',
+    duration: '5 MIN',
     category: 'FINALE & GROUP PHOTO',
     categoryTheme: 'theme-blue',
     title: 'Official Community Group Photo & Hall Egress',
@@ -172,6 +198,70 @@ export const scheduleSessions = [
   }
 ];
 
+/* ============================ Schedule Integrity Validation ============================ */
+
+/**
+ * Parse a "9:30 AM – 10:00 AM" style range into { startMin, endMin } minutes-from-midnight.
+ * Returns null when the range can't be parsed so validation can flag it.
+ */
+function parseTimeRange(range) {
+  if (typeof range !== 'string') return null;
+  // Normalise the en dash / hyphen separators.
+  const parts = range.split(/–|—|-/).map(s => s.trim());
+  if (parts.length !== 2) return null;
+  const toMinutes = (t) => {
+    const m = t.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (!m) return null;
+    let hour = parseInt(m[1], 10);
+    const min = parseInt(m[2], 10);
+    const mer = m[3].toUpperCase();
+    if (mer === 'PM' && hour !== 12) hour += 12;
+    if (mer === 'AM' && hour === 12) hour = 0;
+    return hour * 60 + min;
+  };
+  const startMin = toMinutes(parts[0]);
+  const endMin = toMinutes(parts[1]);
+  if (startMin == null || endMin == null) return null;
+  return { startMin, endMin };
+}
+
+/**
+ * Dev-only sanity check: every session's end time must equal the next session's
+ * start time (no unexplained gaps or overlaps) and the last session must end at
+ * 5:00 PM (17:00). Warnings only — never throws, so production rendering is never
+ * blocked. Runs against the exported scheduleSessions.
+ */
+export function assertScheduleContiguity(sessions = scheduleSessions) {
+  const problems = [];
+  const EXPECTED_END_MIN = 17 * 60; // 5:00 PM
+
+  let prevEnd = null;
+  sessions.forEach((s, i) => {
+    const parsed = parseTimeRange(s.time);
+    if (!parsed) {
+      problems.push(`[${i}] "${s.id}" has an unparseable time: "${s.time}"`);
+      return;
+    }
+    if (prevEnd != null && parsed.startMin !== prevEnd) {
+      const gap = parsed.startMin - prevEnd;
+      problems.push(
+        `[${i}] "${s.id}" starts at ${s.time.split(/–|—|-/)[0].trim()} but previous session ended ${gap > 0 ? gap + ' min earlier (gap)' : Math.abs(gap) + ' min later (overlap)'}`
+      );
+    }
+    prevEnd = parsed.endMin;
+  });
+
+  if (prevEnd != null && prevEnd !== EXPECTED_END_MIN) {
+    problems.push(`Last session ends at ${prevEnd / 60}:00-ish, expected 5:00 PM (17:00).`);
+  }
+
+  if (problems.length) {
+    console.warn('[scheduleUI] Schedule integrity check found issues:\n' + problems.join('\n'));
+    return false;
+  }
+  return true;
+}
+
 /* ============================ Modal Controls (No-op Safe Stubs) ============================ */
 
 export function openScheduleModal() {}
@@ -179,7 +269,116 @@ export function closeScheduleModal() {}
 
 /* =============================== Setup ================================== */
 
+/* ============================ Timetable Rendering ============================ */
+
+/**
+ * Escape a string for safe insertion as HTML text content.
+ */
+function escapeHTML(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/**
+ * Resolve the speaker chip markup for a session's speakerIndices.
+ * Supports both plain indices ([0]) and objects ([{ index: 0, role: '...' }]).
+ * Returns '' when there are no speakers so the placeholder div stays empty.
+ */
+function renderSpeakerChips(speakerIndices) {
+  if (!Array.isArray(speakerIndices) || !speakerIndices.length) return '';
+  return speakerIndices.map(entry => {
+    const idx = typeof entry === 'object' && entry !== null ? entry.index : entry;
+    const sp = speakers[idx];
+    if (!sp) return '';
+    const roleNote = (typeof entry === 'object' && entry !== null && entry.role)
+      ? ` · ${escapeHTML(entry.role)}`
+      : '';
+    return `<span class="sched-speaker-chip">${escapeHTML(sp.name)}${roleNote}</span>`;
+  }).join('');
+}
+
+/**
+ * Split "9:30 AM – 10:00 AM" into just the start label ("9:30 AM") for the
+ * compact time column, matching the previous hardcoded markup.
+ */
+function startLabel(time) {
+  if (typeof time !== 'string') return '';
+  return time.split(/–|—|-/)[0].trim();
+}
+
+/**
+ * Build a single .sched-row from a session object, preserving the exact DOM
+ * shape the CSS and blueprintScroll.js depend on:
+ *   .sched-row > .time(.t-val + .t-dur) + .what(.what-header>b, span, .sched-speakers-inline)
+ * Breaks get an explicit "BREAK" marker so they never read as unexplained gaps.
+ */
+function renderRow(session) {
+  const isBreak = session.type === 'break';
+  const chips = renderSpeakerChips(session.speakerIndices);
+  const breakTag = isBreak
+    ? '<span class="sched-break-tag" aria-label="Scheduled break">BREAK</span> '
+    : '';
+  // Prefer a concise headline; fall back to the category.
+  const headline = escapeHTML(session.title || session.category || '');
+  const subline = session.category && session.title
+    ? escapeHTML(session.category)
+    : escapeHTML(session.description || '');
+
+  return `
+    <div class="sched-row${isBreak ? ' is-break' : ''}" data-session-id="${escapeHTML(session.id)}" data-type="${escapeHTML(session.type || 'session')}">
+      <div class="time">
+        <span class="t-val">${escapeHTML(startLabel(session.time))}</span>
+        <span class="t-dur">${escapeHTML(session.duration || '')}</span>
+      </div>
+      <div class="what">
+        <div class="what-header"><b>${breakTag}${headline}</b></div>
+        <span>${subline}</span>
+        ${chips ? `<div class="sched-speakers-inline">${chips}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+/**
+ * Render the full timetable from scheduleSessions into the morning/afternoon
+ * block containers. Idempotent — safe to call more than once.
+ */
+export function renderSchedule() {
+  const morningRows = document.querySelector('#schedBlocksContainer .block-morning .sched-block-rows');
+  const afternoonRows = document.querySelector('#schedBlocksContainer .block-afternoon .sched-block-rows');
+  if (!morningRows || !afternoonRows) return false;
+
+  const morning = scheduleSessions.filter(s => s.block === 'morning');
+  const afternoon = scheduleSessions.filter(s => s.block === 'afternoon');
+
+  morningRows.innerHTML = morning.map(renderRow).join('');
+  afternoonRows.innerHTML = afternoon.map(renderRow).join('');
+
+  // Keep the block time-range headers in sync with the reconciled data.
+  const morningRange = document.querySelector('#schedBlocksContainer .block-morning .sched-block-time-range');
+  const afternoonRange = document.querySelector('#schedBlocksContainer .block-afternoon .sched-block-time-range');
+  if (morningRange && morning.length) {
+    morningRange.textContent = `${startLabel(morning[0].time)} – ${morning[morning.length - 1].time.split(/–|—|-/)[1].trim()}`;
+  }
+  if (afternoonRange && afternoon.length) {
+    afternoonRange.textContent = `${startLabel(afternoon[0].time)} – ${afternoon[afternoon.length - 1].time.split(/–|—|-/)[1].trim()}`;
+  }
+
+  return true;
+}
+
+/* =============================== Setup ================================== */
+
 export function initScheduleUI() {
+  // Render the visible timetable from the single-source-of-truth data BEFORE
+  // wiring the switcher, so blueprintScroll.js measures the real track width.
+  renderSchedule();
+
+  // Dev-only integrity check (warns in console, never throws).
+  assertScheduleContiguity();
+
   // Wire up inline block layout switcher (Dual Block / Morning / Afternoon)
   const switcher = document.querySelector('.sched-view-switcher');
   const blocksContainer = document.getElementById('schedBlocksContainer');

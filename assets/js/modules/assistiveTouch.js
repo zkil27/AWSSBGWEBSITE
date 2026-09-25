@@ -304,9 +304,9 @@ function snapToEdge() {
     const snapLeft = midX < winWidth / 2;
     const targetLeft = snapLeft ? padding : (winWidth - podRect.width - padding);
 
-    // Keep vertical within safe screen bounds
+    // Keep vertical within safe screen bounds (clear header and bottom dock)
     const minTop = 64; // below header
-    const maxTop = winHeight - podRect.height - 24; // above bottom
+    const maxTop = winHeight - podRect.height - 76; // keep above bottom dock and safe area
     let targetTop = podRect.top;
     if (targetTop < minTop) targetTop = minTop;
     if (targetTop > maxTop) targetTop = maxTop;

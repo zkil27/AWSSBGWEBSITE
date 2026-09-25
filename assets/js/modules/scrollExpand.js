@@ -80,25 +80,39 @@ export function initScrollExpand() {
   }
 
   // Setup Video Controls
+  const toggleVideoPlayback = () => {
+    if (!video) return;
+    if (video.paused) {
+      video.play().catch(() => {});
+      userPausedVideo = false;
+      if (videoBtnIcon) videoBtnIcon.innerHTML = '&#10074;&#10074;';
+      if (videoBtn) videoBtn.setAttribute('aria-label', 'Pause motion poster video');
+    } else {
+      video.pause();
+      userPausedVideo = true;
+      if (videoBtnIcon) videoBtnIcon.innerHTML = '&#9654;';
+      if (videoBtn) videoBtn.setAttribute('aria-label', 'Play motion poster video');
+    }
+  };
+
   if (video && videoBtn) {
-    videoBtn.addEventListener('click', () => {
-      if (video.paused) {
-        video.play();
-        userPausedVideo = false;
-        if (videoBtnIcon) videoBtnIcon.innerHTML = '&#10074;&#10074;';
-        videoBtn.setAttribute('aria-label', 'Pause motion poster video');
-      } else {
-        video.pause();
-        userPausedVideo = true;
-        if (videoBtnIcon) videoBtnIcon.innerHTML = '&#9654;';
-        videoBtn.setAttribute('aria-label', 'Play motion poster video');
-      }
+    videoBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleVideoPlayback();
     });
 
     // Ensure playback starts if autoplay was permitted
     if (video.paused && !userPausedVideo) {
       video.play().catch(() => {});
     }
+  }
+
+  // Tap/click anywhere on video card to toggle playback
+  if (card && video) {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('#heroDock') || e.target.closest('.hero-dock')) return;
+      toggleVideoPlayback();
+    });
   }
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

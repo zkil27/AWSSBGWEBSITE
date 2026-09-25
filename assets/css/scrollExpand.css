@@ -46,6 +46,7 @@ section.hero.hero-stage {
   border: 1px solid transparent;
   border-radius: 0px;
   overflow: hidden;
+  cursor: pointer;
   z-index: 2;
   box-shadow: 0 24px 70px rgba(0, 0, 0, calc(var(--poster-shadow-opacity, 0) * 0.7)),
               0 0 calc(var(--poster-shadow-opacity, 0) * 55px) var(--poster-glow, rgba(66, 178, 254, 0.4));
@@ -70,55 +71,23 @@ html[data-theme="light"] .video-hero-card {
   background-color: #080c14;
 }
 
-/* Play/Pause Button floating inside video hero */
-.hero-video-btn {
-  position: absolute;
-  top: clamp(16px, 2.5vh, 24px);
-  right: clamp(14px, 3vw, 32px);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 6px;
-  background: rgba(11, 15, 25, 0.75);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  color: #ffffff;
-  cursor: pointer;
-  z-index: 10;
-  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-}
-
-.hero-video-btn:hover {
-  background: rgba(66, 178, 254, 0.28);
-  border-color: rgba(66, 178, 254, 0.7);
-  transform: scale(1.08);
-}
-
-.hero-video-btn-icon {
-  font-size: 11px;
-  line-height: 1;
-}
-
-/* Floating Action Dock: Register CTA & Countdown Timer floating over bottom of hero */
+/* Floating Action Dock: Register CTA, Countdown & Video Controls floating over bottom of hero */
 .hero-dock {
   position: absolute;
-  bottom: clamp(18px, 3.5vh, 36px);
+  bottom: calc(clamp(18px, 3.5vh, 36px) + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 1.8vw, 24px);
+  gap: clamp(10px, 1.6vw, 20px);
   background: var(--card-bg-alt, rgba(255, 255, 255, 0.88));
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border: 1px solid var(--line-strong, rgba(0, 0, 0, 0.1));
   border-radius: 6px;
-  padding: 8px 20px 8px 14px;
+  padding: 8px 18px 8px 12px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
   max-width: 95%;
   flex-shrink: 0;
@@ -127,16 +96,17 @@ html[data-theme="light"] .video-hero-card {
 }
 
 html[data-theme="dark"] .hero-dock {
-  background: rgba(18, 24, 42, 0.88);
+  background: rgba(18, 24, 42, 0.92);
   border-color: rgba(255, 255, 255, 0.16);
   box-shadow: 0 14px 44px rgba(0, 0, 0, 0.65);
 }
 
 .hero-dock .hero-cta-btn {
-  padding: 8px 20px;
+  padding: 8px 18px;
   font-size: 13.5px;
   border-radius: 4px;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .hero-dock .countup-card {
@@ -153,6 +123,53 @@ html[data-theme="dark"] .hero-dock {
 
 .hero-dock .countup-divider {
   font-size: 14px;
+}
+
+/* Play/Pause Button integrated cleanly into hero dock */
+.hero-dock .hero-video-btn {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line-strong, rgba(255, 255, 255, 0.22));
+  color: var(--text, #ffffff);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+html[data-theme="dark"] .hero-dock .hero-video-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+html[data-theme="light"] .hero-dock .hero-video-btn {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.14);
+  color: var(--text, #111827);
+}
+
+.hero-dock .hero-video-btn:hover {
+  background: rgba(66, 178, 254, 0.25);
+  border-color: rgba(66, 178, 254, 0.7);
+  transform: scale(1.06);
+  color: #42b2fe;
+}
+
+.hero-dock .hero-video-btn:active {
+  transform: scale(0.95);
+}
+
+.hero-dock .hero-video-btn-icon {
+  font-size: 11px;
+  line-height: 1;
 }
 
 /* Scroll Hint */
@@ -184,46 +201,56 @@ html[data-theme="dark"] .hero-dock {
 
 /* Responsive Rules for Mobile Devices */
 @media (max-width: 768px) {
-  .hero-video-btn {
-    top: 14px;
-    right: 14px;
-    width: 34px;
-    height: 34px;
-    border-radius: 6px;
-  }
-
   .hero-dock {
-    bottom: clamp(14px, 2.5vh, 26px);
-    gap: 8px;
+    bottom: calc(clamp(12px, 2.5vh, 22px) + env(safe-area-inset-bottom, 0px));
+    gap: 5px;
     border-radius: 6px;
-    padding: 6px 14px 6px 10px;
-    max-width: min(350px, 92vw);
+    padding: 5px 8px 5px 8px;
+    max-width: calc(100vw - 20px);
+    width: auto;
   }
 
   .hero-dock .hero-cta-btn {
-    padding: 6px 14px;
-    font-size: 12px;
+    padding: 5px 9px;
+    font-size: 11px;
     border-radius: 4px;
     flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .hero-dock .countup-card {
-    gap: 6px;
+    gap: 2px;
+  }
+
+  .hero-dock .countup-seg {
+    min-width: 23px;
   }
 
   .hero-dock .countup-num {
-    font-size: 14.5px;
+    font-size: 12.5px;
+    font-weight: 700;
   }
 
   .hero-dock .countup-label {
-    font-size: 7.5px;
-    letter-spacing: 0.1em;
-    margin-top: 2px;
+    font-size: 6.5px;
+    letter-spacing: 0.04em;
+    margin-top: 1px;
   }
 
   .hero-dock .countup-divider {
-    font-size: 11px;
-    margin-top: -6px;
+    font-size: 10px;
+    margin: 0 1px;
+    min-width: 4px;
+  }
+
+  .hero-dock .hero-video-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+  }
+
+  .hero-dock .hero-video-btn-icon {
+    font-size: 9.5px;
   }
 
   .hero-dock .hero-scroll-hint {
