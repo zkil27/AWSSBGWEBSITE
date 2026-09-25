@@ -293,10 +293,13 @@ function renderSpeakerChips(speakerIndices) {
     const idx = typeof entry === 'object' && entry !== null ? entry.index : entry;
     const sp = speakers[idx];
     if (!sp) return '';
-    const roleNote = (typeof entry === 'object' && entry !== null && entry.role)
-      ? ` · ${escapeHTML(entry.role)}`
-      : '';
-    return `<span class="sched-speaker-chip">${escapeHTML(sp.name)}${roleNote}</span>`;
+    const fallback = 'assets/images/south-summit-logo.svg';
+    const pic = sp.picUrl || fallback;
+    // Reuse the established .speaker-inline-card chip design (avatar + name).
+    return `<span class="speaker-inline-card" title="${escapeHTML(sp.name)}">
+      <img class="speaker-inline-avatar" src="${escapeHTML(pic)}" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.src='${fallback}'">
+      <span class="speaker-inline-name">${escapeHTML(sp.name)}</span>
+    </span>`;
   }).join('');
 }
 

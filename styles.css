@@ -3077,6 +3077,26 @@ html.bp-active .sched-block-rows::-webkit-scrollbar-thumb {
   margin-top: 3px;
 }
 
+/* Explicit BREAK marker so scheduled interstitials never read as an
+   unexplained gap in the running order (QA fix). */
+.blueprint-panel--schedule .sched-row.is-break .what b {
+  color: var(--muted, #64748b);
+}
+.sched-break-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 1px 6px;
+  margin-right: 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  color: var(--teal-text, var(--teal));
+  border: 1px solid var(--line, rgba(0, 0, 0, 0.14));
+  background: var(--bp-chip-bg, #f8fafc);
+}
+
 /* Inline speaker chips with crisp editorial styling */
 .blueprint-panel--schedule .sched-speakers-inline {
   margin-top: 8px;
