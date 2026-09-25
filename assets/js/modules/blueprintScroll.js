@@ -262,7 +262,10 @@ function render(scroll) {
     }
 
     // Optical focus: opacity and subtle scale
-    const opacity = (0.35 + 0.65 * focus).toFixed(3);
+    // Opacity floor raised from 0.35 -> 0.62 so off-center panel text keeps
+    // readable contrast over the grainient (Impeccable low-contrast fix) while
+    // still receding for the depth/focus effect.
+    const opacity = (0.62 + 0.38 * focus).toFixed(3);
     const scale = (0.96 + 0.04 * focus).toFixed(3);
 
     // Staggered vertical float

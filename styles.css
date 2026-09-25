@@ -3001,10 +3001,10 @@ html.bp-active .sched-block-rows::-webkit-scrollbar-thumb {
 .t-dur {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted-2, #64748b);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   background: none;
   border: none;
@@ -6741,21 +6741,9 @@ footer.site-footer {
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 0.95;
-  background: linear-gradient(
-    120deg,
-    #42B2FE 0%,
-    #AD5CFD 25%,
-    #FE55EB 50%,
-    #00E681 75%,
-    #FF9900 90%,
-    #42B2FE 100%
-  );
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: heroYearGradient 4s ease-in-out infinite alternate;
-  -webkit-text-stroke: 0px transparent;
+  /* Solid brand color instead of animated gradient-clip text (Impeccable
+     gradient-text fix). Emphasis comes from size + weight, not a color sweep. */
+  color: var(--blue-text, #0369A1);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -11373,3 +11361,127 @@ html[data-theme="dark"] .blueprint-panel--agenda .bp-num {
     transform: none !important;
   }
 }
+
+/* =========================================================
+   IMPECCABLE FIX — Undersized/tiny text (rules: undersized-ui-text, tiny-text)
+   Raise functional micro-labels to the 11px readability floor and body text to
+   >=12px. Consolidated here so the change is reviewable in one place. Values use
+   the design scale; tracking tightened slightly where labels were very wide.
+   Detector floor: functional >=11px, body >=12px.
+   ========================================================= */
+
+/* Countdown unit labels (were 9.5px desktop / 6.5px mobile) */
+.countup-label { font-size: 11px !important; letter-spacing: 0.08em; }
+@media (max-width: 768px) {
+  .hero-dock .countup-label { font-size: 11px !important; letter-spacing: 0.04em; }
+}
+
+/* Brand wordmark subtitle "AWS STUDENT BUILDER GROUPS" (was 9.5px) */
+.brand-text span,
+.foot-col-brand .brand-text span { font-size: 11px !important; letter-spacing: 0.08em; }
+
+/* Sponsor tier tags (hero cards + tier badges), were 10px */
+.hero-tier-tag,
+.tier-badge { font-size: 11px !important; letter-spacing: 0.06em; }
+
+/* Speaker/session status badge KEYNOTE/PANEL (was 10px) */
+.sc-status-badge { font-size: 11px !important; letter-spacing: 0.05em; }
+
+/* Sponsor marquee->grid chip labels (badge + institution subtitle), were 10px.
+   (Grid conversion happens in the marquee task; sizes floor here regardless.) */
+.marquee-chip-badge { font-size: 11px !important; letter-spacing: 0.05em; }
+.marquee-chip-name { font-size: 12px !important; line-height: 1.4 !important; }  /* was 1.25 (tight-leading) */
+.marquee-chip-sub { font-size: 12px !important; line-height: 1.4 !important; }    /* institution names read as body */
+.marquee-tier-count { font-size: 12px !important; }      /* "13 Partner Organizations" phrase */
+
+/* Schedule inline speaker-chip names read as body text -> 12px floor */
+.speaker-inline-name { font-size: 12px !important; }
+
+/* Brand wordmark subtitle line-height was 1.2 (tight-leading) */
+.brand-text span,
+.foot-col-brand .brand-text span { line-height: 1.4 !important; }
+
+/* Register band micro-labels: RSVP pass title/badge, admit badge, kicker, QR sub */
+.qr-pass-title { font-size: 11px !important; letter-spacing: 0.08em; }
+.qr-pass-badge { font-size: 11px !important; }
+.register-admit-badge { font-size: 11px !important; letter-spacing: 0.06em; }
+.register-editorial-kicker,
+.register-editorial-kicker span { font-size: 11px !important; }
+.qr-sub { font-size: 11px !important; }
+
+/* Director card labels: dept badge (10px), role badge (9px), dept/team label (9.5px) */
+.director-badge,
+.director-dept-label,
+.director-role-badge,
+.director-role-title { font-size: 11px !important; letter-spacing: 0.04em; }
+
+/* Registration approval helper note -> body floor 12px */
+.reg-approval-note { font-size: 12px !important; }
+.sm-panel-item-note.reg-approval-note { font-size: 12px !important; }
+.hero-lockup-note.reg-approval-note { font-size: 12px !important; }
+
+/* =========================================================
+   IMPECCABLE FIX — Low contrast (rule: low-contrast)
+   Text over variable media (hero video, blueprint grainient) was protected only
+   by text-shadow, so minimum pixel contrast failed on light/mid frames. Give
+   that text a real backing surface so contrast holds regardless of the media,
+   while keeping the "floating over media" look. Also route raw --teal to the
+   accessible --teal-text on light.
+   ========================================================= */
+
+/* Blueprint Build/Grow/Lead panel copy: frosted light backing so the dark
+   heading + body text keep contrast over the grainient gradient. */
+.bp-agenda-body {
+  background: var(--bp-agenda-scrim, rgba(255, 255, 255, 0.96));
+  border: 1px solid rgba(11, 15, 25, 0.08);
+  border-radius: 12px;
+  padding: clamp(16px, 1.6vw, 22px);
+}
+html[data-theme="dark"] .bp-agenda-body {
+  --bp-agenda-scrim: rgba(16, 22, 34, 0.94);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+/* Drop the decorative white text-glow now that a real surface carries contrast. */
+.blueprint-panel--agenda h3 { text-shadow: none; }
+.blueprint-panel--agenda p { text-shadow: none; }
+
+
+
+/* =========================================================
+   IMPECCABLE FIX — Wide tracking on body text (rule: wide-tracking)
+   Reduce >0.05em tracking on body/longer text. Short all-caps micro-labels keep
+   modest tracking (<=0.05em). Detector reads pre-transform text case, so several
+   title-case-but-visually-caps labels were flagged as body — tighten them.
+   ========================================================= */
+.quote-attr { letter-spacing: 0.04em !important; }
+.sched-block-time-range { letter-spacing: 0.02em !important; }
+.register-admit-badge { letter-spacing: 0.04em !important; }
+.brand-text span,
+.foot-col-brand .brand-text span { letter-spacing: 0.04em !important; }
+
+/* =========================================================
+   IMPECCABLE FIX — Decorative glows & border+shadow doubling
+   (rules: dark-glow, radial-spotlight-glow, gpt-thin-border-wide-shadow)
+   Zero-offset colored box-shadow "glows" are the default AI-cool look; remove
+   them and let solid color / a single neutral elevation carry the shape. The
+   grainient WebGL background stays as the one signature (handled via waiver).
+   ========================================================= */
+
+/* Blueprint numeral accent-bar colored glows -> none (keep the solid bar) */
+article.blueprint-panel--agenda .bp-num::after { box-shadow: none !important; }
+
+/* Blueprint progress fill + inline schedule chip purple glow */
+.blueprint-progress-fill { box-shadow: none !important; }
+
+/* Chapter / director / roster decorative colored glows -> neutral or none */
+.chapter-card:hover .notch-pip--center,
+#pillKeynotes.active .pill-dot,
+#pillPanels.active .pill-dot,
+#pillAll.active .pill-dot,
+#pillBuilders.active .pill-dot { box-shadow: none !important; }
+
+/* Hero sponsor-card radial spotlight glow overlay (decorative "AI cool") */
+.hero-card-spotlight { display: none !important; }
+
+/* Footer monument banner hover glow -> neutral (was colored drop-shadow) */
+.foot-monument-banner:hover .foot-monument-year { filter: none !important; }

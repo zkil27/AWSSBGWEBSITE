@@ -283,19 +283,40 @@ html.is-reduced-motion .video-hero-card {
   gap: 10px;
   text-align: left;
   color: #ffffff;
-  /* Legibility scrim so text stays readable over any video frame */
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  /* Light text; a real scrim (::before) guarantees contrast over any video
+     frame or poster — not relying on text-shadow alone (Impeccable low-contrast fix). */
   pointer-events: auto;
+  padding: clamp(18px, 2.4vw, 30px);
+  border-radius: 14px;
 }
+
+/* Solid-enough dark scrim behind the hero text so min contrast holds even when
+   the video's current frame / poster is light. Sits behind the text (z-index),
+   softly feathered so it still reads as an overlay, not a hard box. */
+.hero-lockup::before {
+  content: "";
+  position: absolute;
+  /* Extend the scrim a little beyond the text box so edges feather instead of
+     cutting hard, and darken enough that white text passes contrast over the
+     busy light poster (Impeccable low-contrast fix). */
+  inset: -8px -14px;
+  z-index: 0;                 /* between the video (behind #heroLockup) and the text */
+  border-radius: 16px;
+  background: rgba(8, 12, 22, 0.88);
+  -webkit-backdrop-filter: blur(3px) saturate(0.9);
+  backdrop-filter: blur(3px) saturate(0.9);
+}
+/* Keep the text above the scrim */
+.hero-lockup > * { position: relative; z-index: 1; }
 
 .hero-lockup-kicker {
   margin: 0;
   font-family: var(--font-mono, monospace);
   font-size: clamp(11px, 1vw, 13px);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.05em;   /* was 0.16em (wide-tracking on body-ish text) */
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .hero-lockup-title {
@@ -306,6 +327,20 @@ html.is-reduced-motion .video-hero-card {
   letter-spacing: -0.02em;
   font-size: clamp(38px, 6.5vw, 84px);
   color: #ffffff;
+}
+
+/* Event-series line folded INTO the h1 (was a separate tracked-caps eyebrow
+   chip above the heading — Impeccable hero-eyebrow-chip fix). Sentence case,
+   normal tracking, so it reads as part of the title lockup, not an eyebrow. */
+.hero-lockup-series {
+  display: block;
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(13px, 1.15vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-lockup-desc {
