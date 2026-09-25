@@ -263,3 +263,163 @@ html.is-reduced-motion .video-hero-card {
   transform: none !important;
   border-radius: 0px;
 }
+
+/* =========================================================
+   PERMANENT HERO LOCKUP (#heroLockup)
+   Always-present title/date/venue/CTA so the page communicates its purpose
+   immediately, even when the motion poster video fails to load or play.
+   Carries the single home-page <h1>. Sits over the video with a readable scrim;
+   when the video is unavailable (.hero loses .hero-has-video) it becomes a solid
+   high-contrast panel.
+   ========================================================= */
+.hero-lockup {
+  position: absolute;
+  z-index: 8;
+  left: clamp(20px, 5vw, 72px);
+  top: clamp(84px, 14vh, 150px);
+  max-width: min(560px, 82vw);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  color: #ffffff;
+  /* Legibility scrim so text stays readable over any video frame */
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+}
+
+.hero-lockup-kicker {
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hero-lockup-title {
+  margin: 0;
+  font-family: var(--font-display, var(--font-sans, sans-serif));
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  font-size: clamp(38px, 6.5vw, 84px);
+  color: #ffffff;
+}
+
+.hero-lockup-desc {
+  margin: 2px 0 0;
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(14px, 1.35vw, 18px);
+  line-height: 1.45;
+  max-width: 46ch;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.hero-lockup-meta {
+  margin: 4px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(12.5px, 1.15vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.hero-lockup-dot { opacity: 0.6; }
+
+.hero-lockup-actions {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Secondary "View schedule" ghost button — readable over dark media */
+.btn.btn-ghost.hero-lockup-secondary {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.btn.btn-ghost.hero-lockup-secondary:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: #ffffff;
+}
+
+.hero-lockup-note {
+  margin: 6px 0 0;
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(11px, 0.95vw, 12.5px);
+  line-height: 1.4;
+  max-width: 42ch;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* When the video is unavailable, strengthen the lockup into a solid panel over
+   the poster image so the fallback still reads as a deliberate hero. */
+.hero:not(.hero-has-video) .hero-lockup {
+  background: linear-gradient(180deg, rgba(8, 12, 20, 0.35), rgba(8, 12, 20, 0.72));
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Mobile: move the lockup to the top and tighten it so it clears the dock and
+   the portrait motion poster's own baked-in title area. */
+@media (max-width: 768px) {
+  .hero-lockup {
+    left: 0;
+    right: 0;
+    top: clamp(72px, 12vh, 110px);
+    padding: 0 18px;
+    max-width: 100%;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .hero-lockup-desc { font-size: 13.5px; }
+  .hero-lockup-note { font-size: 10.5px; }
+}
+
+/* Respect reduced motion: no transition flourishes on the lockup. */
+html.is-reduced-motion .hero-lockup,
+html.is-reduced-motion .hero-lockup * {
+  transition: none !important;
+}
+
+
+/* =========================================================
+   MOBILE FIXED-CONTROL OVERLAP FIX (QA: floating chip over countdown @390x844)
+   Reserve horizontal space in the hero dock so the centered countdown never sits
+   under the fixed assistive-touch pod (bottom-right, 50px wide + 16px inset), and
+   lift the pod a little so it clears the dock band. Reversible, mobile-only.
+   ========================================================= */
+@media (max-width: 768px) {
+  /* Keep the dock clear of the pod's right-hand column (50px chip + 16px inset
+     + breathing room). The dock is centered, so a right margin shifts its
+     content box left of the pod footprint. */
+  .hero-dock {
+    margin-right: 74px;
+    max-width: calc(100% - 88px);
+  }
+
+  /* Lift the assistive pod above the hero dock band on small screens. */
+  .assistive-pod {
+    bottom: calc(104px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* Very small / tall phones (e.g. 390x844): give a touch more clearance. */
+@media (max-width: 420px) {
+  .hero-dock {
+    margin-right: 66px;
+    max-width: calc(100% - 78px);
+  }
+}

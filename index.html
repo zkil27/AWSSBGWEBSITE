@@ -74,8 +74,18 @@
       </div>
 
       <div class="header-right">
+        <!-- Inline desktop navigation (QA fix): primary destinations shown
+             directly instead of hidden behind "Menu". Hidden on touch / narrow
+             viewports via CSS, where the labeled drawer takes over. -->
+        <nav class="nav-inline" aria-label="Primary">
+          <a class="nav-inline-link" href="#speakers" data-section="speakers">Speakers</a>
+          <a class="nav-inline-link" href="#schedule" data-section="schedule">Schedule</a>
+          <a class="nav-inline-link" href="#venue" data-section="venue">Venue</a>
+          <a class="nav-inline-link" href="#faq" data-section="faq">FAQ</a>
+        </nav>
+
         <a class="btn btn-primary nav-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank"
-          rel="noopener">Register Now</a>
+          rel="noopener" title="Registration is subject to host approval" aria-label="Register Now on Luma (subject to host approval)">Register Now</a>
 
         <div class="header-divider" aria-hidden="true"></div>
 
@@ -143,24 +153,30 @@
             </a>
           </li>
           <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#merch" data-page="merch" data-brand="pink" aria-label="View summit merchandise" data-index="3">
-              <span class="sm-panel-itemLabel">Merch</span>
+            <a class="sm-panel-item" href="#speakers" data-section="speakers" data-brand="pink" aria-label="View featured speakers" data-index="3">
+              <span class="sm-panel-itemLabel">Speakers</span>
             </a>
           </li>
           <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#program" data-brand="orange" aria-label="View event schedule" data-index="4">
+            <a class="sm-panel-item" href="#schedule" data-section="schedule" data-brand="orange" aria-label="View event schedule" data-index="4">
               <span class="sm-panel-itemLabel">Schedule</span>
             </a>
           </li>
           <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#venue" data-brand="purple" aria-label="View twin venue details" data-index="5">
+            <a class="sm-panel-item" href="#venue" data-section="venue" data-brand="purple" aria-label="View venue details" data-index="5">
               <span class="sm-panel-itemLabel">Venue</span>
             </a>
           </li>
           <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item sm-panel-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma" data-index="6">
+            <a class="sm-panel-item" href="#faq" data-section="faq" data-brand="blue" aria-label="View frequently asked questions" data-index="6">
+              <span class="sm-panel-itemLabel">FAQ</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item sm-panel-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma (subject to host approval)" title="Registration is subject to host approval" data-index="7">
               <span class="sm-panel-itemLabel">Register</span>
             </a>
+            <span class="sm-panel-item-note reg-approval-note">Subject to host approval</span>
           </li>
         </ul>
 
@@ -231,7 +247,7 @@
   <div class="page active" id="page-home">
 
     <!-- MAIN POSTER V3 VIDEO HERO WITH REVERSE SCROLL-EXPAND -->
-    <section class="hero hero-stage" id="hero">
+    <section class="hero hero-stage hero-has-video" id="hero">
       <div class="video-hero-card" id="heroVideoCard">
         <video 
           class="hero-video-player" 
@@ -241,6 +257,7 @@
           loop 
           playsinline 
           preload="auto"
+          poster="assets/images/event-primer.webp"
           aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
         >
           <!-- Mobile Portrait: 9:16 vertical motion poster -->
@@ -249,11 +266,32 @@
           <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+
+        <!-- PERMANENT HERO LOCKUP — always present in the DOM so the event's
+             purpose, date, venue and registration read immediately even if the
+             motion poster fails to load or play. The single home-page <h1> lives
+             here. JS (heroFallbackUI) removes .hero-has-video from #hero if the
+             video errors, promoting this lockup to a solid, high-contrast panel. -->
+        <div class="hero-lockup" id="heroLockup">
+          <p class="hero-lockup-kicker">AWS Student Community Day</p>
+          <h1 class="hero-lockup-title">South Summit 2026</h1>
+          <p class="hero-lockup-desc">A free, beginner-friendly Cloud &amp; AI conference for student builders across South Luzon.</p>
+          <p class="hero-lockup-meta">
+            <span class="hero-lockup-date">October 7, 2026</span>
+            <span class="hero-lockup-dot" aria-hidden="true">·</span>
+            <span class="hero-lockup-venue">Biñan People&rsquo;s Center Auditorium</span>
+          </p>
+          <div class="hero-lockup-actions">
+            <a class="btn btn-primary hero-lockup-cta" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register on Luma &rarr;</a>
+            <a class="btn btn-ghost hero-lockup-secondary" href="#schedule" data-section="schedule">View schedule</a>
+          </div>
+          <p class="hero-lockup-note reg-approval-note">Registration is subject to host approval &mdash; submitting a request does not immediately confirm admission.</p>
+        </div>
       </div>
 
       <!-- Action Dock: Register CTA, Countdown, Video Controls & Scroll Hint -->
       <div class="hero-dock" id="heroDock">
-        <a class="btn btn-primary hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now &rarr;</a>
+        <a class="btn btn-primary hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" title="Registration is subject to host approval" aria-label="Register Now on Luma (subject to host approval)">Register Now &rarr;</a>
 
         <!-- Countdown Timer compatible with countdown.js -->
         <div class="hero-timer-wrap" id="countdown" aria-label="Countdown to South Summit 2026">
@@ -293,234 +331,58 @@
       </div>
     </section>
 
-    <!-- SPEAKERS REMOVED (Integrated into Program Flow) -->
-
-    <!-- SPONSORS -->
-    <section id="sponsors" class="section-light grid-bg light">
-      <div class="deco-layer deco-v" aria-hidden="true">
-        <span class="brand-box b1"></span>
-        <span class="brand-box b2"></span>
-        <span class="brand-box b3"></span>
-        <span class="brand-box b4"></span>  
-        <span class="brand-box b5"></span>
-      </div>
+    <!-- ATTENDEE BENEFITS — what you'll gain (attendee-first ordering, QA fix) -->
+    <section id="benefits" class="section-light grid-bg light" aria-labelledby="benefitsTitle">
       <div class="wrap">
-        <div class="section-head sponsors-section-head">
-          <p class="eyebrow" style="color:var(--teal);">Sponsors &amp; Partners</p>
-          <h2 class="section-title">Powered by industry leaders, cloud innovators, and student builders.</h2>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow" style="color:var(--teal);">Why attend</p>
+          <h2 class="section-title" id="benefitsTitle">A full day to build, grow, and lead.</h2>
         </div>
+        <ul class="benefits-grid" data-reveal>
+          <li class="benefit-card">
+            <h3 class="benefit-card-title">Learn Cloud &amp; AI, beginner-first</h3>
+            <p class="benefit-card-text">Approachable keynotes and talks on AWS Cloud and applied AI &mdash; designed for students at any skill level, no prior experience needed.</p>
+          </li>
+          <li class="benefit-card">
+            <h3 class="benefit-card-title">Meet the people behind the work</h3>
+            <p class="benefit-card-text">Hear from AWS community leaders, solutions architects, and student builders, then connect with them and peers across South Luzon.</p>
+          </li>
+          <li class="benefit-card">
+            <h3 class="benefit-card-title">Find your next step</h3>
+            <p class="benefit-card-text">Career development sessions, a women-in-tech spotlight, and a flagship panel to help you grow from participant to leader.</p>
+          </li>
+        </ul>
 
-        <div class="sponsors-wrapper sponsors-v3">
-          <!-- 01 // QUANTUM TIER (HERO CARDS) -->
-          <div class="sponsors-tier-block">
-            <div class="tier-editorial-header">
-              <div class="tier-index-lockup">
-                <span class="tier-num">01</span>
-                <span class="tier-badge quantum">QUANTUM</span>
-              </div>
-              <h3 class="tier-headline">Quantum Sponsors</h3>
-            </div>
-            
-            <!-- DUAL-SOURCE NOTE: sponsorsUI.js -> initSponsors() overwrites this grid's
-                 innerHTML at runtime from assets/js/data/sponsors.js. The hardcoded cards
-                 below are stale duplicates kept only as a no-JS fallback; edit sponsors.js,
-                 not this markup. Full consolidation happens in Task 8. -->
-            <div class="sponsors-hero-grid" id="sponsorsQuantumGrid">
-              <!-- AWS (Quantum Sponsor) -->
-              <article class="sponsors-hero-card color-purple" data-card-color="purple" aria-label="Amazon Web Services - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
-                <div class="sponsor-flipper">
-                  <div class="sponsor-flip-face sponsor-flip-front">
-                    <div class="hero-card-spotlight" aria-hidden="true"></div>
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
-                    </div>
-                    <div class="hero-card-media">
-                      <div class="hero-logo-frame">
-                        <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
-                        <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="tile-flip-hint" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to flip</span>
-                    </div>
-                  </div>
-                  <div class="sponsor-flip-face sponsor-flip-back">
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
-                    </div>
-                    <div class="hero-back-body">
-                      <h3 class="hero-back-name">Amazon Web Services</h3>
-                      <p class="hero-back-role">Quantum Sponsor &amp; Global Cloud Platform</p>
-                    </div>
-                    <div class="tile-flip-hint is-back" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to show logo</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Tutorials Dojo (Quantum Sponsor) -->
-              <article class="sponsors-hero-card color-blue" data-card-color="blue" aria-label="Tutorials Dojo - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
-                <div class="sponsor-flipper">
-                  <div class="sponsor-flip-face sponsor-flip-front">
-                    <div class="hero-card-spotlight" aria-hidden="true"></div>
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
-                    </div>
-                    <div class="hero-card-media">
-                      <div class="hero-logo-frame">
-                        <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="220" height="90" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="tile-flip-hint" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to flip</span>
-                    </div>
-                  </div>
-                  <div class="sponsor-flip-face sponsor-flip-back">
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
-                    </div>
-                    <div class="hero-back-body">
-                      <h3 class="hero-back-name">Tutorials Dojo</h3>
-                      <p class="hero-back-role">Quantum Sponsor &amp; Official Cloud Learning Partner</p>
-                    </div>
-                    <div class="tile-flip-hint is-back" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to show logo</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
+        <!-- Compact sponsor strip — early sponsor visibility without leading with
+             the full partner wall. Logos rendered from data/sponsors.js by
+             sponsorsUI.js -> renderSponsorStrip(). Full sponsor section is below venue. -->
+        <div class="sponsor-strip" data-reveal>
+          <span class="sponsor-strip-label font-mono">Presented with</span>
+          <div class="sponsor-strip-logos" id="sponsorStrip" aria-label="Lead sponsors">
+            <!-- Rendered by sponsorsUI.js -->
           </div>
-
-          <!-- 02 // CLUSTER SPONSOR & VENUE PARTNER -->
-          <div class="sponsors-tier-block">
-            <div class="tier-editorial-header">
-              <div class="tier-index-lockup">
-                <span class="tier-num">02</span>
-                <span class="tier-badge cluster">CLUSTER &amp; VENUE</span>
-              </div>
-              <h3 class="tier-headline">Cluster Sponsor &amp; Venue Partner</h3>
-            </div>
-
-            <div class="sponsors-hero-grid" id="sponsorsClusterVenueGrid">
-              <!-- Cloud Sensei (Cluster Sponsor) -->
-              <article class="sponsors-hero-card color-teal" data-card-color="teal" aria-label="Cloud Sensei - CLUSTER SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
-                <div class="sponsor-flipper">
-                  <div class="sponsor-flip-face sponsor-flip-front">
-                    <div class="hero-card-spotlight" aria-hidden="true"></div>
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
-                    </div>
-                    <div class="hero-card-media">
-                      <div class="hero-logo-frame">
-                        <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/cloudsensei-light.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
-                        <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/cloudsensei-dark.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="tile-flip-hint" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to flip</span>
-                    </div>
-                  </div>
-                  <div class="sponsor-flip-face sponsor-flip-back">
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
-                    </div>
-                    <div class="hero-back-body">
-                      <h3 class="hero-back-name">Cloud Sensei</h3>
-                      <p class="hero-back-role">Cluster Sponsor</p>
-                    </div>
-                    <div class="tile-flip-hint is-back" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to show logo</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- City Government of Biñan (Venue Partner) -->
-              <article class="sponsors-hero-card color-orange" data-card-color="orange" aria-label="City Government of Biñan (Biñan LGU) - VENUE PARTNER. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
-                <div class="sponsor-flipper">
-                  <div class="sponsor-flip-face sponsor-flip-front">
-                    <div class="hero-card-spotlight" aria-hidden="true"></div>
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag venue">VENUE PARTNER</span>
-                    </div>
-                    <div class="hero-card-media">
-                      <div class="hero-logo-frame emblem">
-                        <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" width="220" height="90" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="tile-flip-hint" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to flip</span>
-                    </div>
-                  </div>
-                  <div class="sponsor-flip-face sponsor-flip-back">
-                    <div class="hero-card-top">
-                      <span class="hero-tier-tag venue">VENUE PARTNER</span>
-                    </div>
-                    <div class="hero-back-body">
-                      <h3 class="hero-back-name">City Government of Biñan (Biñan LGU)</h3>
-                      <p class="hero-back-role">Official Venue Partner</p>
-                    </div>
-                    <div class="tile-flip-hint is-back" aria-hidden="true">
-                      <span class="tile-flip-hint-icon">↺</span>
-                      <span>Click to show logo</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-
-          <!-- 03 // UNIVERSITY BUILDER CHAPTERS & ECOSYSTEM NETWORK (INFINITE MARQUEE) -->
-          <div class="sponsors-tier-block sponsors-marquee-block">
-            <div class="tier-editorial-header">
-              <div class="tier-index-lockup">
-                <span class="tier-num">03</span>
-                <span class="tier-badge chapters">PARTNERS &amp; CHAPTERS</span>
-              </div>
-              <h3 class="tier-headline">Pro &amp; Lite Partners</h3>
-            </div>
-
-            <!-- Dual-Track Marquee Wrapper with Gradient Masks -->
-            <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
-              <!-- Track 1: Pro Partners (Marquee Left) -->
-              <div class="marquee-track-group">
-                <div class="marquee-track-header">
-                  <span class="marquee-tier-tag pro"><span class="tag-dot" aria-hidden="true"></span>PRO PARTNERS</span>
-                  <span class="marquee-tier-count">13 Partner Organizations</span>
-                </div>
-                <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
-                  <div class="marquee-track" id="marqueeTrack1">
-                    <!-- Populated dynamically by sponsorsUI.js -->
-                  </div>
-                </div>
-              </div>
-
-              <!-- Track 2: Lite Partners (Marquee Right) -->
-              <div class="marquee-track-group">
-                <div class="marquee-track-header">
-                  <span class="marquee-tier-tag lite"><span class="tag-dot" aria-hidden="true"></span>LITE PARTNERS</span>
-                  <span class="marquee-tier-count">10 Partner Organizations</span>
-                </div>
-                <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
-                  <div class="marquee-track" id="marqueeTrack2">
-                    <!-- Populated dynamically by sponsorsUI.js -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <a class="sponsor-strip-link" href="#sponsors" data-section="sponsors">See all partners &rarr;</a>
         </div>
       </div>
     </section>
+
+    <!-- SPEAKERS (home) — brought above sponsors so attendees see who they'll
+         learn from before the partner wall (QA fix). Cards rendered by
+         speakersUI.js -> initSpeakers() into #speakerGridStatic. -->
+    <section id="speakers" class="section-light grid-bg light" aria-labelledby="speakersTitle">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow" style="color:var(--teal);">Featured speakers</p>
+          <h2 class="section-title" id="speakersTitle">Who you'll learn from</h2>
+          <p class="section-sub">Keynotes, technical talks, and a flagship panel from AWS community leaders and student builders.</p>
+        </div>
+        <div class="speakers-home-grid" id="speakerGridStatic" data-reveal>
+          <!-- Speaker cards injected by speakersUI.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SPONSORS relocated below #venue for attendee-first ordering (see after venue). -->
 
     <!-- EVENT DETAILS -->
     <section id="program">
@@ -848,11 +710,111 @@
       </div>
     </section>
 
+    <!-- SPONSORS (relocated below venue for attendee-first ordering).
+         Hero cards + marquee chips are rendered from data/sponsors.js by
+         sponsorsUI.js -> initSponsors(); the grids/tracks below are intentionally
+         empty (no hardcoded duplicate markup — Task 8 consolidation). -->
+    <section id="sponsors" class="section-light grid-bg light">
+      <div class="deco-layer deco-v" aria-hidden="true">
+        <span class="brand-box b1"></span>
+        <span class="brand-box b2"></span>
+        <span class="brand-box b3"></span>
+        <span class="brand-box b4"></span>
+        <span class="brand-box b5"></span>
+      </div>
+      <div class="wrap">
+        <div class="section-head sponsors-section-head" data-reveal>
+          <p class="eyebrow" style="color:var(--teal);">Sponsors &amp; Partners</p>
+          <h2 class="section-title">Powered by industry leaders, cloud innovators, and student builders.</h2>
+        </div>
+
+        <div class="sponsors-wrapper sponsors-v3">
+          <!-- 01 // QUANTUM TIER (HERO CARDS) -->
+          <div class="sponsors-tier-block">
+            <div class="tier-editorial-header">
+              <div class="tier-index-lockup">
+                <span class="tier-num">01</span>
+                <span class="tier-badge quantum">QUANTUM</span>
+              </div>
+              <h3 class="tier-headline">Quantum Sponsors</h3>
+            </div>
+            <div class="sponsors-hero-grid" id="sponsorsQuantumGrid">
+              <!-- Rendered from data/sponsors.js by sponsorsUI.js -->
+            </div>
+          </div>
+
+          <!-- 02 // CLUSTER SPONSOR & VENUE PARTNER -->
+          <div class="sponsors-tier-block">
+            <div class="tier-editorial-header">
+              <div class="tier-index-lockup">
+                <span class="tier-num">02</span>
+                <span class="tier-badge cluster">CLUSTER &amp; VENUE</span>
+              </div>
+              <h3 class="tier-headline">Cluster Sponsor &amp; Venue Partner</h3>
+            </div>
+            <div class="sponsors-hero-grid" id="sponsorsClusterVenueGrid">
+              <!-- Rendered from data/sponsors.js by sponsorsUI.js -->
+            </div>
+          </div>
+
+          <!-- 03 // PRO & LITE PARTNERS (INFINITE MARQUEE) -->
+          <div class="sponsors-tier-block sponsors-marquee-block">
+            <div class="tier-editorial-header">
+              <div class="tier-index-lockup">
+                <span class="tier-num">03</span>
+                <span class="tier-badge chapters">PARTNERS &amp; CHAPTERS</span>
+              </div>
+              <h3 class="tier-headline">Pro &amp; Lite Partners</h3>
+            </div>
+
+            <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag pro"><span class="tag-dot" aria-hidden="true"></span>PRO PARTNERS</span>
+                  <span class="marquee-tier-count">13 Partner Organizations</span>
+                </div>
+                <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
+                  <div class="marquee-track" id="marqueeTrack1">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag lite"><span class="tag-dot" aria-hidden="true"></span>LITE PARTNERS</span>
+                  <span class="marquee-tier-count">10 Partner Organizations</span>
+                </div>
+                <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
+                  <div class="marquee-track" id="marqueeTrack2">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- QUOTE / MANIFESTO (TYPOGRAPHIC EDITORIAL) -->
     <section id="quote" class="quote-band" data-no-split="true">
       <div class="wrap quote-inner">
         <p class="quote-mark">"<span class="quote-cloud-ai">Cloud &times; AI:</span> <span class="quote-build">Build.</span> <span class="quote-grow">Grow.</span> <span class="quote-lead">Lead.</span> &mdash; three motions, one day, one community of student builders."</p>
         <p class="quote-attr font-mono">AWS SCD &bull; SOUTH SUMMIT 2026</p>
+      </div>
+    </section>
+
+    <!-- FAQ — confirmed attendee logistics (rendered from data/faq.js by faqUI.js) -->
+    <section id="faq" class="section-light grid-bg light" aria-labelledby="faqTitle">
+      <div class="wrap">
+        <div class="section-head faq-section-head" data-reveal>
+          <p class="eyebrow" style="color:var(--teal);">FAQ</p>
+          <h2 class="section-title" id="faqTitle">Everything you need before you go</h2>
+        </div>
+        <div class="faq-list" id="faqList" data-reveal>
+          <!-- Accordion items injected by faqUI.js -->
+        </div>
       </div>
     </section>
 
@@ -881,6 +843,7 @@
               </a>
               <span class="register-admit-badge font-mono">FREE ADMISSION &bull; RSVP REQUIRED</span>
             </div>
+            <p class="reg-approval-note reg-approval-note--onlight">Registration is subject to host approval &mdash; submitting a request on Luma does not immediately confirm admission. You&rsquo;ll receive a confirmation once your spot is approved.</p>
           </div>
         </div>
 
@@ -1237,7 +1200,7 @@
               <span class="nav-text">Venue</span>
               <span class="nav-arrow" aria-hidden="true">&rarr;</span>
             </a>
-            <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item">
+            <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item" title="Registration is subject to host approval">
               <span class="nav-text">Register on Luma</span>
               <span class="nav-arrow" aria-hidden="true">&rarr;</span>
             </a>
@@ -1357,22 +1320,27 @@
               </button>
             </li>
             <li class="assistive-hud-itemWrap">
-              <button class="assistive-hud-item" data-page="merch" data-brand="pink" type="button" aria-label="View Merch">
-                <span class="assistive-hud-itemLabel">Merch</span>
+              <button class="assistive-hud-item" data-section="speakers" data-brand="pink" type="button" aria-label="View Speakers">
+                <span class="assistive-hud-itemLabel">Speakers</span>
               </button>
             </li>
             <li class="assistive-hud-itemWrap">
-              <button class="assistive-hud-item" data-section="program" data-brand="orange" type="button" aria-label="View Schedule">
+              <button class="assistive-hud-item" data-section="schedule" data-brand="orange" type="button" aria-label="View Schedule">
                 <span class="assistive-hud-itemLabel">Schedule</span>
               </button>
             </li>
             <li class="assistive-hud-itemWrap">
-              <button class="assistive-hud-item" data-section="venue" data-brand="purple" type="button" aria-label="View Twin Venues">
+              <button class="assistive-hud-item" data-section="venue" data-brand="purple" type="button" aria-label="View Venue">
                 <span class="assistive-hud-itemLabel">Venue</span>
               </button>
             </li>
             <li class="assistive-hud-itemWrap">
-              <a class="assistive-hud-item assistive-hud-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma">
+              <button class="assistive-hud-item" data-section="faq" data-brand="blue" type="button" aria-label="View FAQ">
+                <span class="assistive-hud-itemLabel">FAQ</span>
+              </button>
+            </li>
+            <li class="assistive-hud-itemWrap">
+              <a class="assistive-hud-item assistive-hud-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma (subject to host approval)" title="Registration is subject to host approval">
                 <span class="assistive-hud-itemLabel">Register</span>
               </a>
             </li>

@@ -445,6 +445,48 @@ window.__reconcileBlueprint = function() {
   reconcile();
 };
 
+/**
+ * Jump the viewport directly to the schedule timetable ("The Running Order").
+ * QA fix: the nav "Schedule" link previously landed on the #program intro panels,
+ * requiring extra scrolling. On desktop the timetable is the LAST panel of the
+ * horizontal pan, so we scroll to (sectionTop + range) which parks the pan at its
+ * end where the schedule panel is centered. On mobile / reduced-motion the pan is
+ * disabled and #program is a vertical stack, so we scroll to the schedule panel
+ * element directly. Returns true if it handled the scroll.
+ */
+window.__scrollToSchedule = function() {
+  if (!section) section = document.getElementById('program');
+  if (!section) return false;
+  if (!homeVisible()) return false;
+
+  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 76;
+  const lenis = getLenis();
+
+  if (active && shouldEnhance()) {
+    // Desktop pan: re-measure so range is fresh, then scroll to the pan end.
+    measure();
+    const targetY = Math.max(0, sectionTop + range);
+    if (lenis && typeof lenis.scrollTo === 'function') {
+      lenis.scrollTo(targetY, { duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+    return true;
+  }
+
+  // Mobile / fallback: scroll to the schedule panel element directly.
+  const panel = document.getElementById('blueprintSchedulePanel');
+  if (!panel) return false;
+  const docTop = documentOffsetTop(panel);
+  const targetY = Math.max(0, docTop - navH + 10);
+  if (lenis && typeof lenis.scrollTo === 'function') {
+    lenis.scrollTo(targetY, { duration: 1.0 });
+  } else {
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  }
+  return true;
+};
+
 /** Enable or disable to match the current guard + page visibility. */
 function reconcile() {
   if (homeVisible()) {

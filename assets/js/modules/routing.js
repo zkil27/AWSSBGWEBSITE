@@ -271,7 +271,11 @@ export function initRouter() {
 
             // Map aliases to element IDs
             let sectionId = rawSec;
-            if (sectionId === 'agenda' || sectionId === 'schedule') sectionId = 'program';
+            // "Schedule"/"agenda" resolve to the #program section, but should land
+            // directly on the timetable panel — tracked via wantsSchedule so we can
+            // call __scrollToSchedule() instead of stopping at the intro panels.
+            const wantsSchedule = (sectionId === 'agenda' || sectionId === 'schedule');
+            if (wantsSchedule) sectionId = 'program';
             if (sectionId === 'venues') sectionId = 'venue';
 
             const targetSelector = '#' + sectionId;
@@ -287,6 +291,13 @@ export function initRouter() {
                 } else {
                     showPage('home', true, true, targetSelector);
                 }
+                // After the page transition settles, jump to the actual timetable.
+                if (wantsSchedule && window.__scrollToSchedule) {
+                    setTimeout(() => { window.__scrollToSchedule(); }, 220);
+                }
+            } else if (wantsSchedule && window.__scrollToSchedule && window.__scrollToSchedule()) {
+                // Handled directly by blueprintScroll (desktop pan end or mobile panel).
+                history.pushState({ page: 'home', section: 'schedule' }, '', '#schedule');
             } else {
                 if (window.__measureBlueprint) window.__measureBlueprint();
                 if (window.__lenis) window.__lenis.resize();

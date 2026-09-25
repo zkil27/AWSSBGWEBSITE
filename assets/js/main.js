@@ -12,6 +12,7 @@ import { initSmoothScroll } from './modules/smoothScroll.js';
 import { initCountdown } from './modules/countdown.js';
 import { initSpeakers } from './modules/speakersUI.js?v=20260923-lineup-clean';
 import { initScheduleUI } from './modules/scheduleUI.js';
+import { initFAQ } from './modules/faqUI.js';
 import { initMerch } from './modules/merchUI.js';
 import { initChapters } from './modules/chaptersUI.js?v=20260923-fb-only';
 import { initDirectors } from './modules/directorsUI.js';
@@ -27,6 +28,7 @@ import { initPixelTransition, initSplashPixelTransition } from './modules/pixelT
 import { initFooterLedger } from './modules/footerLedger.js';
 import { initScrollExpand } from './modules/scrollExpand.js';
 import { initHeroPosterUI } from './modules/heroPosterUI.js';
+import { initHeroFallbackUI } from './modules/heroFallbackUI.js';
 
 // Detect hardware & network constraints immediately
 initPerfManager();
@@ -47,11 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initCountdown();
     initHeroPosterUI();
+    initHeroFallbackUI();
     initScrollExpand();
 
     // 2. Initialize UI views & dynamic content
     initSpeakers();
     initScheduleUI();
+    initFAQ();
     initMerch();
     initChapters();
     initDirectors();
@@ -67,7 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initStackedCards();
 
     // 5. Scroll-triggered text animations (React Bits SplitText port)
-    initSplitText();
+    //    DISABLED (QA "visual subtraction"): the per-word/line text entrance ran
+    //    on nearly every heading and paragraph, making the site feel overworked.
+    //    We keep the calmer section-level entrance (initScrollReveal) and the
+    //    pixel/grainient signature instead. To re-enable, uncomment the call.
+    //    Disabling is safe: initSplitText only applies opacity:0 when it runs, so
+    //    with it off all text renders at natural opacity.
+    // initSplitText();
 
     // 6. Scroll-triggered entrance motion — last, so the cards injected by the
     //    init*UI() calls above already exist to be tagged and observed.

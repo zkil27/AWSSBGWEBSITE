@@ -27,6 +27,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Dev-only artifacts (NOT part of the zero-build shipped site).
+# tools/qa-verify.mjs is a Playwright cross-viewport check run manually with a
+# transient `npm install --no-save playwright`; keep package manifests out of the repo.
+package.json
+package-lock.json
+/tools/
+
 # Logs & Temporary Files
 *.log
 tmp/

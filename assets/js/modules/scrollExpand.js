@@ -110,7 +110,7 @@ export function initScrollExpand() {
   // Tap/click anywhere on video card to toggle playback
   if (card && video) {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('#heroDock') || e.target.closest('.hero-dock')) return;
+      if (e.target.closest('#heroDock') || e.target.closest('.hero-dock') || e.target.closest('.hero-lockup')) return;
       toggleVideoPlayback();
     });
   }
