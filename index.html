@@ -321,6 +321,10 @@
               <h3 class="tier-headline">Quantum Sponsors</h3>
             </div>
             
+            <!-- DUAL-SOURCE NOTE: sponsorsUI.js -> initSponsors() overwrites this grid's
+                 innerHTML at runtime from assets/js/data/sponsors.js. The hardcoded cards
+                 below are stale duplicates kept only as a no-JS fallback; edit sponsors.js,
+                 not this markup. Full consolidation happens in Task 8. -->
             <div class="sponsors-hero-grid" id="sponsorsQuantumGrid">
               <!-- AWS (Quantum Sponsor) -->
               <article class="sponsors-hero-card color-purple" data-card-color="purple" aria-label="Amazon Web Services - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
