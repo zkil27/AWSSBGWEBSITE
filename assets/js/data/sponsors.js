@@ -127,7 +127,7 @@ export const sponsors = [
   },
   {
     id: 'partner-pro-cvsu-elits',
-    name: 'CvSU Elite Leage of Information Technology Students',
+    name: 'CvSU Elite League of Information Technology Students',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'Cavite State University',
@@ -138,8 +138,12 @@ export const sponsors = [
     url: '#'
   },
   {
-    id: 'partner-pro-colegio-de-abogados',
-    name: 'AWS Cloud Club - Colegio de abogados',
+    // FLAG FOR USER VERIFICATION: the previous name "AWS Cloud Club - Colegio de
+    // abogados" (Colegio de Abogados = "College of Lawyers") did not match its
+    // institution "Colegio de Muntinlupa". Corrected the display name to match the
+    // institution. Please confirm the club's official name.
+    id: 'partner-pro-colegio-de-muntinlupa',
+    name: 'AWS Cloud Club - Colegio de Muntinlupa',
     tier: 'pro',
     role: 'Pro Partner',
     institution: 'Colegio de Muntinlupa',
