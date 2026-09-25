@@ -196,7 +196,7 @@ svg.defs {
   justify-content: center;
   flex: none;
   overflow: hidden;
-  transition: transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform .3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .credit-badge:hover .chip-box {
@@ -286,7 +286,7 @@ svg.defs {
   gap: 10px;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: transform .2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .2s ease, opacity .25s ease, border-color .2s ease, background-color .2s ease, color .2s ease;
+  transition: transform .2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .2s ease, opacity .25s ease, border-color .2s ease, background-color .2s ease, color .2s ease;
   min-height: 44px;
   user-select: none;
 }
@@ -457,7 +457,7 @@ header.nav.nav-visible .nav-inner {
   min-height: 44px;
   flex-shrink: 0;
   cursor: pointer;
-  transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform .25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -471,7 +471,7 @@ header.nav.nav-visible .nav-inner {
 }
 
 .brand .chip {
-  transition: transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform .3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .brand-text {
@@ -589,7 +589,7 @@ nav.links button.active::after {
   touch-action: none;
   user-select: none;
   opacity: 1;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease, box-shadow 0.2s ease;
   pointer-events: auto;
   overflow: hidden;
 }
@@ -633,7 +633,7 @@ html[data-theme="dark"] .assistive-pod {
 
 /* Snapping to Edge State */
 .assistive-pod.is-snapping {
-  transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.25s ease, opacity 0.3s ease !important;
+  transition: left 0.4s cubic-bezier(0.22, 1, 0.36, 1), top 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s ease, opacity 0.3s ease !important;
 }
 
 /* Single Colored Logo inside Pod */
@@ -644,7 +644,7 @@ html[data-theme="dark"] .assistive-pod {
   fill: #FFFFFF;
   filter: none;
   pointer-events: none;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   display: block;
 }
 
@@ -3845,7 +3845,7 @@ html:not(.bp-active) .blueprint-panel--schedule .bp-sched-title {
   border-radius: 8px;
   border-bottom: 1px solid var(--line);
   align-items: center;
-  transition: background-color .2s ease, transform .2s ease, padding-left .2s ease;
+  transition: background-color .2s ease, transform .2s ease;
 }
 
 .sched-row:hover {
@@ -5758,58 +5758,26 @@ html[data-theme="dark"] .marquee-tier-count {
   color: #94A3B8;
 }
 
+/* STATIC PARTNER GRID (Impeccable marquee fix): the Pro/Lite partner rows are
+   now a calm wrapping grid — every logo visible at rest, no auto-scroll, no
+   duplicated clones. Readers move at their own pace. */
 .marquee-row {
-  display: flex;
+  display: block;
   width: 100%;
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .marquee-track {
   display: flex;
-  gap: 20px;
-  width: max-content;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  --marquee-duration: 110s;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+  justify-content: center;
 }
-
-.marquee-row--left .marquee-track {
-  animation: marqueeScrollLeft var(--marquee-duration) linear infinite;
-}
-
-.marquee-row--right .marquee-track {
-  animation: marqueeScrollRight var(--marquee-duration) linear infinite;
-}
-
-/* Pause when offscreen, flipped open, or hovered */
-.sponsors-marquee-shell.is-offscreen .marquee-track,
-.sponsors-marquee-shell.is-paused .marquee-track,
-.sponsors-marquee-shell:hover .marquee-track {
-  animation-play-state: paused !important;
-}
-
-@keyframes marqueeScrollLeft {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-@keyframes marqueeScrollRight {
-  0% {
-    transform: translate3d(-50%, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
+/* Scroll animations removed with the marquee conversion. */
 
 /* Marquee Chip - 3D Flipping Tile */
 .marquee-chip {
@@ -9823,14 +9791,16 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
   padding: 16px 22px;
   width: 100%;
   box-sizing: border-box;
-  transition: background-color 0.2s ease, padding-left 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Indent uses transform (not padding-left) so hover doesn't animate layout
+     (Impeccable layout-transition fix). */
+  transition: background-color 0.2s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .roster-item:hover .ri-row,
 .roster-item.is-active .ri-row,
 .roster-item:focus-visible .ri-row {
   background-color: var(--lineup-row-hover);
-  padding-left: 30px;
+  transform: translateX(8px);
 }
 
 .roster-item.is-active .ri-row {
@@ -10080,7 +10050,8 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
   height: 6px;
   border-radius: 50%;
   background: var(--sp-accent, var(--orange));
-  animation: pulseDot 1.8s infinite;
+  /* Static: a pulsing dot on non-live content reads as decorative liveness
+     (Impeccable pulsing-dot fix). The solid dot + label is honest and calmer. */
 }
 
 .sp-info {

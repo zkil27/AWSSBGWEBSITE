@@ -35,7 +35,7 @@ function chapterCardHTML(c) {
       <!-- 1. Top Header: Name of the Org on Top (Player Plate) -->
       <div class="chapter-card-header">
         <div class="chapter-header-bevel" aria-hidden="true"></div>
-        <h4 class="chapter-org-name" title="${name}">${name}</h4>
+        <h3 class="chapter-org-name" title="${name}">${name}</h3>
       </div>
 
       <!-- 2. Middle: Picture / Media Frame -->

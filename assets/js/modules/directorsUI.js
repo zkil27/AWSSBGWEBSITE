@@ -53,7 +53,7 @@ function directorCardHTML(d) {
           ${avatarMarkup}
         </div>
         <div class="director-identity">
-          <h4 class="director-name" title="${d.name}">${d.name}</h4>
+          <h3 class="director-name" title="${d.name}">${d.name}</h3>
           <span class="director-role-title">${d.role}</span>
           <span class="director-dept-label">${d.department} Team</span>
         </div>

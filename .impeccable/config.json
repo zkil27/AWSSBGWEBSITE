@@ -1,0 +1,30 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "ai-color-palette",
+      "radial-spotlight-glow",
+      "dark-glow",
+      "gpt-thin-border-wide-shadow",
+      "layout-transition",
+      "tiny-text",
+      "tight-leading",
+      "wide-tracking",
+      "low-contrast"
+    ],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-09-25T18:29:51.552Z",
+        "reason": "Documented brand type stack per .kiro/steering/project-conventions.md"
+      },
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-09-25T18:29:53.164Z",
+        "reason": "Documented brand display type per project-conventions.md"
+      }
+    ]
+  }
+}

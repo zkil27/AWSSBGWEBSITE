@@ -284,7 +284,7 @@ function speakerCardHTML(speaker, index, isClone = false, extraClasses = '', isH
         ${linkedinOverlayBtn}
       </div>
       <div class="sc-info">
-        <h4 class="sc-name">${name}</h4>
+        <h3 class="sc-name">${name}</h3>
         ${role ? `<span class="sc-role">${role}</span>` : ''}
         <p class="sc-bio">${abstract}</p>
         ${cardFoot}
@@ -678,7 +678,7 @@ export function initSpeakers() {
                             <span class="ri-num">${num}</span>
                             <span class="ri-track">${track}</span>
                           </div>
-                          <h4 class="ri-name">${name}</h4>
+                          <h3 class="ri-name">${name}</h3>
                           ${role ? `<span class="ri-role">${role}</span>` : ''}
                         </div>
                         <div class="ri-arrow" aria-hidden="true">&rarr;</div>

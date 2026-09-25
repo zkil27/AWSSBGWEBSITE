@@ -184,37 +184,11 @@ function wireLogoFallbacks(container) {
  */
 function buildMarqueeLoopHTML(list) {
   if (!list || list.length === 0) return '';
-  const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1440;
-  // Each chip is 180px + 20px gap = 200px. Calculate target count capped at 22 for 4K.
-  const minItemsNeeded = Math.ceil((screenWidth * 1.35) / 200);
-  const targetHalfCount = Math.max(list.length, Math.min(minItemsNeeded, 22));
-
-  // First `list.length` chips are the real, accessible set. Everything after is a
-  // visual duplicate purely for the seamless loop — mark those clones aria-hidden
-  // and inert so screen readers / keyboard users don't hit repeated entries
-  // (QA a11y fix). markClones() tags every chip beyond the first `originalCount`.
-  let half = [];
-  while (half.length < targetHalfCount) {
-    half = half.concat(list);
-  }
-  const originalCount = list.length;
-  const halfHTML = half.map((p, i) => markClone(renderMarqueeChip(p), i >= originalCount)).join('');
-  // The second identical half is entirely decorative duplication.
-  const cloneHalfHTML = half.map(p => markClone(renderMarqueeChip(p), true)).join('');
-  return halfHTML + cloneHalfHTML;
-}
-
-/**
- * Marks a marquee chip's outer element as a decorative clone: aria-hidden + not
- * focusable, so duplicated loop items are excluded from the accessibility tree
- * and keyboard sequence.
- */
-function markClone(chipHTML, isClone) {
-  if (!isClone) return chipHTML;
-  return chipHTML.replace(
-    /^(\s*)<div class="marquee-chip /,
-    '$1<div aria-hidden="true" data-marquee-clone="true" class="marquee-chip is-clone '
-  );
+  // STATIC GRID (Impeccable marquee fix): render each partner exactly ONCE — no
+  // duplicated clones, no auto-scroll loop. Every logo is visible at rest and
+  // fully in the accessibility tree / keyboard order. CSS lays these out as a
+  // wrapping flex/grid instead of an animated track.
+  return list.map(renderMarqueeChip).join('');
 }
 
 /**

@@ -190,13 +190,9 @@ html[data-theme="light"] .hero-dock .hero-video-btn {
 
 .hero-scroll-hint-arrow {
   display: inline-block;
-  animation: hintArrowBounce 1.8s ease-in-out infinite;
+  /* Static directional cue — no infinite bounce (Impeccable: reserve motion for
+     content that changes). The arrow still indicates "scroll down". */
   color: var(--blue, #42b2fe);
-}
-
-@keyframes hintArrowBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
 }
 
 /* Responsive Rules for Mobile Devices */
