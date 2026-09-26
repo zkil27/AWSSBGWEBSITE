@@ -18,7 +18,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 340;
+  z-index: 600;
   pointer-events: none;
   overflow: hidden;
 }
@@ -550,7 +550,9 @@ html[data-theme="dark"] .sm-socials-link {
   }
 
   .header-right {
-    display: none !important;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
   }
   
   .staggered-menu-panel,

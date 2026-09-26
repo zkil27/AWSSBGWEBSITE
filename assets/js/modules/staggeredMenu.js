@@ -86,6 +86,7 @@ export async function initStaggeredMenu(config = {}) {
 
     const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
     const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item'));
+    const itemNotes = Array.from(panel.querySelectorAll('.sm-panel-item-note'));
     const socialTitle = panel.querySelector('.sm-socials-title');
     const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
 
@@ -97,6 +98,9 @@ export async function initStaggeredMenu(config = {}) {
     }
     if (numberEls.length) {
       gsap.set(numberEls, { '--sm-num-opacity': 0 });
+    }
+    if (itemNotes.length) {
+      gsap.set(itemNotes, { opacity: 0, y: 10 });
     }
     if (socialTitle) {
       gsap.set(socialTitle, { opacity: 0 });
@@ -147,6 +151,19 @@ export async function initStaggeredMenu(config = {}) {
             stagger: { each: 0.08, from: 'start' }
           },
           itemsStart + 0.1
+        );
+      }
+
+      if (itemNotes.length) {
+        tl.to(
+          itemNotes,
+          {
+            opacity: 0.85,
+            y: 0,
+            duration: 0.45,
+            ease: 'power2.out'
+          },
+          itemsStart + (itemEls.length ? (itemEls.length - 1) * 0.1 : 0.3)
         );
       }
     }
@@ -227,6 +244,8 @@ export async function initStaggeredMenu(config = {}) {
         }
         const socialTitle = panel.querySelector('.sm-socials-title');
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
+        const itemNotes = Array.from(panel.querySelectorAll('.sm-panel-item-note'));
+        if (itemNotes.length) gsap.set(itemNotes, { opacity: 0, y: 10 });
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
         if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
         gsap.set([panel, ...preLayers], { visibility: 'hidden' });

@@ -452,6 +452,19 @@ export function initAssistiveTouch() {
     podEl.addEventListener('mouseenter', resetIdleTimer);
     podEl.addEventListener('touchstart', resetIdleTimer, { passive: true });
 
+    // Scroll listener: fade and tuck pod during scrolling so it never obscures reading
+    let scrollTimer = null;
+    window.addEventListener('scroll', () => {
+        if (!podEl || isDragging) return;
+        if (!podEl.classList.contains('is-scrolling')) {
+            podEl.classList.add('is-scrolling');
+        }
+        if (scrollTimer) clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            if (podEl) podEl.classList.remove('is-scrolling');
+        }, 320);
+    }, { passive: true });
+
     // Backdrop click to dismiss modal
     if (backdropEl) {
         backdropEl.addEventListener('click', () => {

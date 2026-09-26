@@ -407,16 +407,42 @@ html.is-reduced-motion .video-hero-card {
    the portrait motion poster's own baked-in title area. */
 @media (max-width: 768px) {
   .hero-lockup {
-    left: 0;
-    right: 0;
-    top: clamp(72px, 12vh, 110px);
-    padding: 0 18px;
-    max-width: 100%;
+    left: 12px;
+    right: 12px;
+    top: clamp(68px, 10vh, 90px);
+    padding: 16px 14px;
+    max-width: calc(100% - 24px);
     align-items: flex-start;
     gap: 8px;
+    border-radius: 12px;
   }
-  .hero-lockup-desc { font-size: 13.5px; }
-  .hero-lockup-note { font-size: 10.5px; }
+  .hero-lockup::before {
+    inset: 0;
+    border-radius: 12px;
+    background: rgba(8, 12, 22, 0.84);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .hero-lockup-title {
+    font-size: clamp(30px, 8vw, 44px) !important;
+  }
+  .hero-lockup-desc {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    max-width: 100%;
+  }
+  .hero-lockup-meta {
+    font-size: 12px !important;
+    gap: 6px;
+  }
+  .hero-lockup-actions .btn {
+    padding: 9px 16px !important;
+    font-size: 13px !important;
+  }
+  .hero-lockup-note {
+    font-size: 10.5px !important;
+    line-height: 1.35;
+  }
 }
 
 /* Respect reduced motion: no transition flourishes on the lockup. */
