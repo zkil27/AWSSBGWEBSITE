@@ -129,6 +129,16 @@ function renderSponsorStrip(container, leadSponsors) {
   container.innerHTML = leadSponsors.map(s => {
     const name = escapeHTML(s.name || '');
     const logoSrc = escapeHTML(s.imgUrl || 'assets/images/south-summit-logo.svg');
+    const darkLogoSrc = s.imgDarkUrl ? escapeHTML(s.imgDarkUrl) : null;
+    if (darkLogoSrc) {
+      return `
+        <span class="sponsor-strip-item" title="${name}">
+          <img class="sponsor-strip-logo sponsor-strip-logo--light" src="${logoSrc}" alt="${name}" loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
+          <img class="sponsor-strip-logo sponsor-strip-logo--dark" src="${darkLogoSrc}" alt="${name}" loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
+        </span>`;
+    }
     return `
       <span class="sponsor-strip-item" title="${name}">
         <img class="sponsor-strip-logo" src="${logoSrc}" alt="${name}" loading="lazy" decoding="async"

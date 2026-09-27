@@ -434,16 +434,8 @@ export function initAssistiveTouch() {
         }
     });
 
-    // Pointer events for dragging & tapping
-    podEl.addEventListener('pointerdown', handlePointerDown);
-    podEl.addEventListener('pointermove', handlePointerMove);
-    podEl.addEventListener('pointerup', handlePointerUp);
-    podEl.addEventListener('pointercancel', handlePointerCancel);
-
-    // Dedicated click fallback (keyboard / accessibility / browsers where pointerup is suppressed)
+    // Click / tap toggles HUD navigation (permanently anchored to top-left corner)
     podEl.addEventListener('click', (e) => {
-        if (Date.now() - lastPointerUpTime < 350) return;
-        if (hasDragged) return;
         e.preventDefault();
         toggleAssistiveHUD();
     });

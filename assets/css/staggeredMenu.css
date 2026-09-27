@@ -410,17 +410,11 @@ html[data-theme="dark"] .sm-panel-item {
 
 /* Special styling for Register link */
 .sm-panel-item--register .sm-panel-itemLabel {
-  background: linear-gradient(135deg, var(--orange), var(--pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--orange, #FF9900);
 }
 
 .sm-panel-item--register:hover .sm-panel-itemLabel {
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--pink, #FF5252);
 }
 
 /* Social links in Panel */

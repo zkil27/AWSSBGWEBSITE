@@ -142,22 +142,79 @@ function lightCell(col, row, brightness, colorIndex) {
   }
 }
 
-/* ============================== Sizing ================================== */
-let cachedMarqueeStartRow = -999;
-let cachedMarqueeEndRow = -999;
+/* ============================== Sizing & Occlusion ====================== */
+let exclusionZones = [];
+
+export function updateExclusionBounds() {
+  const scrollY = window.scrollY || window.pageYOffset || 0;
+  const scrollX = window.scrollX || window.pageXOffset || 0;
+  exclusionZones = [];
+
+  // 1. Full-span sections: sections where NO ambient blocks should appear anywhere across their vertical height
+  // - #venue: Full-bleed editorial stage with photography and room directory (94vw wide)
+  // - .sponsors-marquee-shell: Full-width continuous logo stream
+  // - #program: Blueprint horizontal pan section with technical diagrams
+  // - footer.site-footer: Full-bleed architectural sign-off and site ledger
+  const fullSpanSelectors = ['#venue', '.sponsors-marquee-shell', '#program', 'footer.site-footer'];
+  for (const sel of fullSpanSelectors) {
+    const el = document.querySelector(sel);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      if (r.height > 0) {
+        const isFooter = sel.includes('footer');
+        exclusionZones.push({
+          fullWidth: true,
+          top: r.top + scrollY - 24,
+          bottom: isFooter ? Math.max(r.bottom + scrollY + 2000, (document.documentElement.scrollHeight || 0) + 2000) : r.bottom + scrollY + 24,
+        });
+      }
+    }
+  }
+
+  // 2. All section wrappers and major content blocks across all pages
+  const contentSelectors = [
+    '#page-home .wrap', '#page-about .wrap', '#page-merch .wrap',
+    '.hero-stage', '#heroLockup', '#heroDock', '.section-head',
+    '.directors-filter-wrapper', '.directors-grid', '.speakers-home-grid',
+    '.benefits-grid', '.faq-accordion', '.organizers-grid',
+    '.footer-ledger-card', '.about-roster-section', '.merch-grid'
+  ];
+
+  const contentEls = document.querySelectorAll(contentSelectors.join(', '));
+  for (const el of contentEls) {
+    if (el.closest('#venue') || el.closest('#program')) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width > 0 && r.height > 0) {
+      exclusionZones.push({
+        fullWidth: false,
+        left: r.left + scrollX - 24,
+        right: r.right + scrollX + 24,
+        top: r.top + scrollY - 16,
+        bottom: r.bottom + scrollY + 16,
+      });
+    }
+  }
+}
 
 export function updateMarqueeBounds() {
-  const marqueeEl = document.querySelector('.sponsors-marquee-shell');
-  if (marqueeEl) {
-    const marqueeRect = marqueeEl.getBoundingClientRect();
-    const scrollY = window.scrollY || window.pageYOffset || 0;
-    const docTop = marqueeRect.top + scrollY;
-    cachedMarqueeStartRow = Math.floor((docTop - 12) / gridSize);
-    cachedMarqueeEndRow = Math.ceil((docTop + marqueeRect.height + 12) / gridSize);
-  } else {
-    cachedMarqueeStartRow = -999;
-    cachedMarqueeEndRow = -999;
+  updateExclusionBounds();
+}
+
+function isCellOccluded(col, row) {
+  const offsetX = getGridOffsetX();
+  const docX = offsetX + col * gridSize;
+  const docY = row * gridSize;
+  const docRight = docX + gridSize;
+  const docBottom = docY + gridSize;
+
+  for (let i = 0; i < exclusionZones.length; i++) {
+    const z = exclusionZones[i];
+    if (docBottom > z.top && docY < z.bottom) {
+      if (z.fullWidth) return true;
+      if (docRight > z.left && docX < z.right) return true;
+    }
   }
+  return false;
 }
 
 function resize() {
@@ -171,7 +228,7 @@ function resize() {
   canvas.style.height = viewH + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   refreshGridSize();
-  updateMarqueeBounds();
+  updateExclusionBounds();
 }
 
 /* ============================ Lit cells ================================= */
@@ -375,8 +432,14 @@ function drawAmbientBlocks() {
   const totalCols = Math.floor((bodyW - offsetX) / gridSize);
   const isMobile = currentW < 1024 || totalCols < 20;
 
-  const blocks = isMobile ? mobileAmbientBlocks : ambientBlocks;
-  const opacity = isMobile ? CFG.mobileBlockOpacity : CFG.blockOpacity;
+  // On mobile and viewports without wide gutters (< 1320px), content spans edge-to-edge.
+  // Strictly prevent ambient blocks from drawing to guarantee tiles NEVER cover text on mobile.
+  if (isMobile || bodyW < 1320) {
+    return;
+  }
+
+  const blocks = ambientBlocks;
+  const opacity = CFG.blockOpacity;
 
   const size = gridSize;
   const scrollX = window.scrollX || window.pageXOffset || 0;
@@ -385,25 +448,9 @@ function drawAmbientBlocks() {
   const visRows = Math.ceil(viewH / gridSize) + 2;
   const startVisRow = Math.floor(scrollY / gridSize) - 1;
 
-  // Compute safe gutter bounds: content is centered up to ~1160px.
-  // Ambient blocks must NEVER render inside the content column.
-  const contentW = isMobile ? bodyW - 40 : Math.min(1160, bodyW - 48);
-  const gutterPx = Math.max(0, (bodyW - contentW) / 2);
-  const maxLeftGutterCol = Math.max(0, Math.floor(gutterPx / gridSize) - 1);
-  const minRightGutterCol = Math.max(maxLeftGutterCol + 1, totalCols - Math.max(0, Math.floor(gutterPx / gridSize)));
-
-  // Safety guard: cull blocks that overlap the marquee partner stream (cached bounds, zero layout thrashing)
-  const marqueeStartRow = cachedMarqueeStartRow;
-  const marqueeEndRow = cachedMarqueeEndRow;
-
   for (const b of blocks) {
     // Resolve right-aligned columns
     const actualCol = b.currentC < 0 ? totalCols + b.currentC : b.currentC;
-
-    // Safety guard: if block is inside the content column on any resolution, cull it
-    if (!isMobile && actualCol > maxLeftGutterCol && actualCol < minRightGutterCol) {
-      continue;
-    }
 
     ctx.fillStyle = rgba(colors[b.color % colors.length], opacity);
     
@@ -411,9 +458,11 @@ function drawAmbientBlocks() {
     for (let rep = -1; rep <= Math.ceil((startVisRow + visRows) / CFG.blockRepeatY) + 1; rep++) {
       const actualRow = b.currentR + rep * CFG.blockRepeatY;
       
-      // Culling
+      // Viewport culling
       if (actualRow < startVisRow || actualRow > startVisRow + visRows) continue;
-      if (actualRow >= marqueeStartRow && actualRow <= marqueeEndRow) continue;
+
+      // Impeccable Content Exclusion: strictly cull any tile that touches or enters content zones
+      if (isCellOccluded(actualCol, actualRow)) continue;
 
       // Snap to full integers to eliminate sub-pixel jitter/blur during movement
       const x = Math.round(offsetX + actualCol * gridSize - scrollX);
@@ -598,6 +647,16 @@ export function initComputeGrid() {
     resize();
     maybePaintStatic();
   }, { passive: true });
+
+  window.__updateComputeGridBounds = () => {
+    updateExclusionBounds();
+    maybePaintStatic();
+  };
+
+  window.addEventListener('load', () => {
+    updateExclusionBounds();
+    maybePaintStatic();
+  });
 
   let scrollTicking = false;
   window.addEventListener('scroll', () => {

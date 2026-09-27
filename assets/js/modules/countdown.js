@@ -5,8 +5,8 @@
 
 import { countUp } from './countUp.js';
 
-// Event date is October 7, 2026 at 08:00 AM (Philippine Time) — per official summit schedule
-const target = new Date('2026-10-07T08:00:00+08:00').getTime();
+// Event date is October 7, 2026 at 07:30 AM (Philippine Time) — per official summit schedule
+const target = new Date('2026-10-07T07:30:00+08:00').getTime();
 
 function isSplashActive() {
     if (window.__splashDismissed) return false;

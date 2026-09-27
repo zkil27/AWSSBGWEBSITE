@@ -19,19 +19,19 @@ export const faqs = [
   {
     id: 'faq-who-can-attend',
     q: 'Who can attend? Can students from other schools join?',
-    a: 'Yes. South Summit 2026 is open to students, student leaders, and tech communities across South Luzon (CALABARZON) and beyond — including IT, Computer Science, and Engineering students, as well as educators and industry partners. You do not need to be from a partner school to register.',
+    a: 'Yes. South Summit 2026 is open to students, student leaders, and tech communities across South Luzon (CALABARZON) and beyond — including IT, Computer Science, and Engineering students, student leaders, women in tech communities, as well as educators and industry partners. You do not need to be from a partner school to register.',
     pending: false
   },
   {
     id: 'faq-beginners',
     q: 'Are beginners and non-technical students welcome?',
-    a: 'Absolutely. The summit is intentionally beginner-friendly. It balances technical exposure with inspiring keynotes, women-in-tech talks, career development sessions, and community networking — so you can take part regardless of your background or skill level.',
+    a: 'Absolutely. The summit is intentionally beginner-friendly. Guided by the theme "Cloud x AI: BUILD. GROW. LEAD.", it balances technical exposure with human-centered experiences: inspiring keynotes, women-in-tech talks, career development sessions, and interactive community networking — so you can take part regardless of your background or skill level.',
     pending: false
   },
   {
     id: 'faq-admission-approval',
     q: 'Is admission free, and how does approval work?',
-    a: 'Admission is free. Registration is handled online through Luma, and every request is subject to host approval — submitting a request does not immediately confirm your spot. You will receive a confirmation (with event details and a QR code for on-site check-in) once your registration is approved.',
+    a: 'Admission is free. Registration is handled online through Luma, and every request is subject to host approval — submitting a request does not immediately confirm your spot. With approximately 200 participants expected, you will receive a confirmation once your registration is approved.',
     pending: false
   },
   {
@@ -52,11 +52,8 @@ export const faqs = [
   },
   {
     id: 'faq-getting-there-contact',
-    q: 'How do I get there, and who do I contact?',
-    // PENDING: confirm travel/directions guidance and the official contact
-    // channel (email / social handle) for attendee questions. The venue is the
-    // Biñan People's Center Auditorium, Biñan City, Laguna.
-    a: 'The venue is the Biñan People\u2019s Center Auditorium in Biñan City, Laguna. Detailed travel directions and an official contact channel are being finalized.',
-    pending: true
+    q: 'How do I get there, and what spaces are in the venue?',
+    a: 'The summit is held at the Biñan People’s Center Auditorium in Biñan City, Laguna. It utilizes two dedicated event spaces: the Summit Stage (4th Floor Auditorium) for keynote and technical sessions, and the SS Community Hub (2nd Floor) for sponsor booths, partner showcases, networking, and the interactive photobooth.',
+    pending: false
   }
 ];

@@ -12,16 +12,16 @@ section#hero.hero-stage,
 section.hero.hero-stage {
   position: relative;
   width: 100%;
-  min-height: auto !important;
-  height: auto !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
   margin: 0 !important;
-  padding: calc(var(--nav-h, 64px) + clamp(20px, 4vh, 44px)) clamp(16px, 4vw, 32px) clamp(44px, 6vh, 64px) !important;
+  padding: calc(var(--nav-h, 64px) + clamp(20px, 3.5vh, 40px)) clamp(16px, 4vw, 32px) clamp(36px, 5vh, 60px) !important;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg);
+  background-color: transparent !important;
   z-index: 1;
   overflow: visible;
 }
@@ -139,22 +139,19 @@ html[data-theme="light"] .hero-top-desc {
   cursor: pointer;
   background-color: #080c14;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.45),
-              0 0 36px rgba(68, 179, 254, 0.16);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   transform: none !important;
 }
 
 html[data-theme="light"] .video-hero-card {
   border-color: rgba(11, 21, 38, 0.12);
-  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.12),
-              0 0 28px rgba(68, 179, 254, 0.12);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.14);
 }
 
 .video-hero-card:hover {
   border-color: rgba(68, 179, 254, 0.5);
-  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.55),
-              0 0 46px rgba(68, 179, 254, 0.24);
+  box-shadow: 0 28px 64px -12px rgba(0, 0, 0, 0.65);
 }
 
 .hero-video-player {
@@ -375,11 +372,17 @@ html[data-theme="light"] .hero-dock .hero-video-btn {
   .hero-stage,
   section#hero.hero-stage,
   section.hero.hero-stage {
-    padding: calc(var(--nav-h, 64px) + 14px) 14px 40px !important;
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+    padding: calc(var(--nav-h, 60px) + clamp(14px, 2.5vh, 24px)) 16px clamp(28px, 4vh, 44px) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .hero-centered-inner {
-    gap: 16px;
+    gap: clamp(12px, 2vh, 18px);
   }
 
   .hero-top-title {
@@ -474,11 +477,6 @@ html[data-theme="light"] .hero-dock .hero-video-btn {
     padding: 10px 8px;
     font-size: 12px;
     box-sizing: border-box;
-  }
-
-  /* Lift assistive pod above the hero buttons */
-  .assistive-pod {
-    bottom: calc(112px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
 

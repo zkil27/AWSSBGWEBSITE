@@ -31,13 +31,11 @@ export function isHeroActive() {
 }
 
 export function updateHeroNavState() {
-    if (!nav) return;
-    nav.classList.add('nav-visible');
+    // Dynamic reveal and auto-hide are managed by initNavAutoHide
 }
 
 export function updateNavState() {
     updateNavSolid();
-    updateHeroNavState();
 }
 
 let isNavigating = false;
@@ -101,6 +99,9 @@ function switchPageDOM(name, record = true, targetSection = null) {
     // so that Lenis's limit is refreshed and does NOT clamp targetY to an old page's height!
     if (window.__lenis) {
         window.__lenis.resize();
+    }
+    if (window.__updateComputeGridBounds) {
+        window.__updateComputeGridBounds();
     }
 
     let targetY = 0;
@@ -342,13 +343,18 @@ export function initRouter() {
 }
 
 /**
- * Auto-hide navbar when not in mouse hover, with organic easing, hysteresis, and grace timeouts.
+ * Auto-hide navbar when not in hover, and reveal on scroll-up / hover / focus.
  */
 function initNavAutoHide() {
-    if (!nav || (window.matchMedia && window.matchMedia('(hover: none)').matches)) return;
+    if (!nav) return;
 
     let isNavHovered = false;
     let hideTimer = null;
+    let lastScrollY = Math.max(0, window.scrollY || window.pageYOffset || 0);
+    let isScrollingUp = false;
+    let scrollEndTimer = null;
+    const SCROLL_THRESHOLD = 8;
+    const isTouchDevice = window.matchMedia && window.matchMedia('(hover: none)').matches;
 
     function showNav() {
         if (hideTimer) {
@@ -358,52 +364,98 @@ function initNavAutoHide() {
         nav.classList.add('nav-visible');
     }
 
-    function scheduleHide(delay = 240) {
+    function hideNav() {
+        if (isNavHovered || nav.contains(document.activeElement)) return;
+        if (document.body.classList.contains('staggered-menu-open')) return;
+        if (hideTimer) {
+            clearTimeout(hideTimer);
+            hideTimer = null;
+        }
+        nav.classList.remove('nav-visible');
+    }
+
+    function scheduleHide(delay = 250) {
         if (hideTimer) clearTimeout(hideTimer);
         hideTimer = setTimeout(() => {
-            const page = document.documentElement.getAttribute('data-page') || 'home';
-            const scrollY = window.scrollY || window.pageYOffset || 0;
-            // On home page at the top of hero, hide nav when mouse leaves
-            if (page === 'home' && scrollY < 80) {
-                if (!isNavHovered && !nav.contains(document.activeElement)) {
-                    nav.classList.remove('nav-visible');
-                }
-            }
-            hideTimer = null;
+            hideNav();
         }, delay);
     }
 
-    nav.addEventListener('mouseenter', () => {
-        isNavHovered = true;
+    if (!isTouchDevice) {
+        nav.addEventListener('mouseenter', () => {
+            isNavHovered = true;
+            showNav();
+        });
+
+        nav.addEventListener('mouseleave', () => {
+            isNavHovered = false;
+            scheduleHide(260);
+        });
+
+        // Intent detection: cursor close to top edge reveals
+        window.addEventListener('mousemove', (e) => {
+            if (e.clientY <= 45) {
+                showNav();
+            } else if (!isNavHovered && e.clientY > 85 && !nav.contains(document.activeElement)) {
+                if (!isScrollingUp) {
+                    scheduleHide(220);
+                }
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseleave', () => {
+            isNavHovered = false;
+            if (!isScrollingUp) {
+                scheduleHide(200);
+            }
+        });
+    }
+
+    // Accessible focus management: maintain visibility while focused
+    nav.addEventListener('focusin', () => {
         showNav();
     });
 
-    nav.addEventListener('mouseleave', () => {
-        isNavHovered = false;
-        scheduleHide(260);
+    nav.addEventListener('focusout', (e) => {
+        if (!nav.contains(e.relatedTarget)) {
+            if (!isNavHovered) scheduleHide(250);
+        }
     });
 
-    // Intent detection: reveal when cursor is close to top edge
-    window.addEventListener('mousemove', (e) => {
-        const page = document.documentElement.getAttribute('data-page') || 'home';
-        const scrollY = window.scrollY || window.pageYOffset || 0;
+    // Scroll listener: scroll up reveals, scroll down hides
+    function onScrollNav() {
+        const currentScrollY = Math.max(0, window.scrollY || window.pageYOffset || 0);
+        const diff = currentScrollY - lastScrollY;
 
-        if (e.clientY <= 45) {
-            showNav();
-        } else if (!isNavHovered && e.clientY > 75 && !nav.contains(document.activeElement)) {
-            if (page === 'home' && scrollY < 80) {
-                scheduleHide(220);
+        if (Math.abs(diff) >= SCROLL_THRESHOLD) {
+            if (diff > 0 && currentScrollY > 40) {
+                // Scrolling down -> hide navbar immediately (unless hovered or focused)
+                isScrollingUp = false;
+                if (!isNavHovered && !nav.contains(document.activeElement)) {
+                    hideNav();
+                }
+            } else if (diff < 0) {
+                // Scrolling up -> reveal navbar immediately
+                isScrollingUp = true;
+                showNav();
+
+                // When user stops scrolling up, if not hovering, schedule a graceful auto-hide
+                if (scrollEndTimer) clearTimeout(scrollEndTimer);
+                scrollEndTimer = setTimeout(() => {
+                    isScrollingUp = false;
+                    if (!isNavHovered && !nav.contains(document.activeElement)) {
+                        scheduleHide(1200);
+                    }
+                }, 2000);
             }
+            lastScrollY = currentScrollY;
         }
-    }, { passive: true });
+    }
 
-    // When mouse exits the browser window, gently schedule hide unless focused
-    document.addEventListener('mouseleave', () => {
-        const page = document.documentElement.getAttribute('data-page') || 'home';
-        const scrollY = window.scrollY || window.pageYOffset || 0;
-        if (page === 'home' && scrollY < 80 && !nav.contains(document.activeElement)) {
-            isNavHovered = false;
-            scheduleHide(180);
-        }
-    });
+    window.addEventListener('scroll', onScrollNav, { passive: true });
+
+    // Initial settle: if mouse is not hovering, tuck away after brief greeting period
+    if (!isTouchDevice) {
+        scheduleHide(2200);
+    }
 }
