@@ -12,19 +12,19 @@ import { speakers } from '../data/speakers.js';
 /* ============================ Schedule Data ============================= */
 
 export const scheduleSessions = [
-  // ==================== BLOCK 01: MORNING (7:30 AM – 12:30 PM) ====================
+  // ==================== BLOCK 01: MORNING (9:30 AM – 12:30 PM) ====================
   {
     id: 'session-registration',
     type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '7:30 AM – 8:30 AM',
-    duration: '60 MIN',
-    category: 'REGISTRATION & COMMUNITY HUB',
+    time: '9:30 AM – 10:00 AM',
+    duration: '30 MIN',
+    category: 'REGISTRATION',
     categoryTheme: 'theme-orange',
-    title: 'Registration & Community Hub',
-    location: 'SS Community Hub · 2nd Floor',
-    description: 'Attendee check-in and registration, peer networking, sponsor booth exploration, partner community setups, and interactive photobooth activation.',
+    title: 'Registration',
+    location: 'Summit Registration Desk · Biñan People\'s Center',
+    description: 'Attendee check-in and registration, Summit kit distribution, peer networking, and sponsor booth exploration.',
     speakerIndices: []
   },
   {
@@ -32,27 +32,13 @@ export const scheduleSessions = [
     type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '8:30 AM – 8:45 AM',
+    time: '10:00 AM – 10:15 AM',
     duration: '15 MIN',
     category: 'OPENING CEREMONY',
     categoryTheme: 'theme-orange',
     title: 'Opening Ceremony',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Solemn Invocation, Philippine National Anthem, and official Opening Program led by the summit organizers.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-welcome-remarks',
-    type: 'session',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '8:45 AM – 9:00 AM',
-    duration: '15 MIN',
-    category: 'WELCOME REMARKS',
-    categoryTheme: 'theme-orange',
-    title: 'Welcome Remarks & Event Overview',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Official welcome message and event overview delivered by University Representative and Lead Organizer.',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Solemn Invocation, Philippine National Anthem, and official Opening Program led by summit hosts and organizers.',
     speakerIndices: []
   },
   {
@@ -60,129 +46,45 @@ export const scheduleSessions = [
     type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '9:00 AM – 9:40 AM',
-    duration: '40 MIN',
+    time: '10:15 AM – 10:30 AM',
+    duration: '15 MIN',
     category: 'OPENING KEYNOTE',
     categoryTheme: 'theme-orange',
     title: 'Opening Keynote: Cloud × AI: Building the Future Together',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Opening Keynote by AWS Philippines Representative / AWS Leader exploring emerging trends in AWS Cloud architecture, developer ecosystems, and applied AI in CALABARZON.',
-    speakerIndices: [{ index: 0, role: 'Keynote Speaker' }]
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Welcome Remarks & Opening Keynote on Cloud × AI: Building the Future Together by AWS Philippines Representative / AWS Leader (Backup: Sir Isaeus "Asi" Guiang).',
+    speakerIndices: []
   },
   {
-    id: 'session-energizer-morning',
+    id: 'session-icebreaker',
     type: 'break',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '9:40 AM – 9:50 AM',
-    duration: '10 MIN',
-    category: 'AUDIENCE ENERGIZER & Q&A',
+    time: '10:30 AM – 11:40 AM',
+    duration: '70 MIN',
+    category: 'AUDIENCE ENGAGEMENT & GIVEAWAYS',
     categoryTheme: 'theme-blue',
-    title: 'Audience Energizer & Q&A',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Audience engagement, quick interaction, and event giveaways led by the summit hosts.',
+    title: 'Icebreaker: Audience Engagement & Giveaways',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'High-energy community icebreaker, audience engagement challenges, and summit giveaways led by hosts (Cyphrey Madulid).',
     speakerIndices: []
   },
   {
-    id: 'session-student-success',
+    id: 'session-talk1',
     type: 'session',
     block: 'morning',
     blockName: 'BLOCK 01 // MORNING',
-    time: '9:50 AM – 10:25 AM',
-    duration: '35 MIN',
-    category: 'STUDENT SUCCESS STORY',
+    time: '11:40 AM – 12:30 PM',
+    duration: '50 MIN',
+    category: 'STUDENT SUCCESS STORY & TALK #1',
     categoryTheme: 'theme-green',
-    title: 'Student Success Story: From Student Builder to Tech Professional',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Inspiring personal journey from Former AWS Student Builder Group Lead / Former Captain on transitioning from a student community builder into a tech industry professional.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-fireside-qa-1',
-    type: 'session',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '10:25 AM – 10:35 AM',
-    duration: '10 MIN',
-    category: 'FIRESIDE Q&A',
-    categoryTheme: 'theme-green',
-    title: 'Fireside Q&A: Student Builder Journey',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Moderated audience questions and interactive fireside discussion with the speaker.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-morning-break',
-    type: 'break',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '10:35 AM – 10:50 AM',
-    duration: '15 MIN',
-    category: 'MORNING BREAK',
-    categoryTheme: 'theme-blue',
-    title: 'Morning Break & Community Hub',
-    location: 'SS Community Hub · 2nd Floor',
-    description: 'Morning break, community hub exploration, peer networking, and sponsor booth visits.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-women-in-tech',
-    type: 'session',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '10:50 AM – 11:30 AM',
-    duration: '40 MIN',
-    category: 'WOMEN IN TECH KEYNOTE',
-    categoryTheme: 'theme-pink',
-    title: 'Women in Tech Keynote: Building Inclusive Communities in Technology',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Keynote session highlighting representation, diversity, and building inclusive tech communities across CALABARZON and the cloud ecosystem.',
-    speakerIndices: [{ index: 1, role: 'Keynote Speaker' }]
-  },
-  {
-    id: 'session-community-giveaway',
-    type: 'break',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '11:30 AM – 11:40 AM',
-    duration: '10 MIN',
-    category: 'COMMUNITY GIVEAWAY',
-    categoryTheme: 'theme-blue',
-    title: 'Community Giveaway & Audience Interaction',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Sponsor giveaways, summit trivia challenges, and interactive audience games led by hosts.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-cloud-foundations',
-    type: 'session',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '11:40 AM – 12:20 PM',
-    duration: '40 MIN',
-    category: 'CLOUD FOUNDATIONS',
-    categoryTheme: 'theme-green',
-    title: 'Cloud Foundations: Starting Your Journey with AWS and Cloud Computing',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Foundational session by AWS Community Builder / AWS User Group Leader on core AWS cloud concepts, architecture, and practical starting steps for students.',
-    speakerIndices: [{ index: 2, role: 'Speaker' }]
-  },
-  {
-    id: 'session-sponsor-recognition',
-    type: 'session',
-    block: 'morning',
-    blockName: 'BLOCK 01 // MORNING',
-    time: '12:20 PM – 12:30 PM',
-    duration: '10 MIN',
-    category: 'SPONSOR & COMMUNITY RECOGNITION',
-    categoryTheme: 'theme-orange',
-    title: 'Sponsor & Community Recognition',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Formal recognition and appreciation of summit sponsors, university partners, and participating student builder communities.',
-    speakerIndices: []
+    title: 'Talk #1: Built by Community: From Student Builder to Tech Professional',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Student story from being an AWS Student Builder Group Lead / Former Captain into a Tech Professional delivered by Sir Isaeus "Asi" Guiang (Backup: Sir Mark Achiles Flores Jr., Sir Mark Anthony Hernandez). Main talk: 11:40 AM – 12:20 PM (40m), Live Q&A: 12:20 PM – 12:30 PM (10m).',
+    speakerIndices: [0]
   },
 
-  // ==================== BLOCK 02: AFTERNOON (12:30 PM – 5:00 PM) ====================
+  // ==================== BLOCK 02: AFTERNOON (12:30 PM – 6:00 PM) ====================
   {
     id: 'session-lunch',
     type: 'break',
@@ -190,11 +92,11 @@ export const scheduleSessions = [
     blockName: 'BLOCK 02 // AFTERNOON',
     time: '12:30 PM – 2:00 PM',
     duration: '90 MIN',
-    category: 'LUNCH BREAK',
+    category: 'LUNCH & COMMUNITY HUB',
     categoryTheme: 'theme-orange',
     title: 'Lunch, Networking & Community Hub Experience',
-    location: 'SS Community Hub & Exhibition Hall · 2nd Floor',
-    description: 'Lunch, sponsor and partner booth exploration, developer showcases, speed networking, photobooth, and community interaction.',
+    location: 'South Summit Community Hub & Exhibition Hall',
+    description: 'Lunch, partner & sponsor booth exploration, developer showcases, speed networking, photobooth, and community interaction.',
     speakerIndices: []
   },
   {
@@ -202,111 +104,69 @@ export const scheduleSessions = [
     type: 'break',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
-    time: '2:00 PM – 2:10 PM',
-    duration: '10 MIN',
-    category: 'AFTERNOON ENERGIZER',
+    time: '2:00 PM – 2:20 PM',
+    duration: '20 MIN',
+    category: 'AFTERNOON ENERGIZER & SPONSOR TALK',
     categoryTheme: 'theme-blue',
-    title: 'Afternoon Energizer',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Icebreaker games, booth challenge updates, and attendee giveaways led by hosts.',
+    title: 'Afternoon Energizer / Sponsor’s Talk Slot',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Icebreaker, booth challenge updates, and giveaways (2:00 PM – 2:10 PM). Followed by sponsor presentations (up to 2 sponsors, 5 mins each; 2:10 PM – 2:20 PM).',
     speakerIndices: []
   },
   {
-    id: 'session-ai-innovation',
+    id: 'session-talk2',
     type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
-    time: '2:10 PM – 2:50 PM',
-    duration: '40 MIN',
-    category: 'AI INNOVATION SESSION',
+    time: '2:20 PM – 3:10 PM',
+    duration: '50 MIN',
+    category: 'WOMEN IN TECH KEYNOTE & TALK #2',
+    categoryTheme: 'theme-pink',
+    title: 'Talk #2: Building Smarter Systems with AI and Cloud',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Women in Tech Keynote delivered by Ms. Trisha Pelagio (Solutions Architect, AWS; Backup: Ms. Jen Arroyo, Ms. Uriel Alonso). Main talk: 2:20 PM – 3:00 PM (40m), Live Q&A: 3:00 PM – 3:10 PM (10m).',
+    speakerIndices: [1]
+  },
+  {
+    id: 'session-talk3',
+    type: 'session',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '3:10 PM – 4:00 PM',
+    duration: '50 MIN',
+    category: 'AI ADOPTION SESSION & TALK #3',
     categoryTheme: 'theme-purple',
-    title: 'AI Innovation: Building AI Products That People Actually Use: The Story Behind Tarsi',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Feature technical and venture session by target speaker Bryl Lim exploring the real-world engineering, design, and product decisions behind Tarsi.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-fireside-qa-2',
-    type: 'session',
-    block: 'afternoon',
-    blockName: 'BLOCK 02 // AFTERNOON',
-    time: '2:50 PM – 3:00 PM',
-    duration: '10 MIN',
-    category: 'FIRESIDE Q&A',
-    categoryTheme: 'theme-purple',
-    title: 'Fireside Q&A: AI Products in Practice',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Moderated audience Q&A session discussing practical AI product deployment and architecture.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-career-dev',
-    type: 'session',
-    block: 'afternoon',
-    blockName: 'BLOCK 02 // AFTERNOON',
-    time: '3:00 PM – 3:35 PM',
-    duration: '35 MIN',
-    category: 'CAREER DEVELOPMENT TALK',
-    categoryTheme: 'theme-green',
-    title: 'Career Development: How Students Can Stand Out in the Tech Industry',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Practical advice and insights from industry professional and hiring manager on resumes, portfolios, internships, and entering the tech job market.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-afternoon-break',
-    type: 'break',
-    block: 'afternoon',
-    blockName: 'BLOCK 02 // AFTERNOON',
-    time: '3:35 PM – 3:50 PM',
-    duration: '15 MIN',
-    category: 'AFTERNOON BREAK',
-    categoryTheme: 'theme-blue',
-    title: 'Afternoon Break & Community Hub',
-    location: 'SS Community Hub · 2nd Floor',
-    description: 'Coffee break, community hub networking, and final sponsor booth visits.',
-    speakerIndices: []
+    title: 'Talk #3: Human in the Loop: Preparing People for an AI-Driven Future',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'AI Adoption Session delivered by Sir Kevin Ventura (Senior Engineering Manager, Stratpoint; Backup: Ms. Joanne De Guzman, Mr. David Marquez). Main talk: 3:10 PM – 3:50 PM (40m), Live Q&A: 3:50 PM – 4:00 PM (10m).',
+    speakerIndices: [2]
   },
   {
     id: 'session-flagship-panel',
     type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
-    time: '3:50 PM – 4:30 PM',
+    time: '4:00 PM – 4:40 PM',
     duration: '40 MIN',
     category: 'FLAGSHIP PANEL DISCUSSION',
     categoryTheme: 'theme-purple',
-    title: 'Flagship Panel: Beyond the Hype: The Real Journey Into Tech',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Flagship panel discussion with Industry Professionals, AWS Community Leaders, and Women in Tech Advocates on navigating real challenges and career acceleration in tech.',
-    speakerIndices: [3, 4, 5]
+    title: 'Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Flagship panel discussion with AWS Community Leaders and former AWS Student Builder Group Captains: Ms. Gaile Espinosa, Ms. Nina Comia, Mr. Jared Remulta (Backup: Ms. Kimi Villareal, Sir Mark Anthony Hernandez, Sir Danmel Laranga). Main talk: 4:00 PM – 4:30 PM (30m), Live Q&A: 4:30 PM – 4:40 PM (10m).',
+    speakerIndices: [4, 5, 3]
   },
   {
     id: 'session-grand-raffle',
     type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
-    time: '4:30 PM – 4:45 PM',
-    duration: '15 MIN',
-    category: 'GRAND RAFFLE & RECOGNITION',
-    categoryTheme: 'theme-pink',
-    title: 'Grand Raffle & Partner Appreciation',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Major raffle prize giveaways, recognition of industry sponsors and partner communities, and volunteer appreciation.',
-    speakerIndices: []
-  },
-  {
-    id: 'session-closing-keynote',
-    type: 'session',
-    block: 'afternoon',
-    blockName: 'BLOCK 02 // AFTERNOON',
-    time: '4:45 PM – 4:55 PM',
+    time: '4:40 PM – 4:50 PM',
     duration: '10 MIN',
-    category: 'CLOSING KEYNOTE',
-    categoryTheme: 'theme-orange',
-    title: 'Closing Keynote: Building the Future Together',
-    location: 'Summit Stage · 4th Floor Auditorium',
-    description: 'Inspiring closing keynote delivered by South Summit Event Director on future builder initiatives and CALABARZON tech collaboration.',
+    category: 'GRAND RAFFLE & APPRECIATION',
+    categoryTheme: 'theme-pink',
+    title: 'Grand Raffle + Sponsor & Partner Appreciation',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Major raffle prize giveaways, sponsor and partner recognition, and community volunteer appreciation led by hosts.',
     speakerIndices: []
   },
   {
@@ -314,13 +174,55 @@ export const scheduleSessions = [
     type: 'session',
     block: 'afternoon',
     blockName: 'BLOCK 02 // AFTERNOON',
+    time: '4:50 PM – 4:55 PM',
+    duration: '5 MIN',
+    category: 'CLOSING REMARKS',
+    categoryTheme: 'theme-orange',
+    title: 'Closing Remarks',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Official summit closing remarks delivered by South Summit Event Director, celebrating speakers, volunteers, and guest community members.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-egress',
+    type: 'break',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
     time: '4:55 PM – 5:00 PM',
     duration: '5 MIN',
-    category: 'FINALE & GROUP PHOTO',
+    category: 'STAGE EGRESS',
     categoryTheme: 'theme-blue',
-    title: 'Closing Remarks & Official Group Photo',
-    location: 'Summit Stage & Grand Stage · 4th Floor Auditorium',
-    description: 'Closing acknowledgments and official commemorative group photo with attendees, organizers, and speakers, followed by hall egress.',
+    title: 'Egress',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Stage transition, attendee guidance, and preparations for the official group photo.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-group-photo',
+    type: 'session',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '5:00 PM – 5:30 PM',
+    duration: '30 MIN',
+    category: 'GROUP PHOTO & FINALE',
+    categoryTheme: 'theme-blue',
+    title: 'Group Photo',
+    location: 'Summit Stage · Biñan People\'s Center',
+    description: 'Closing acknowledgments and official summit group photo with attendees, organizers, speakers, and community partners.',
+    speakerIndices: []
+  },
+  {
+    id: 'session-venue-cleanup',
+    type: 'break',
+    block: 'afternoon',
+    blockName: 'BLOCK 02 // AFTERNOON',
+    time: '5:30 PM – 6:00 PM',
+    duration: '30 MIN',
+    category: 'VENUE CLEANUP',
+    categoryTheme: 'theme-orange',
+    title: 'Venue Cleanup',
+    location: 'Summit Stage & South Summit Community Hub',
+    description: 'Organizer and volunteer packdown, equipment egress, and venue turnover across Summit Stage and South Summit Community Hub.',
     speakerIndices: []
   }
 ];
@@ -355,12 +257,12 @@ function parseTimeRange(range) {
 /**
  * Dev-only sanity check: every session's end time must equal the next session's
  * start time (no unexplained gaps or overlaps) and the last session must end at
- * 5:00 PM (17:00). Warnings only — never throws, so production rendering is never
+ * 6:00 PM (18:00). Warnings only — never throws, so production rendering is never
  * blocked. Runs against the exported scheduleSessions.
  */
 export function assertScheduleContiguity(sessions = scheduleSessions) {
   const problems = [];
-  const EXPECTED_END_MIN = 17 * 60; // 5:00 PM
+  const EXPECTED_END_MIN = 18 * 60; // 6:00 PM
 
   let prevEnd = null;
   sessions.forEach((s, i) => {
@@ -379,7 +281,7 @@ export function assertScheduleContiguity(sessions = scheduleSessions) {
   });
 
   if (prevEnd != null && prevEnd !== EXPECTED_END_MIN) {
-    problems.push(`Last session ends at ${prevEnd / 60}:00-ish, expected 5:00 PM (17:00).`);
+    problems.push(`Last session ends at ${prevEnd / 60}:00-ish, expected 6:00 PM (18:00).`);
   }
 
   if (problems.length) {

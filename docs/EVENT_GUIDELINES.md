@@ -74,28 +74,21 @@ By separating the main conference sessions from the community engagement spaces,
 
 | Time | Activity | Speaker Type / Target Speakers | Topic / Details |
 | ----- | ----- | ----- | ----- |
-| 7:30 AM – 8:30 AM | Registration & Community Hub | Organizers | Registration, networking, sponsor booths, partner communities, photobooth |
-| 8:30 AM – 8:45 AM | Opening Ceremony | Organizers | Invocation, National Anthem, Opening Program |
-| 8:45 AM – 9:00 AM | Welcome Remarks | University Representative / Lead Organizer | Welcome message and event overview |
-| 9:00 AM – 9:40 AM | Opening Keynote | AWS Philippines Representative / AWS Leader | Cloud × AI: Building the Future Together |
-| 9:40 AM – 9:50 AM | Audience Energizer & Q\&A | Hosts | Audience engagement and giveaways |
-| 9:50 AM – 10:25 AM | Student Success Story | Former AWS Student Builder Group Lead / Former Captain | From Student Builder to Tech Professional |
-| 10:25 AM – 10:35 AM | Fireside Q\&A | Moderator | Audience questions |
-| 10:35 AM – 10:50 AM | Morning Break | — | Community Hub, networking, sponsor booths |
-| 10:50 AM – 11:30 AM | Women in Tech Keynote | AWS BuildHers+, AWS She Builds, or Women Techmakers Speaker | Building Inclusive Communities in Technology |
-| 11:30 AM – 11:40 AM | Community Giveaway | Hosts | Sponsor giveaways and audience interaction |
-| 11:40 AM – 12:20 PM | Cloud Foundations Session | AWS Community Builder / AWS User Group Leader | Starting Your Journey with AWS and Cloud Computing |
-| 12:20 PM – 12:30 PM | Sponsor & Community Recognition | Organizers | Recognition of sponsors and partner communities |
-| 12:30 PM – 2:00 PM | Lunch, Networking & Community Hub Experience | — | Lunch, booth exploration, networking,  photobooth |
-| 2:00 PM – 2:10 PM | Afternoon Energizer | Hosts | Icebreaker, booth challenge updates, giveaways |
-| 2:10 PM – 2:50 PM | AI Innovation Session | Target: Bryl Lim | Building AI Products That People Actually Use: The Story Behind Tarsi |
-| 2:50 PM – 3:00 PM | Fireside Q\&A | Moderator | Audience questions |
-| 3:00 PM – 3:35 PM | Career Development Talk | Industry Professional / Hiring Manager | How Students Can Stand Out in the Tech Industry |
-| 3:35 PM – 3:50 PM | Afternoon Break | — | Coffee break, Community Hub, networking |
-| 3:50 PM – 4:30 PM | Flagship Panel Discussion | Industry Professionals, AWS Community Leaders, Women in Tech Advocates | Beyond the Hype: The Real Journey Into Tech |
-| 4:30 PM – 4:45 PM | Grand Raffle & Partner Appreciation | Organizers | Major raffle prizes, sponsor recognition, volunteer appreciation |
-| 4:45 PM – 4:55 PM | Closing Keynote | South Summit Event Director | Building the Future Together |
-| 4:55 PM – 5:00 PM | Closing Remarks & Group Photo | Organizers | Closing acknowledgments and official group photo |
+| 9:30 AM – 10:00 AM | Registration | Organizers | Registration, attendee check-in, kit distribution, and networking |
+| 10:00 AM – 10:15 AM | Opening Ceremony | Hosts / Organizers | Invocation, Philippine National Anthem, and Opening Program |
+| 10:15 AM – 10:30 AM | Opening Keynote | AWS Philippines Representative / AWS Leader (Backup: Sir Isaeus "Asi" Guiang) | Welcome Remarks & Cloud × AI: Building the Future Together |
+| 10:30 AM – 11:40 AM | Icebreaker & Giveaways | Hosts (Cyphrey Madulid) | High-energy community icebreaker, audience engagement, and giveaways |
+| 11:40 AM – 12:30 PM | Talk #1 (Main Talk: 40m, Q&A: 10m) | Sir Isaeus "Asi" Guiang (Backup: Sir Mark Achiles Flores Jr., Sir Mark Anthony Hernandez) | Talk #1: Built by Community: From Student Builder to Tech Professional |
+| 12:30 PM – 2:00 PM | Lunch, Networking & Community Hub Experience | — | Lunch, partner & sponsor booth exploration, speed networking, photobooth |
+| 2:00 PM – 2:20 PM | Afternoon Energizer / Sponsor’s Talk Slot | Hosts / Sponsors | Icebreaker, booth challenge updates, giveaways, and sponsor talks (5m each) |
+| 2:20 PM – 3:10 PM | Talk #2: Women in Tech Keynote (Talk: 40m, Q&A: 10m) | Ms. Trisha Pelagio (Backup: Ms. Jen Arroyo, Ms. Uriel Alonso) | Talk #2: Building Smarter Systems with AI and Cloud |
+| 3:10 PM – 4:00 PM | Talk #3: AI Adoption Session (Talk: 40m, Q&A: 10m) | Sir Kevin Ventura (Backup: Ms. Joanne De Guzman, Mr. David Marquez) | Talk #3: Human in the Loop: Preparing People for an AI-Driven Future |
+| 4:00 PM – 4:40 PM | Flagship Panel Discussion (Panel: 30m, Q&A: 10m) | Ms. Gaile Espinosa, Ms. Nina Comia, Mr. Jared Remulta (Backup: Ms. Kimi Villareal, Sir Mark Anthony Hernandez, Sir Danmel Laranga) | Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech |
+| 4:40 PM – 4:50 PM | Grand Raffle + Sponsor & Partner Appreciation | Hosts | Major raffle prize giveaways, sponsor and partner recognition |
+| 4:50 PM – 4:55 PM | Closing Remarks | South Summit Event Director | Speakers, Volunteers, and Guests Appreciation |
+| 4:55 PM – 5:00 PM | Egress | Hosts | Stage transition and preparations for official group photo |
+| 5:00 PM – 5:30 PM | Group Photo | Organizers | Closing acknowledgments and official summit group photo |
+| 5:30 PM – 6:00 PM | Venue Cleanup | Organizers | Organizer packdown and venue turnover (Summit Stage & SS Community Hub) |
 
 # 
 
@@ -144,47 +137,44 @@ By the end of the summit, participants are expected to:
 > **PUBLISHED RUNNING ORDER (website source of truth).**
 > The public website renders its schedule from `assets/js/modules/scheduleUI.js`
 > (`scheduleSessions`). That data is the single source of truth for what attendees
-> see and has been reconciled so the day **ends at 5:00 PM** (previously the site
-> showed 5:30 PM). Breaks/interstitials are typed explicitly (`type: 'break'`) so
+> see and spans **9:30 AM – 6:00 PM**. Breaks/interstitials are typed explicitly (`type: 'break'`) so
 > there are no unexplained gaps. The published running order is:
 >
 > | Time | Type | Session |
 > | --- | --- | --- |
-> | 9:30 AM – 10:00 AM | session | Attendee Registration & Summit Check-In |
+> | 9:30 AM – 10:00 AM | session | Registration |
 > | 10:00 AM – 10:15 AM | session | Opening Ceremony |
-> | 10:15 AM – 10:30 AM | session | Opening Keynote — Cloud × AI |
-> | 10:30 AM – 11:40 AM | break | Community Icebreaker, Engagement & Giveaways |
-> | 11:40 AM – 12:30 PM | session | Talk #1 — Student Builder to Tech Professional |
-> | 12:30 PM – 2:00 PM | break | Lunch, Networking & Community Hub |
-> | 2:00 PM – 2:20 PM | break | Afternoon Energizer & Sponsor Spotlight |
-> | 2:20 PM – 3:10 PM | session | Talk #2 — Building Smarter Systems with AI and Cloud |
-> | 3:10 PM – 4:00 PM | session | Talk #3 — Human in the Loop |
-> | 4:00 PM – 4:40 PM | session | Flagship Panel Discussion |
-> | 4:40 PM – 4:55 PM | session | Grand Raffle, Appreciation & Closing Remarks |
-> | 4:55 PM – 5:00 PM | session | Group Photo & Hall Egress |
->
-> **ACTION FOR ORGANIZERS:** Update the external Luma listing to also end at
-> **5:00 PM** so it matches this published running order. The tables below are
-> retained as earlier planning drafts and are superseded by the running order above.
+> | 10:15 AM – 10:30 AM | session | Opening Keynote — Welcome Remarks & Cloud × AI: Building the Future Together |
+> | 10:30 AM – 11:40 AM | break | Icebreaker: Audience Engagement & Giveaways |
+> | 11:40 AM – 12:30 PM | session | Talk #1 — Built by Community: From Student Builder to Tech Professional |
+> | 12:30 PM – 2:00 PM | break | Lunch, Networking & Community Hub Experience |
+> | 2:00 PM – 2:20 PM | break | Afternoon Energizer / Sponsor’s Talk Slot |
+> | 2:20 PM – 3:10 PM | session | Talk #2 — Building Smarter Systems with AI and Cloud (Women in Tech Keynote) |
+> | 3:10 PM – 4:00 PM | session | Talk #3 — Human in the Loop: Preparing People for an AI-Driven Future (AI Adoption Session) |
+> | 4:00 PM – 4:40 PM | session | Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech (Flagship Panel) |
+> | 4:40 PM – 4:50 PM | session | Grand Raffle + Sponsor & Partner Appreciation |
+> | 4:50 PM – 4:55 PM | session | Closing Remarks |
+> | 4:55 PM – 5:00 PM | break | Egress |
+> | 5:00 PM – 5:30 PM | session | Group Photo & Closing Acknowledgments |
+> | 5:30 PM – 6:00 PM | break | Venue Cleanup |
 
-| `Time` | `Activity` | `Speaker Type / Target Speakers` | `Topic / Details` |
-| :---: | :---: | :---: | :---: |
-| `9:30 AM - 10:00 AM` | `Registration`  | `Organizers` | `Registration` |
-| `10:00 AM - 10:15 AM` | `Opening Ceremony` | `Organizers` | `Invocation, National Anthem, Opening Program` |
-| `10:15 AM – 10:30 AM` | `Welcome Remarks` | `University Representative / Lead Organizer` | `Welcome message and event overview` |
-| `10:30 AM – 11:40 AM` | `Opening Keynote` | `AWS Philippines Representative / AWS Leader` | `Cloud × AI: Building the Future Together` |
-| `11:40 AM – 11:45 AM` | `Ice Breaker` | `Hosts` | `Audience engagement and giveaways` |
-| `11:45 AM – 12:30 PM` | `Student Success Story` | `Former AWS Student Builder Group Lead / Former Captain` | `From Student Builder to Tech Professional` |
-| `12:30 PM – 2:00 PM` | `Lunch, Networking & Community Hub Experience` | `—` | `Lunch, booth exploration, networking, photobooth` |
-| `2:00 PM - 2:10 PM` | `Sponsorship Slot` |  |  |
-| `2:10 PM - 2:50 PM` | `Women in Tech Keynote` | `AWS BuildHers+, AWS She Builds, or Women Techmakers Speaker` | `Building Inclusive Communities in Technology` |
-| `2:50 PM – 3:00 PM` | `Afternoon Energizer` | `Hosts` | `Icebreaker, booth challenge updates, giveaways` |
-| `3:00 PM – 4:00 PM` | `AI Innovation Session` | `Target: Bryl Lim` | `Building AI Products That People Actually Use: The Story Behind Tarsi` |
-| `4:00 PM – 4:15 PM` | `Ice Breaker` | `Organizers` |  |
-| `4:15 PM – 4:40 PM` | `Flagship Panel Discussion` | `Industry Professionals, AWS Community Leaders, Women in Tech Advocates` | `Beyond the Hype: The Real Journey Into Tech` |
-| `4:40 PM – 4:45 PM` | `Grand Raffle & Partner Appreciation` | `Organizers` | `Major raffle prizes, sponsor recognition, volunteer appreciation` |
-| `4:45 PM – 4:55 PM` | `Closing Remarks` | `South Summit Event Director` | `Building the Future Together` |
-| `4:55 PM – 5:00 PM` | `Group Photo` | `Organizers` | `Closing acknowledgments and official group photo` |
+| `Time` | `Activity` | `Speaker Type / Target Speakers` | `Prospect Speaker/s` | `Topic / Details` |
+| :---: | :---: | :---: | :---: | :---: |
+| `9:30 AM - 10:00 AM` | `Registration` | `Organizers` | `—` | `Registration` |
+| `10:00 AM - 10:15 AM` | `Opening Ceremony` | `Hosts/Organizers` | `—` | `Invocation, National Anthem, Opening Program` |
+| `10:15 AM – 10:30 AM` | `Opening Keynote` | `AWS Philippines Representative / AWS Leader` | `Main: [Pending ; contact Lex] / Backup: Sir Isaeus "Asi" Guiang` | `Welcome Remarks & Cloud × AI: Building the Future Together` |
+| `10:30 AM – 11:40 AM` | `Icebreaker` | `Hosts (2x)` | `Main: Cyphrey Madulid` | `Audience engagement and giveaways` |
+| `11:40 AM – 12:30 PM` | `Talk #1 (Main Talk: 40m, Q&A: 10m)` | `Former AWS Student Builder Group Lead / Former Captain` | `Main: Sir Isaeus "Asi" Guiang / Backup: Sir Mark Achiles Flores Jr., Sir Mark Anthony Hernandez` | `Talk #1: Built by Community: From Student Builder to Tech Professional` |
+| `12:30 PM – 2:00 PM` | `Lunch, Networking & Community Hub Experience` | `—` | `—` | `Lunch, booth exploration, networking, photobooth` |
+| `2:00 PM - 2:20 PM` | `Afternoon Energizer / Sponsor's Talk Slot` | `Hosts/Sponsor` | `—` | `Icebreaker, booth challenge updates, giveaways. If with sponsor: Short check-in (audience), then sponsor talk (up to 2 sponsors, 5 mins each)` |
+| `2:20 PM - 3:10 PM` | `Talk #2 (Main Talk: 40m, Q&A: 10m)` | `AWS BuildHers+, AWS She Builds, or Women Techmakers Speaker` | `Main: Ms. Trisha Pelagio / Backup: Ms. Jen Arroyo, Ms. Uriel Alonso` | `Talk #2: Building Smarter Systems with AI and Cloud` |
+| `3:10 PM – 4:00 PM` | `Talk #3 (Main Talk: 40m, Q&A: 10m)` | `AI Adoption Session` | `Main: Sir Kevin Ventura / Backup: Ms. Joanne De Guzman, Mr. David Marquez` | `Talk #3: Human in the Loop: Preparing People for an AI-Driven Future` |
+| `4:00 PM – 4:40 PM` | `Flagship Panel Discussion (Panel: 30m, Q&A: 10m)` | `AWS Community Leaders / Former AWS SBG Leads / Captains / Officers` | `Main: Ms. Gaile Espinosa, Ms. Nina Comia, Mr. Jared Remulta / Backup: Ms. Kimi Villareal, Sir Mark Anthony Hernandez, Sir Danmel Laranga` | `Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech` |
+| `4:40 PM – 4:50 PM` | `Grand Raffle + Sponsor & Partner Appreciation` | `Hosts` | `—` | `Major raffle prizes, sponsor & partner recognition` |
+| `4:50 PM – 4:55 PM` | `Closing Remarks` | `South Summit Event Director` | `—` | `Speakers, Volunteers, and Guests Appreciation` |
+| `4:55 PM - 5:00 PM` | `Egress` | `Hosts` | `—` | `Hall egress and transition` |
+| `5:00 PM – 5:30 PM` | `Group Photo` | `Organizers` | `—` | `Closing acknowledgments and official group photo` |
+| `5:30 PM - 6:00 PM` | `Venue Cleanup` | `Organizers` | `—` | `Main venue: Summit Stage, Booths/Networking venue: South Summit Community Hub` |
 
 # **`VIII. STRATEGY`**
 
@@ -271,24 +261,23 @@ By the end of the summit, participants are expected to:
 
 # `PROGRAM FLOW`
 
-| `Time` | `Activity` | `Speaker Type / Target Speakers` | `Topic / Details` |
-| :---: | :---: | :---: | :---: |
-| `9:30 AM - 10:00 AM` | `Registration`  | `Organizers` | `Registration` |
-| `10:00 AM - 10:15 AM` | `Opening Ceremony` | `Organizers` | `Invocation, National Anthem, Opening Program` |
-| `10:15 AM – 10:30 AM` | `Welcome Remarks` | `University Representative / Lead Organizer` | `Welcome message and event overview` |
-| `10:30 AM – 11:40 AM` | `Opening Keynote` | `AWS Philippines Representative / AWS Leader` | `Cloud × AI: Building the Future Together` |
-| `11:40 AM – 11:45 AM` | `Icebreaker` | `Hosts` | `Audience engagement and giveaways` |
-| `11:45 AM – 12:30 PM` | `Student Success Story` | `Former AWS Student Builder Group Lead / Former Captain` | `From Student Builder to Tech Professional` |
-| `12:30 PM – 2:00 PM` | `Lunch, Networking & Community Hub Experience` | `—` | `Lunch, booth exploration, networking, photobooth` |
-| `2:00 PM - 2:10 PM` | `Sponsor’s Talk Slot` |  |  |
-| `2:10 PM - 2:50 PM` | `Women in Tech Keynote` | `AWS BuildHers+, AWS She Builds, or Women Techmakers Speaker` | `Building Inclusive Communities in Technology` |
-| `2:50 PM – 3:00 PM` | `Afternoon Energizer/ Partner’s Talk Slot` | `Hosts` | `Icebreaker, booth challenge updates, giveaways` |
-| `3:00 PM – 4:00 PM` | `AI Innovation Session` | `Target: Bryl Lim` | `Building AI Products That People Actually Use: The Story Behind Tarsi` |
-| `4:00 PM – 4:15 PM` | `Icebreaker/ Sponsor or Partner’s Talk Slot` | `Organizers` |  |
-| `4:15 PM – 4:40 PM` | `Flagship Panel Discussion` | `Industry Professionals, AWS Community Leaders, Women in Tech Advocates` | `Beyond the Hype: The Real Journey Into Tech` |
-| `4:40 PM – 4:45 PM` | `Grand Raffle & Partner Appreciation` | `Organizers` | `Major raffle prizes, sponsor recognition, volunteer appreciation` |
-| `4:45 PM – 4:55 PM` | `Closing Remarks` | `South Summit Event Director` | `Building the Future Together` |
-| `4:55 PM – 5:00 PM` | `Group Photo` | `Organizers` | `Closing acknowledgments and official group photo` |
+| `Time` | `Activity` | `Speaker Type / Target Speakers` | `Prospect Speaker/s` | `Topic / Details` |
+| :---: | :---: | :---: | :---: | :---: |
+| `9:30 AM - 10:00 AM` | `Registration` | `Organizers` | `—` | `Registration, check-in, kit distribution` |
+| `10:00 AM - 10:15 AM` | `Opening Ceremony` | `Hosts/Organizers` | `—` | `Invocation, National Anthem, Opening Program` |
+| `10:15 AM – 10:30 AM` | `Opening Keynote` | `AWS Philippines Representative / AWS Leader` | `Main: [Pending ; contact Lex] / Backup: Sir Isaeus "Asi" Guiang` | `Welcome Remarks & Cloud × AI: Building the Future Together` |
+| `10:30 AM – 11:40 AM` | `Icebreaker` | `Hosts (2x)` | `Main: Cyphrey Madulid` | `Audience engagement and giveaways` |
+| `11:40 AM – 12:30 PM` | `Talk #1 (Main Talk: 40m, Q&A: 10m)` | `Former AWS Student Builder Group Lead / Former Captain` | `Main: Sir Isaeus "Asi" Guiang / Backup: Sir Mark Achiles Flores Jr., Sir Mark Anthony Hernandez` | `Talk #1: Built by Community: From Student Builder to Tech Professional` |
+| `12:30 PM – 2:00 PM` | `Lunch, Networking & Community Hub Experience` | `—` | `—` | `Lunch, booth exploration, networking, photobooth` |
+| `2:00 PM - 2:20 PM` | `Afternoon Energizer / Sponsor's Talk Slot` | `Hosts/Sponsor` | `—` | `Icebreaker, booth challenge updates, giveaways, sponsor talks (up to 2 sponsors, 5 mins each)` |
+| `2:20 PM - 3:10 PM` | `Talk #2 (Main Talk: 40m, Q&A: 10m)` | `AWS BuildHers+, AWS She Builds, or Women Techmakers Speaker` | `Main: Ms. Trisha Pelagio / Backup: Ms. Jen Arroyo, Ms. Uriel Alonso` | `Talk #2: Building Smarter Systems with AI and Cloud` |
+| `3:10 PM – 4:00 PM` | `Talk #3 (Main Talk: 40m, Q&A: 10m)` | `AI Adoption Session` | `Main: Sir Kevin Ventura / Backup: Ms. Joanne De Guzman, Mr. David Marquez` | `Talk #3: Human in the Loop: Preparing People for an AI-Driven Future` |
+| `4:00 PM – 4:40 PM` | `Flagship Panel Discussion (Panel: 30m, Q&A: 10m)` | `AWS Community Leaders / Former AWS SBG Leads / Captains / Officers` | `Main: Ms. Gaile Espinosa, Ms. Nina Comia, Mr. Jared Remulta / Backup: Ms. Kimi Villareal, Sir Mark Anthony Hernandez, Sir Danmel Laranga` | `Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech` |
+| `4:40 PM – 4:50 PM` | `Grand Raffle + Sponsor & Partner Appreciation` | `Hosts` | `—` | `Major raffle prizes, sponsor & partner recognition` |
+| `4:50 PM – 4:55 PM` | `Closing Remarks` | `South Summit Event Director` | `—` | `Speakers, Volunteers, and Guests Appreciation` |
+| `4:55 PM - 5:00 PM` | `Egress` | `Hosts` | `—` | `Hall egress and transition` |
+| `5:00 PM – 5:30 PM` | `Group Photo` | `Organizers` | `—` | `Closing acknowledgments and official group photo` |
+| `5:30 PM - 6:00 PM` | `Venue Cleanup` | `Organizers` | `—` | `Main venue: Summit Stage, Booths/Networking venue: South Summit Community Hub` |
 
 # 
 

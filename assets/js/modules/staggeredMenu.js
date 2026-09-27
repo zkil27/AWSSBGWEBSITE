@@ -332,6 +332,15 @@ export async function initStaggeredMenu(config = {}) {
     toggleMenu();
   });
 
+  // Dedicated drawer close button inside panel
+  const panelCloseBtn = panel.querySelector('.sm-panel-close-btn');
+  if (panelCloseBtn) {
+    panelCloseBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMenu();
+    });
+  }
+
   // Click outside / backdrop to close
   if (options.closeOnClickAway) {
     document.addEventListener('mousedown', (event) => {
@@ -354,13 +363,6 @@ export async function initStaggeredMenu(config = {}) {
       closeMenu();
     }
   });
-
-  // Auto-close desktop menu if resized to mobile
-  window.addEventListener('resize', () => {
-    if (window.innerWidth <= 980 && open) {
-      closeMenu();
-    }
-  }, { passive: true });
 
   // Intercept navigation link clicks inside the panel
   panel.addEventListener('click', (e) => {

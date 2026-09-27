@@ -265,7 +265,16 @@ function render(scroll) {
     // Opacity floor raised from 0.35 -> 0.62 so off-center panel text keeps
     // readable contrast over the grainient (Impeccable low-contrast fix) while
     // still receding for the depth/focus effect.
-    const opacity = (0.62 + 0.38 * focus).toFixed(3);
+    let opacityVal = 0.62 + 0.38 * focus;
+
+    // When approaching or viewing the schedule panel ("The Running Order"), fade out
+    // preceding panels completely so only the program flow is visible.
+    if (!p.isSchedule && progress >= 0.76) {
+      const scheduleDwellFade = clamp01(1 - (progress - 0.76) / 0.10);
+      opacityVal *= scheduleDwellFade;
+    }
+
+    const opacity = opacityVal.toFixed(3);
     const scale = (0.96 + 0.04 * focus).toFixed(3);
 
     // Staggered vertical float
@@ -279,6 +288,7 @@ function render(scroll) {
     }
 
     p.el.style.opacity = opacity;
+    p.el.style.visibility = opacityVal < 0.02 ? 'hidden' : '';
     p.el.style.transform = `scale(${scale}) translate3d(0, ${ty.toFixed(1)}px, 0)`;
 
     // Subtle parallax depth for the giant numeral (clamped within range)
@@ -363,6 +373,7 @@ function cleanUpDesktopLayout() {
   const allPanels = track ? track.querySelectorAll('.blueprint-panel') : [];
   allPanels.forEach((el) => {
     el.style.opacity = '';
+    el.style.visibility = '';
     el.style.transform = '';
     el.classList.remove('is-focused');
     const numEl = el.querySelector('.bp-num');

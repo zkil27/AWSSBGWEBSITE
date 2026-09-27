@@ -42,20 +42,22 @@ function directorCardHTML(d) {
        </div>`;
 
   return `
-    <article class="director-card dept-${deptLower}" data-id="${d.id}" data-dept="${deptLower}" aria-label="${d.name}, ${d.role}">
-      <div class="director-card-top">
-        <span class="director-badge dept-badge-${d.deptTag.toLowerCase()}">${d.deptTag}</span>
-        <span class="director-role-badge ${roleType.toLowerCase()}">${roleType}</span>
-      </div>
-
-      <div class="director-header-block">
-        <div class="director-avatar-frame">
-          ${avatarMarkup}
+    <article class="director-card dept-${deptLower} card-theme-${d.id}" data-id="${d.id}" data-dept="${deptLower}" aria-label="${d.name}, ${d.role}">
+      <div class="director-card-inner">
+        <div class="director-card-top">
+          <span class="director-badge dept-badge-${d.deptTag.toLowerCase()}">${d.deptTag}</span>
+          <span class="director-role-badge ${roleType.toLowerCase()}">${roleType}</span>
         </div>
-        <div class="director-identity">
-          <h3 class="director-name" title="${d.name}">${d.name}</h3>
-          <span class="director-role-title">${d.role}</span>
-          <span class="director-dept-label">${d.department} Team</span>
+
+        <div class="director-header-block">
+          <div class="director-avatar-frame">
+            ${avatarMarkup}
+          </div>
+          <div class="director-identity">
+            <h3 class="director-name" title="${d.name}">${d.name}</h3>
+            <span class="director-role-title">${d.role}</span>
+            <span class="director-dept-label">${d.department} Team</span>
+          </div>
         </div>
       </div>
     </article>

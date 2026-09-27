@@ -587,43 +587,14 @@ nav.links button.active::after {
   transition: opacity .25s ease, transform .18s ease, box-shadow .18s ease;
 }
 
-/* ===== IPHONE ASSISTIVETOUCH MOBILE NAVBAR ===== */
-.assistive-nav {
-  display: block;
-}
-
-@media (min-width: 981px) {
-  .assistive-nav {
-    display: none !important;
-  }
-}
-
-/* Floating AssistiveTouch Pod Button — permanently anchored to top-left corner */
-.assistive-pod {
-  position: fixed !important;
-  top: calc(10px + env(safe-area-inset-top, 0px)) !important;
-  left: calc(14px + env(safe-area-inset-left, 0px)) !important;
-  right: auto !important;
-  bottom: auto !important;
-  z-index: 500;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  padding: 0;
-  border: 2px solid rgba(255, 255, 255, 0.45);
-  background: var(--orange);
-  color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  touch-action: manipulation;
-  user-select: none;
-  opacity: 1;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, box-shadow 0.2s ease;
-  pointer-events: auto;
-  overflow: hidden;
+/* ===== IPHONE ASSISTIVETOUCH MOBILE NAVBAR (RETIRED) ===== */
+.assistive-nav,
+.assistive-pod,
+#assistiveNav,
+#assistivePod {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 html[data-theme="dark"] .assistive-pod {
@@ -2246,10 +2217,7 @@ html[data-theme="dark"] .bp-meta-count {
 
 html[data-theme="dark"] .blueprint-panel--agenda .bp-num {
   color: #FFFFFF;
-  text-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.95),
-    0 8px 24px rgba(0, 0, 0, 0.75),
-    0 16px 48px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 }
 
 html[data-theme="dark"] .bp-cover-figure {
@@ -2640,7 +2608,7 @@ article.blueprint-panel--agenda:nth-of-type(4).is-focused .bp-num::after {
     width: min(calc(100vw - 2 * clamp(40px, 5vw, 100px)), 1560px);
     max-width: 1560px;
     min-width: min(860px, calc(100vw - 48px));
-    margin-left: 0;
+    margin-left: max(clamp(360px, 38vw, 800px), calc((100vw - 1560px) / 2 + 200px));
     margin-right: 0;
     height: calc(100vh - var(--nav-h) - clamp(72px, 9.5vh, 100px));
     max-height: calc(100vh - var(--nav-h) - clamp(72px, 9.5vh, 100px));
@@ -5659,16 +5627,12 @@ html[data-theme="dark"] .hero-logo--theme-light {
    02 // UNIVERSITY BUILDER CHAPTERS & ECOSYSTEM NETWORK (INFINITE MARQUEE)
    ========================================================================== */
 
-/* Marquee Shell with High-Performance Pseudo-Element Gradient Masks (Replaces expensive mask-image) */
+/* Marquee Shell - Centered inside section container without 100vw stretch */
 .sponsors-marquee-shell {
   position: relative;
   overflow: hidden;
-  width: 100vw;
-  max-width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
   padding: 8px 0;
@@ -5680,31 +5644,7 @@ html[data-theme="dark"] .hero-logo--theme-light {
 
 .sponsors-marquee-shell::before,
 .sponsors-marquee-shell::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: clamp(60px, 8vw, 120px);
-  z-index: 10;
-  pointer-events: none;
-}
-
-.sponsors-marquee-shell::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg, #fafbfc) 0%, transparent 100%);
-}
-
-.sponsors-marquee-shell::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg, #fafbfc) 0%, transparent 100%);
-}
-
-html[data-theme="dark"] .sponsors-marquee-shell::before {
-  background: linear-gradient(to right, var(--bg, #0b0f19) 0%, transparent 100%);
-}
-
-html[data-theme="dark"] .sponsors-marquee-shell::after {
-  background: linear-gradient(to left, var(--bg, #0b0f19) 0%, transparent 100%);
+  display: none;
 }
 
 /* Track Group with Tier Label Bar */
@@ -5717,12 +5657,13 @@ html[data-theme="dark"] .sponsors-marquee-shell::after {
 
 .marquee-track-header {
   width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 calc(var(--grid-size) * 2);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 12px;
 }
 
@@ -5782,16 +5723,17 @@ html[data-theme="dark"] .marquee-tier-count {
   color: #94A3B8;
 }
 
-/* STATIC PARTNER GRID (Impeccable marquee fix): the Pro/Lite partner rows are
-   now a calm wrapping grid — every logo visible at rest, no auto-scroll, no
-   duplicated clones. Readers move at their own pace. */
+/* STATIC PARTNER GRID: Calm wrapping grid centered in the section.
+   Lite Partners cards align directly underneath Pro Partners cards with
+   identical fixed card sizing and gaps — never stretched. */
 .marquee-row {
-  display: block;
+  display: flex;
   width: 100%;
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
   overflow: visible;
+  justify-content: center;
 }
 
 .marquee-track {
@@ -5799,6 +5741,10 @@ html[data-theme="dark"] .marquee-tier-count {
   flex-wrap: wrap;
   gap: 14px;
   width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
   justify-content: center;
 }
 /* Scroll animations removed with the marquee conversion. */
@@ -5815,6 +5761,7 @@ html[data-theme="dark"] .marquee-tier-count {
   min-height: 190px;
   min-width: 180px;
   max-width: 180px;
+  flex: 0 0 180px;
   border-radius: var(--card-radius, 16px);
   background: var(--card-bg, #ffffff) !important;
   border: 1px solid var(--card-border, rgba(11, 21, 38, 0.12)) !important;
@@ -6122,16 +6069,21 @@ html[data-theme="dark"] .marquee-chip-badge--lite {
     gap: 10px;
   }
   .marquee-track-header {
-    padding: 0 20px;
+    padding: 0;
+    justify-content: flex-start;
   }
   .marquee-track {
-    gap: 16px;
+    gap: 12px;
+    padding: 0;
+    justify-content: center;
   }
   .marquee-chip {
-    width: 144px;
-    height: 144px;
-    min-width: 144px;
-    max-width: 144px;
+    width: 150px;
+    height: auto;
+    min-height: 180px;
+    min-width: 150px;
+    max-width: 150px;
+    flex: 0 0 150px;
     border-radius: 16px;
   }
   .chip-flipper {
@@ -7147,7 +7099,10 @@ html[data-theme="dark"] .btn-back-top {
     flex-shrink: 0;
   }
   
-  nav.links, .nav-inline, .nav-cta-btn, .header-divider, .sm-toggle { display: none !important; }
+  nav.links, .nav-inline, .nav-cta-btn, .header-divider { display: none !important; }
+  .header-right .sm-toggle {
+    display: inline-flex !important;
+  }
   .nav-cta { display: flex; gap: 8px; }
 
   /* Hide background blocks on mobile to prevent overlapping */
@@ -8577,76 +8532,96 @@ html[data-theme="dark"] #card-chapters .chapter-card:hover {
   min-width: 0;
 }
 
+#card-directors .director-filter-pill::before,
+.director-filter-pill::before {
+  display: none !important;
+}
+
 #card-directors .director-filter-pill,
 .director-filter-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  justify-content: center;
+  padding: 6px 14px;
   font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: 9999px;
   cursor: pointer;
-  background: var(--card-bg) !important;
-  color: var(--muted) !important;
-  border: 1px solid var(--card-border) !important;
-  box-shadow: var(--card-shadow) !important;
-  transition: all 0.2s var(--ease-out);
+  border: 1px solid transparent !important;
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
   outline: none !important;
   text-shadow: none !important;
 }
 
-#card-directors .director-filter-pill::before,
-.director-filter-pill::before {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: currentColor;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-#card-directors .director-filter-pill[data-target="all"]::before,
-.director-filter-pill[data-target="all"]::before { background: var(--text-strong); }
-#card-directors .director-filter-pill[data-target="executive"]::before,
-.director-filter-pill[data-target="executive"]::before { background: var(--orange); }
-#card-directors .director-filter-pill[data-target="finance"]::before,
-.director-filter-pill[data-target="finance"]::before { background: var(--green); }
-#card-directors .director-filter-pill[data-target="creatives"]::before,
-.director-filter-pill[data-target="creatives"]::before { background: var(--pink); }
-#card-directors .director-filter-pill[data-target="marketing"]::before,
-.director-filter-pill[data-target="marketing"]::before { background: var(--purple); }
-#card-directors .director-filter-pill[data-target="technology"]::before,
-.director-filter-pill[data-target="technology"]::before { background: var(--blue); }
-#card-directors .director-filter-pill[data-target="relations"]::before,
-.director-filter-pill[data-target="relations"]::before { background: var(--teal); }
-#card-directors .director-filter-pill[data-target="operations"]::before,
-.director-filter-pill[data-target="operations"]::before { background: #10b981; }
-
 #card-directors .director-filter-pill:hover,
 .director-filter-pill:hover {
   transform: translateY(-2px);
-  color: var(--text-strong) !important;
-  border-color: var(--card-border-strong) !important;
-  box-shadow: var(--card-shadow-hover) !important;
+  opacity: 0.92;
+}
+
+#card-directors .director-filter-pill[data-target="all"],
+.director-filter-pill[data-target="all"] {
+  background: #ffffff !important;
+  color: #0b111e !important;
+  border: 1px solid #ffffff !important;
+}
+#card-directors .director-filter-pill[data-target="all"]:not(.active),
+.director-filter-pill[data-target="all"]:not(.active) {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+}
+
+#card-directors .director-filter-pill[data-target="executive"],
+.director-filter-pill[data-target="executive"] {
+  background: #111624 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+}
+
+#card-directors .director-filter-pill[data-target="finance"],
+.director-filter-pill[data-target="finance"] {
+  background: #00e5a3 !important;
+  color: #0a131c !important;
+}
+
+#card-directors .director-filter-pill[data-target="creatives"],
+.director-filter-pill[data-target="creatives"] {
+  background: #818cf8 !important;
+  color: #0a131c !important;
+}
+
+#card-directors .director-filter-pill[data-target="marketing"],
+.director-filter-pill[data-target="marketing"] {
+  background: #34d399 !important;
+  color: #0a131c !important;
+}
+
+#card-directors .director-filter-pill[data-target="technology"],
+.director-filter-pill[data-target="technology"] {
+  background: #38bdf8 !important;
+  color: #0a131c !important;
+}
+
+#card-directors .director-filter-pill[data-target="relations"],
+.director-filter-pill[data-target="relations"] {
+  background: #60a5fa !important;
+  color: #0a131c !important;
+}
+
+#card-directors .director-filter-pill[data-target="operations"],
+.director-filter-pill[data-target="operations"] {
+  background: #2dd4bf !important;
+  color: #0a131c !important;
 }
 
 #card-directors .director-filter-pill.active,
 .director-filter-pill.active {
-  background: var(--text-strong) !important;
-  color: var(--card-bg) !important;
-  border-color: var(--text-strong) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 4px 14px rgba(0, 0, 0, 0.4) !important;
   transform: translateY(-1px);
-}
-
-#card-directors .director-filter-pill.active::before,
-.director-filter-pill.active::before {
-  background: var(--card-bg);
 }
 
 .director-filter-pill .filter-dot {
@@ -8722,10 +8697,12 @@ html[data-theme="dark"] .directors-section {
 #core-team .hive-row,
 .directors-section .hive-row {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
   align-items: stretch;
   width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 5;
@@ -8741,65 +8718,68 @@ html[data-theme="dark"] .directors-section {
 #card-directors .director-card,
 #core-team .director-card,
 .directors-section .director-card {
-  width: clamp(280px, 20vw, 316px);
-  min-width: 280px;
-  max-width: 320px;
-  flex-shrink: 0;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  overflow: hidden;
-  border-radius: var(--card-radius, 16px);
-  color: var(--text-strong);
-  padding: 18px 16px;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.25s var(--ease-out),
-              box-shadow 0.25s var(--ease-out),
-              border-color 0.2s ease;
+  flex: 1 1 0;
+  min-width: 250px;
+  max-width: 295px;
+  border-radius: 16px;
+  padding: 6px;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.24s ease;
+  user-select: none;
+  cursor: default;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  position: relative;
-  user-select: none;
-  box-sizing: border-box;
-  transform-style: preserve-3d;
-  will-change: transform, opacity, filter;
 }
 
 #card-directors .director-card:hover,
 #core-team .director-card:hover,
 .directors-section .director-card:hover {
   transform: translateY(-4px);
-  border-color: var(--card-border-strong);
-  box-shadow: var(--card-shadow-hover);
   z-index: 25;
 }
 
+/* Inner card body */
+#card-directors .director-card-inner,
+#core-team .director-card-inner,
+.directors-section .director-card-inner {
+  background: #0b111d;
+  border-radius: 11px;
+  padding: 12px 14px 14px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
 
-
+/* Top bar: Department badge on left, Role badge on right */
 #card-directors .director-card-top,
 #core-team .director-card-top,
 .directors-section .director-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  width: 100%;
 }
 
 #card-directors .director-badge,
 #core-team .director-badge,
 .directors-section .director-badge {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 9px;
-  letter-spacing: 0.06em;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  letter-spacing: 0.08em;
   border-radius: 999px;
   text-transform: uppercase;
   white-space: nowrap;
-  background: rgba(11, 16, 28, 0.85) !important;
+  background: #000000 !important;
   color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: none !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 #card-directors .director-role-badge,
@@ -8808,51 +8788,60 @@ html[data-theme="dark"] .directors-section {
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   padding: 3px 8px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   text-transform: uppercase;
-  background: rgba(11, 16, 28, 0.6) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 #card-directors .director-role-badge.director,
 #core-team .director-role-badge.director,
 .directors-section .director-role-badge.director {
-  color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.35) !important;
-  background: rgba(11, 16, 28, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
 }
 
-/* Frosted Architectural Dock: Enhances Contrast so Font Color is 100% Uniform */
+/* Content block: Avatar + Identity */
 #card-directors .director-header-block,
 #core-team .director-header-block,
 .directors-section .director-header-block {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(11, 16, 28, 0.78) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: 12px;
-  padding: 10px 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  width: 100%;
 }
 
 #card-directors .director-avatar-frame,
 #core-team .director-avatar-frame,
 .directors-section .director-avatar-frame {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: #141a27 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+#card-directors .director-avatar-img,
+#core-team .director-avatar-img,
+.directors-section .director-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 #card-directors .director-monogram,
@@ -8860,26 +8849,18 @@ html[data-theme="dark"] .directors-section {
 .directors-section .director-monogram {
   width: 100%;
   height: 100%;
-  background: #182030 !important;
-  border-radius: 10px;
+  background: #141a27 !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease;
-}
-
-#card-directors .director-card:hover .director-monogram,
-#core-team .director-card:hover .director-monogram,
-.directors-section .director-card:hover .director-monogram {
-  transform: scale(1.05);
 }
 
 #card-directors .monogram-text,
 #core-team .monogram-text,
 .directors-section .monogram-text {
   font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 800;
+  font-size: 14px;
   color: #ffffff !important;
   letter-spacing: 0.04em;
 }
@@ -8890,22 +8871,21 @@ html[data-theme="dark"] .directors-section {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  gap: 2px;
 }
 
-/* Uniform White Typography across ALL Cards */
 #card-directors .director-name,
 #core-team .director-name,
 .directors-section .director-name {
   font-family: var(--font-sans);
-  font-size: 14.5px;
+  font-size: 13.5px;
   font-weight: 800 !important;
   color: #ffffff !important;
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
 }
 
 #card-directors .director-role-title,
@@ -8914,10 +8894,12 @@ html[data-theme="dark"] .directors-section {
   font-family: var(--font-mono);
   font-size: 11px !important;
   font-weight: 600 !important;
-  color: rgba(255, 255, 255, 0.92) !important;
-  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.88) !important;
+  margin: 0;
   line-height: 1.25;
-  white-space: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #card-directors .director-dept-label,
@@ -8925,12 +8907,156 @@ html[data-theme="dark"] .directors-section {
 .directors-section .director-dept-label {
   font-family: var(--font-mono);
   font-size: 9.5px !important;
-  color: rgba(255, 255, 255, 0.7) !important;
-  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.52) !important;
+  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
+}
+
+/* Card Theme 1-4: Executive (Row 1) - Sleek Dark Frame */
+.director-card.card-theme-dir-exec-1,
+.director-card.card-theme-dir-exec-2,
+.director-card.card-theme-dir-exec-3,
+.director-card.card-theme-dir-exec-4 {
+  background: #111624;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.director-card.card-theme-dir-exec-1:hover,
+.director-card.card-theme-dir-exec-2:hover,
+.director-card.card-theme-dir-exec-3:hover,
+.director-card.card-theme-dir-exec-4:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+}
+
+/* Card Theme 5-6: Finance (Row 2, Col 1 & 2) - Bright Emerald Green Frame */
+.director-card.card-theme-dir-fin-1,
+.director-card.card-theme-dir-fin-2 {
+  background: #00e575;
+  box-shadow: 0 4px 20px rgba(0, 229, 117, 0.25);
+}
+.director-card.card-theme-dir-fin-1:hover,
+.director-card.card-theme-dir-fin-2:hover {
+  box-shadow: 0 8px 32px rgba(0, 229, 117, 0.45);
+}
+
+/* Card Theme 7: Creatives Director (Row 2, Col 3) - Blue-to-Purple Gradient Frame */
+.director-card.card-theme-dir-crea-1 {
+  background: linear-gradient(135deg, #44b3fe 0%, #a759ff 100%);
+  box-shadow: 0 4px 20px rgba(68, 179, 254, 0.25);
+}
+.director-card.card-theme-dir-crea-1:hover {
+  box-shadow: 0 8px 32px rgba(167, 89, 255, 0.45);
+}
+
+/* Card Theme 8: Creatives Associate (Row 2, Col 4) - Electric Sky Blue Frame */
+.director-card.card-theme-dir-crea-2 {
+  background: #44b3fe;
+  box-shadow: 0 4px 20px rgba(68, 179, 254, 0.25);
+}
+.director-card.card-theme-dir-crea-2:hover {
+  box-shadow: 0 8px 32px rgba(68, 179, 254, 0.45);
+}
+
+/* Card Theme 9: Marketing Director (Row 3, Col 1) - Purple-to-Blue Gradient Frame */
+.director-card.card-theme-dir-mktg-1 {
+  background: linear-gradient(135deg, #a759ff 0%, #44b3fe 100%);
+  box-shadow: 0 4px 20px rgba(167, 89, 255, 0.25);
+}
+.director-card.card-theme-dir-mktg-1:hover {
+  box-shadow: 0 8px 32px rgba(167, 89, 255, 0.45);
+}
+
+/* Card Theme 10: Marketing Associate (Row 3, Col 2) - Emerald Green Frame */
+.director-card.card-theme-dir-mktg-2 {
+  background: #00e575;
+  box-shadow: 0 4px 20px rgba(0, 229, 117, 0.25);
+}
+.director-card.card-theme-dir-mktg-2:hover {
+  box-shadow: 0 8px 32px rgba(0, 229, 117, 0.45);
+}
+
+/* Card Theme 11: Technology Director (Row 3, Col 3) - Purple-to-Green Gradient Frame */
+.director-card.card-theme-dir-tech-1 {
+  background: linear-gradient(135deg, #a759ff 0%, #00e575 100%);
+  box-shadow: 0 4px 20px rgba(167, 89, 255, 0.25);
+}
+.director-card.card-theme-dir-tech-1:hover {
+  box-shadow: 0 8px 32px rgba(0, 229, 117, 0.45);
+}
+
+/* Card Theme 12: Technology Associate (Row 3, Col 4) - Emerald Green Frame */
+.director-card.card-theme-dir-tech-2 {
+  background: #00e575;
+  box-shadow: 0 4px 20px rgba(0, 229, 117, 0.25);
+}
+.director-card.card-theme-dir-tech-2:hover {
+  box-shadow: 0 8px 32px rgba(0, 229, 117, 0.45);
+}
+
+/* Card Theme 13: Relations Director (Row 4, Col 1) - Sky Blue Frame */
+.director-card.card-theme-dir-rels-1 {
+  background: #44b3fe;
+  box-shadow: 0 4px 20px rgba(68, 179, 254, 0.25);
+}
+.director-card.card-theme-dir-rels-1:hover {
+  box-shadow: 0 8px 32px rgba(68, 179, 254, 0.45);
+}
+
+/* Card Theme 14: Relations Associate (Row 4, Col 2) - Purple Frame */
+.director-card.card-theme-dir-rels-2 {
+  background: #a759ff;
+  box-shadow: 0 4px 20px rgba(167, 89, 255, 0.25);
+}
+.director-card.card-theme-dir-rels-2:hover {
+  box-shadow: 0 8px 32px rgba(167, 89, 255, 0.45);
+}
+
+/* Card Theme 15: Operations Director (Row 4, Col 3) - Cyan / Sky Blue Frame */
+.director-card.card-theme-dir-ops-1 {
+  background: #06b6d4;
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
+}
+.director-card.card-theme-dir-ops-1:hover {
+  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.45);
+}
+
+/* Card Theme 16: Operations Associate (Row 4, Col 4) - Emerald Green Frame */
+.director-card.card-theme-dir-ops-2 {
+  background: #00e575;
+  box-shadow: 0 4px 20px rgba(0, 229, 117, 0.25);
+}
+.director-card.card-theme-dir-ops-2:hover {
+  box-shadow: 0 8px 32px rgba(0, 229, 117, 0.45);
+}
+
+/* Responsive Wrapping */
+@media (max-width: 1180px) {
+  #card-directors .hive-row,
+  #core-team .hive-row,
+  .directors-section .hive-row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #card-directors .director-card,
+  #core-team .director-card,
+  .directors-section .director-card {
+    flex: 0 1 calc(50% - 12px);
+    max-width: calc(50% - 12px);
+  }
+}
+
+@media (max-width: 640px) {
+  #card-directors .director-card,
+  #core-team .director-card,
+  .directors-section .director-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 }
 
 /* Stacked Deck: Wide Screen Container Spacing */
@@ -9325,14 +9451,21 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
     width: 100%;
     min-width: 0;
     max-width: none;
-    padding: 14px 12px;
-    gap: 10px;
+    padding: 5px;
+    gap: 0;
+  }
+
+  #card-directors .director-card-inner,
+  #core-team .director-card-inner,
+  .directors-section .director-card-inner {
+    padding: 10px 10px 12px;
+    gap: 8px;
   }
 
   #card-directors .director-header-block,
   #core-team .director-header-block,
   .directors-section .director-header-block {
-    padding: 8px 10px;
+    padding: 0 !important;
     gap: 8px;
   }
 
@@ -10378,16 +10511,9 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
 }
 
 .director-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
   border-radius: 16px;
-  padding: 24px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
   position: relative;
-  overflow: hidden;
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .director-card.is-filtered-out {
@@ -11368,9 +11494,13 @@ html[data-theme="dark"] .sponsors-hero-card:hover {
   border-bottom-color: var(--teal-text, var(--teal));
 }
 
-/* Desktop: inline links replace the Menu button. */
+/* Desktop: inline links replace the Menu button. The staggered menu
+   drawer (.sm-toggle) is reserved for mobile. */
 @media (min-width: 981px) {
-  .sm-toggle { display: none !important; }
+  .sm-toggle,
+  .nav-menu-btn {
+    display: none !important;
+  }
 }
 /* Mobile: the drawer's labeled Menu button is the nav; inline links hidden with
    the rest of .header-right (existing @980 rule). */
@@ -11385,18 +11515,19 @@ html[data-theme="dark"] .sponsors-hero-card:hover {
    as the single signature. Reversible overrides — no infrastructure removed.
    ========================================================= */
 
-/* Blueprint Build/Grow/Lead numerals: were clamp(88px,12vw,168px) — reduced and
-   de-emphasized so the "Build / Grow / Lead" labels and body copy read first. */
+/* Blueprint Build/Grow/Lead numerals: crisp, unblurred solid numbers. */
 .blueprint-panel--agenda .bp-num {
-  font-size: clamp(48px, 6vw, 84px) !important;
-  opacity: 0.28;
+  font-size: clamp(56px, 7vw, 96px) !important;
+  opacity: 1 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 html[data-theme="dark"] .blueprint-panel--agenda .bp-num {
-  opacity: 0.32;
+  opacity: 1 !important;
 }
-/* Trim the decorative accent underline under the numeral. */
+/* Solid accent underline under the numeral. */
 .blueprint-panel--agenda .bp-num::after {
-  opacity: 0.5;
+  opacity: 1 !important;
 }
 
 /* Calmer partner marquee: slower drift; the flat chips already pause on hover
