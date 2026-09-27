@@ -64,7 +64,7 @@
   </div>
 
   <!-- Navigation Header Bar -->
-  <header class="nav" id="siteNav" aria-label="Main navigation header">
+  <header class="nav nav-visible" id="siteNav" aria-label="Main navigation header">
     <div class="nav-inner">
       <div class="header-left">
         <button class="brand" data-page="home" type="button" aria-label="Go to home page">
@@ -81,6 +81,8 @@
           <a class="nav-inline-link" href="#speakers" data-section="speakers">Speakers</a>
           <a class="nav-inline-link" href="#schedule" data-section="schedule">Schedule</a>
           <a class="nav-inline-link" href="#venue" data-section="venue">Venue</a>
+          <a class="nav-inline-link" href="#organizers" data-section="organizers">Organizers</a>
+          <a class="nav-inline-link" href="#core-team" data-section="core-team">Core Team</a>
           <a class="nav-inline-link" href="#faq" data-section="faq">FAQ</a>
         </nav>
 
@@ -173,7 +175,17 @@
             </a>
           </li>
           <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item sm-panel-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma (subject to host approval)" title="Registration is subject to host approval" data-index="7">
+            <a class="sm-panel-item" href="#organizers" data-section="organizers" data-brand="green" aria-label="View Summit Organizers" data-index="7">
+              <span class="sm-panel-itemLabel">Organizers</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="#core-team" data-section="core-team" data-brand="pink" aria-label="View Core Team" data-index="8">
+              <span class="sm-panel-itemLabel">Core Team</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item sm-panel-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma (subject to host approval)" title="Registration is subject to host approval" data-index="9">
               <span class="sm-panel-itemLabel">Register</span>
             </a>
             <span class="sm-panel-item-note reg-approval-note">Subject to host approval</span>
@@ -246,88 +258,95 @@
   <!-- ================================================================= -->
   <div class="page active" id="page-home">
 
-    <!-- MAIN POSTER V3 VIDEO HERO WITH REVERSE SCROLL-EXPAND -->
-    <section class="hero hero-stage hero-has-video" id="hero">
-      <div class="video-hero-card" id="heroVideoCard">
-        <video 
-          class="hero-video-player" 
-          id="heroVideoPlayer" 
-          autoplay 
-          muted 
-          loop 
-          playsinline 
-          preload="auto"
-          poster="assets/images/event-primer.webp"
-          aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
-        >
-          <!-- Mobile Portrait: 9:16 vertical motion poster -->
-          <source src="assets/images/main-poster-v3-mobile.mp4" type="video/mp4" media="(max-width: 768px) and (orientation: portrait)">
-          <!-- Desktop & Landscape: 2:1 widescreen motion poster -->
-          <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-
-        <!-- PERMANENT HERO LOCKUP — always present in the DOM so the event's
-             purpose, date, venue and registration read immediately even if the
-             motion poster fails to load or play. The single home-page <h1> lives
-             here. JS (heroFallbackUI) removes .hero-has-video from #hero if the
-             video errors, promoting this lockup to a solid, high-contrast panel. -->
-        <div class="hero-lockup" id="heroLockup">
-          <p class="hero-lockup-series">AWS Student Community Day</p>
-          <h1 class="hero-lockup-title">South Summit 2026</h1>
-          <p class="hero-lockup-desc">A free, beginner-friendly Cloud &amp; AI conference for student builders across South Luzon.</p>
-          <p class="hero-lockup-meta">
-            <span class="hero-lockup-date">October 7, 2026</span>
-            <span class="hero-lockup-dot" aria-hidden="true">·</span>
-            <span class="hero-lockup-venue">Biñan People&rsquo;s Center Auditorium</span>
-          </p>
-          <div class="hero-lockup-actions">
-            <a class="btn btn-primary hero-lockup-cta" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register on Luma &rarr;</a>
-            <a class="btn btn-ghost hero-lockup-secondary" href="#schedule" data-section="schedule">View schedule</a>
+    <!-- CENTERED MOTION POSTER VIDEO HERO (Impeccable Wireframe Layout) -->
+    <section class="hero hero-stage hero-has-video hero-centered-layout" id="hero" aria-labelledby="heroTitle">
+      <div class="hero-centered-inner wrap">
+        <!-- TOP: Title & Subtitle (outside the video) -->
+        <header class="hero-lockup hero-top-lockup" id="heroLockup">
+          <p class="hero-top-badge">AWS Student Community Day</p>
+          <h1 class="hero-top-title" id="heroTitle">South Summit 2026</h1>
+          <p class="hero-top-desc">A free, beginner-friendly Cloud &amp; AI conference for student builders across South Luzon</p>
+          <div class="hero-top-meta">
+            <span class="hero-meta-item">October 7, 2026</span>
+            <span class="hero-meta-dot" aria-hidden="true">&bull;</span>
+            <span class="hero-meta-item">Biñan People&rsquo;s Center Auditorium</span>
           </div>
-          <p class="hero-lockup-note reg-approval-note">Registration is subject to host approval &mdash; submitting a request does not immediately confirm admission.</p>
+        </header>
+
+        <!-- CENTER: Framed Motion Poster Video Player (alone in center) -->
+        <div class="video-hero-card" id="heroVideoCard" role="region" aria-label="Official Motion Poster Video">
+          <video 
+            class="hero-video-player" 
+            id="heroVideoPlayer" 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            preload="auto"
+            poster="assets/images/event-primer.webp"
+            aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
+          >
+            <!-- 2:1 Widescreen Motion Poster centered in card -->
+            <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
-      </div>
 
-      <!-- Action Dock: Register CTA, Countdown, Video Controls & Scroll Hint -->
-      <div class="hero-dock" id="heroDock">
-        <a class="btn btn-primary hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" title="Registration is subject to host approval" aria-label="Register Now on Luma (subject to host approval)">Register Now &rarr;</a>
-
-        <!-- Countdown Timer compatible with countdown.js -->
-        <div class="hero-timer-wrap" id="countdown" aria-label="Countdown to South Summit 2026">
-          <div class="countup-card">
-            <div class="countup-seg seg-days">
-              <span class="countup-num" id="cd-days">00</span>
-              <span class="countup-label"><span class="label-dot dot-pink" aria-hidden="true"></span>Days</span>
-            </div>
-            <span class="countup-divider" aria-hidden="true">:</span>
-            <div class="countup-seg seg-hours">
-              <span class="countup-num" id="cd-hours">00</span>
-              <span class="countup-label"><span class="label-dot dot-purple" aria-hidden="true"></span>Hours</span>
-            </div>
-            <span class="countup-divider" aria-hidden="true">:</span>
-            <div class="countup-seg seg-mins">
-              <span class="countup-num" id="cd-mins">00</span>
-              <span class="countup-label"><span class="label-dot dot-blue" aria-hidden="true"></span>Mins</span>
-            </div>
-            <span class="countup-divider" aria-hidden="true">:</span>
-            <div class="countup-seg seg-secs">
-              <span class="countup-num" id="cd-secs">00</span>
-              <span class="countup-label"><span class="label-dot dot-green" aria-hidden="true"></span>Secs</span>
-            </div>
+        <!-- BOTTOM: Actions & Controls Bar (outside the video, below it) -->
+        <footer class="hero-dock hero-bottom-actions" id="heroDock">
+          <!-- Left: View Schedule CTA (sched) -->
+          <div class="hero-action-slot hero-action-slot--left">
+            <a class="btn btn-ghost hero-btn-sched" href="#schedule" data-section="schedule" aria-label="View event schedule">
+              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>View schedule</span>
+            </a>
           </div>
-        </div>
 
-        <!-- Video Play/Pause accessibility toggle button -->
-        <button type="button" class="hero-video-btn" id="heroVideoBtn" aria-label="Pause motion poster video" title="Pause / Play Video">
-          <span class="hero-video-btn-icon" id="heroVideoBtnIcon" aria-hidden="true">&#10074;&#10074;</span>
-        </button>
+          <!-- Center: Countdown Timer & Video Controls -->
+          <div class="hero-action-slot hero-action-slot--center">
+            <div class="hero-timer-wrap" id="countdown" aria-label="Countdown to South Summit 2026">
+              <div class="countup-card">
+                <div class="countup-seg seg-days">
+                  <span class="countup-num" id="cd-days">00</span>
+                  <span class="countup-label"><span class="label-dot dot-pink" aria-hidden="true"></span>Days</span>
+                </div>
+                <span class="countup-divider" aria-hidden="true">:</span>
+                <div class="countup-seg seg-hours">
+                  <span class="countup-num" id="cd-hours">00</span>
+                  <span class="countup-label"><span class="label-dot dot-purple" aria-hidden="true"></span>Hours</span>
+                </div>
+                <span class="countup-divider" aria-hidden="true">:</span>
+                <div class="countup-seg seg-mins">
+                  <span class="countup-num" id="cd-mins">00</span>
+                  <span class="countup-label"><span class="label-dot dot-blue" aria-hidden="true"></span>Mins</span>
+                </div>
+                <span class="countup-divider" aria-hidden="true">:</span>
+                <div class="countup-seg seg-secs">
+                  <span class="countup-num" id="cd-secs">00</span>
+                  <span class="countup-label"><span class="label-dot dot-green" aria-hidden="true"></span>Secs</span>
+                </div>
+              </div>
+            </div>
 
-        <!-- Scroll Explore Hint -->
-        <div class="hero-scroll-hint" aria-hidden="true">
-          <span>Scroll to explore</span>
-          <span class="hero-scroll-hint-arrow">&darr;</span>
-        </div>
+            <!-- Video Play/Pause accessibility toggle button -->
+            <button type="button" class="hero-video-btn" id="heroVideoBtn" aria-label="Pause motion poster video" title="Pause / Play Video">
+              <span class="hero-video-btn-icon" id="heroVideoBtnIcon" aria-hidden="true">&#10074;&#10074;</span>
+            </button>
+          </div>
+
+          <!-- Right: Register CTA Action (register) -->
+          <div class="hero-action-slot hero-action-slot--right">
+            <a class="btn btn-primary hero-btn-register hero-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" title="Registration is subject to host approval" aria-label="Register on Luma (subject to host approval)">
+              <span>Register on Luma</span>
+              <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </footer>
       </div>
     </section>
 
@@ -335,7 +354,7 @@
     <section id="benefits" class="section-light grid-bg light" aria-labelledby="benefitsTitle">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <p class="eyebrow" style="color:var(--teal);">Why attend</p>
+          <p class="eyebrow eyebrow--teal">Why attend</p>
           <h2 class="section-title" id="benefitsTitle">A full day to build, grow, and lead.</h2>
         </div>
         <ul class="benefits-grid" data-reveal>
@@ -372,7 +391,7 @@
     <section id="speakers" class="section-light grid-bg light" aria-labelledby="speakersTitle">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <p class="eyebrow" style="color:var(--teal);">Featured speakers</p>
+          <p class="eyebrow eyebrow--teal">Featured speakers</p>
           <h2 class="section-title" id="speakersTitle">Who you'll learn from</h2>
           <p class="section-sub">Keynotes, technical talks, and a flagship panel from AWS community leaders and student builders.</p>
         </div>
@@ -565,7 +584,7 @@
       </div>
       <div class="wrap">
         <div class="section-head venue-section-head" data-reveal>
-          <p class="eyebrow" style="color:var(--teal);">Venue</p>
+          <p class="eyebrow eyebrow--teal">Venue</p>
           <h2 class="section-title">Where builders gather</h2>
         </div>
 
@@ -723,7 +742,7 @@
       </div>
       <div class="wrap">
         <div class="section-head sponsors-section-head" data-reveal>
-          <p class="eyebrow" style="color:var(--teal);">Sponsors &amp; Partners</p>
+          <p class="eyebrow eyebrow--teal">Sponsors &amp; Partners</p>
           <h2 class="section-title">Powered by industry leaders, cloud innovators, and student builders.</h2>
         </div>
 
@@ -796,6 +815,71 @@
       </div>
     </section>
 
+    <!-- ORGANIZERS — AWS Student Builder Groups South Luzon -->
+    <section id="organizers" class="section-light grid-bg light organizers-section" aria-labelledby="organizersTitle">
+      <div class="deco-layer deco-corners" aria-hidden="true">
+        <span class="brand-box b1"></span>
+        <span class="brand-box b2"></span>
+        <span class="brand-box b3"></span>
+      </div>
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--green">Organizers</p>
+          <h2 class="section-title" id="organizersTitle">AWS Student Builder Groups &mdash; South Luzon</h2>
+          <p class="section-sub">Co-organized by 8 AWS SBG &amp; AWS LC chapters across CALABARZON. One community working together to make this summit happen.</p>
+        </div>
+        <div class="chapter-grid" id="homeChapterGrid" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- CORE TEAM — South Summit 2026 Directorate & Leadership -->
+    <section id="core-team" class="section-light grid-bg light directors-section" aria-labelledby="coreTeamTitle">
+      <div class="deco-layer deco-plus" aria-hidden="true">
+        <span class="brand-box b1"></span>
+        <span class="brand-box b2"></span>
+        <span class="brand-box b3"></span>
+      </div>
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow eyebrow--pink">Leadership</p>
+          <h2 class="section-title" id="coreTeamTitle">South Summit Core Team</h2>
+          <p class="section-sub">The student directors, associate directors, and core team leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
+        </div>
+
+        <!-- Filter Pills Navigation -->
+        <div class="directors-filter-wrapper" data-reveal>
+          <nav class="directors-filter-bar font-mono" aria-label="Filter core team by department">
+            <button type="button" class="director-filter-pill active" data-target="all" aria-selected="true">
+              All (16)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="executive" aria-selected="false">
+              Executive (4)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="finance" aria-selected="false">
+              Finance (2)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="creatives" aria-selected="false">
+              Creatives (2)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="marketing" aria-selected="false">
+              Marketing (2)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="technology" aria-selected="false">
+              Technology (2)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="relations" aria-selected="false">
+              Relations (2)
+            </button>
+            <button type="button" class="director-filter-pill" data-target="operations" aria-selected="false">
+              Operations (2)
+            </button>
+          </nav>
+        </div>
+
+        <div class="directors-grid hive-container" id="homeDirectorsGrid" data-reveal></div>
+      </div>
+    </section>
+
     <!-- QUOTE / MANIFESTO (TYPOGRAPHIC EDITORIAL) -->
     <section id="quote" class="quote-band" data-no-split="true">
       <div class="wrap quote-inner">
@@ -808,7 +892,7 @@
     <section id="faq" class="section-light grid-bg light" aria-labelledby="faqTitle">
       <div class="wrap">
         <div class="section-head faq-section-head" data-reveal>
-          <p class="eyebrow" style="color:var(--teal);">FAQ</p>
+          <p class="eyebrow eyebrow--teal">FAQ</p>
           <h2 class="section-title" id="faqTitle">Everything you need before you go</h2>
         </div>
         <div class="faq-list" id="faqList" data-reveal>
@@ -1199,6 +1283,14 @@
               <span class="nav-text">Venue</span>
               <span class="nav-arrow" aria-hidden="true">&rarr;</span>
             </a>
+            <a href="#organizers" class="foot-nav-item" data-section="organizers">
+              <span class="nav-text">Organizers</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="#core-team" class="foot-nav-item" data-section="core-team">
+              <span class="nav-text">Core Team</span>
+              <span class="nav-arrow" aria-hidden="true">&rarr;</span>
+            </a>
             <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item" title="Registration is subject to host approval">
               <span class="nav-text">Register on Luma</span>
               <span class="nav-arrow" aria-hidden="true">&rarr;</span>
@@ -1336,6 +1428,16 @@
             <li class="assistive-hud-itemWrap">
               <button class="assistive-hud-item" data-section="faq" data-brand="blue" type="button" aria-label="View FAQ">
                 <span class="assistive-hud-itemLabel">FAQ</span>
+              </button>
+            </li>
+            <li class="assistive-hud-itemWrap">
+              <button class="assistive-hud-item" data-section="organizers" data-brand="green" type="button" aria-label="View Organizers">
+                <span class="assistive-hud-itemLabel">Organizers</span>
+              </button>
+            </li>
+            <li class="assistive-hud-itemWrap">
+              <button class="assistive-hud-item" data-section="core-team" data-brand="pink" type="button" aria-label="View Core Team">
+                <span class="assistive-hud-itemLabel">Core Team</span>
               </button>
             </li>
             <li class="assistive-hud-itemWrap">

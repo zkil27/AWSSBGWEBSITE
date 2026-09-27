@@ -72,9 +72,12 @@ function chapterCardHTML(c) {
 }
 
 export function initChapters() {
-    const chapterGrid = document.getElementById('chapterGrid');
-    if (!chapterGrid) return;
+    const grids = document.querySelectorAll('#chapterGrid, #homeChapterGrid');
+    if (!grids.length) return;
 
-    chapterGrid.innerHTML = chapters.map(chapterCardHTML).join('');
+    const html = chapters.map(chapterCardHTML).join('');
+    grids.forEach(grid => {
+        grid.innerHTML = html;
+    });
 }
 

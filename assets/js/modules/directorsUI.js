@@ -158,21 +158,19 @@ function initMagneticTilt(container) {
  * magnetic 3D proximity tilt, and dynamic department filtering.
  */
 export function initDirectors() {
-  const directorsGrid = document.getElementById('directorsGrid');
-  if (!directorsGrid) return;
+  const gridContainers = [
+    {
+      section: document.getElementById('about-directors') || document.getElementById('card-directors'),
+      grid: document.getElementById('directorsGrid'),
+      filterBar: document.getElementById('directorsFilterBar')
+    },
+    {
+      section: document.getElementById('core-team'),
+      grid: document.getElementById('homeDirectorsGrid'),
+      filterBar: document.querySelector('#core-team .directors-filter-bar')
+    }
+  ];
 
-  // Clean up any existing ambient particle field
-  const parentSection = directorsGrid.closest('#about-directors') || directorsGrid.parentElement;
-  if (parentSection) {
-    const existingField = parentSection.querySelector('.ambient-particle-field');
-    if (existingField) existingField.remove();
-  }
-
-  // 4 x 4 Balanced Hex Mesh Partition (16 directors)
-  // Row 1: Executive 4 (JR, HT, AP, RB)
-  // Row 2: Finance 2 + Creatives 2 (JM, CL, MS, AV)
-  // Row 3: Marketing 2 + Technology 2 (JL, BB, ET, AN)
-  // Row 4: Relations 2 + Operations 2 (QS, JLO, SB, RC)
   const rowsIndices = [
     [0, 1, 2, 3],
     [4, 5, 6, 7],
@@ -180,180 +178,178 @@ export function initDirectors() {
     [12, 13, 14, 15]
   ];
 
-  directorsGrid.classList.add('hive-container');
-  directorsGrid.innerHTML = rowsIndices.map((rowArr, rowIndex) => {
-    const cardsHTML = rowArr
-      .map((idx) => (directors[idx] ? directorCardHTML(directors[idx]) : ''))
-      .join('');
-    return `<div class="hive-row" data-hive-row="${rowIndex + 1}">${cardsHTML}</div>`;
-  }).join('');
+  gridContainers.forEach(({ section, grid, filterBar }) => {
+    if (!grid) return;
 
-  // Initialize magnetic tilt physics
-  initMagneticTilt(directorsGrid);
-
-  // Lock grid minimum height to full 4-row height so switching filter tabs never shrinks container or pulls footer up
-  const lockGridHeight = () => {
-    if (!directorsGrid) return;
-    const measuredHeight = directorsGrid.scrollHeight || directorsGrid.offsetHeight;
-    if (measuredHeight > 300) {
-      directorsGrid.style.minHeight = `${Math.max(580, measuredHeight)}px`;
-    }
-  };
-
-  requestAnimationFrame(lockGridHeight);
-
-  // Re-measure when window resizes and All is active
-  window.addEventListener('resize', () => {
-    const allPill = document.querySelector('.director-filter-pill[data-target="all"]');
-    if (allPill && allPill.classList.contains('active')) {
-      directorsGrid.style.minHeight = '';
-      requestAnimationFrame(lockGridHeight);
-    }
-  });
-
-  // Ensure grid height recalibrates accurately when Leadership accordion opens
-  const cardDirectors = document.getElementById('card-directors');
-  if (cardDirectors) {
-    const cardTab = cardDirectors.querySelector('.sb-card-tab');
-    if (cardTab) {
-      cardTab.addEventListener('click', () => {
-        setTimeout(lockGridHeight, 120);
-      });
+    if (section) {
+      const existingField = section.querySelector('.ambient-particle-field');
+      if (existingField) existingField.remove();
     }
 
-    if (window.MutationObserver) {
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((m) => {
-          if (m.attributeName === 'class' && cardDirectors.classList.contains('is-active')) {
-            requestAnimationFrame(lockGridHeight);
-          }
+    grid.classList.add('hive-container');
+    grid.innerHTML = rowsIndices.map((rowArr, rowIndex) => {
+      const cardsHTML = rowArr
+        .map((idx) => (directors[idx] ? directorCardHTML(directors[idx]) : ''))
+        .join('');
+      return `<div class="hive-row" data-hive-row="${rowIndex + 1}">${cardsHTML}</div>`;
+    }).join('');
+
+    initMagneticTilt(grid);
+
+    const lockGridHeight = () => {
+      if (!grid) return;
+      const measuredHeight = grid.scrollHeight || grid.offsetHeight;
+      if (measuredHeight > 300) {
+        grid.style.minHeight = `${Math.max(580, measuredHeight)}px`;
+      }
+    };
+
+    requestAnimationFrame(lockGridHeight);
+
+    window.addEventListener('resize', () => {
+      const allPill = filterBar?.querySelector('.director-filter-pill[data-target="all"]');
+      if (allPill && allPill.classList.contains('active')) {
+        grid.style.minHeight = '';
+        requestAnimationFrame(lockGridHeight);
+      }
+    });
+
+    if (section && section.closest('#card-directors')) {
+      const cardDirectors = section.closest('#card-directors');
+      const cardTab = cardDirectors.querySelector('.sb-card-tab');
+      if (cardTab) {
+        cardTab.addEventListener('click', () => {
+          setTimeout(lockGridHeight, 120);
         });
-      });
-      observer.observe(cardDirectors, { attributes: true, attributeFilter: ['class'] });
-    }
-  }
+      }
 
-  // Setup department filter tabs with tactile micro-press & Linear micro-depth card motion
-  const filterPills = document.querySelectorAll('.director-filter-pill');
-  if (filterPills.length > 0) {
-    let isFiltering = false;
-
-    filterPills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        if (isFiltering) return;
-        const target = pill.getAttribute('data-target') || 'all';
-        if (pill.classList.contains('active')) return;
-
-        // Ensure grid min-height is locked before switching tabs so footer never jumps
-        const currentH = directorsGrid.scrollHeight || directorsGrid.offsetHeight;
-        if (currentH > 300 && (!directorsGrid.style.minHeight || parseInt(directorsGrid.style.minHeight, 10) < currentH)) {
-          directorsGrid.style.minHeight = `${Math.max(580, currentH)}px`;
-        }
-
-        // Update active tab state
-        filterPills.forEach((p) => {
-          p.classList.remove('active');
-          p.setAttribute('aria-selected', 'false');
-        });
-        pill.classList.add('active');
-        pill.setAttribute('aria-selected', 'true');
-
-        // Tactile micro-press feedback on the clicked pill
-        if (window.gsap) {
-          window.gsap.fromTo(pill, { scale: 0.95 }, { scale: 1, duration: 0.22, ease: 'power2.out', clearProps: 'scale' });
-        }
-
-        const allCards = Array.from(directorsGrid.querySelectorAll('.director-card'));
-        const currentlyVisible = allCards.filter(
-          (c) => !c.classList.contains('is-filtered-out') && c.style.display !== 'none'
-        );
-
-        const applyDOMFilter = () => {
-          allCards.forEach((card) => {
-            const cardDept = card.getAttribute('data-dept');
-            if (target === 'all' || cardDept === target) {
-              card.classList.remove('is-filtered-out');
-              card.style.display = '';
-              card.removeAttribute('hidden');
-            } else {
-              card.classList.add('is-filtered-out');
-              card.style.display = 'none';
-              card.setAttribute('hidden', '');
+      if (window.MutationObserver) {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((m) => {
+            if (m.attributeName === 'class' && cardDirectors.classList.contains('is-active')) {
+              requestAnimationFrame(lockGridHeight);
             }
           });
+        });
+        observer.observe(cardDirectors, { attributes: true, attributeFilter: ['class'] });
+      }
+    }
 
-          // Toggle hive rows and stagger offset depending on filter
-          const rows = directorsGrid.querySelectorAll('.hive-row');
-          if (target === 'all') {
-            directorsGrid.classList.remove('is-filtered');
-            rows.forEach((row) => {
-              row.style.display = '';
-            });
-          } else {
-            directorsGrid.classList.add('is-filtered');
-            rows.forEach((row) => {
-              const visibleCount = row.querySelectorAll('.director-card:not(.is-filtered-out)').length;
-              row.style.display = visibleCount > 0 ? 'flex' : 'none';
-            });
+    const pills = filterBar ? filterBar.querySelectorAll('.director-filter-pill') : [];
+    if (pills.length > 0) {
+      let isFiltering = false;
+
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          if (isFiltering) return;
+          const target = pill.getAttribute('data-target') || 'all';
+          if (pill.classList.contains('active')) return;
+
+          const currentH = grid.scrollHeight || grid.offsetHeight;
+          if (currentH > 300 && (!grid.style.minHeight || parseInt(grid.style.minHeight, 10) < currentH)) {
+            grid.style.minHeight = `${Math.max(580, currentH)}px`;
           }
 
-          directorsGrid.__invalidateTiltCache?.();
+          pills.forEach((p) => {
+            p.classList.remove('active');
+            p.setAttribute('aria-selected', 'false');
+          });
+          pill.classList.add('active');
+          pill.setAttribute('aria-selected', 'true');
 
-          const incomingCards = allCards.filter((c) => !c.classList.contains('is-filtered-out'));
+          if (window.gsap) {
+            window.gsap.fromTo(pill, { scale: 0.95 }, { scale: 1, duration: 0.22, ease: 'power2.out', clearProps: 'scale' });
+          }
 
-          if (window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isLowSpec()) {
-            // Option 1: Linear Studio Switch - Calibrated micro-depth focus arrival
-            window.gsap.fromTo(
-              incomingCards,
-              {
-                opacity: 0,
-                scale: 0.98,
-                y: 8,
-                filter: 'blur(5px)'
-              },
-              {
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                filter: 'blur(0px)',
-                duration: 0.28,
-                stagger: 0.02,
-                ease: 'power3.out',
-                onComplete: () => {
-                  isFiltering = false;
-                  if (window.gsap) {
-                    window.gsap.set(incomingCards, { clearProps: 'transform,opacity,scale,filter,y' });
+          const allCards = Array.from(grid.querySelectorAll('.director-card'));
+          const currentlyVisible = allCards.filter(
+            (c) => !c.classList.contains('is-filtered-out') && c.style.display !== 'none'
+          );
+
+          const applyDOMFilter = () => {
+            allCards.forEach((card) => {
+              const cardDept = card.getAttribute('data-dept');
+              if (target === 'all' || cardDept === target) {
+                card.classList.remove('is-filtered-out');
+                card.style.display = '';
+                card.removeAttribute('hidden');
+              } else {
+                card.classList.add('is-filtered-out');
+                card.style.display = 'none';
+                card.setAttribute('hidden', '');
+              }
+            });
+
+            const rows = grid.querySelectorAll('.hive-row');
+            if (target === 'all') {
+              grid.classList.remove('is-filtered');
+              rows.forEach((row) => {
+                row.style.display = '';
+              });
+            } else {
+              grid.classList.add('is-filtered');
+              rows.forEach((row) => {
+                const visibleCount = row.querySelectorAll('.director-card:not(.is-filtered-out)').length;
+                row.style.display = visibleCount > 0 ? 'flex' : 'none';
+              });
+            }
+
+            grid.__invalidateTiltCache?.();
+
+            const incomingCards = allCards.filter((c) => !c.classList.contains('is-filtered-out'));
+
+            if (window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isLowSpec()) {
+              window.gsap.fromTo(
+                incomingCards,
+                {
+                  opacity: 0,
+                  scale: 0.98,
+                  y: 8,
+                  filter: 'blur(5px)'
+                },
+                {
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                  filter: 'blur(0px)',
+                  duration: 0.28,
+                  stagger: 0.02,
+                  ease: 'power3.out',
+                  onComplete: () => {
+                    isFiltering = false;
+                    if (window.gsap) {
+                      window.gsap.set(incomingCards, { clearProps: 'transform,opacity,scale,filter,y' });
+                    }
                   }
                 }
-              }
-            );
-          } else {
-            isFiltering = false;
-          }
-        };
+              );
+            } else {
+              isFiltering = false;
+            }
+          };
 
-        if (
-          currentlyVisible.length > 0 &&
-          window.gsap &&
-          !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
-          !isLowSpec()
-        ) {
-          isFiltering = true;
-          // Option 1: Linear Studio Switch - Swift aperture dissolve with micro-depth
-          window.gsap.to(currentlyVisible, {
-            opacity: 0,
-            scale: 0.98,
-            y: -6,
-            filter: 'blur(4px)',
-            duration: 0.14,
-            stagger: 0.012,
-            ease: 'power2.in',
-            onComplete: applyDOMFilter
-          });
-        } else {
-          applyDOMFilter();
-        }
+          if (
+            currentlyVisible.length > 0 &&
+            window.gsap &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+            !isLowSpec()
+          ) {
+            isFiltering = true;
+            window.gsap.to(currentlyVisible, {
+              opacity: 0,
+              scale: 0.98,
+              y: -6,
+              filter: 'blur(4px)',
+              duration: 0.14,
+              stagger: 0.012,
+              ease: 'power2.in',
+              onComplete: applyDOMFilter
+            });
+          } else {
+            applyDOMFilter();
+          }
+        });
       });
-    });
-  }
+    }
+  });
 }

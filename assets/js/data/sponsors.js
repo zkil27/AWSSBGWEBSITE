@@ -134,7 +134,7 @@ export const sponsors = [
     location: 'Indang, Cavite',
     track: 'IT Student Organization',
     color: 'green',
-    imgUrl: 'assets/images/sponsors and partners/ELITS.jpg',
+    imgUrl: 'assets/images/sponsors and partners/ELITS.png',
     url: '#'
   },
   {
@@ -162,7 +162,7 @@ export const sponsors = [
     location: 'Manila',
     track: 'Academic Cloud Chapter',
     color: 'blue',
-    imgUrl: 'assets/images/sponsors and partners/AWSSBG Adamson University.jpg',
+    imgUrl: 'assets/images/sponsors and partners/AWSSBG Adamson University.png',
     url: '#'
   },
   {
@@ -198,7 +198,7 @@ export const sponsors = [
     location: 'Dasmariñas, Cavite',
     track: 'Academic Cloud Chapter',
     color: 'green',
-    imgUrl: 'assets/images/sponsors and partners/AWS SBG - PCU Cavite.jpg',
+    imgUrl: 'assets/images/sponsors and partners/AWS SBG - PCU Cavite.png',
     url: '#'
   },
   {

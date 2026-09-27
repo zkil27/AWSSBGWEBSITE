@@ -32,21 +32,7 @@ export function isHeroActive() {
 
 export function updateHeroNavState() {
     if (!nav) return;
-    const page = document.documentElement.getAttribute('data-page') || 'home';
-    const scrollY = window.scrollY || window.pageYOffset || 0;
-
-    if (page === 'home') {
-        // When first seeing the hero section at the top, navbar is hidden so it doesn't block the poster
-        if (scrollY < 80) {
-            nav.classList.remove('nav-visible');
-            nav.classList.remove('nav-in-hero');
-        } else {
-            nav.classList.add('nav-visible');
-        }
-    } else {
-        // On non-home pages (About, Merch, etc.), keep navbar visible
-        nav.classList.add('nav-visible');
-    }
+    nav.classList.add('nav-visible');
 }
 
 export function updateNavState() {
@@ -277,6 +263,8 @@ export function initRouter() {
             const wantsSchedule = (sectionId === 'agenda' || sectionId === 'schedule');
             if (wantsSchedule) sectionId = 'program';
             if (sectionId === 'venues') sectionId = 'venue';
+            if (sectionId === 'chapters' || sectionId === 'network') sectionId = 'organizers';
+            if (sectionId === 'directors' || sectionId === 'leadership' || sectionId === 'team' || sectionId === 'coreteam') sectionId = 'core-team';
 
             const targetSelector = '#' + sectionId;
             const el = document.querySelector(targetSelector);
@@ -329,6 +317,8 @@ export function initRouter() {
             let sectionId = hashTarget;
             if (sectionId === 'agenda' || sectionId === 'schedule') sectionId = 'program';
             if (sectionId === 'venues') sectionId = 'venue';
+            if (sectionId === 'chapters' || sectionId === 'network') sectionId = 'organizers';
+            if (sectionId === 'directors' || sectionId === 'leadership' || sectionId === 'team' || sectionId === 'coreteam') sectionId = 'core-team';
             const targetSelector = '#' + sectionId;
             setTimeout(() => {
                 const el = document.querySelector(targetSelector);

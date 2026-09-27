@@ -37,8 +37,11 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Plus Jakarta Sans', sans-serif;
 
-  /* Layout */
-  --container: 1280px;
+  /* Layout & Rhythm */
+  --container: 1240px;
+  --section-pad: clamp(64px, 7vw, 100px) 0;
+  --card-radius: 16px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --nav-h: 76px;
   --header-h: calc(var(--grid-size) * 4);
 
@@ -140,8 +143,11 @@ html[data-theme="light"] {
   --clock-num: #0B0F19;
 
   --card-bg: #FFFFFF;
-  --card-bg-alt: #F0F2F6;
-  --card-border: rgba(11, 15, 25, 0.06);
+  --card-bg-alt: #F8FAFC;
+  --card-border: rgba(11, 15, 25, 0.08);
+  --card-border-strong: rgba(11, 15, 25, 0.16);
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.12);
 
   --brutal-bg: #FFFFFF;
   --brutal-border: 1px solid rgba(11, 15, 25, 0.1);
@@ -226,9 +232,12 @@ html[data-theme="dark"] {
   --clock-border: rgba(255, 255, 255, 0.08);
   --clock-num: #FFFFFF;
 
-  --card-bg: #192138;
-  --card-bg-alt: #222C47;
-  --card-border: rgba(255, 255, 255, 0.06);
+  --card-bg: #101726;
+  --card-bg-alt: #162032;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-strong: rgba(255, 255, 255, 0.18);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 20px 42px -4px rgba(0, 0, 0, 0.65);
 
   --brutal-bg: #192138;
   --brutal-border: 1px solid rgba(255, 255, 255, 0.08);
