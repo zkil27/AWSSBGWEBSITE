@@ -166,6 +166,7 @@ function resize() {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   refreshGridSize();
   updateMarqueeBounds();
+  resetAmbientBlockTargets();
 }
 
 /* ============================ Lit cells ================================= */
@@ -228,26 +229,26 @@ function runBootSweep(elapsed) {
 }
 
 /* ========================== Ambient Blocks ============================== */
-/* Desktop ambient blocks (wide side gutters) */
+/* Desktop ambient blocks (wide side gutters: cols 0..3 on left, -1..-3 on right) */
 const ambientBlocks = [
-  // Left side
-  { c: 1, r: 3, color: 4 }, { c: 2, r: 6, color: 0 }, { c: 1, r: 9, color: 3 }, { c: 2, r: 9, color: 2 },
-  { c: 3, r: 13, color: 1 }, { c: 1, r: 17, color: 0 }, { c: 1, r: 21, color: 4 }, { c: 2, r: 21, color: 3 },
-  { c: 1, r: 22, color: 2 }, { c: 3, r: 26, color: 1 }, { c: 1, r: 31, color: 0 }, { c: 2, r: 36, color: 4 },
-  { c: 3, r: 36, color: 3 }, { c: 1, r: 41, color: 2 }, { c: 2, r: 47, color: 1 }, { c: 1, r: 53, color: 0 },
+  // Left side (strictly cols 0..3)
+  { c: 1, r: 3, color: 4 }, { c: 2, r: 6, color: 0 }, { c: 0, r: 9, color: 3 }, { c: 1, r: 9, color: 2 },
+  { c: 2, r: 13, color: 1 }, { c: 0, r: 17, color: 0 }, { c: 1, r: 21, color: 4 }, { c: 2, r: 21, color: 3 },
+  { c: 0, r: 22, color: 2 }, { c: 2, r: 26, color: 1 }, { c: 1, r: 31, color: 0 }, { c: 2, r: 36, color: 4 },
+  { c: 0, r: 36, color: 3 }, { c: 1, r: 41, color: 2 }, { c: 2, r: 47, color: 1 }, { c: 0, r: 53, color: 0 },
   // Left side extra
-  { c: 2, r: 1, color: 2 }, { c: 4, r: 4, color: 1 }, { c: 1, r: 12, color: 0 }, { c: 4, r: 18, color: 3 },
-  { c: 2, r: 24, color: 4 }, { c: 5, r: 29, color: 2 }, { c: 1, r: 34, color: 1 }, { c: 3, r: 39, color: 0 },
-  { c: 2, r: 44, color: 4 }, { c: 4, r: 49, color: 3 }, { c: 1, r: 7, color: 2 }, { c: 3, r: 19, color: 1 },
-  // Right side (negative col = from right edge)
+  { c: 1, r: 1, color: 2 }, { c: 2, r: 4, color: 1 }, { c: 0, r: 12, color: 0 }, { c: 2, r: 18, color: 3 },
+  { c: 1, r: 24, color: 4 }, { c: 3, r: 29, color: 2 }, { c: 0, r: 34, color: 1 }, { c: 2, r: 39, color: 0 },
+  { c: 1, r: 44, color: 4 }, { c: 2, r: 49, color: 3 }, { c: 0, r: 7, color: 2 }, { c: 2, r: 19, color: 1 },
+  // Right side (negative col = from right edge: strictly cols -1..-3)
   { c: -1, r: 2, color: 0 }, { c: -2, r: 5, color: 3 }, { c: -1, r: 8, color: 4 }, { c: -2, r: 8, color: 1 },
   { c: -3, r: 12, color: 2 }, { c: -1, r: 15, color: 0 }, { c: -2, r: 19, color: 3 }, { c: -1, r: 19, color: 4 },
   { c: -2, r: 20, color: 2 }, { c: -3, r: 24, color: 1 }, { c: -1, r: 29, color: 0 }, { c: -2, r: 34, color: 3 },
   { c: -1, r: 34, color: 4 }, { c: -3, r: 39, color: 2 }, { c: -1, r: 45, color: 1 }, { c: -2, r: 51, color: 3 },
   // Right side extra
-  { c: -2, r: 1, color: 1 }, { c: -4, r: 4, color: 2 }, { c: -1, r: 12, color: 4 }, { c: -4, r: 18, color: 0 },
-  { c: -2, r: 24, color: 3 }, { c: -5, r: 29, color: 1 }, { c: -1, r: 34, color: 2 }, { c: -4, r: 39, color: 4 },
-  { c: -2, r: 44, color: 0 }, { c: -4, r: 49, color: 1 }, { c: -1, r: 7, color: 3 }, { c: -3, r: 19, color: 2 }
+  { c: -2, r: 1, color: 1 }, { c: -2, r: 4, color: 2 }, { c: -1, r: 12, color: 4 }, { c: -2, r: 18, color: 0 },
+  { c: -2, r: 24, color: 3 }, { c: -3, r: 29, color: 1 }, { c: -1, r: 34, color: 2 }, { c: -2, r: 39, color: 4 },
+  { c: -2, r: 44, color: 0 }, { c: -2, r: 49, color: 1 }, { c: -1, r: 7, color: 3 }, { c: -3, r: 19, color: 2 }
 ].map(b => ({
   ...b,
   currentC: b.c, currentR: b.r,
@@ -255,8 +256,8 @@ const ambientBlocks = [
   lastAnimTs: Math.random() * 2000
 }));
 
-/* Mobile ambient blocks: strictly edge-anchored to col 0 (left edge) and col -1 (right edge).
-   Spaced comfortably apart vertically so they frame the mobile screen without ever touching text. */
+/* Mobile and narrow-screen ambient blocks: strictly edge-anchored to col 0 (left edge) and col -1 (right edge).
+   Spaced comfortably apart vertically so they frame the screen without ever touching content. */
 const mobileAmbientBlocks = [
   // Left edge (col 0)
   { c: 0, r: 4, color: 4 },
@@ -277,6 +278,86 @@ const mobileAmbientBlocks = [
   lastAnimTs: Math.random() * 2000
 }));
 
+const CONTENT_SAFETY_BUFFER = 52; // px clearance: tiles must never come within 52px of center content
+
+/**
+ * Returns the horizontal content bounds [left, right] of the central content area in viewport pixels.
+ */
+function getContentBounds() {
+  const currentW = viewW || window.innerWidth;
+  const candidates = [
+    document.querySelector('#sponsors .wrap'),
+    document.querySelector('.page.active .wrap'),
+    document.querySelector('.wrap'),
+    document.querySelector('.editorial-hero')
+  ];
+
+  for (const el of candidates) {
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 200) {
+        return {
+          left: Math.max(0, rect.left),
+          right: Math.min(currentW, rect.right),
+          width: rect.width
+        };
+      }
+    }
+  }
+
+  // Fallback: standard container max 1280px centered
+  const maxW = Math.min(currentW - (currentW < 640 ? 28 : (currentW < 1024 ? 48 : 80)), 1280);
+  const left = Math.max(14, (currentW - maxW) / 2);
+  return { left, right: currentW - left, width: maxW };
+}
+
+/**
+ * Determines safe gutter columns and whether wide gutters are available.
+ */
+function getGutterLimits() {
+  const currentW = viewW || window.innerWidth;
+  const totalCols = Math.floor(currentW / gridSize);
+  const bounds = getContentBounds();
+
+  // Left gutter: max safe column index so that (col + 1) * gridSize <= bounds.left - CONTENT_SAFETY_BUFFER
+  const maxSafeLeftCol = Math.max(-1, Math.floor((bounds.left - CONTENT_SAFETY_BUFFER) / gridSize) - 1);
+
+  // Right gutter: min safe column index so that col * gridSize >= bounds.right + CONTENT_SAFETY_BUFFER
+  // In negative column index from the right edge (-1, -2, ...):
+  const minSafeRightCol = Math.ceil((bounds.right + CONTENT_SAFETY_BUFFER) / gridSize);
+  const minAllowedNegativeCol = Math.min(0, minSafeRightCol - totalCols);
+
+  // Only viewports with substantial side margins (at least 2 full safe columns on each side) use the multi-column scatter
+  const hasWideGutters = currentW >= 1520 && maxSafeLeftCol >= 1 && minAllowedNegativeCol <= -2;
+
+  return {
+    bounds,
+    totalCols,
+    maxSafeLeftCol,
+    minAllowedNegativeCol,
+    hasWideGutters
+  };
+}
+
+function resetAmbientBlockTargets() {
+  const { hasWideGutters, maxSafeLeftCol, minAllowedNegativeCol } = getGutterLimits();
+  const blocks = hasWideGutters ? ambientBlocks : mobileAmbientBlocks;
+  for (const b of blocks) {
+    if (!hasWideGutters) {
+      b.targetC = b.c;
+      b.currentC = b.c;
+    } else {
+      if (b.c >= 0) {
+        b.targetC = Math.max(0, Math.min(b.c, maxSafeLeftCol));
+        b.currentC = b.targetC;
+      } else {
+        b.targetC = Math.min(-1, Math.max(b.c, minAllowedNegativeCol));
+        b.currentC = b.targetC;
+      }
+    }
+  }
+}
+
 let ambientTimerId = 0;
 
 function scheduleNextAmbientStep() {
@@ -292,10 +373,8 @@ function scheduleNextAmbientStep() {
 
 function updateAmbientBlocks(ts, dt) {
   if (reducedMotion) return false;
-  const currentW = viewW || window.innerWidth;
-  const totalCols = Math.floor(document.body.clientWidth / gridSize);
-  const isMobile = currentW < 1024 || totalCols < 20;
-  const blocks = isMobile ? mobileAmbientBlocks : ambientBlocks;
+  const { maxSafeLeftCol, minAllowedNegativeCol, hasWideGutters } = getGutterLimits();
+  const blocks = hasWideGutters ? ambientBlocks : mobileAmbientBlocks;
 
   let anyMoving = false;
 
@@ -304,28 +383,33 @@ function updateAmbientBlocks(ts, dt) {
       b.lastAnimTs = ts + Math.random() * 500;
       // 50% chance to move, 50% chance to recolor
       if (Math.random() < 0.5) {
-        if (isMobile) {
-          // On mobile, keep column locked strictly to the edge (0 or -1);
-          // only step vertically by ±1 tile so it NEVER drifts into body text.
+        if (!hasWideGutters) {
+          // On mobile & narrow resolutions (<1520px or narrow gutters):
+          // Keep column strictly anchored to the outer screen edge (0 or -1).
+          // Only step vertically by ±1 tile so it NEVER drifts toward center content.
+          b.targetC = b.c;
           if (b.targetR === b.r) {
             b.targetR = b.r + (Math.random() < 0.5 ? -1 : 1);
           } else {
             b.targetR = b.r;
           }
         } else {
-          // Desktop gutter behavior
-          let tc, tr;
+          // Desktop wide gutter behavior: move only within safe gutter limits!
+          let tc = b.c;
+          let tr = b.r;
           if (b.targetC === b.c && b.targetR === b.r) {
-            tc = b.c;
-            tr = b.r;
             const rand = Math.random();
             if (rand < 0.25) tc = b.c - 1;
             else if (rand < 0.5) tc = b.c + 1;
             else if (rand < 0.75) tr = b.r - 1;
             else tr = b.r + 1;
+          }
+
+          // Strict boundary clamping: never encroach on the middle!
+          if (b.c >= 0) {
+            tc = Math.max(0, Math.min(tc, maxSafeLeftCol));
           } else {
-            tc = b.c;
-            tr = b.r;
+            tc = Math.min(-1, Math.max(tc, minAllowedNegativeCol));
           }
 
           let collision = false;
@@ -362,12 +446,9 @@ function updateAmbientBlocks(ts, dt) {
 }
 
 function drawAmbientBlocks() {
-  const currentW = viewW || window.innerWidth;
-  const totalCols = Math.floor(document.body.clientWidth / gridSize);
-  const isMobile = currentW < 1024 || totalCols < 20;
-
-  const blocks = isMobile ? mobileAmbientBlocks : ambientBlocks;
-  const opacity = isMobile ? CFG.mobileBlockOpacity : CFG.blockOpacity;
+  const { bounds, totalCols, hasWideGutters } = getGutterLimits();
+  const blocks = hasWideGutters ? ambientBlocks : mobileAmbientBlocks;
+  const opacity = hasWideGutters ? CFG.blockOpacity : CFG.mobileBlockOpacity;
 
   const size = gridSize;
   const scrollX = window.scrollX || window.pageXOffset || 0;
@@ -381,6 +462,15 @@ function drawAmbientBlocks() {
     
     // Resolve right-aligned columns
     const actualCol = b.currentC < 0 ? totalCols + b.currentC : b.currentC;
+
+    // Safety guard: Compute viewport coordinates of this tile column
+    const tileLeft = Math.round(actualCol * gridSize - scrollX);
+    const tileRight = tileLeft + size;
+
+    // Content exclusion check: if the tile enters or comes closer than CONTENT_SAFETY_BUFFER to the content in the middle, DO NOT DRAW IT
+    if (tileRight > (bounds.left - CONTENT_SAFETY_BUFFER) && tileLeft < (bounds.right + CONTENT_SAFETY_BUFFER)) {
+      continue;
+    }
     
     // Repeat vertically so the pattern covers the whole page
     for (let rep = -1; rep <= Math.ceil((startVisRow + visRows) / CFG.blockRepeatY) + 1; rep++) {
