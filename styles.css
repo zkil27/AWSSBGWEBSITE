@@ -978,6 +978,92 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
 .ed-desc {
   grid-column: span 5;
   padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.video-hero-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #080c14;
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  margin-bottom: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.video-hero-card:focus-visible {
+  outline: 2px solid var(--blue, #38bdf8);
+  outline-offset: 2px;
+}
+
+.video-hero-card:hover {
+  border-color: var(--blue, #38bdf8);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45), 0 0 24px -4px rgba(56, 189, 248, 0.25);
+  transform: translateY(-2px);
+}
+
+.hero-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  background-color: #080c14;
+}
+
+/* Play/Pause badge overlay */
+.video-play-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(8, 12, 22, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.video-play-badge .play-icon,
+.video-play-badge .pause-icon {
+  width: 12px;
+  height: 12px;
+  display: none;
+}
+
+.video-hero-card.is-playing .video-play-badge .pause-icon {
+  display: block;
+}
+
+.video-hero-card.is-paused .video-play-badge .play-icon {
+  display: block;
+}
+
+.video-hero-card:hover .video-play-badge,
+.video-hero-card.is-paused .video-play-badge,
+.video-hero-card:focus-visible .video-play-badge {
+  opacity: 1;
+}
+
+html[data-theme="light"] .video-play-badge {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0B0F19;
 }
 
 .ed-clock {
@@ -985,7 +1071,7 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   padding-left: 24px;
   border-right: none !important;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .ed-clock-label {
@@ -5738,6 +5824,18 @@ footer.site-footer {
     width: 100% !important;
   }
 
+  .video-hero-card {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    border-radius: 12px;
+    margin-bottom: clamp(10px, 2vh, 14px) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .video-play-badge {
+    opacity: 0.9 !important;
+  }
+
   .ed-subheadline {
     font-size: clamp(14.5px, 4vw, 17px) !important;
     font-weight: 800 !important;
@@ -5872,6 +5970,10 @@ footer.site-footer {
     padding-bottom: 6px !important;
   }
 
+  .video-hero-card {
+    margin-bottom: 8px !important;
+  }
+
   .ed-body-lead {
     margin-bottom: 8px !important;
   }
@@ -5976,6 +6078,10 @@ footer.site-footer {
   }
   .ed-meta-sub {
     font-size: 10.5px !important;
+  }
+  .video-hero-card {
+    border-radius: 10px;
+    margin-bottom: 8px !important;
   }
   .ed-subheadline {
     font-size: 13.5px !important;

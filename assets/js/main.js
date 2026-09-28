@@ -24,6 +24,7 @@ import { initStackedCards } from './modules/stackedCards.js';
 import { initSplitText } from './modules/splitText.js';
 import { initPixelTransition, initSplashPixelTransition } from './modules/pixelTransition.js';
 import { initFooterLedger } from './modules/footerLedger.js';
+import { initVideoHero } from './modules/videoHero.js';
 
 // Detect hardware & network constraints immediately
 initPerfManager();
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // touch / reduced-motion (native scroll).
     initSmoothScroll();
     initCountdown();
+    initVideoHero();
 
     // 2. Initialize UI views & dynamic content
     initSpeakers();
