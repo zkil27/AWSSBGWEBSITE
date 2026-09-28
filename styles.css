@@ -1571,6 +1571,7 @@ section {
   color: #0B1526;
   position: relative;
   overflow: hidden;
+  margin-top: clamp(60px, 8vh, 120px);
 }
 
 /* keep the decorative boxes in these two solid-colour bands subtle so they
@@ -3216,17 +3217,79 @@ html[data-theme="dark"] .speaker-inline-card {
 #venue {
   position: relative;
   z-index: 3;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  scroll-margin-top: calc(var(--nav-h, 76px) + 24px);
 }
 
 /* Make Venue Section expand across widescreen displays */
 #venue .wrap {
+  position: relative;
+  z-index: 2;
   max-width: min(1560px, 94vw);
   padding-left: clamp(20px, 3.5vw, 48px);
   padding-right: clamp(20px, 3.5vw, 48px);
+  width: 100%;
 }
 
 .section-venue {
-  padding: clamp(80px, 7vw, 130px) 0;
+  padding: clamp(120px, 14vh, 200px) 0 clamp(140px, 16vh, 220px);
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+}
+
+/* Theatrical Architectural Spotlight behind the Venue Stage */
+.section-venue::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1400px, 92vw);
+  height: min(760px, 85%);
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 50%,
+    rgba(7, 227, 131, 0.09) 0%,
+    rgba(68, 179, 254, 0.05) 42%,
+    transparent 74%
+  );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(48px);
+}
+
+/* Focused Top Downlight Beam */
+.section-venue::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, 75vw);
+  height: clamp(280px, 35vh, 440px);
+  background: radial-gradient(
+    ellipse 60% 100% at 50% 0%,
+    rgba(7, 227, 131, 0.11) 0%,
+    rgba(68, 179, 254, 0.04) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+html[data-theme="light"] .section-venue::before {
+  opacity: 0.6;
+}
+
+html[data-theme="light"] .section-venue::after {
+  opacity: 0.5;
 }
 
 .venue-section-head {
@@ -3250,7 +3313,7 @@ html[data-theme="dark"] .speaker-inline-card {
   border-radius: 16px;
   overflow: hidden;
   background: #090e18;
-  box-shadow: none; /* Strictly no glow */
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
   height: 100%;
 }
 
@@ -3540,6 +3603,12 @@ html[data-theme="light"] .venue-space-row {
 
 /* Responsive */
 @media (max-width: 960px) {
+  #venue {
+    min-height: auto;
+  }
+  .section-venue {
+    padding: clamp(72px, 10vh, 120px) 0 clamp(80px, 12vh, 140px);
+  }
   .venue-editorial-stage {
     grid-template-columns: 1fr;
     gap: 32px;
