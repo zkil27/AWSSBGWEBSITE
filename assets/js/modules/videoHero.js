@@ -8,22 +8,22 @@
  * - Hardware-accelerated 60fps FLIP transition with zero dropped video frames
  * - Backdrop blur scrim and background scroll-lock
  * - Full keyboard (Esc, Space, Enter) and responsive touch support
+ * - Dual-synchronized player architecture with silky-smooth cross-fade
+ *   between 2:1 widescreen inline preview and 9:16 mobile portrait poster
  */
 
 import { getLenis } from './smoothScroll.js';
 
-const DESKTOP_VIDEO_SRC = 'assets/images/main-poster-v3.mp4';
-const MOBILE_PORTRAIT_VIDEO_SRC = 'assets/images/main-poster-v3-mobile.mp4';
-
 function isMobilePortraitViewport() {
   const w = window.innerWidth;
   const h = window.innerHeight;
-  return (w <= 768 && h >= w) || window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+  return (w <= 768 && h >= w);
 }
 
 export function initVideoHero() {
   const card = document.getElementById('heroVideoCard');
   const video = document.getElementById('heroVideoPlayer');
+  const mobileVideo = document.getElementById('heroVideoPlayerMobile');
   const placeholder = document.getElementById('heroVideoPlaceholder');
   const backdrop = document.getElementById('videoTheatricalBackdrop');
   const pauseBtn = document.getElementById('heroVideoPauseBtn');
@@ -36,40 +36,13 @@ export function initVideoHero() {
   let isTheatrical = false;
   let isAnimating = false;
 
-  // Prime mobile video cache on mobile viewports for instant theatrical playback
-  if (isMobilePortraitViewport()) {
-    const preloader = document.createElement('video');
-    preloader.preload = 'auto';
-    preloader.src = MOBILE_PORTRAIT_VIDEO_SRC;
-  }
-
-  function switchVideoSrc(targetSrc) {
-    const currentSrc = video.currentSrc || video.src || (video.querySelector('source') ? video.querySelector('source').getAttribute('src') : '');
-    if (currentSrc && currentSrc.endsWith(targetSrc)) return;
-
-    const wasPaused = video.paused;
-    const prevTime = video.currentTime;
-    const sourceEl = video.querySelector('source');
-    if (sourceEl) {
-      sourceEl.setAttribute('src', targetSrc);
-    }
-    video.src = targetSrc;
-    video.load();
-
-    const onLoadedMetadata = () => {
-      if (prevTime && prevTime < video.duration) {
-        video.currentTime = prevTime;
-      }
-    };
-    video.addEventListener('loadedmetadata', onLoadedMetadata, { once: true });
-
-    if (!wasPaused && !userPaused) {
-      video.play().catch(() => {});
-    }
+  function getActiveVideo() {
+    return (isTheatrical && isMobilePortraitViewport() && mobileVideo) ? mobileVideo : video;
   }
 
   const updateCardState = () => {
-    if (video.paused) {
+    const active = getActiveVideo();
+    if (active.paused) {
       card.classList.add('is-paused');
       card.classList.remove('is-playing');
       card.setAttribute('aria-label', isTheatrical 
@@ -93,12 +66,19 @@ export function initVideoHero() {
   };
 
   const togglePlayback = () => {
-    if (video.paused) {
+    const active = getActiveVideo();
+    if (active.paused) {
       userPaused = false;
       video.play().catch(() => {});
+      if (isTheatrical && isMobilePortraitViewport() && mobileVideo) {
+        mobileVideo.play().catch(() => {});
+      }
     } else {
       userPaused = true;
       video.pause();
+      if (mobileVideo) {
+        mobileVideo.pause();
+      }
     }
     updateCardState();
   };
@@ -108,13 +88,14 @@ export function initVideoHero() {
     const viewportH = window.innerHeight;
 
     if (isMobilePortraitViewport()) {
-      // 9:16 vertical motion poster for mobile portrait
-      const maxH = Math.min(viewportH * 0.88, 760);
-      let h = maxH;
-      let w = h * (9 / 16);
-      if (w > viewportW * 0.92) {
-        w = viewportW * 0.92;
-        h = w * (16 / 9);
+      // 9:16 vertical motion poster for mobile portrait, comfortably framed
+      const maxH = viewportH * 0.84;
+      const maxW = viewportW * 0.90;
+      let w = maxW;
+      let h = w * (16 / 9);
+      if (h > maxH) {
+        h = maxH;
+        w = h * (9 / 16);
       }
       const left = Math.max(8, Math.round((viewportW - w) / 2));
       const top = Math.max(8, Math.round((viewportH - h) / 2));
@@ -167,11 +148,14 @@ export function initVideoHero() {
     card.style.zIndex = '100000';
     card.classList.add('is-theater-animating');
 
-    // Switch to portrait video if mobile portrait viewport, or desktop video otherwise
-    if (isMobilePortraitViewport()) {
-      switchVideoSrc(MOBILE_PORTRAIT_VIDEO_SRC);
-    } else {
-      switchVideoSrc(DESKTOP_VIDEO_SRC);
+    const isMobile = isMobilePortraitViewport();
+    if (isMobile && mobileVideo) {
+      if (video.currentTime && mobileVideo.duration) {
+        mobileVideo.currentTime = video.currentTime % mobileVideo.duration;
+      }
+      if (!userPaused) {
+        mobileVideo.play().catch(() => {});
+      }
     }
 
     // Activate backdrop scrim
@@ -195,14 +179,13 @@ export function initVideoHero() {
       card.setAttribute('aria-expanded', 'true');
       isTheatrical = true;
 
-      if (video.paused && !userPaused) {
-        video.play().catch(() => {});
-      }
-
       updateCardState();
 
       const onTransitionEnd = () => {
         isAnimating = false;
+        if (isMobile && mobileVideo && !mobileVideo.paused) {
+          video.pause();
+        }
         card.removeEventListener('transitionend', onTransitionEnd);
       };
 
@@ -221,6 +204,16 @@ export function initVideoHero() {
 
     const returnRect = placeholder ? placeholder.getBoundingClientRect() : null;
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = isMobilePortraitViewport();
+
+    if (isMobile && mobileVideo) {
+      if (mobileVideo.currentTime && video.duration) {
+        video.currentTime = mobileVideo.currentTime % video.duration;
+      }
+      if (!userPaused) {
+        video.play().catch(() => {});
+      }
+    }
 
     if (backdrop) backdrop.classList.remove('is-active');
 
@@ -241,8 +234,9 @@ export function initVideoHero() {
       card.classList.remove('is-theatrical-expanded');
 
       const cleanup = () => {
-        // Restore desktop 2:1 widescreen video for normal inline mode
-        switchVideoSrc(DESKTOP_VIDEO_SRC);
+        if (mobileVideo) {
+          mobileVideo.pause();
+        }
         card.removeAttribute('style');
         card.classList.remove('is-theater-animating');
         card.setAttribute('aria-expanded', 'false');
@@ -280,6 +274,10 @@ export function initVideoHero() {
         // In normal mode, exit resets video playback to the start and pauses
         video.currentTime = 0;
         video.pause();
+        if (mobileVideo) {
+          mobileVideo.currentTime = 0;
+          mobileVideo.pause();
+        }
         userPaused = true;
         updateCardState();
       }
@@ -326,17 +324,13 @@ export function initVideoHero() {
   // Handle window resizing and orientation changes while in theatrical view
   const handleViewportChange = () => {
     if (isTheatrical && !isAnimating) {
-      if (isMobilePortraitViewport()) {
-        switchVideoSrc(MOBILE_PORTRAIT_VIDEO_SRC);
-      } else {
-        switchVideoSrc(DESKTOP_VIDEO_SRC);
-      }
       const target = calcTheatricalRect();
       card.style.transition = 'none';
       card.style.top = target.top + 'px';
       card.style.left = target.left + 'px';
       card.style.width = target.width + 'px';
       card.style.height = target.height + 'px';
+      updateCardState();
     }
   };
 
@@ -350,9 +344,14 @@ export function initVideoHero() {
 
   video.addEventListener('play', updateCardState);
   video.addEventListener('pause', updateCardState);
+  if (mobileVideo) {
+    mobileVideo.addEventListener('play', updateCardState);
+    mobileVideo.addEventListener('pause', updateCardState);
+  }
 
   if (prefersReduced) {
     video.pause();
+    if (mobileVideo) mobileVideo.pause();
     updateCardState();
   } else {
     const playPromise = video.play();

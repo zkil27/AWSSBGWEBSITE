@@ -1022,12 +1022,46 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
 }
 
 .hero-video-player {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   user-select: none;
   background-color: #080c14;
+}
+
+.hero-video-desktop {
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-video-mobile {
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* In maximized theatrical mode on mobile portrait, smoothly dissolve into portrait motion poster */
+@media (max-width: 768px) {
+  .video-hero-card.is-theatrical-expanded .hero-video-mobile {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .video-hero-card.is-theatrical-expanded .hero-video-desktop {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* Completely omit mobile video player on desktop viewports */
+@media (min-width: 769px) {
+  .hero-video-mobile {
+    display: none !important;
+  }
 }
 
 /* On-video Control Buttons: Pause (Top Left), Exit (Top Right) */

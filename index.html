@@ -286,8 +286,9 @@
                 </svg>
               </button>
 
+              <!-- 2:1 Widescreen Motion Poster for Desktop / Landscape & Mobile Inline Preview -->
               <video 
-                class="hero-video-player" 
+                class="hero-video-player hero-video-desktop" 
                 id="heroVideoPlayer" 
                 autoplay 
                 muted 
@@ -297,9 +298,21 @@
                 poster="assets/images/event-primer.webp"
                 aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
               >
-                <!-- 2:1 Widescreen Motion Poster centered in card -->
                 <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
                 Your browser does not support the video tag.
+              </video>
+
+              <!-- 9:16 Portrait Motion Poster for Mobile Theatrical Mode -->
+              <video 
+                class="hero-video-player hero-video-mobile" 
+                id="heroVideoPlayerMobile" 
+                muted 
+                loop 
+                playsinline 
+                preload="auto"
+                aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster (Mobile Portrait)"
+              >
+                <source src="assets/images/main-poster-v3-mobile.mp4" type="video/mp4">
               </video>
 
               <!-- Click for theater view hint badge -->
