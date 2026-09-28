@@ -528,19 +528,7 @@ nav.links button.active::after {
 
 /* Floating AssistiveTouch Pod Button */
 .assistive-pod {
-  position: fixed;
-  bottom: calc(24px + env(safe-area-inset-bottom));
-  right: 18px;
-  z-index: 500;
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  padding: 0;
-  border: 2px solid rgba(255, 255, 255, 0.45);
-  background: var(--orange);
-  color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  display: flex;
+  display: none !important;
   align-items: center;
   justify-content: center;
   cursor: grab;
@@ -5765,6 +5753,7 @@ footer.site-footer {
   }
 
   .assistive-pod {
+    display: none !important;
     width: 44px !important;
     height: 44px !important;
     border-radius: 13px !important;
