@@ -253,7 +253,39 @@
           </div>
           
           <div class="ed-col ed-desc">
-            <div class="video-hero-card" id="heroVideoCard" role="region" aria-label="Official Motion Poster Video" tabindex="0">
+            <div class="video-hero-placeholder" id="heroVideoPlaceholder" aria-hidden="true"></div>
+            <div class="video-hero-card" id="heroVideoCard" role="region" aria-label="Official Motion Poster Video — Click to expand into cinematic view" tabindex="0">
+              <!-- Top Left: Pause / Play Button -->
+              <button 
+                type="button" 
+                class="video-ctrl-btn video-ctrl-pause" 
+                id="heroVideoPauseBtn" 
+                aria-label="Pause video" 
+                title="Pause / Play (Space)"
+              >
+                <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                  <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                </svg>
+                <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                </svg>
+              </button>
+
+              <!-- Top Right: Exit Button -->
+              <button 
+                type="button" 
+                class="video-ctrl-btn video-ctrl-exit" 
+                id="heroVideoExitBtn" 
+                aria-label="Exit cinematic view" 
+                title="Exit (Esc)"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+
               <video 
                 class="hero-video-player" 
                 id="heroVideoPlayer" 
@@ -269,16 +301,21 @@
                 <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
-              <div class="video-play-badge" aria-hidden="true">
-                <svg class="play-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+
+              <!-- Click for theater view hint badge -->
+              <div class="video-zoom-hint" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
                 </svg>
-                <svg class="pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="4" width="4" height="16"></rect>
-                  <rect x="14" y="4" width="4" height="16"></rect>
-                </svg>
+                <span>Click for theater view</span>
               </div>
             </div>
+
+            <!-- Theatrical Backdrop Scrim Overlay -->
+            <div class="video-theatrical-backdrop" id="videoTheatricalBackdrop" aria-hidden="true"></div>
             <div class="hero-actions ed-actions">
               <a class="btn btn-primary" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now!</a>
               <button class="btn btn-ghost hero-menu-btn" id="heroMenuBtn" type="button" aria-label="Open navigation menu" aria-controls="staggered-menu-panel">

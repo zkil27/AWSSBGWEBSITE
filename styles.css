@@ -983,6 +983,17 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   justify-content: center;
 }
 
+/* Placeholder to preserve layout space when card transitions to fixed viewport mode */
+.video-hero-placeholder {
+  display: none;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .video-hero-card {
   position: relative;
   width: 100%;
@@ -995,6 +1006,7 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   margin-bottom: 16px;
   cursor: pointer;
   outline: none;
+  user-select: none;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
@@ -1003,7 +1015,7 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   outline-offset: 2px;
 }
 
-.video-hero-card:hover {
+.video-hero-card:not(.is-theatrical-expanded):hover {
   border-color: var(--blue, #38bdf8);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45), 0 0 24px -4px rgba(56, 189, 248, 0.25);
   transform: translateY(-2px);
@@ -1018,52 +1030,178 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   background-color: #080c14;
 }
 
-/* Play/Pause badge overlay */
-.video-play-badge {
+/* On-video Control Buttons: Pause (Top Left), Exit (Top Right) */
+.video-ctrl-btn {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  top: 10px;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: rgba(8, 12, 22, 0.72);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  background: rgba(9, 14, 26, 0.78);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   color: #ffffff;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.video-play-badge .play-icon,
-.video-play-badge .pause-icon {
-  width: 12px;
-  height: 12px;
+.video-ctrl-pause {
+  left: 10px;
+}
+
+.video-ctrl-exit {
+  right: 10px;
+}
+
+.video-ctrl-btn:hover {
+  background: rgba(14, 23, 42, 0.94);
+  border-color: var(--blue, #38bdf8);
+  color: var(--blue, #38bdf8);
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55), 0 0 14px rgba(56, 189, 248, 0.35);
+}
+
+.video-ctrl-exit:hover {
+  border-color: #f87171;
+  color: #f87171;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55), 0 0 14px rgba(248, 113, 113, 0.35);
+}
+
+.video-ctrl-btn:active {
+  transform: scale(0.95);
+}
+
+.video-ctrl-btn:focus-visible {
+  outline: 2px solid var(--blue, #38bdf8);
+  outline-offset: 2px;
+}
+
+/* Pause / Play icon toggling */
+.video-ctrl-pause .icon-pause,
+.video-ctrl-pause .icon-play {
+  width: 14px;
+  height: 14px;
   display: none;
 }
 
-.video-hero-card.is-playing .video-play-badge .pause-icon {
+.video-hero-card.is-playing .video-ctrl-pause .icon-pause {
   display: block;
 }
 
-.video-hero-card.is-paused .video-play-badge .play-icon {
+.video-hero-card.is-paused .video-ctrl-pause .icon-play {
   display: block;
 }
 
-.video-hero-card:hover .video-play-badge,
-.video-hero-card.is-paused .video-play-badge,
-.video-hero-card:focus-visible .video-play-badge {
+/* Subtle zoom hint badge on card hover in normal mode */
+.video-zoom-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(9, 14, 26, 0.74);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 5;
+}
+
+.video-hero-card:hover .video-zoom-hint,
+.video-hero-card:focus-visible .video-zoom-hint {
   opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
-html[data-theme="light"] .video-play-badge {
-  background: rgba(255, 255, 255, 0.88);
-  border-color: rgba(0, 0, 0, 0.12);
-  color: #0B0F19;
+.video-hero-card.is-theatrical-expanded .video-zoom-hint {
+  display: none !important;
+}
+
+/* Theatrical Backdrop Scrim */
+.video-theatrical-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background: radial-gradient(circle at center, rgba(14, 22, 40, 0.92) 0%, rgba(4, 7, 15, 0.96) 100%);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+}
+
+.video-theatrical-backdrop.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  cursor: zoom-out;
+}
+
+body.is-theater-active {
+  overflow: hidden !important;
+}
+
+/* Active Theatrical Mode on the Video Card */
+.video-hero-card.is-theater-animating {
+  margin: 0 !important;
+  will-change: top, left, width, height, border-radius, box-shadow;
+}
+
+.video-hero-card.is-theatrical-expanded {
+  border-radius: 16px;
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.94), 0 0 54px rgba(56, 189, 248, 0.35);
+  cursor: default;
+}
+
+.video-hero-card.is-theatrical-expanded .video-ctrl-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  top: 14px;
+}
+
+.video-hero-card.is-theatrical-expanded .video-ctrl-pause {
+  left: 14px;
+}
+
+.video-hero-card.is-theatrical-expanded .video-ctrl-exit {
+  right: 14px;
+}
+
+.video-hero-card.is-theatrical-expanded .video-ctrl-pause .icon-pause,
+.video-hero-card.is-theatrical-expanded .video-ctrl-pause .icon-play {
+  width: 17px;
+  height: 17px;
+}
+
+.video-hero-card.is-theatrical-expanded .video-ctrl-exit svg {
+  width: 17px;
+  height: 17px;
 }
 
 .ed-clock {
@@ -5486,8 +5624,22 @@ footer.site-footer {
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   }
 
-  .video-play-badge {
-    opacity: 0.9 !important;
+  .video-ctrl-btn {
+    width: 32px;
+    height: 32px;
+    top: 8px;
+  }
+  .video-ctrl-pause {
+    left: 8px;
+  }
+  .video-ctrl-exit {
+    right: 8px;
+  }
+  .video-ctrl-pause .icon-pause,
+  .video-ctrl-pause .icon-play,
+  .video-ctrl-exit svg {
+    width: 13px;
+    height: 13px;
   }
 
   .ed-subheadline {
