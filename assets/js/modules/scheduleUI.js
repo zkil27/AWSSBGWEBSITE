@@ -89,7 +89,7 @@ export const scheduleSessions = [
     categoryTheme: 'theme-orange',
     title: 'Lunch Break, Networking & Hub Experience',
     location: '2nd Floor Hub & Exhibition Hall',
-    description: 'Lunch, sponsor and partner booth exploration, hands-on developer challenges, speed mentoring with cloud architects, photobooth, and peer networking.',
+    description: 'Lunch, sponsor and partner booth exploration, developer showcases, speed mentoring with cloud architects, photobooth, and peer networking.',
     speakerIndices: []
   },
   {

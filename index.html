@@ -16,11 +16,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet">
   </noscript>
-  <link rel="stylesheet" href="theme.css?v=20260911-rect">
-  <link rel="stylesheet" href="styles.css?v=20260911-sponsors-v3">
-  <link rel="stylesheet" href="assets/css/staggeredMenu.css?v=20260911-rect">
+  <link rel="stylesheet" href="theme.css?v=20260920-manifesto-dark">
+  <link rel="stylesheet" href="styles.css?v=20260923-flip-fix">
+  <link rel="stylesheet" href="assets/css/staggeredMenu.css?v=20260920-manifesto-dark">
   <link rel="stylesheet" href="assets/css/grainient.css">
-  <link rel="stylesheet" href="assets/css/masonry.css">
+  <link rel="stylesheet" href="assets/css/masonry.css?v=20260923-lineup-clean">
   <link rel="stylesheet" href="assets/css/splitText.css">
   <link rel="stylesheet" href="assets/css/pixelTransition.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -30,6 +30,9 @@
     (function () {
       try {
         var t = localStorage.getItem('scd-theme');
+        if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          t = 'dark';
+        }
         if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
       } catch (e) { }
     })();
@@ -207,6 +210,9 @@
       <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2.2" />
       <path d="M12 2v2.5M12 19.5v2.5M2 12h2.5M19.5 12h2.5M4.93 4.93l1.8 1.8M17.27 17.27l1.8 1.8M4.93 19.07l1.8-1.8M17.27 6.73l1.8-1.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none" />
     </symbol>
+    <symbol id="mail-icon" viewBox="0 0 24 24">
+      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor" />
+    </symbol>
     <symbol id="icon-moon" viewBox="0 0 24 24">
       <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     </symbol>
@@ -218,61 +224,46 @@
   <div class="page active" id="page-home">
 
     <!-- HERO -->
-    <section class="hero">
-      <div class="primer-edge primer-edge--top" aria-hidden="true">
-        <span class="brand-box pe-blue"></span>
-        <span class="brand-box pe-green"></span>
-        <span class="brand-box pe-pink"></span>
-        <span class="brand-box pe-orange"></span>
-        <span class="brand-box pe-purple"></span>
-      </div>
-      <div class="deco-layer deco-corners" aria-hidden="true">
-        <span class="brand-box b1"></span>
-        <span class="brand-box b2"></span>
-        <span class="brand-box b3"></span>
-        <span class="brand-box b4"></span>
-        <span class="brand-box b5"></span>
-      </div>
-      <span class="box-floating" aria-hidden="true"></span>
-
-      <div class="editorial-hero">
-        <div class="ed-header">
-          <p class="eyebrow ed-eyebrow">AWS Student Community Day</p>
-          <h1 class="hero-title">South Summit <span class="accent">2026</span></h1>
+    <section class="hero" id="hero">
+      <!-- Poster Layout: Title at top, official emblem in the center -->
+      <div class="hero-poster-wrap">
+        <div class="hero-poster-inner">
+          <p class="hero-poster-kicker">AWS Student Community Day</p>
+          <h1 class="hero-poster-title">South Summit 2026</h1>
+          <div class="hero-meta-row">
+            <span class="hero-meta-tagline">Cloud &times; AI: BUILD. GROW. LEAD.</span>
+            <span class="hero-meta-sep" aria-hidden="true">&bull;</span>
+            <span class="hero-meta-date">October 7, 2026</span>
+            <span class="hero-meta-sep" aria-hidden="true">&bull;</span>
+            <span class="hero-meta-venue">Biñan People's Center, Laguna</span>
+          </div>
         </div>
 
-        <hr class="ed-rule">
+        <div class="hero-logo-center" aria-hidden="true">
+          <img class="hero-emblem" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day South Summit 2026 Emblem" width="200" height="200">
+        </div>
 
-        <div class="ed-content-grid">
-          <div class="ed-col ed-meta">
-            <div class="ed-meta-block">
-              <span class="ed-meta-label">Date</span>
-              <span class="ed-meta-value">Oct 7, 2026</span>
-              <span class="ed-meta-sub">8:00 AM – 5:00 PM</span>
+        <!-- React Bits CountUp Countdown Timer -->
+        <div class="hero-timer-wrap" id="countdown" aria-label="Countdown to South Summit 2026">
+          <div class="countup-card">
+            <div class="countup-seg seg-days">
+              <span class="countup-num" id="cd-days">00</span>
+              <span class="countup-label">Days</span>
             </div>
-            <div class="ed-meta-block" style="margin-top: 24px;">
-              <span class="ed-meta-label">Location</span>
-              <span class="ed-meta-value">Biñan, Laguna</span>
-              <span class="ed-meta-sub">Biñan People's Center Auditorium</span>
+            <span class="countup-divider" aria-hidden="true">:</span>
+            <div class="countup-seg seg-hours">
+              <span class="countup-num" id="cd-hours">00</span>
+              <span class="countup-label">Hours</span>
             </div>
-          </div>
-          
-          <div class="ed-col ed-desc">
-            <h3 class="ed-subheadline">Cloud × AI: Build. Grow. Lead.</h3>
-            <p class="ed-body-lead">A full-day, student-led summit bringing builders, student leaders, and tech advocates from CALABARZON together to explore cloud computing and AI — and to build the confidence to lead with it.</p>
-            <div class="hero-actions ed-actions">
-              <a class="btn btn-primary" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now!</a>
-              <button class="btn btn-ghost" data-page="merch">Check Out Merch</button>
+            <span class="countup-divider" aria-hidden="true">:</span>
+            <div class="countup-seg seg-mins">
+              <span class="countup-num" id="cd-mins">00</span>
+              <span class="countup-label">Mins</span>
             </div>
-          </div>
-
-          <div class="ed-col ed-clock" id="countdown" aria-label="Countdown to event">
-            <span class="ed-meta-label" style="display:block; margin-bottom:12px;">T-Minus</span>
-            <div class="editorial-clock">
-              <div class="seg"><b id="cd-days">00</b><small>Days</small></div>
-              <div class="seg"><b id="cd-hours">00</b><small>Hrs</small></div>
-              <div class="seg"><b id="cd-mins">00</b><small>Min</small></div>
-              <div class="seg"><b id="cd-secs">00</b><small>Sec</small></div>
+            <span class="countup-divider" aria-hidden="true">:</span>
+            <div class="countup-seg seg-secs">
+              <span class="countup-num" id="cd-secs">00</span>
+              <span class="countup-label">Secs</span>
             </div>
           </div>
         </div>
@@ -309,28 +300,70 @@
             
             <div class="sponsors-hero-grid" id="sponsorsQuantumGrid">
               <!-- AWS (Quantum Sponsor) -->
-              <article class="sponsors-hero-card color-purple" data-card-color="purple" aria-label="Amazon Web Services - QUANTUM SPONSOR" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame">
-                    <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
-                    <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-purple" data-card-color="purple" aria-label="Amazon Web Services - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame">
+                        <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/aws-logo-light.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+                        <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/aws-logo-dark.svg" alt="Amazon Web Services" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag quantum">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">Amazon Web Services</h3>
+                      <p class="hero-back-role">Quantum Sponsor &amp; Global Cloud Platform</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
 
               <!-- Tutorials Dojo (Quantum Sponsor) -->
-              <article class="sponsors-hero-card color-blue" data-card-color="blue" aria-label="Tutorials Dojo - QUANTUM SPONSOR" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame">
-                    <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-blue" data-card-color="blue" aria-label="Tutorials Dojo - QUANTUM SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame">
+                        <img class="hero-logo" src="assets/images/sponsors and partners/tutorialsdojo_transparent_background.webp" alt="Tutorials Dojo" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag learning">QUANTUM SPONSOR</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">Tutorials Dojo</h3>
+                      <p class="hero-back-role">Quantum Sponsor &amp; Official Cloud Learning Partner</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -349,28 +382,70 @@
 
             <div class="sponsors-hero-grid" id="sponsorsClusterVenueGrid">
               <!-- Cloud Sensei (Cluster Sponsor) -->
-              <article class="sponsors-hero-card color-teal" data-card-color="teal" aria-label="Cloud Sensei - CLUSTER SPONSOR" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame">
-                    <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/cloudsensei-light.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
-                    <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/cloudsensei-dark.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-teal" data-card-color="teal" aria-label="Cloud Sensei - CLUSTER SPONSOR. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame">
+                        <img class="hero-logo hero-logo--theme-light" src="assets/images/sponsors and partners/cloudsensei-light.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
+                        <img class="hero-logo hero-logo--theme-dark" src="assets/images/sponsors and partners/cloudsensei-dark.webp" alt="Cloud Sensei" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag cluster">CLUSTER SPONSOR</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">Cloud Sensei</h3>
+                      <p class="hero-back-role">Cluster Sponsor</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
 
               <!-- City Government of Biñan (Venue Partner) -->
-              <article class="sponsors-hero-card color-orange" data-card-color="orange" aria-label="City Government of Biñan (Biñan LGU) - VENUE PARTNER" data-reveal>
-                <div class="hero-card-spotlight" aria-hidden="true"></div>
-                <div class="hero-card-top">
-                  <span class="hero-tier-tag venue">VENUE PARTNER</span>
-                </div>
-                <div class="hero-card-media">
-                  <div class="hero-logo-frame emblem">
-                    <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" width="220" height="90" loading="lazy" decoding="async">
+              <article class="sponsors-hero-card color-orange" data-card-color="orange" aria-label="City Government of Biñan (Biñan LGU) - VENUE PARTNER. Click to flip card." tabindex="0" role="button" aria-expanded="false" data-reveal>
+                <div class="sponsor-flipper">
+                  <div class="sponsor-flip-face sponsor-flip-front">
+                    <div class="hero-card-spotlight" aria-hidden="true"></div>
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag venue">VENUE PARTNER</span>
+                    </div>
+                    <div class="hero-card-media">
+                      <div class="hero-logo-frame emblem">
+                        <img class="hero-logo" src="assets/images/sponsors and partners/city government of binan logo.webp" alt="City Government of Biñan (Biñan LGU)" width="220" height="90" loading="lazy" decoding="async">
+                      </div>
+                    </div>
+                    <div class="tile-flip-hint" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to flip</span>
+                    </div>
+                  </div>
+                  <div class="sponsor-flip-face sponsor-flip-back">
+                    <div class="hero-card-top">
+                      <span class="hero-tier-tag venue">VENUE PARTNER</span>
+                    </div>
+                    <div class="hero-back-body">
+                      <h3 class="hero-back-name">City Government of Biñan (Biñan LGU)</h3>
+                      <p class="hero-back-role">Official Venue Partner</p>
+                    </div>
+                    <div class="tile-flip-hint is-back" aria-hidden="true">
+                      <span class="tile-flip-hint-icon">↺</span>
+                      <span>Click to show logo</span>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -390,16 +465,28 @@
             <!-- Dual-Track Marquee Wrapper with Gradient Masks -->
             <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
               <!-- Track 1: Pro Partners (Marquee Left) -->
-              <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
-                <div class="marquee-track" id="marqueeTrack1">
-                  <!-- Populated dynamically by sponsorsUI.js -->
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag pro"><span class="tag-dot" aria-hidden="true"></span>PRO PARTNERS</span>
+                  <span class="marquee-tier-count">13 Partner Organizations</span>
+                </div>
+                <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
+                  <div class="marquee-track" id="marqueeTrack1">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
                 </div>
               </div>
 
               <!-- Track 2: Lite Partners (Marquee Right) -->
-              <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
-                <div class="marquee-track" id="marqueeTrack2">
-                  <!-- Populated dynamically by sponsorsUI.js -->
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag lite"><span class="tag-dot" aria-hidden="true"></span>LITE PARTNERS</span>
+                  <span class="marquee-tier-count">10 Partner Organizations</span>
+                </div>
+                <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
+                  <div class="marquee-track" id="marqueeTrack2">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -477,8 +564,8 @@
                   <span class="bp-meta-index">01</span>
                   <span class="bp-meta-label">Build</span>
                 </header>
-                <h3>Hands-on with Cloud &amp; AI</h3>
-                <p>Beginner-friendly technical talks and demos on AWS cloud fundamentals and applied AI — made for
+                <h3>Seminars in Cloud &amp; AI</h3>
+                <p>Beginner-friendly technical talks and architectural seminars on AWS cloud fundamentals and applied AI — made for
                   first-timers, not just the already-initiated.</p>
               </div>
             </article>
@@ -803,7 +890,7 @@
         <span class="brand-box b5"></span>
       </div>
       <div class="wrap quote-inner">
-        <p class="quote-mark">"Cloud × AI: Build. Grow. Lead. — three motions, one day, one community of student builders."</p>
+        <p class="quote-mark">"<span class="quote-cloud-ai">Cloud × AI:</span> <span class="quote-build">Build.</span> <span class="quote-grow">Grow.</span> <span class="quote-lead">Lead.</span> — three motions, one day, one community of student builders."</p>
         <p class="quote-attr font-mono">— AWS SCD: SOUTH SUMMIT 2026</p>
       </div>
     </section>
@@ -876,7 +963,7 @@
             </div>
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow">What is SCD?</p>
+                <p class="eyebrow"><strong>AWS Student Community Day</strong></p>
                 <h2 class="section-title">A student-first stage for Cloud &amp; AI</h2>
               </div>
               <div class="about-grid">
@@ -923,13 +1010,13 @@
                 <div class="ar-hud-center">
                   <nav class="ar-category-pills" aria-label="Speaker categories">
                     <button type="button" class="ar-pill active" data-target="all" id="pillAll">
-                      All (7)
+                      All (6)
                     </button>
                     <button type="button" class="ar-pill" data-target="keynotes" id="pillKeynotes">
                       <span class="pill-dot orange"></span>Keynotes (3)
                     </button>
                     <button type="button" class="ar-pill" data-target="panels" id="pillPanels">
-                      <span class="pill-dot purple"></span>Panel Discussion (4)
+                      <span class="pill-dot purple"></span>Panel Discussion (3)
                     </button>
                   </nav>
                 </div>
@@ -960,7 +1047,6 @@
           <section class="section-light grid-bg light">
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow" style="color:var(--orange-text);">Organizers</p>
                 <h2 class="section-title">AWS Student Builder Groups — South Luzon</h2>
                 <p class="section-p">Co-organized by 8 AWS SBG &amp; AWS LC chapters across CALABARZON. One community working
                   together to make this summit happen.</p>
@@ -982,8 +1068,7 @@
           <section id="about-directors" class="section-light grid-bg light">
             <div class="wrap">
               <div class="section-head">
-                <p class="eyebrow" style="color:var(--blue-text);">Organizing Team</p>
-                <h2 class="section-title">Summit Core Team</h2>
+                <h2 class="section-title">South Summit Core Team</h2>
                 <p class="section-p">The student directors, associate directors, and core team leads steering AWS Student Community Day: South Summit 2026 across CALABARZON.</p>
               </div>
 
@@ -994,25 +1079,25 @@
                     All (16)
                   </button>
                   <button type="button" class="director-filter-pill" data-target="executive" aria-selected="false">
-                    <span class="filter-dot orange"></span>Executive (4)
-                  </button>
-                  <button type="button" class="director-filter-pill" data-target="technology" aria-selected="false">
-                    <span class="filter-dot blue"></span>Technology (2)
-                  </button>
-                  <button type="button" class="director-filter-pill" data-target="creatives" aria-selected="false">
-                    <span class="filter-dot pink"></span>Creatives (2)
-                  </button>
-                  <button type="button" class="director-filter-pill" data-target="operations" aria-selected="false">
-                    <span class="filter-dot green"></span>Operations (2)
-                  </button>
-                  <button type="button" class="director-filter-pill" data-target="marketing" aria-selected="false">
-                    <span class="filter-dot purple"></span>Marketing (2)
-                  </button>
-                  <button type="button" class="director-filter-pill" data-target="relations" aria-selected="false">
-                    <span class="filter-dot blue"></span>Relations (2)
+                    Executive (4)
                   </button>
                   <button type="button" class="director-filter-pill" data-target="finance" aria-selected="false">
-                    <span class="filter-dot orange"></span>Finance (2)
+                    Finance (2)
+                  </button>
+                  <button type="button" class="director-filter-pill" data-target="creatives" aria-selected="false">
+                    Creatives (2)
+                  </button>
+                  <button type="button" class="director-filter-pill" data-target="marketing" aria-selected="false">
+                    Marketing (2)
+                  </button>
+                  <button type="button" class="director-filter-pill" data-target="technology" aria-selected="false">
+                    Technology (2)
+                  </button>
+                  <button type="button" class="director-filter-pill" data-target="relations" aria-selected="false">
+                    Relations (2)
+                  </button>
+                  <button type="button" class="director-filter-pill" data-target="operations" aria-selected="false">
+                    Operations (2)
                   </button>
                 </nav>
               </div>
@@ -1116,12 +1201,12 @@
           <div class="brand" style="display:flex; align-items:center; gap:10px;">
             <img class="chip" src="assets/images/south-summit-logo.svg" alt="South Summit 2026" width="36" height="36">
             <div class="brand-text">
-              SCD SOUTH SUMMIT 2026
+              AWS SCD SOUTH SUMMIT 2026
               <span>AWS STUDENT BUILDER GROUPS</span>
             </div>
           </div>
           <p class="foot-mission">
-            The flagship student-led cloud conference across CALABARZON. Empowering future builders, developers, and leaders through Cloud and AI.
+            The flagship student-led cloud conference across <b>CALABARZON</b>. Empowering future student builders, developers, and leaders through <b>Cloud and AI</b>.
           </p>
         </div>
 
@@ -1151,10 +1236,9 @@
           <h6 class="foot-header">Connect</h6>
           <nav class="foot-social-links" aria-label="Social media channels">
             <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="blue" aria-label="AWS SCD South Summit Facebook">Facebook</a>
-            <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="green" aria-label="AWS SCD South Summit TikTok">TikTok</a>
             <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="purple" aria-label="AWS SCD South Summit LinkedIn">LinkedIn</a>
             <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="pink" aria-label="AWS SCD South Summit Instagram">Instagram</a>
-            <a href="mailto:partners@awsscd2026.org" class="social-link-item" data-brand="orange" aria-label="Email AWS SCD South Summit Partners">Contact Us</a>
+            <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="green" aria-label="AWS SCD South Summit TikTok">TikTok</a>
           </nav>
         </div>
       </div>
@@ -1263,7 +1347,7 @@
     </div>
   </aside>
 
-  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/main.js?v=20260923-lineup-clean"></script>
 
   <script>
     /* Branded splash intro: show on entry, then fade out to reveal the site.
