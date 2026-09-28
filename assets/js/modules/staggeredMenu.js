@@ -306,11 +306,24 @@ export async function initStaggeredMenu(config = {}) {
     toggleMenu();
   });
 
+  // Open or toggle menu from external trigger buttons (e.g. Hero Menu button)
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('#heroMenuBtn, .hero-menu-btn, [data-action="open-menu"]');
+    if (opener) {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
   // Click outside / backdrop to close
   if (options.closeOnClickAway) {
     document.addEventListener('mousedown', (event) => {
       if (!open) return;
-      if (!panel.contains(event.target) && !toggleBtn.contains(event.target)) {
+      if (
+        !panel.contains(event.target) &&
+        !toggleBtn.contains(event.target) &&
+        !event.target.closest('#heroMenuBtn, .hero-menu-btn, [data-action="open-menu"]')
+      ) {
         closeMenu();
       }
     });

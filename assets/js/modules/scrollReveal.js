@@ -14,7 +14,7 @@
  *     not real navigation. Elements on inactive pages have no layout box, so
  *     they never intersect until their page is shown. We wrap `window.showPage`
  *     to re-scan (`refresh()`) on the next frame after a page switch, so About
- *     and Merch animate the first time they're opened.
+ *     animates the first time it's opened.
  *   - Runs after the init*UI() calls (registered last in main.js) so the cards
  *     they inject via innerHTML already exist to be tagged.
  *
@@ -47,7 +47,6 @@ const CARD_SELECTORS = [
   '.venue-card',
   '.chapter-card',
   '.director-card',
-  '.merch-card',
   '.about-outcomes li',
 ];
 

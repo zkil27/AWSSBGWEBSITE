@@ -12,7 +12,6 @@ import { initSmoothScroll } from './modules/smoothScroll.js';
 import { initCountdown } from './modules/countdown.js';
 import { initSpeakers } from './modules/speakersUI.js';
 import { initScheduleUI } from './modules/scheduleUI.js';
-import { initMerch } from './modules/merchUI.js';
 import { initChapters } from './modules/chaptersUI.js';
 import { initDirectors } from './modules/directorsUI.js';
 import { initSponsors } from './modules/sponsorsUI.js';
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Initialize UI views & dynamic content
     initSpeakers();
     initScheduleUI();
-    initMerch();
     initChapters();
     initDirectors();
     initSponsors();

@@ -1,5 +1,5 @@
 /* ---------- PAGE ROUTING ---------- */
-const PAGES = ['home', 'about', 'merch'];
+const PAGES = ['home', 'about'];
 
 let nav;
 
@@ -11,7 +11,7 @@ export function updateNavSolid() {
     const page = document.documentElement.getAttribute('data-page') || 'home';
     const isScrolled = window.scrollY > 40;
 
-    /* About/Merch open on light surfaces — keep solid nav so brand + links stay visible */
+    /* About opens on light surfaces — keep solid nav so brand + links stay visible */
     const needsSolid = page !== 'home' || isScrolled;
     nav.classList.toggle('scrolled', needsSolid);
 }
@@ -88,9 +88,6 @@ function switchPageDOM(name, record = true, targetSection = null) {
             history.pushState({ page: name }, '', name === 'home' ? location.pathname + location.search : '#' + name);
         }
     }
-
-    // merch came back stuck on the last opened card
-    if (window.clearMerchFocus) window.clearMerchFocus();
 
     // If switching to home, ensure blueprint is reconciled and measured first
     if (name === 'home') {
@@ -209,7 +206,6 @@ export function initRouter() {
     function parseRoute() {
         const raw = (location.hash || '').replace(/^#/, '').toLowerCase();
         if (raw.startsWith('about')) return 'about';
-        if (raw.startsWith('merch')) return 'merch';
         return PAGES.includes(raw) ? raw : 'home';
     }
 

@@ -1112,6 +1112,16 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   margin-bottom: 0;
 }
 
+.hero-menu-btn .btn-icon {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-menu-btn:hover .btn-icon {
+  transform: scale(1.18);
+}
+
 .dot {
   width: 5px;
   height: 5px;
@@ -4854,88 +4864,6 @@ html[data-theme="dark"] .marquee-chip-badge--lite {
   color: #6B7280;
 }
 
-/* ===== MERCH ===== */
-#page-merch .page-intro {
-  min-height: calc(82vh - var(--nav-h));
-  display: flex;
-  align-items: center;
-  padding: calc(var(--nav-h) + 60px) 0 100px;
-  position: relative;
-  z-index: 2;
-}
-
-.merch-display-lockup {
-  max-width: 1040px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.merch-big-headline {
-  font-family: var(--font-display, var(--font-sans));
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: clamp(48px, 11vw, 150px);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  margin: 0;
-  color: var(--text-strong);
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.merch-big-headline .accent {
-  background: linear-gradient(110deg, var(--pink) 0%, var(--purple) 30%, var(--blue) 65%, var(--pink) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  animation: heroAccentShimmer 6s linear infinite;
-}
-
-.merch-sub-lead {
-  font-size: clamp(17px, 2vw, 22px);
-  line-height: 1.5;
-  color: var(--muted);
-  max-width: 54ch;
-  margin: 4px 0 0;
-}
-
-.merch-foot-meta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  padding-top: 22px;
-  border-top: 1px solid var(--line-strong);
-  margin-top: 12px;
-}
-
-.merch-foot-meta .sep {
-  color: var(--pink);
-  opacity: 0.6;
-}
-
-@media (max-width: 640px) {
-  #page-merch .page-intro {
-    min-height: calc(75vh - var(--nav-h));
-    padding: calc(var(--nav-h) + 32px) 0 70px;
-  }
-
-  .merch-big-headline {
-    font-size: clamp(42px, 14vw, 76px);
-    line-height: 0.98;
-  }
-
-  .merch-foot-meta {
-    gap: 8px;
-    font-size: 10px;
-  }
-}
-
 /* ===== FOOTER (ARCHITECTURAL LEDGER) ===== */
 footer.site-footer {
   background: var(--bg-2);
@@ -8138,8 +8066,7 @@ html.in-page-transition {
 #venue,
 #sponsors,
 #about-directors,
-#about-chapters,
-#page-merch {
+#about-chapters {
   content-visibility: auto;
   contain-intrinsic-size: 1px 750px;
 }
