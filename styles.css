@@ -1173,9 +1173,11 @@ body.is-theater-active .editorial-hero {
   margin: 0 !important;
   will-change: top, left, width, height, border-radius, box-shadow;
   z-index: 100000 !important;
+  aspect-ratio: auto !important;
 }
 
 .video-hero-card.is-theatrical-expanded {
+  aspect-ratio: auto !important;
   border-radius: 16px;
   border-color: rgba(56, 189, 248, 0.5);
   box-shadow: 0 32px 96px rgba(0, 0, 0, 0.94), 0 0 54px rgba(56, 189, 248, 0.35);

@@ -12,6 +12,15 @@
 
 import { getLenis } from './smoothScroll.js';
 
+const DESKTOP_VIDEO_SRC = 'assets/images/main-poster-v3.mp4';
+const MOBILE_PORTRAIT_VIDEO_SRC = 'assets/images/main-poster-v3-mobile.mp4';
+
+function isMobilePortraitViewport() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  return (w <= 768 && h >= w) || window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+}
+
 export function initVideoHero() {
   const card = document.getElementById('heroVideoCard');
   const video = document.getElementById('heroVideoPlayer');
@@ -26,6 +35,38 @@ export function initVideoHero() {
   let userPaused = prefersReduced;
   let isTheatrical = false;
   let isAnimating = false;
+
+  // Prime mobile video cache on mobile viewports for instant theatrical playback
+  if (isMobilePortraitViewport()) {
+    const preloader = document.createElement('video');
+    preloader.preload = 'auto';
+    preloader.src = MOBILE_PORTRAIT_VIDEO_SRC;
+  }
+
+  function switchVideoSrc(targetSrc) {
+    const currentSrc = video.currentSrc || video.src || (video.querySelector('source') ? video.querySelector('source').getAttribute('src') : '');
+    if (currentSrc && currentSrc.endsWith(targetSrc)) return;
+
+    const wasPaused = video.paused;
+    const prevTime = video.currentTime;
+    const sourceEl = video.querySelector('source');
+    if (sourceEl) {
+      sourceEl.setAttribute('src', targetSrc);
+    }
+    video.src = targetSrc;
+    video.load();
+
+    const onLoadedMetadata = () => {
+      if (prevTime && prevTime < video.duration) {
+        video.currentTime = prevTime;
+      }
+    };
+    video.addEventListener('loadedmetadata', onLoadedMetadata, { once: true });
+
+    if (!wasPaused && !userPaused) {
+      video.play().catch(() => {});
+    }
+  }
 
   const updateCardState = () => {
     if (video.paused) {
@@ -65,6 +106,22 @@ export function initVideoHero() {
   function calcTheatricalRect() {
     const viewportW = window.innerWidth;
     const viewportH = window.innerHeight;
+
+    if (isMobilePortraitViewport()) {
+      // 9:16 vertical motion poster for mobile portrait
+      const maxH = Math.min(viewportH * 0.88, 760);
+      let h = maxH;
+      let w = h * (9 / 16);
+      if (w > viewportW * 0.92) {
+        w = viewportW * 0.92;
+        h = w * (16 / 9);
+      }
+      const left = Math.max(8, Math.round((viewportW - w) / 2));
+      const top = Math.max(8, Math.round((viewportH - h) / 2));
+      return { top, left, width: Math.round(w), height: Math.round(h) };
+    }
+
+    // 2:1 widescreen motion poster for desktop / landscape
     const maxW = Math.min(viewportW * 0.92, 1140);
     let w = maxW;
     let h = w * 0.5; // 2:1 widescreen motion poster ratio
@@ -109,6 +166,13 @@ export function initVideoHero() {
     card.style.margin = '0';
     card.style.zIndex = '100000';
     card.classList.add('is-theater-animating');
+
+    // Switch to portrait video if mobile portrait viewport, or desktop video otherwise
+    if (isMobilePortraitViewport()) {
+      switchVideoSrc(MOBILE_PORTRAIT_VIDEO_SRC);
+    } else {
+      switchVideoSrc(DESKTOP_VIDEO_SRC);
+    }
 
     // Activate backdrop scrim
     if (backdrop) backdrop.classList.add('is-active');
@@ -177,6 +241,8 @@ export function initVideoHero() {
       card.classList.remove('is-theatrical-expanded');
 
       const cleanup = () => {
+        // Restore desktop 2:1 widescreen video for normal inline mode
+        switchVideoSrc(DESKTOP_VIDEO_SRC);
         card.removeAttribute('style');
         card.classList.remove('is-theater-animating');
         card.setAttribute('aria-expanded', 'false');
@@ -257,9 +323,14 @@ export function initVideoHero() {
     }
   });
 
-  // Handle window resizing while in theatrical view
-  window.addEventListener('resize', () => {
+  // Handle window resizing and orientation changes while in theatrical view
+  const handleViewportChange = () => {
     if (isTheatrical && !isAnimating) {
+      if (isMobilePortraitViewport()) {
+        switchVideoSrc(MOBILE_PORTRAIT_VIDEO_SRC);
+      } else {
+        switchVideoSrc(DESKTOP_VIDEO_SRC);
+      }
       const target = calcTheatricalRect();
       card.style.transition = 'none';
       card.style.top = target.top + 'px';
@@ -267,7 +338,10 @@ export function initVideoHero() {
       card.style.width = target.width + 'px';
       card.style.height = target.height + 'px';
     }
-  }, { passive: true });
+  };
+
+  window.addEventListener('resize', handleViewportChange, { passive: true });
+  window.addEventListener('orientationchange', handleViewportChange, { passive: true });
 
   // Auto exit on page switch/hash change
   window.addEventListener('hashchange', () => {
