@@ -5000,7 +5000,7 @@ html[data-theme="dark"] .sponsors-marquee-shell::after {
 .marquee-track-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
 }
 
@@ -5078,10 +5078,12 @@ html[data-theme="dark"] .marquee-tier-count {
   min-width: 0;
   box-sizing: border-box;
   overflow: hidden;
+  padding: 16px 0 20px;
 }
 
 .marquee-track {
   display: flex;
+  align-items: center;
   gap: 20px;
   width: max-content;
   will-change: transform;
@@ -5142,15 +5144,18 @@ html[data-theme="dark"] .marquee-tier-count {
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
   user-select: none;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
   transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
   box-sizing: border-box;
 }
 
 .marquee-chip:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-6px) scale(1.02);
   border-color: rgba(68, 179, 254, 0.5);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+  z-index: 3;
 }
 
 html[data-theme="dark"] .marquee-chip {
@@ -5162,6 +5167,7 @@ html[data-theme="dark"] .marquee-chip {
 html[data-theme="dark"] .marquee-chip:hover {
   border-color: rgba(68, 179, 254, 0.6);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  z-index: 3;
 }
 
 .marquee-chip-logo-wrap {
