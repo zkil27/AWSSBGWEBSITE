@@ -468,10 +468,6 @@ html[data-theme="dark"] .sm-socials-link {
   color: var(--pink) !important;
 }
 
-.sm-socials-link--tiktok:hover {
-  color: var(--green-text, var(--green)) !important;
-}
-
 .sm-socials-link--facebook:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
@@ -486,12 +482,6 @@ html[data-theme="dark"] .sm-socials-link {
 
 .sm-socials-link--instagram:focus-visible {
   outline: 2px solid var(--pink);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-.sm-socials-link--tiktok:focus-visible {
-  outline: 2px solid var(--green);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -545,13 +535,6 @@ html[data-theme="dark"] .sm-socials-link {
   }
 
   .sm-panel-item {
-    font-size: 1.5rem;
+    font-size: 1.85rem;
   }
 }
-
-@media (max-width: 380px) {
-  .sm-panel-item {
-    font-size: 1.3rem;
-  }
-}
-

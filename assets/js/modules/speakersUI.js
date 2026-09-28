@@ -338,10 +338,6 @@ export function initSpeakers() {
     const pillKeynotes = document.getElementById('pillKeynotes');
     const pillBuilders = document.getElementById('pillBuilders') || document.getElementById('pillSessions');
 
-    if (pillAll) pillAll.textContent = `All (${speakers.length})`;
-    if (pillKeynotes) pillKeynotes.innerHTML = `<span class="pill-dot orange"></span>Keynotes (${keynotes.length})`;
-    if (pillPanels) pillPanels.innerHTML = `<span class="pill-dot purple"></span>Panel Discussion (${panels.length})`;
-
     function getSpeakerColor(s) {
         if (!s) return 'purple';
         if (s.tileTheme) {
@@ -474,7 +470,7 @@ export function initSpeakers() {
             stagger: 0.05,
             animateFrom: 'bottom',
             scaleOnHover: true,
-            hoverScale: 1.02,
+            hoverScale: 0.95,
             blurToFocus: true,
             colorShiftOnHover: false,
             renderItem: renderLineupItem,
