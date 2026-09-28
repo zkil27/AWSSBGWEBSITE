@@ -3,7 +3,7 @@
  * AWS Student Community Day: South Summit 2026
  * Hero Showcase + Infinite Marquee Stream with Direct Organization Labels
  */
-import { sponsors } from '../data/sponsors.js?v=20260921-partners-labels';
+import { sponsors } from '../data/sponsors.js?v=20260929-ccc-logo';
 import { isLowSpec } from './perfManager.js';
 import { updateMarqueeBounds } from './computeGrid.js';
 
