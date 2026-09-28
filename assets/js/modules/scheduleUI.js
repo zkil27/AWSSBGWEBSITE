@@ -33,9 +33,9 @@ export const scheduleSessions = [
     duration: '15 MIN',
     category: 'OPENING CEREMONY',
     categoryTheme: 'theme-orange',
-    title: 'Opening Ceremony: Invocation, National Anthem & Program',
+    title: 'Opening Ceremony',
     location: 'Main Auditorium · 4th Floor',
-    description: 'Solemn Invocation, Philippine National Anthem, opening video showcase, and official event kickoff led by the South Summit 2026 hosts and organizing committee.',
+    description: 'Invocation, National Anthem, Opening Program · Led by Hosts/Organizers.',
     speakerIndices: []
   },
   {
