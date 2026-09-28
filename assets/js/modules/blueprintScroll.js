@@ -262,19 +262,7 @@ function render(scroll) {
     }
 
     // Optical focus: opacity and subtle scale
-    // Opacity floor raised from 0.35 -> 0.62 so off-center panel text keeps
-    // readable contrast over the grainient (Impeccable low-contrast fix) while
-    // still receding for the depth/focus effect.
-    let opacityVal = 0.62 + 0.38 * focus;
-
-    // When approaching or viewing the schedule panel ("The Running Order"), fade out
-    // preceding panels completely so only the program flow is visible.
-    if (!p.isSchedule && progress >= 0.76) {
-      const scheduleDwellFade = clamp01(1 - (progress - 0.76) / 0.10);
-      opacityVal *= scheduleDwellFade;
-    }
-
-    const opacity = opacityVal.toFixed(3);
+    const opacity = (0.35 + 0.65 * focus).toFixed(3);
     const scale = (0.96 + 0.04 * focus).toFixed(3);
 
     // Staggered vertical float
@@ -288,7 +276,6 @@ function render(scroll) {
     }
 
     p.el.style.opacity = opacity;
-    p.el.style.visibility = opacityVal < 0.02 ? 'hidden' : '';
     p.el.style.transform = `scale(${scale}) translate3d(0, ${ty.toFixed(1)}px, 0)`;
 
     // Subtle parallax depth for the giant numeral (clamped within range)
@@ -362,62 +349,54 @@ function activate() {
   rafId = requestAnimationFrame(tick);
 }
 
-function cleanUpDesktopLayout() {
-  document.documentElement.classList.remove('bp-active');
-
-  if (track) {
-    track.style.transform = '';
-    track.style.willChange = '';
-    track.style.removeProperty('--bp-track-pad-right');
-  }
-  const allPanels = track ? track.querySelectorAll('.blueprint-panel') : [];
-  allPanels.forEach((el) => {
-    el.style.opacity = '';
-    el.style.visibility = '';
-    el.style.transform = '';
-    el.classList.remove('is-focused');
-    const numEl = el.querySelector('.bp-num');
-    if (numEl) {
-      numEl.style.transform = '';
-      numEl.style.removeProperty('--bp-bar-scale');
-    }
-    const bodyEl = el.querySelector('.bp-agenda-body');
-    if (bodyEl) {
-      bodyEl.style.transform = '';
-    }
-  });
-  panelData = [];
-  if (fill) fill.style.width = '';
-  if (pin) {
-    pin.classList.remove('bp-engaged', 'is-before', 'is-pinned', 'is-after');
-    pin.style.position = '';
-    pin.style.top = '';
-    pin.style.bottom = '';
-    pin.style.height = '';
-    pin.style.backgroundPosition = '';
-    pin.style.clipPath = '';
-    pin.style.webkitClipPath = '';
-  }
-  if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
-  lastArch = -1;
-  setShaderScroll(0);
-  pinState = '';
-  if (section) {
-    section.style.removeProperty('--bp-extra');
-  }
-}
-
 function deactivate() {
-  if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
-  if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
-
+  if (!active) return;
   active = false;
   engaged = false;
 
-  // Whenever we are in mobile/fallback mode (or resizing from desktop),
-  // unconditionally tear down all desktop pinning styles, transforms, and classes.
+  if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+  if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
+
+  // On desktop PC, preserve bp-active and layout styles across page switches
+  // so that navigating between pages never flashes the mobile fallback layout.
   if (!shouldEnhance()) {
-    cleanUpDesktopLayout();
+    document.documentElement.classList.remove('bp-active');
+
+    if (track) {
+      track.style.transform = '';
+      track.style.willChange = '';
+      track.style.removeProperty('--bp-track-pad-right');
+    }
+    const allPanels = track ? track.querySelectorAll('.blueprint-panel') : [];
+    allPanels.forEach((el) => {
+      el.style.opacity = '';
+      el.style.transform = '';
+      el.classList.remove('is-focused');
+      const numEl = el.querySelector('.bp-num');
+      if (numEl) {
+        numEl.style.transform = '';
+        numEl.style.removeProperty('--bp-bar-scale');
+      }
+      const bodyEl = el.querySelector('.bp-agenda-body');
+      if (bodyEl) {
+        bodyEl.style.transform = '';
+      }
+    });
+    panelData = [];
+    if (fill) fill.style.width = '';
+    if (pin) {
+      pin.classList.remove('bp-engaged', 'is-before', 'is-pinned', 'is-after');
+      pin.style.backgroundPosition = '';
+      pin.style.clipPath = '';
+      pin.style.webkitClipPath = '';
+    }
+    if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
+    lastArch = -1;
+    setShaderScroll(0);
+    pinState = '';
+    if (section) {
+      section.style.removeProperty('--bp-extra');
+    }
   }
 }
 
@@ -427,19 +406,31 @@ let mobileListening = false;
 let mobileRaf = 0;
 
 function handleMobileScroll() {
-  // Mobile uses clean natural vertical scrolling without dynamic clip-path clipping
+  if (!mobileListening) return;
+  if (mobileRaf) return;
+  mobileRaf = requestAnimationFrame(() => {
+    mobileRaf = 0;
+    if (mobileListening && homeVisible()) {
+      updateCurve(window.scrollY, true);
+    }
+  });
 }
 
 function activateMobile() {
-  if (pin) {
-    pin.style.clipPath = '';
-    pin.style.webkitClipPath = '';
-  }
-  if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
-  lastArch = -1;
+  if (mobileListening) return;
+  mobileListening = true;
+  window.addEventListener('scroll', handleMobileScroll, { passive: true });
+  updateCurve(window.scrollY, true);
 }
 
 function deactivateMobile() {
+  if (!mobileListening) return;
+  mobileListening = false;
+  window.removeEventListener('scroll', handleMobileScroll);
+  if (mobileRaf) {
+    cancelAnimationFrame(mobileRaf);
+    mobileRaf = 0;
+  }
   if (pin) {
     pin.style.clipPath = '';
     pin.style.webkitClipPath = '';
@@ -457,48 +448,6 @@ window.__measureBlueprint = function() {
 /** Expose synchronous reconciliation so router can guarantee blueprint layout before snapshots. */
 window.__reconcileBlueprint = function() {
   reconcile();
-};
-
-/**
- * Jump the viewport directly to the schedule timetable ("The Running Order").
- * QA fix: the nav "Schedule" link previously landed on the #program intro panels,
- * requiring extra scrolling. On desktop the timetable is the LAST panel of the
- * horizontal pan, so we scroll to (sectionTop + range) which parks the pan at its
- * end where the schedule panel is centered. On mobile / reduced-motion the pan is
- * disabled and #program is a vertical stack, so we scroll to the schedule panel
- * element directly. Returns true if it handled the scroll.
- */
-window.__scrollToSchedule = function() {
-  if (!section) section = document.getElementById('program');
-  if (!section) return false;
-  if (!homeVisible()) return false;
-
-  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 76;
-  const lenis = getLenis();
-
-  if (active && shouldEnhance()) {
-    // Desktop pan: re-measure so range is fresh, then scroll to the pan end.
-    measure();
-    const targetY = Math.max(0, sectionTop + range);
-    if (lenis && typeof lenis.scrollTo === 'function') {
-      lenis.scrollTo(targetY, { duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-    } else {
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-    }
-    return true;
-  }
-
-  // Mobile / fallback: scroll to the schedule panel element directly.
-  const panel = document.getElementById('blueprintSchedulePanel');
-  if (!panel) return false;
-  const docTop = documentOffsetTop(panel);
-  const targetY = Math.max(0, docTop - navH + 10);
-  if (lenis && typeof lenis.scrollTo === 'function') {
-    lenis.scrollTo(targetY, { duration: 1.0 });
-  } else {
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
-  }
-  return true;
 };
 
 /** Enable or disable to match the current guard + page visibility. */

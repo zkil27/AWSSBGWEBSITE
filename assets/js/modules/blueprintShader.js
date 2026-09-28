@@ -42,9 +42,6 @@ export function initBlueprintShader() {
     return null;
   }
 
-  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-  const isLight = currentTheme !== 'dark';
-
   // Exact React Bits Grainient configuration matching Summit Brand Palette:
   // Pink (left), Purple (top), Blue (right), Green (bottom)
   grainientInstance = createGrainient(container, {
@@ -71,30 +68,8 @@ export function initBlueprintShader() {
     centerX: 0.0,
     centerY: 0.0,
     zoom: 0.9,
-    lightMode: isLight
+    lightMode: false
   });
-
-  const updateGrainientTheme = (theme) => {
-    if (grainientInstance) {
-      grainientInstance.update({
-        lightMode: theme !== 'dark'
-      });
-    }
-  };
-
-  window.addEventListener('themechange', (e) => {
-    updateGrainientTheme(e.detail?.theme);
-  });
-
-  const themeObserver = new MutationObserver((mutations) => {
-    for (const m of mutations) {
-      if (m.attributeName === 'data-theme') {
-        const t = document.documentElement.getAttribute('data-theme') || 'light';
-        updateGrainientTheme(t);
-      }
-    }
-  });
-  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   // Observe vertical scroll on mobile/stacked view to drive scroll progress
   const section = document.getElementById('program');

@@ -284,7 +284,7 @@ function speakerCardHTML(speaker, index, isClone = false, extraClasses = '', isH
         ${linkedinOverlayBtn}
       </div>
       <div class="sc-info">
-        <h3 class="sc-name">${name}</h3>
+        <h4 class="sc-name">${name}</h4>
         ${role ? `<span class="sc-role">${role}</span>` : ''}
         <p class="sc-bio">${abstract}</p>
         ${cardFoot}
@@ -337,10 +337,6 @@ export function initSpeakers() {
     const pillPanels = document.getElementById('pillPanels');
     const pillKeynotes = document.getElementById('pillKeynotes');
     const pillBuilders = document.getElementById('pillBuilders') || document.getElementById('pillSessions');
-
-    if (pillAll) pillAll.textContent = `All (${speakers.length})`;
-    if (pillKeynotes) pillKeynotes.innerHTML = `<span class="pill-dot orange"></span>Keynotes (${keynotes.length})`;
-    if (pillPanels) pillPanels.innerHTML = `<span class="pill-dot purple"></span>Panel Discussion (${panels.length})`;
 
     function getSpeakerColor(s) {
         if (!s) return 'purple';
@@ -474,7 +470,7 @@ export function initSpeakers() {
             stagger: 0.05,
             animateFrom: 'bottom',
             scaleOnHover: true,
-            hoverScale: 1.02,
+            hoverScale: 0.95,
             blurToFocus: true,
             colorShiftOnHover: false,
             renderItem: renderLineupItem,
@@ -678,7 +674,7 @@ export function initSpeakers() {
                             <span class="ri-num">${num}</span>
                             <span class="ri-track">${track}</span>
                           </div>
-                          <h3 class="ri-name">${name}</h3>
+                          <h4 class="ri-name">${name}</h4>
                           ${role ? `<span class="ri-role">${role}</span>` : ''}
                         </div>
                         <div class="ri-arrow" aria-hidden="true">&rarr;</div>

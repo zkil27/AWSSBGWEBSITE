@@ -18,7 +18,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 600;
+  z-index: 340;
   pointer-events: none;
   overflow: hidden;
 }
@@ -88,7 +88,7 @@
   text-decoration: none;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: transform .2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .2s ease, background-color .2s ease, color .2s ease;
+  transition: transform .2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .2s ease, background-color .2s ease, color .2s ease;
 }
 
 .header-right .nav-cta-btn:hover {
@@ -124,132 +124,113 @@
   object-fit: contain;
 }
 
-/* Orange SCD Navbar Menu Button */
-.sm-toggle,
-.nav-menu-btn {
+/* Menu Toggle Button */
+.sm-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
-  padding: 0;
-  border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.45);
-  background: var(--orange, #fc9907);
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(252, 153, 7, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15);
+  gap: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 8px 18px;
   cursor: pointer;
-  touch-action: manipulation;
-  user-select: none;
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 40px;
+  height: 40px;
   box-sizing: border-box;
-  flex-shrink: 0;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.2s ease,
-              background-color 0.2s ease,
-              border-color 0.2s ease;
 }
 
-/* Hide on desktop / PC (>=981px) where inline header links are used */
-@media (min-width: 981px) {
-  .sm-toggle,
-  .nav-menu-btn {
-    display: none !important;
-  }
+.sm-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--blue);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-html[data-theme="dark"] .sm-toggle,
-html[data-theme="dark"] .nav-menu-btn {
-  background: var(--orange, #fc9907);
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 4px 18px rgba(252, 153, 7, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
+html[data-theme="dark"] .sm-toggle:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
 
-.sm-toggle:hover,
-.nav-menu-btn:hover {
-  transform: scale(1.06);
-  border-color: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 6px 20px rgba(252, 153, 7, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+.sm-toggle:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
 }
 
-.sm-toggle:focus-visible,
-.nav-menu-btn:focus-visible {
-  outline: 2px solid #FFFFFF;
-  outline-offset: 2px;
-}
-
-.sm-toggle:active,
-.nav-menu-btn:active {
-  transform: scale(0.92);
-}
-
-/* Centered white SCD chip / gear icon */
-.sm-chip-icon,
-.sm-toggle .sm-icon {
-  width: 22px;
-  height: 22px;
-  display: block;
-  fill: #FFFFFF;
-  color: #FFFFFF;
-  flex-shrink: 0;
-  pointer-events: none;
-  transform-origin: 50% 50%;
-  will-change: transform;
+.sm-toggle:active {
+  transform: scale(0.97);
 }
 
 .sm-toggle-textWrap {
-  display: none !important;
+  position: relative;
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 46px;
+  vertical-align: middle;
 }
 
-/* Panel Header & Close Button */
-.sm-panel-header {
+.sm-toggle-textInner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--line);
+  flex-direction: column;
+  line-height: 16px;
+  color: inherit;
 }
 
-.sm-panel-badge {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--orange, #fc9907);
-  text-transform: uppercase;
+.sm-toggle-line {
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  text-align: left;
+  color: inherit;
 }
 
-.sm-panel-close-btn {
+/* Plus/Close animated icon featuring brand colors */
+.sm-icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--bg-elevated, rgba(255, 255, 255, 0.08));
-  border: 1px solid var(--line-strong, rgba(255, 255, 255, 0.15));
-  color: var(--text-strong, #FFFFFF);
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  will-change: transform;
 }
 
-.sm-panel-close-btn:hover {
-  transform: scale(1.08);
-  border-color: var(--orange, #fc9907);
-  color: var(--orange, #fc9907);
+.sm-icon-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: background-color 0.25s ease;
 }
 
-.sm-panel-close-btn:focus-visible {
-  outline: 2px solid var(--orange, #fc9907);
-  outline-offset: 2px;
+.sm-icon-line-v {
+  background: var(--pink);
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.sm-panel-close-btn:active {
-  transform: scale(0.92);
+.sm-toggle:hover .sm-icon-line {
+  background: var(--orange);
+}
+
+.sm-toggle:hover .sm-icon-line-v {
+  background: var(--green);
 }
 
 /* Slide-out Panel */
@@ -263,33 +244,20 @@ html[data-theme="dark"] .nav-menu-btn {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-left: 1px solid var(--line);
-  box-shadow: none;
+  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
-  padding: max(3.5rem, calc(2.5rem + var(--sat, 0px))) 2.5rem max(2.5rem, calc(2rem + var(--sab, 0px))) 2.5rem;
+  padding: 6.5rem 2.5rem 2.5rem 2.5rem;
   overflow-y: auto;
   z-index: 3;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  box-sizing: border-box;
-}
-
-.staggered-menu-wrapper[data-open] .staggered-menu-panel,
-.staggered-menu-wrapper.is-animating .staggered-menu-panel {
-  visibility: visible;
   pointer-events: auto;
-  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  box-sizing: border-box;
 }
 
 html[data-theme="dark"] .staggered-menu-panel {
   background: rgba(14, 18, 24, 0.95);
   border-left-color: var(--line);
-  box-shadow: none;
-}
-
-html[data-theme="dark"] .staggered-menu-wrapper[data-open] .staggered-menu-panel,
-html[data-theme="dark"] .staggered-menu-wrapper.is-animating .staggered-menu-panel {
   box-shadow: -16px 0 64px rgba(0, 0, 0, 0.6);
 }
 
@@ -298,20 +266,10 @@ html[data-theme="dark"] .staggered-menu-wrapper.is-animating .staggered-menu-pan
   left: 0;
   border-left: none;
   border-right: 1px solid var(--line);
-  box-shadow: none;
-}
-
-[data-position='left'] .staggered-menu-wrapper[data-open] .staggered-menu-panel,
-[data-position='left'] .staggered-menu-wrapper.is-animating .staggered-menu-panel {
   box-shadow: 16px 0 48px rgba(0, 0, 0, 0.16);
 }
 
 html[data-theme="dark"][data-position='left'] .staggered-menu-panel {
-  box-shadow: none;
-}
-
-html[data-theme="dark"][data-position='left'] .staggered-menu-wrapper[data-open] .staggered-menu-panel,
-html[data-theme="dark"][data-position='left'] .staggered-menu-wrapper.is-animating .staggered-menu-panel {
   box-shadow: 16px 0 64px rgba(0, 0, 0, 0.6);
 }
 
@@ -376,9 +334,8 @@ html[data-theme="dark"][data-position='left'] .staggered-menu-wrapper.is-animati
   letter-spacing: -0.03em;
   text-transform: uppercase;
   transition: color 0.25s ease, transform 0.2s ease;
-  min-height: 48px;
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   text-decoration: none;
   padding-right: 3rem;
   width: 100%;
@@ -429,11 +386,17 @@ html[data-theme="dark"] .sm-panel-item {
 
 /* Special styling for Register link */
 .sm-panel-item--register .sm-panel-itemLabel {
-  color: var(--orange, #FF9900);
+  background: linear-gradient(135deg, var(--orange), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .sm-panel-item--register:hover .sm-panel-itemLabel {
-  color: var(--pink, #FF5252);
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Social links in Panel */
@@ -475,10 +438,8 @@ html[data-theme="dark"] .sm-panel-item {
   color: var(--text);
   text-decoration: none;
   position: relative;
-  padding: 4px 6px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
+  padding: 4px 0;
+  display: inline-block;
   transition: color 0.25s ease, opacity 0.25s ease, transform 0.2s ease;
 }
 
@@ -507,10 +468,6 @@ html[data-theme="dark"] .sm-socials-link {
   color: var(--pink) !important;
 }
 
-.sm-socials-link--tiktok:hover {
-  color: var(--green-text, var(--green)) !important;
-}
-
 .sm-socials-link--facebook:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
@@ -525,12 +482,6 @@ html[data-theme="dark"] .sm-socials-link {
 
 .sm-socials-link--instagram:focus-visible {
   outline: 2px solid var(--pink);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-.sm-socials-link--tiktok:focus-visible {
-  outline: 2px solid var(--green);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -563,9 +514,7 @@ html[data-theme="dark"] .sm-socials-link {
   }
 
   .header-right {
-    display: flex !important;
-    align-items: center;
-    gap: 8px;
+    display: none !important;
   }
   
   .staggered-menu-panel,
@@ -586,13 +535,6 @@ html[data-theme="dark"] .sm-socials-link {
   }
 
   .sm-panel-item {
-    font-size: 1.5rem;
+    font-size: 1.85rem;
   }
 }
-
-@media (max-width: 380px) {
-  .sm-panel-item {
-    font-size: 1.3rem;
-  }
-}
-

@@ -10,9 +10,6 @@ export function getTheme() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved === 'dark' || saved === 'light') return saved;
     } catch (e) { }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-    }
     return 'light';
 }
 
@@ -28,10 +25,6 @@ export function setTheme(theme) {
         btn.setAttribute('aria-label', label);
         btn.setAttribute('title', label);
     });
-
-    try {
-        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
-    } catch (e) { }
 }
 
 export function toggleTheme(e) {

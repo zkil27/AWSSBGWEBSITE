@@ -304,9 +304,9 @@ function snapToEdge() {
     const snapLeft = midX < winWidth / 2;
     const targetLeft = snapLeft ? padding : (winWidth - podRect.width - padding);
 
-    // Keep vertical within safe screen bounds (clear header and bottom dock)
+    // Keep vertical within safe screen bounds
     const minTop = 64; // below header
-    const maxTop = winHeight - podRect.height - 76; // keep above bottom dock and safe area
+    const maxTop = winHeight - podRect.height - 24; // above bottom
     let targetTop = podRect.top;
     if (targetTop < minTop) targetTop = minTop;
     if (targetTop > maxTop) targetTop = maxTop;
@@ -434,8 +434,16 @@ export function initAssistiveTouch() {
         }
     });
 
-    // Click / tap toggles HUD navigation (permanently anchored to top-left corner)
+    // Pointer events for dragging & tapping
+    podEl.addEventListener('pointerdown', handlePointerDown);
+    podEl.addEventListener('pointermove', handlePointerMove);
+    podEl.addEventListener('pointerup', handlePointerUp);
+    podEl.addEventListener('pointercancel', handlePointerCancel);
+
+    // Dedicated click fallback (keyboard / accessibility / browsers where pointerup is suppressed)
     podEl.addEventListener('click', (e) => {
+        if (Date.now() - lastPointerUpTime < 350) return;
+        if (hasDragged) return;
         e.preventDefault();
         toggleAssistiveHUD();
     });
@@ -443,19 +451,6 @@ export function initAssistiveTouch() {
     // Hover / touch wakeup
     podEl.addEventListener('mouseenter', resetIdleTimer);
     podEl.addEventListener('touchstart', resetIdleTimer, { passive: true });
-
-    // Scroll listener: fade and tuck pod during scrolling so it never obscures reading
-    let scrollTimer = null;
-    window.addEventListener('scroll', () => {
-        if (!podEl || isDragging) return;
-        if (!podEl.classList.contains('is-scrolling')) {
-            podEl.classList.add('is-scrolling');
-        }
-        if (scrollTimer) clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
-            if (podEl) podEl.classList.remove('is-scrolling');
-        }, 320);
-    }, { passive: true });
 
     // Backdrop click to dismiss modal
     if (backdropEl) {

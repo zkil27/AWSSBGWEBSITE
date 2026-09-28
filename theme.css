@@ -13,16 +13,6 @@
   --pink: #fe57ea;
   --ink-block: #161C24;
 
-  /* Main Poster v3 Palette Tokens */
-  --poster-cyan: #42B2FE;
-  --poster-pink: #FE55EB;
-  --poster-purple: #AD5CFD;
-  --poster-green: #00E681;
-  --poster-orange: #FF9900;
-  --poster-ink: #161C24;
-  --poster-glow-light: rgba(66, 178, 254, 0.24);
-  --poster-glow-dark: rgba(66, 178, 254, 0.45);
-
   /* Grid — shared cell size for line grid + colored boxes */
   --grid-size: 52px;
   --grid-line: 1px;
@@ -37,19 +27,10 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Plus Jakarta Sans', sans-serif;
 
-  /* Layout & Rhythm */
-  --container: 1240px;
-  --section-pad: clamp(64px, 7vw, 100px) 0;
-  --card-radius: 16px;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Layout */
+  --container: 1280px;
   --nav-h: 76px;
   --header-h: calc(var(--grid-size) * 4);
-
-  /* Safe Area Insets for Mobile / Notched Displays */
-  --sat: env(safe-area-inset-top, 0px);
-  --sab: env(safe-area-inset-bottom, 0px);
-  --sal: env(safe-area-inset-left, 0px);
-  --sar: env(safe-area-inset-right, 0px);
 
   /* Transitions */
   --theme-ease: background-color .25s ease, color .25s ease, border-color .25s ease;
@@ -61,7 +42,7 @@
      [data-reveal] rules in styles.css and modules/scrollReveal.js. */
   --reveal-distance: 22px;                              /* start offset (translateY) */
   --reveal-duration: .6s;                              /* rise + fade duration */
-  --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);    /* brand spring, matches cards */
+  --reveal-ease: cubic-bezier(0.34, 1.56, 0.64, 1);    /* brand spring, matches cards */
   --reveal-stagger: 70ms;                              /* per-item delay step in a group */
 
   /* ---------- Cursors ----------
@@ -99,7 +80,6 @@
 :root,
 html[data-theme="light"] {
   --bg: #FAFBFC;
-  --bg-1: #FFFFFF;
   --bg-2: #F0F2F6;
   --bg-3: #E8EAEE;
   --bg-elevated: #FFFFFF;
@@ -136,18 +116,14 @@ html[data-theme="light"] {
   --purple-text: #6B21A8;
   --blue-text: #0369A1;
   --pink-text: #BE185D;
-  --teal-text: #067a67;
 
   --clock-bg: rgba(255, 255, 255, 0.7);
   --clock-border: rgba(255, 255, 255, 0.4);
   --clock-num: #0B0F19;
 
   --card-bg: #FFFFFF;
-  --card-bg-alt: #F8FAFC;
-  --card-border: rgba(11, 15, 25, 0.08);
-  --card-border-strong: rgba(11, 15, 25, 0.16);
-  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  --card-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.12);
+  --card-bg-alt: #F0F2F6;
+  --card-border: rgba(11, 15, 25, 0.06);
 
   --brutal-bg: #FFFFFF;
   --brutal-border: 1px solid rgba(11, 15, 25, 0.1);
@@ -180,7 +156,7 @@ html[data-theme="light"] {
   --ambient-tl: rgba(68, 179, 254, 0.28);
   --ambient-tr: rgba(254, 87, 234, 0.24);
   --ambient-br: rgba(7, 227, 131, 0.26);
-  --ambient-bl: rgba(167, 89, 255, 0.22);
+  --ambient-bl: rgba(68, 179, 254, 0.16);
 
   color-scheme: light;
 }
@@ -188,7 +164,6 @@ html[data-theme="light"] {
 /* ---------- DARK MODE ---------- */
 html[data-theme="dark"] {
   --bg: #12182A;
-  --bg-1: #080B11;
   --bg-2: #192138;
   --bg-3: #222C47;
   --bg-elevated: #192138;
@@ -226,18 +201,14 @@ html[data-theme="dark"] {
   --purple-text: var(--purple);
   --blue-text: var(--blue);
   --pink-text: var(--pink);
-  --teal-text: var(--teal, #2BD4AD);
 
   --clock-bg: rgba(25, 33, 56, 0.6);
   --clock-border: rgba(255, 255, 255, 0.08);
   --clock-num: #FFFFFF;
 
-  --card-bg: #101726;
-  --card-bg-alt: #162032;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-border-strong: rgba(255, 255, 255, 0.18);
-  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  --card-shadow-hover: 0 20px 42px -4px rgba(0, 0, 0, 0.65);
+  --card-bg: #192138;
+  --card-bg-alt: #222C47;
+  --card-border: rgba(255, 255, 255, 0.06);
 
   --brutal-bg: #192138;
   --brutal-border: 1px solid rgba(255, 255, 255, 0.08);
@@ -274,7 +245,7 @@ html[data-theme="dark"] {
   --ambient-tl: rgba(68, 179, 254, 0.18);
   --ambient-tr: rgba(254, 87, 234, 0.16);
   --ambient-br: rgba(7, 227, 131, 0.18);
-  --ambient-bl: rgba(167, 89, 255, 0.16);
+  --ambient-bl: rgba(68, 179, 254, 0.12);
 
   color-scheme: dark;
 }
@@ -315,8 +286,8 @@ body {
     repeat, repeat,
     no-repeat, no-repeat, no-repeat, no-repeat;
   background-position:
-    center top,
-    center top,
+    left 0 top 0,
+    left 0 top 0,
     0 0,
     100% 0,
     100% 100%,
@@ -329,7 +300,7 @@ body {
     fixed, fixed, fixed, fixed;
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  font-size: 17px;
   line-height: 1.6;
   overflow-x: clip;
   max-width: 100%;
@@ -583,7 +554,7 @@ footer,
   border-radius: 5px;
   background: linear-gradient(135deg, #FC9907, #F59E0B);
   box-shadow: 0 2px 6px rgba(252, 153, 7, 0.4);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
   z-index: 2;
 }
 
@@ -677,4 +648,3 @@ html[data-theme="dark"] .theme-toggle-thumb {
     --nav-h: 64px;
   }
 }
-

@@ -278,16 +278,11 @@ export async function initSplashPixelTransition(options = {}) {
       return;
     }
 
-    const gsapPromise = ensureGSAP();
-    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 800));
-    const gsapInstance = await Promise.race([gsapPromise, timeoutPromise]);
+    const gsapInstance = await ensureGSAP();
     if (!gsapInstance) {
       finishDismissal();
       return;
     }
-
-    // Safety fallback: ensure dismissal always completes within 1.5s
-    setTimeout(finishDismissal, 1500);
 
     const lockup = splash.querySelector('.splash-lockup');
 
