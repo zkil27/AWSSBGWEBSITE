@@ -137,6 +137,23 @@ function lightCell(col, row, brightness, colorIndex) {
 }
 
 /* ============================== Sizing ================================== */
+let cachedMarqueeStartRow = -999;
+let cachedMarqueeEndRow = -999;
+
+export function updateMarqueeBounds() {
+  const marqueeEl = document.querySelector('.sponsors-marquee-shell');
+  if (marqueeEl) {
+    const marqueeRect = marqueeEl.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const docTop = marqueeRect.top + scrollY;
+    cachedMarqueeStartRow = Math.floor((docTop - 12) / gridSize);
+    cachedMarqueeEndRow = Math.ceil((docTop + marqueeRect.height + 12) / gridSize);
+  } else {
+    cachedMarqueeStartRow = -999;
+    cachedMarqueeEndRow = -999;
+  }
+}
+
 function resize() {
   if (!canvas || !ctx) return;
   viewW = window.innerWidth;
@@ -148,6 +165,7 @@ function resize() {
   canvas.style.height = viewH + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   refreshGridSize();
+  updateMarqueeBounds();
 }
 
 /* ============================ Lit cells ================================= */
@@ -370,6 +388,7 @@ function drawAmbientBlocks() {
       
       // Culling
       if (actualRow < startVisRow || actualRow > startVisRow + visRows) continue;
+      if (actualRow >= cachedMarqueeStartRow && actualRow <= cachedMarqueeEndRow) continue;
 
       // Snap to full integers to eliminate sub-pixel jitter/blur during movement
       const x = Math.round(actualCol * gridSize - scrollX);
