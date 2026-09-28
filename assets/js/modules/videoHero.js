@@ -67,13 +67,17 @@ export function initVideoHero() {
     const viewportH = window.innerHeight;
     const maxW = Math.min(viewportW * 0.92, 1140);
     let w = maxW;
-    let h = w * 0.5; // 2:1 widescreen poster ratio
-    if (h > viewportH * 0.84) {
-      h = viewportH * 0.84;
+    let h = w * 0.5; // 2:1 widescreen motion poster ratio
+    if (h > viewportH * 0.82) {
+      h = viewportH * 0.82;
       w = h * 2;
     }
-    const left = Math.round((viewportW - w) / 2);
-    const top = Math.round((viewportH - h) / 2);
+    if (w > viewportW * 0.92) {
+      w = viewportW * 0.92;
+      h = w * 0.5;
+    }
+    const left = Math.max(8, Math.round((viewportW - w) / 2));
+    const top = Math.max(8, Math.round((viewportH - h) / 2));
     return { top, left, width: Math.round(w), height: Math.round(h) };
   }
 
@@ -155,7 +159,6 @@ export function initVideoHero() {
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (backdrop) backdrop.classList.remove('is-active');
-    document.body.classList.remove('is-theater-active');
 
     // Resume Lenis smooth scroll
     const lenis = getLenis();
@@ -178,6 +181,7 @@ export function initVideoHero() {
         card.classList.remove('is-theater-animating');
         card.setAttribute('aria-expanded', 'false');
         if (placeholder) placeholder.style.display = 'none';
+        document.body.classList.remove('is-theater-active');
         isTheatrical = false;
         isAnimating = false;
         updateCardState();

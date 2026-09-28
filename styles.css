@@ -976,11 +976,12 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
 }
 
 .ed-desc {
-  grid-column: span 5;
+  grid-column: span 6;
   padding-left: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 /* Placeholder to preserve layout space when card transitions to fixed viewport mode */
@@ -1058,8 +1059,15 @@ html:not([data-theme="dark"]) .assistive-theme-icon-wrap .icon-moon {
   left: 10px;
 }
 
+/* Exit button is hidden by default when minimized */
 .video-ctrl-exit {
   right: 10px;
+  display: none;
+}
+
+/* Exit button is visible ONLY in maximized theatrical mode */
+.video-hero-card.is-theatrical-expanded .video-ctrl-exit {
+  display: inline-flex;
 }
 
 .video-ctrl-btn:hover {
@@ -1165,6 +1173,12 @@ body.is-theater-active {
   overflow: hidden !important;
 }
 
+/* Remove backdrop-filter from editorial-hero while theater is active so fixed coordinates are viewport-relative */
+body.is-theater-active .editorial-hero {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
 /* Active Theatrical Mode on the Video Card */
 .video-hero-card.is-theater-animating {
   margin: 0 !important;
@@ -1205,10 +1219,10 @@ body.is-theater-active {
 }
 
 .ed-clock {
-  grid-column: span 4;
+  grid-column: span 3;
   padding-left: 24px;
   border-right: none !important;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -1341,10 +1355,21 @@ body.is-theater-active {
 
 .hero-actions.ed-actions {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
   margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.hero-actions.ed-actions .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .hero-menu-btn .btn-icon {
