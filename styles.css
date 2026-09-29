@@ -1706,7 +1706,8 @@ section {
   color: #0B1526;
   position: relative;
   overflow: hidden;
-  margin-top: clamp(60px, 8vh, 120px);
+  padding: clamp(64px, 8vh, 100px) 0;
+  margin-top: 0;
 }
 
 /* keep the decorative boxes in these two solid-colour bands subtle so they
