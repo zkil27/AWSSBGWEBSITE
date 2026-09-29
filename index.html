@@ -69,6 +69,36 @@
         </button>
       </div>
 
+      <!-- In-Navbar Primary Navigation with Brand Accents (Color-Only Shift, No Boxes) -->
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <ul class="nav-list" role="list">
+          <li class="nav-item-wrap">
+            <a class="nav-item active" href="#home" data-page="home" data-brand="blue" data-index="1" aria-label="Go to home page" aria-current="page">
+              <span class="nav-item-num font-mono">01</span>
+              <span class="nav-item-label">HOME</span>
+            </a>
+          </li>
+          <li class="nav-item-wrap">
+            <a class="nav-item" href="#about" data-page="about" data-brand="green" data-index="2" aria-label="Learn about the summit">
+              <span class="nav-item-num font-mono">02</span>
+              <span class="nav-item-label">ABOUT</span>
+            </a>
+          </li>
+          <li class="nav-item-wrap">
+            <a class="nav-item" href="#program" data-section="program" data-brand="orange" data-index="3" aria-label="View event schedule">
+              <span class="nav-item-num font-mono">03</span>
+              <span class="nav-item-label">SCHEDULE</span>
+            </a>
+          </li>
+          <li class="nav-item-wrap">
+            <a class="nav-item" href="#venue" data-section="venue" data-brand="purple" data-index="4" aria-label="View twin venue details">
+              <span class="nav-item-num font-mono">04</span>
+              <span class="nav-item-label">VENUE</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <div class="header-right">
         <a class="btn btn-primary nav-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank"
           rel="noopener">Register Now</a>
@@ -87,102 +117,18 @@
           </span>
           <span class="theme-toggle-thumb"></span>
         </button>
-
-        <!-- React Bits StaggeredMenu Animated Toggle Button -->
-        <button
-          class="sm-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="staggered-menu-panel"
-          type="button"
-        >
-          <span class="sm-toggle-textWrap" aria-hidden="true">
-            <span class="sm-toggle-textInner">
-              <span class="sm-toggle-line">Menu</span>
-            </span>
-          </span>
-          <span class="sm-icon" aria-hidden="true">
-            <span class="sm-icon-line"></span>
-            <span class="sm-icon-line sm-icon-line-v"></span>
-          </span>
-        </button>
       </div>
+    </div>
+
+    <!-- 5 Summit Brand Color Prelayer Kinetic Track -->
+    <div class="nav-prelayer-track" id="navPrelayerTrack" aria-hidden="true">
+      <div class="nav-prelayer-bar nav-prelayer-bar--blue"></div>
+      <div class="nav-prelayer-bar nav-prelayer-bar--green"></div>
+      <div class="nav-prelayer-bar nav-prelayer-bar--pink"></div>
+      <div class="nav-prelayer-bar nav-prelayer-bar--orange"></div>
+      <div class="nav-prelayer-bar nav-prelayer-bar--purple"></div>
     </div>
   </header>
-
-  <!-- REACT BITS: STAGGERED MENU DRAWER & PRELAYERS OVERLAY -->
-  <div class="staggered-menu-wrapper" id="staggeredMenuWrapper" data-position="right">
-    <!-- Click-away backdrop -->
-    <div class="sm-backdrop" aria-hidden="true"></div>
-
-    <!-- Staggered Accent Color Prelayers (AWS SCD Brand Colors) -->
-    <div class="sm-prelayers" aria-hidden="true">
-      <div class="sm-prelayer sm-prelayer--blue"></div>
-      <div class="sm-prelayer sm-prelayer--green"></div>
-      <div class="sm-prelayer sm-prelayer--pink"></div>
-      <div class="sm-prelayer sm-prelayer--orange"></div>
-      <div class="sm-prelayer sm-prelayer--purple"></div>
-    </div>
-
-    <!-- Staggered Side Drawer Panel -->
-    <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
-      <div class="sm-panel-inner">
-        <ul class="sm-panel-list" role="list" data-numbering="true">
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item active" href="#home" data-page="home" data-brand="blue" aria-label="Go to home page" data-index="1">
-              <span class="sm-panel-itemLabel">Home</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#about" data-page="about" data-brand="green" aria-label="Learn about the summit" data-index="2">
-              <span class="sm-panel-itemLabel">About</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#program" data-brand="orange" aria-label="View event schedule" data-index="3">
-              <span class="sm-panel-itemLabel">Schedule</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#venue" data-brand="purple" aria-label="View twin venue details" data-index="4">
-              <span class="sm-panel-itemLabel">Venue</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item sm-panel-item--register" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" data-brand="blue" aria-label="Register on Luma" data-index="5">
-              <span class="sm-panel-itemLabel">Register</span>
-            </a>
-          </li>
-        </ul>
-
-        <div class="sm-socials" aria-label="Social links">
-          <h3 class="sm-socials-title">Connect</h3>
-          <ul class="sm-socials-list" role="list">
-            <li class="sm-socials-item">
-              <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="sm-socials-link sm-socials-link--facebook" data-network="facebook">
-                Facebook
-              </a>
-            </li>
-            <li class="sm-socials-item">
-              <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="sm-socials-link sm-socials-link--linkedin" data-network="linkedin">
-                LinkedIn
-              </a>
-            </li>
-            <li class="sm-socials-item">
-              <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="sm-socials-link sm-socials-link--instagram" data-network="instagram">
-                Instagram
-              </a>
-            </li>
-            <li class="sm-socials-item">
-              <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="sm-socials-link sm-socials-link--tiktok" data-network="tiktok">
-                TikTok
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </aside>
-  </div>
 
   <svg class="defs" aria-hidden="true">
     <symbol id="chip-icon" viewBox="0 0 70 70">
@@ -233,130 +179,170 @@
       </div>
       <span class="box-floating" aria-hidden="true"></span>
 
-      <div class="editorial-hero">
-        <div class="ed-header">
-          <p class="eyebrow ed-eyebrow">AWS Student Community Day</p>
-          <h1 class="hero-title">South Summit <span class="accent">2026</span></h1>
+      <div class="broadside-hero editorial-hero" id="broadsideHero">
+        <!-- Top Masthead Row: Quiet Provenance -->
+        <div class="broadside-masthead-meta font-mono">
+          <span class="masthead-origin">CALABARZON &middot; OCT 7, 2026</span>
+          <span class="masthead-capacity">LIMITED TO 200 SEATS</span>
         </div>
 
-        <hr class="ed-rule">
+        <!-- Monumental Typographic Title -->
+        <div class="broadside-title-wrap">
+          <h1 class="broadside-title font-display">
+            <span class="broadside-title-main">SOUTH SUMMIT</span>
+            <span class="broadside-title-year">2026</span>
+          </h1>
+        </div>
 
-        <div class="ed-content-grid">
-          <div class="ed-col ed-meta">
-            <div class="ed-meta-block">
-              <span class="ed-meta-label">Date</span>
-              <span class="ed-meta-value">Oct 7, 2026</span>
-              <span class="ed-meta-sub">10:00 AM – 5:30 PM</span>
-            </div>
-            <div class="ed-meta-block">
-              <span class="ed-meta-label">Location</span>
-              <span class="ed-meta-value">Biñan People's Center Auditorium</span>
-              <span class="ed-meta-sub">Biñan, Laguna</span>
-            </div>  
+        <!-- Architectural Datum Line -->
+        <div class="broadside-datum" aria-hidden="true">
+          <span class="datum-tick datum-tick--left"></span>
+          <div class="datum-rule"></div>
+          <div class="datum-palette">
+            <span class="datum-color-node datum-color--blue" title="AWS Blue"></span>
+            <span class="datum-color-node datum-color--green" title="Builder Green"></span>
+            <span class="datum-color-node datum-color--pink" title="Community Pink"></span>
+            <span class="datum-color-node datum-color--orange" title="Innovation Orange"></span>
+            <span class="datum-color-node datum-color--purple" title="Leadership Purple"></span>
           </div>
+          <div class="datum-rule"></div>
+          <span class="datum-tick datum-tick--right"></span>
+        </div>
+
+        <!-- Operational Grid (2 Columns) -->
+        <div class="broadside-body">
           
-          <div class="ed-col ed-desc">
-            <div class="video-hero-placeholder" id="heroVideoPlaceholder" aria-hidden="true"></div>
-            <div class="video-hero-card" id="heroVideoCard" role="region" aria-label="Official Motion Poster Video — Click to expand into cinematic view" tabindex="0">
-              <!-- Top Left: Pause / Play Button -->
-              <button 
-                type="button" 
-                class="video-ctrl-btn video-ctrl-pause" 
-                id="heroVideoPauseBtn" 
-                aria-label="Pause video" 
-                title="Pause / Play (Space)"
-              >
-                <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <rect x="6" y="4" width="4" height="16" rx="1"></rect>
-                  <rect x="14" y="4" width="4" height="16" rx="1"></rect>
-                </svg>
-                <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <polygon points="6 4 20 12 6 20 6 4"></polygon>
-                </svg>
-              </button>
-
-              <!-- Top Right: Exit Button -->
-              <button 
-                type="button" 
-                class="video-ctrl-btn video-ctrl-exit" 
-                id="heroVideoExitBtn" 
-                aria-label="Exit cinematic view" 
-                title="Exit (Esc)"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-
-              <!-- 2:1 Widescreen Motion Poster for Desktop / Landscape & Mobile Inline Preview -->
-              <video 
-                class="hero-video-player hero-video-desktop" 
-                id="heroVideoPlayer" 
-                autoplay 
-                muted 
-                loop 
-                playsinline 
-                webkit-playsinline
-                preload="auto"
-                aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
-              >
-                <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-
-              <!-- 9:16 Portrait Motion Poster for Mobile Theatrical Mode -->
-              <video 
-                class="hero-video-player hero-video-mobile" 
-                id="heroVideoPlayerMobile" 
-                autoplay
-                muted 
-                loop 
-                playsinline 
-                webkit-playsinline
-                preload="auto"
-                aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster (Mobile Portrait)"
-              >
-                <source src="assets/images/main-poster-v3-mobile.mp4" type="video/mp4">
-              </video>
-
-              <!-- Click for theater view hint badge -->
-              <div class="video-zoom-hint" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <polyline points="9 21 3 21 3 15"></polyline>
-                  <line x1="21" y1="3" x2="14" y2="10"></line>
-                  <line x1="3" y1="21" x2="10" y2="14"></line>
-                </svg>
-                <span>Click for theater view</span>
-              </div>
+          <!-- LEFT: Distilled Narrative & Primary Action -->
+          <div class="broadside-narrative">
+            <div class="broadside-tagline font-mono">
+              Cloud &times; AI: Build. Grow. Lead.
             </div>
 
-            <div class="hero-actions ed-actions">
-              <a class="btn btn-primary" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now!</a>
-              <a class="btn btn-ghost hero-about-btn" id="heroAboutBtn" href="#about" data-page="about" aria-label="Explore About">
-                <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="16" x2="12" y2="12"></line>
-                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            <p class="broadside-lead" data-no-split="true">
+              CALABARZON's flagship student technology gathering at Bi&ntilde;an People's Center &mdash; exploring cloud architectures, generative AI engineering, and tech leadership with AWS.
+            </p>
+
+            <div class="broadside-actions">
+              <a class="btn btn-primary broadside-primary-btn" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">
+                <span>Register Free on Lu.ma</span>
+                <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
-                <span>Explore About</span>
               </a>
             </div>
           </div>
 
-          <div class="ed-col ed-clock" id="countdown" aria-label="Countdown to event">
-            <span class="ed-meta-label ed-clock-label">T-Minus</span>
-            <div class="editorial-clock">
-              <div class="seg"><b id="cd-days">00</b><small>Days</small></div>
-              <div class="seg"><b id="cd-hours">00</b><small>Hrs</small></div>
-              <div class="seg"><b id="cd-mins">00</b><small>Min</small></div>
-              <div class="seg"><b id="cd-secs">00</b><small>Sec</small></div>
+          <!-- RIGHT: 16:9 Cinema Window & Unified Compact Status Bar -->
+          <div class="broadside-terminal">
+            
+            <!-- 16:9 Framed Cinema Stage with Registration Crosshairs -->
+            <div class="broadside-cinema-frame">
+              <div class="reg-crosshair reg-tl" aria-hidden="true"></div>
+              <div class="reg-crosshair reg-tr" aria-hidden="true"></div>
+              <div class="reg-crosshair reg-bl" aria-hidden="true"></div>
+              <div class="reg-crosshair reg-br" aria-hidden="true"></div>
+
+              <div class="video-hero-placeholder" id="heroVideoPlaceholder" aria-hidden="true"></div>
+              <div class="video-hero-card" id="heroVideoCard" role="region" aria-label="Official Motion Poster Video — Click to expand into cinematic view" tabindex="0">
+                <!-- Top Left: Pause / Play Button -->
+                <button 
+                  type="button" 
+                  class="video-ctrl-btn video-ctrl-pause" 
+                  id="heroVideoPauseBtn" 
+                  aria-label="Pause video" 
+                  title="Pause / Play (Space)"
+                >
+                  <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                    <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                  </svg>
+                  <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                  </svg>
+                </button>
+
+                <!-- Top Right: Exit Button -->
+                <button 
+                  type="button" 
+                  class="video-ctrl-btn video-ctrl-exit" 
+                  id="heroVideoExitBtn" 
+                  aria-label="Exit cinematic view" 
+                  title="Exit (Esc)"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+
+                <!-- 2:1 Widescreen Motion Poster for Desktop / Landscape & Mobile Inline Preview -->
+                <video 
+                  class="hero-video-player hero-video-desktop" 
+                  id="heroVideoPlayer" 
+                  autoplay 
+                  muted 
+                  loop 
+                  playsinline 
+                  webkit-playsinline
+                  preload="auto"
+                  aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
+                >
+                  <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+
+                <!-- 9:16 Portrait Motion Poster for Mobile Theatrical Mode -->
+                <video 
+                  class="hero-video-player hero-video-mobile" 
+                  id="heroVideoPlayerMobile" 
+                  autoplay
+                  muted 
+                  loop 
+                  playsinline 
+                  webkit-playsinline
+                  preload="auto"
+                  aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster (Mobile Portrait)"
+                >
+                  <source src="assets/images/main-poster-v3-mobile.mp4" type="video/mp4">
+                </video>
+
+                <!-- Click for theater view hint badge -->
+                <div class="video-zoom-hint font-mono" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <polyline points="9 21 3 21 3 15"></polyline>
+                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                  </svg>
+                  <span>Expand Widescreen</span>
+                </div>
+              </div>
             </div>
+
+            <!-- Compact Minimal Architectural Status Bar -->
+            <div class="broadside-status-bar font-mono" id="countdown">
+              <div class="status-venue">
+                <span>BI&Ntilde;AN AUDITORIUM &middot; 9:30 AM PHT</span>
+              </div>
+              <div class="status-countdown">
+                <span class="status-countdown-label">STARTS IN</span>
+                <div class="broadside-clock" id="heroCountdown" aria-label="Countdown to Summit">
+                  <span class="clock-unit"><b id="cd-days">00</b><small>D</small></span>
+                  <span class="clock-sep" aria-hidden="true">:</span>
+                  <span class="clock-unit"><b id="cd-hours">00</b><small>H</small></span>
+                  <span class="clock-sep" aria-hidden="true">:</span>
+                  <span class="clock-unit"><b id="cd-mins">00</b><small>M</small></span>
+                  <span class="clock-sep" aria-hidden="true">:</span>
+                  <span class="clock-unit"><b id="cd-secs">00</b><small>S</small></span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Theatrical Backdrop Scrim Overlay (Inside editorial-hero sibling to content grid) -->
+        <!-- Theatrical Backdrop Scrim Overlay -->
         <div class="video-theatrical-backdrop" id="videoTheatricalBackdrop" aria-hidden="true"></div>
       </div>
     </section>
@@ -1361,7 +1347,7 @@
         <div class="kbd-section">
           <h4 class="kbd-section-title">Quick Access Buttons</h4>
           <ul class="kbd-list">
-            <li><kbd>M</kbd><span>Toggle Navigation Menu</span></li>
+            <li><kbd>M</kbd><span>Focus Navigation Links</span></li>
             <li><kbd>R</kbd><span>Register Now (Lu.ma)</span></li>
             <li><kbd>A</kbd><span>Explore About Page</span></li>
             <li><kbd>H</kbd><span>Go to Home Page</span></li>
@@ -1378,8 +1364,8 @@
           <ul class="kbd-list">
             <li><kbd>Tab</kbd> / <kbd>Shift+Tab</kbd><span>Focus next / previous element</span></li>
             <li><kbd>Enter</kbd> / <kbd>Space</kbd><span>Activate focused button / link</span></li>
-            <li><kbd>1</kbd> - <kbd>5</kbd><span>Direct menu item inside Drawer</span></li>
-            <li><kbd>Esc</kbd><span>Close any open modal or drawer</span></li>
+            <li><kbd>1</kbd> - <kbd>5</kbd><span>Direct navigation to 01-05</span></li>
+            <li><kbd>Esc</kbd><span>Close any open modal or shortcuts</span></li>
             <li><kbd>?</kbd><span>Toggle this shortcut guide</span></li>
           </ul>
         </div>

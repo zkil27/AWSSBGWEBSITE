@@ -72,12 +72,15 @@ function switchPageDOM(name, record = true, targetSection = null) {
     document.documentElement.setAttribute('data-page', name);
 
     // update active nav button indicators
-    document.querySelectorAll('.navbtn, .dock-tab, .assistive-hud-item, .sm-panel-item').forEach(b => {
+    document.querySelectorAll('.navbtn, .dock-tab, .assistive-hud-item, .sm-panel-item, .nav-item').forEach(b => {
         const on = b.dataset.page === name;
         b.classList.toggle('active', on);
         if (on) b.setAttribute('aria-current', 'page');
         else b.removeAttribute('aria-current');
     });
+    if (window.updateNavLinks) {
+        setTimeout(window.updateNavLinks, 50);
+    }
 
     // keep the Android back button inside the site
     if (record) {
