@@ -25,6 +25,7 @@ import { initSplitText } from './modules/splitText.js';
 import { initPixelTransition, initSplashPixelTransition } from './modules/pixelTransition.js';
 import { initFooterLedger } from './modules/footerLedger.js';
 import { initVideoHero } from './modules/videoHero.js';
+import { initKeyboardNav } from './modules/keyboardNav.js';
 
 // Detect hardware & network constraints immediately
 initPerfManager();
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // scroll source are ready for the blueprint horizontal pan. No-ops on
     // touch / reduced-motion (native scroll).
     initSmoothScroll();
+    initKeyboardNav();
     initCountdown();
     initVideoHero();
 

@@ -278,6 +278,13 @@ export async function initStaggeredMenu(config = {}) {
     playOpen();
     animateIcon(true);
     animateText(true);
+
+    setTimeout(() => {
+      if (open) {
+        const activeItem = panel.querySelector('.sm-panel-item.active') || panel.querySelector('.sm-panel-item');
+        if (activeItem) activeItem.focus();
+      }
+    }, 280);
   }
 
   function closeMenu() {
@@ -293,6 +300,10 @@ export async function initStaggeredMenu(config = {}) {
     playClose();
     animateIcon(false);
     animateText(false);
+
+    if (document.activeElement && panel.contains(document.activeElement)) {
+      toggleBtn.focus();
+    }
   }
 
   function toggleMenu() {
@@ -306,9 +317,9 @@ export async function initStaggeredMenu(config = {}) {
     toggleMenu();
   });
 
-  // Open or toggle menu from external trigger buttons (e.g. Hero Menu button)
+  // Open or toggle menu from external trigger buttons (e.g. elements with data-action="open-menu")
   document.addEventListener('click', (e) => {
-    const opener = e.target.closest('#heroMenuBtn, .hero-menu-btn, [data-action="open-menu"]');
+    const opener = e.target.closest('[data-action="open-menu"]');
     if (opener) {
       e.preventDefault();
       toggleMenu();
@@ -322,7 +333,7 @@ export async function initStaggeredMenu(config = {}) {
       if (
         !panel.contains(event.target) &&
         !toggleBtn.contains(event.target) &&
-        !event.target.closest('#heroMenuBtn, .hero-menu-btn, [data-action="open-menu"]')
+        !event.target.closest('[data-action="open-menu"]')
       ) {
         closeMenu();
       }

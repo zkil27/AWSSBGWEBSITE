@@ -56,6 +56,9 @@
     </div>
   </div>
 
+  <!-- Accessibility: Skip to Main Content Link -->
+  <a href="#page-home" class="skip-link font-mono" id="skipLink">Skip to main content &darr;</a>
+
   <!-- Navigation Header Bar -->
   <header class="nav nav-in-hero" id="siteNav" aria-label="Main navigation header">
     <div class="nav-inner">
@@ -243,13 +246,13 @@
             <div class="ed-meta-block">
               <span class="ed-meta-label">Date</span>
               <span class="ed-meta-value">Oct 7, 2026</span>
-              <span class="ed-meta-sub">8:00 AM – 5:00 PM</span>
+              <span class="ed-meta-sub">10:00 AM – 5:30 PM</span>
             </div>
             <div class="ed-meta-block">
               <span class="ed-meta-label">Location</span>
-              <span class="ed-meta-value">Biñan, Laguna</span>
-              <span class="ed-meta-sub">Biñan People's Center Auditorium</span>
-            </div>
+              <span class="ed-meta-value">Biñan People's Center Auditorium</span>
+              <span class="ed-meta-sub">Biñan, Laguna</span>
+            </div>  
           </div>
           
           <div class="ed-col ed-desc">
@@ -331,14 +334,14 @@
 
             <div class="hero-actions ed-actions">
               <a class="btn btn-primary" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">Register Now!</a>
-              <button class="btn btn-ghost hero-menu-btn" id="heroMenuBtn" type="button" aria-label="Open navigation menu" aria-controls="staggered-menu-panel">
+              <a class="btn btn-ghost hero-about-btn" id="heroAboutBtn" href="#about" data-page="about" aria-label="Explore About">
                 <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
-                <span>Explore Menu</span>
-              </button>
+                <span>Explore About</span>
+              </a>
             </div>
           </div>
 
@@ -379,10 +382,7 @@
           <!-- 01 // QUANTUM TIER (HERO CARDS) -->
           <div class="sponsors-tier-block">
             <div class="tier-editorial-header">
-              <div class="tier-index-lockup">
-                <span class="tier-num">01</span>
-                <span class="tier-badge quantum">QUANTUM</span>
-              </div>
+              <span class="tier-num">01</span>
               <h3 class="tier-headline">Quantum Sponsors</h3>
             </div>
             
@@ -427,10 +427,7 @@
           <!-- 02 // CLUSTER SPONSOR & VENUE PARTNER -->
           <div class="sponsors-tier-block">
             <div class="tier-editorial-header">
-              <div class="tier-index-lockup">
-                <span class="tier-num">02</span>
-                <span class="tier-badge cluster">CLUSTER &amp; VENUE</span>
-              </div>
+              <span class="tier-num">02</span>
               <h3 class="tier-headline">Cluster Sponsor &amp; Venue Partner</h3>
             </div>
 
@@ -475,10 +472,7 @@
           <!-- 03 // UNIVERSITY BUILDER CHAPTERS & ECOSYSTEM NETWORK (INFINITE MARQUEE) -->
           <div class="sponsors-tier-block sponsors-marquee-block">
             <div class="tier-editorial-header">
-              <div class="tier-index-lockup">
-                <span class="tier-num">03</span>
-                <span class="tier-badge chapters">PARTNERS &amp; CHAPTERS</span>
-              </div>
+              <span class="tier-num">03</span>
               <h3 class="tier-headline">Pro &amp; Lite Partners</h3>
             </div>
 
@@ -1262,6 +1256,9 @@
           <span class="foot-meta-tag">BUILD. GROW. LEAD.</span>
         </div>
         <div class="foot-bottom-right">
+          <button type="button" class="btn-kbd-help font-mono" id="btnKbdHelp" aria-label="Open Keyboard Shortcuts Guide (Press ?)">
+            <kbd>?</kbd> <span>Shortcuts</span>
+          </button>
           <button type="button" class="btn-back-top font-mono" id="btnBackToTop" aria-label="Scroll back to top">
             BACK TO TOP &uarr;
           </button>
@@ -1337,6 +1334,65 @@
       </div>
     </div>
   </aside>
+
+  <!-- ============ KEYBOARD SHORTCUTS MODAL ============ -->
+  <div class="kbd-modal-overlay" id="kbdShortcutsModal" role="dialog" aria-modal="true" aria-labelledby="kbdModalTitle" aria-hidden="true">
+    <div class="kbd-modal-backdrop" id="kbdModalBackdrop"></div>
+    <div class="kbd-modal-card">
+      <header class="kbd-modal-header">
+        <div class="kbd-modal-title-wrap">
+          <span class="kbd-badge font-mono">ACCESSIBILITY</span>
+          <h3 id="kbdModalTitle">Keyboard Shortcuts</h3>
+        </div>
+        <button type="button" class="kbd-modal-close" id="kbdCloseBtn" aria-label="Close shortcuts dialog">&times;</button>
+      </header>
+
+      <div class="kbd-modal-grid font-mono">
+        <div class="kbd-section">
+          <h4 class="kbd-section-title">Navigation &amp; Scroll</h4>
+          <ul class="kbd-list">
+            <li><kbd>&uarr;</kbd> / <kbd>&darr;</kbd><span>Scroll smoothly up / down</span></li>
+            <li><kbd>&larr;</kbd> / <kbd>&rarr;</kbd><span>Pan Blueprint sideways / prev-next</span></li>
+            <li><kbd>Space</kbd> / <kbd>PgDn</kbd><span>Scroll down by viewport</span></li>
+            <li><kbd>Home</kbd> / <kbd>End</kbd><span>Jump to top / bottom</span></li>
+          </ul>
+        </div>
+
+        <div class="kbd-section">
+          <h4 class="kbd-section-title">Quick Access Buttons</h4>
+          <ul class="kbd-list">
+            <li><kbd>M</kbd><span>Toggle Navigation Menu</span></li>
+            <li><kbd>R</kbd><span>Register Now (Lu.ma)</span></li>
+            <li><kbd>A</kbd><span>Explore About Page</span></li>
+            <li><kbd>H</kbd><span>Go to Home Page</span></li>
+            <li><kbd>S</kbd><span>Jump to Schedule / Blueprint</span></li>
+            <li><kbd>V</kbd><span>Jump to Twin Venues</span></li>
+            <li><kbd>T</kbd><span>Toggle Theme (Light / Dark)</span></li>
+            <li><kbd>P</kbd><span>Play / Pause Hero Video</span></li>
+            <li><kbd>B</kbd><span>Back to Top</span></li>
+          </ul>
+        </div>
+
+        <div class="kbd-section">
+          <h4 class="kbd-section-title">Controls &amp; Traversal</h4>
+          <ul class="kbd-list">
+            <li><kbd>Tab</kbd> / <kbd>Shift+Tab</kbd><span>Focus next / previous element</span></li>
+            <li><kbd>Enter</kbd> / <kbd>Space</kbd><span>Activate focused button / link</span></li>
+            <li><kbd>1</kbd> - <kbd>5</kbd><span>Direct menu item inside Drawer</span></li>
+            <li><kbd>Esc</kbd><span>Close any open modal or drawer</span></li>
+            <li><kbd>?</kbd><span>Toggle this shortcut guide</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="kbd-modal-footer font-mono">
+        <span>Explore the summit entirely by keyboard. Press <kbd>Esc</kbd> or <kbd>?</kbd> anytime to close.</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Accessible Keyboard Action Feedback Toast -->
+  <div class="kbd-action-toast font-mono" id="kbdActionToast" aria-live="polite"></div>
 
   <script type="module" src="assets/js/main.js"></script>
 

@@ -852,10 +852,8 @@ export function initSpeakers() {
         const color = colors[index % colors.length];
         const isComingSoon = speaker.isComingSoon || speaker.name === 'Coming Soon';
         const name = speaker.name || `Speaker ${index + 1}`;
-        const avatar = speaker.picUrl || FALLBACK_AVATAR;
         return `
-        <div class="speaker-inline-card ${color}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}">
-          <img src="${avatar}" alt="${name}" class="speaker-inline-avatar${isComingSoon ? ' is-silhouette' : ''}" width="24" height="24" loading="lazy" decoding="async">
+        <div class="speaker-inline-card ${color}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}" title="${name}">
           <span class="speaker-inline-name">${name}</span>
         </div>
         `;

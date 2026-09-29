@@ -262,7 +262,12 @@ function render(scroll) {
     }
 
     // Optical focus: opacity and subtle scale
-    const opacity = (0.35 + 0.65 * focus).toFixed(3);
+    let minOpacity = 0.35;
+    // When agenda panels exit towards the left, smoothly taper baseline opacity to 0 so they don't linger on screen
+    if (dist < -0.3 && !p.isSchedule) {
+      minOpacity = 0.35 * clamp01((1 + dist) / 0.7);
+    }
+    const opacity = (minOpacity + (1 - minOpacity) * focus).toFixed(3);
     const scale = (0.96 + 0.04 * focus).toFixed(3);
 
     // Staggered vertical float
