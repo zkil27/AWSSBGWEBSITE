@@ -34,7 +34,7 @@ export const scheduleSessions = [
     category: 'OPENING CEREMONY',
     categoryTheme: 'theme-orange',
     title: 'Opening Ceremony',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Invocation, National Anthem, Opening Program · Led by Hosts/Organizers.',
     speakerIndices: []
   },
@@ -47,7 +47,7 @@ export const scheduleSessions = [
     category: 'OPENING KEYNOTE',
     categoryTheme: 'theme-orange',
     title: 'Opening Keynote: Cloud × AI: Building the Future Together',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Welcome Remarks and Opening Keynote by Sir Isaeus "Asi" Guiang (AWS User Groups Leader Philippines), exploring emerging trends in AWS Cloud architecture, developer communities, and applied AI in CALABARZON.',
     speakerIndices: [{ index: 0, role: 'Opening Remarks' }]
   },
@@ -60,7 +60,7 @@ export const scheduleSessions = [
     category: 'COMMUNITY & ICEBREAKER',
     categoryTheme: 'theme-blue',
     title: 'Community Icebreaker, Audience Engagement & Giveaways',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'High-energy interactive icebreakers, audience mini-challenges, summit trivia, and partner giveaways led by host Cyphrey Madulid and the emcee team.',
     speakerIndices: []
   },
@@ -73,7 +73,7 @@ export const scheduleSessions = [
     category: 'BUILDER STORY & TALK #1',
     categoryTheme: 'theme-green',
     title: 'Talk #1: Built by Community: From Student Builder to Tech Professional',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Student story from being an AWS Student Builder Group Lead / Captain into a full-fledged technology professional. Includes 40-minute main talk (11:40 AM – 12:20 PM) and a 10-minute audience Q&A session (12:20 PM – 12:30 PM).',
     speakerIndices: [0]
   },
@@ -88,8 +88,8 @@ export const scheduleSessions = [
     category: 'LUNCH BREAK',
     categoryTheme: 'theme-orange',
     title: 'Lunch Break, Networking & Hub Experience',
-    location: '2nd Floor Hub & Exhibition Hall',
-    description: 'Lunch, sponsor and partner booth exploration, hands-on developer challenges, speed mentoring with cloud architects, photobooth, and peer networking.',
+    location: 'SS Community Hub · 2nd Floor',
+    description: 'Lunch, sponsor and partner booth exploration, partner showcases, speed mentoring with cloud architects, photobooth, and peer networking in the SS Community Hub.',
     speakerIndices: []
   },
   {
@@ -101,8 +101,8 @@ export const scheduleSessions = [
     category: 'ENERGIZER & SPONSOR TALK',
     categoryTheme: 'theme-blue',
     title: 'Afternoon Energizer & Partner Sponsor Spotlight',
-    location: 'Main Auditorium · 4th Floor',
-    description: 'Audience energizer games, booth challenge updates, sponsor lightning presentations (5 mins each), and exclusive partner swag giveaways.',
+    location: 'Summit Stage · 4th Floor',
+    description: 'Audience energizer games, partner showcase updates, sponsor lightning presentations (5 mins each), and exclusive partner swag giveaways.',
     speakerIndices: []
   },
   {
@@ -114,7 +114,7 @@ export const scheduleSessions = [
     category: 'WOMEN IN TECH KEYNOTE & TALK #2',
     categoryTheme: 'theme-pink',
     title: 'Talk #2: Building Smarter Systems with AI and Cloud',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Flagship Women in Tech keynote on modern architectural patterns, generative AI integration, and scalable cloud solutions on AWS. Includes 40-minute presentation (2:20 PM – 3:00 PM) and 10-minute live Q&A (3:00 PM – 3:10 PM).',
     speakerIndices: [1]
   },
@@ -127,7 +127,7 @@ export const scheduleSessions = [
     category: 'AI ADOPTION & TALK #3',
     categoryTheme: 'theme-green',
     title: 'Talk #3: Human in the Loop: Preparing People for an AI-Driven Future',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'In-depth exploration of organizational AI adoption, workforce readiness, and ethical AI deployment. Includes 40-minute main session (3:10 PM – 3:50 PM) and 10-minute live Q&A (3:50 PM – 4:00 PM).',
     speakerIndices: [2]
   },
@@ -140,7 +140,7 @@ export const scheduleSessions = [
     category: 'FLAGSHIP PANEL DISCUSSION',
     categoryTheme: 'theme-purple',
     title: 'Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Flagship panel featuring AWS Community Leaders, former Student Builder Group Captains, and student tech officers on community leadership and tech career acceleration. Includes 30-minute panel (4:00 PM – 4:30 PM) and 10-minute live Q&A (4:30 PM – 4:40 PM).',
     speakerIndices: [3, 4, 5]
   },
@@ -153,7 +153,7 @@ export const scheduleSessions = [
     category: 'GRAND RAFFLE & RECOGNITION',
     categoryTheme: 'theme-pink',
     title: 'Grand Raffle, Sponsor & Partner Appreciation & Closing Remarks',
-    location: 'Main Auditorium · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Major raffle prize draws, recognition of industry sponsors, partners, speakers, and volunteer teams, followed by official South Summit Event Director closing remarks.',
     speakerIndices: []
   },
@@ -166,7 +166,7 @@ export const scheduleSessions = [
     category: 'FINALE & GROUP PHOTO',
     categoryTheme: 'theme-blue',
     title: 'Official Community Group Photo & Hall Egress',
-    location: 'Main Auditorium & Grand Stage · 4th Floor',
+    location: 'Summit Stage · 4th Floor',
     description: 'Official South Summit 2026 commemorative group photo with all attendees, speakers, directors, and organizers, followed by hall egress and final networking.',
     speakerIndices: []
   }
