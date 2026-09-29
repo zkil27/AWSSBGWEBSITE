@@ -158,7 +158,7 @@ function resize() {
   if (!canvas || !ctx) return;
   viewW = window.innerWidth;
   viewH = window.innerHeight;
-  dpr = Math.min(window.devicePixelRatio || 1, isLowSpec() ? 1 : CFG.dprCap);
+  dpr = Math.min(window.devicePixelRatio || 1, isLowSpec() ? 1 : (viewW <= 768 ? 1.5 : CFG.dprCap));
   canvas.width = Math.round(viewW * dpr);
   canvas.height = Math.round(viewH * dpr);
   canvas.style.width = viewW + 'px';

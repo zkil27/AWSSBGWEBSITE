@@ -6187,7 +6187,7 @@ html[data-theme="dark"] .foot-giant-year,
   padding: 6px 14px;
   border-radius: 4px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -7298,7 +7298,7 @@ html[data-theme="dark"] .sb-card-label {
 
 .sb-tab-pill {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -9069,8 +9069,8 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
     font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important;
   }
   .sb-tab-pill {
-    font-size: 9px;
-    padding: 2px 7px;
+    font-size: 11px;
+    padding: 2px 8px;
     white-space: nowrap !important;
   }
   .sb-action-btn {
@@ -10590,11 +10590,17 @@ html.in-page-transition {
    ========================================================================== */
 
 /* 1. Paint containment for heavy off-screen sections to drastically reduce initial render & scroll costs */
-#speakers,
-#venue,
+#why-join,
 #sponsors,
+#venue,
+.quote-band,
+#about-bridge,
+#faq,
+#register,
+#about-speakers-roster,
 #about-directors,
-#about-chapters {
+#card-chapters,
+.footer-ledger {
   content-visibility: auto;
   contain-intrinsic-size: 1px 750px;
 }
@@ -10752,7 +10758,7 @@ kbd {
   padding: 5px 12px;
   border-radius: 4px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -11351,7 +11357,7 @@ html[data-theme="dark"] .blr-title {
 }
 
 .blr-pill {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   padding: 2px 7px;

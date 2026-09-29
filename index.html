@@ -9,11 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap"
     rel="stylesheet" media="print" onload="this.media='all'">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap"
       rel="stylesheet">
   </noscript>
   <link rel="stylesheet" href="theme.css?v=20260911-rect">
@@ -292,26 +292,32 @@
                   loop 
                   playsinline 
                   webkit-playsinline
-                  preload="auto"
+                  preload="metadata"
+                  poster="assets/images/hero-video-poster.webp"
+                  width="2160"
+                  height="1080"
                   aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
                 >
                   <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
 
-                <!-- 9:16 Portrait Motion Poster for Mobile Theatrical Mode -->
+                <!-- 9:16 Portrait Motion Poster for Mobile Theatrical Mode (Loaded On-Demand) -->
                 <video 
                   class="hero-video-player hero-video-mobile" 
                   id="heroVideoPlayerMobile" 
-                  autoplay
                   muted 
                   loop 
                   playsinline 
                   webkit-playsinline
-                  preload="auto"
+                  preload="none"
+                  poster="assets/images/hero-video-poster-mobile.webp"
+                  width="1080"
+                  height="1920"
+                  data-src="assets/images/main-poster-v3-mobile.mp4"
                   aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster (Mobile Portrait)"
                 >
-                  <source src="assets/images/main-poster-v3-mobile.mp4" type="video/mp4">
+                  <source src="" type="video/mp4">
                 </video>
 
                 <!-- Click for theater view hint badge -->
@@ -1770,7 +1776,7 @@
 
         <!-- Col 2: 01 EXPLORE -->
         <div class="foot-col">
-          <h6 class="foot-header"><span class="foot-col-num">01</span> EXPLORE</h6>
+          <h3 class="foot-header"><span class="foot-col-num">01</span> EXPLORE</h3>
           <nav class="foot-nav-links" aria-label="Explore navigation">
             <button type="button" class="foot-nav-item" data-page="home">Home</button>
             <button type="button" class="foot-nav-item" data-page="about">About</button>
@@ -1779,7 +1785,7 @@
 
         <!-- Col 3: 02 PROGRAM -->
         <div class="foot-col">
-          <h6 class="foot-header"><span class="foot-col-num">02</span> PROGRAM</h6>
+          <h3 class="foot-header"><span class="foot-col-num">02</span> PROGRAM</h3>
           <nav class="foot-nav-links" aria-label="Program navigation">
             <a href="#why-join" class="foot-nav-item" data-section="why-join">Why Join</a>
             <a href="#program" class="foot-nav-item" data-section="program">Schedule</a>
@@ -1794,7 +1800,7 @@
 
         <!-- Col 4: 03 CONNECT -->
         <div class="foot-col">
-          <h6 class="foot-header"><span class="foot-col-num">03</span> CONNECT</h6>
+          <h3 class="foot-header"><span class="foot-col-num">03</span> CONNECT</h3>
           <nav class="foot-social-links" aria-label="Social media channels">
             <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" aria-label="AWS SCD South Summit Facebook">Facebook <span class="foot-arrow">&#8599;</span></a>
             <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" aria-label="AWS SCD South Summit LinkedIn">LinkedIn <span class="foot-arrow">&#8599;</span></a>
@@ -1977,8 +1983,15 @@
       if (!splash) return;
 
       var isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var SPLASH_MS = isReduced ? 800 : 1600;
+      var hasSeenSplash = false;
+      try {
+        hasSeenSplash = sessionStorage.getItem('scd_splash_seen') === '1';
+      } catch (e) {}
+      var SPLASH_MS = hasSeenSplash ? 0 : (isReduced ? 800 : 1600);
       function dismiss() {
+        try {
+          sessionStorage.setItem('scd_splash_seen', '1');
+        } catch (e) {}
         if (window.__dismissSplashWithPixelTransition) {
           window.__dismissSplashWithPixelTransition();
           return;

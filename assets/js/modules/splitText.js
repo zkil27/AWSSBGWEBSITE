@@ -125,10 +125,10 @@ export function splitIntoLines(el) {
     return [];
   }
 
-  // Group words into lines according to bounding rect tops
+  // Group words into lines according to offsetTop (avoids synchronous layout reflows)
   const linesMap = new Map();
   words.forEach(w => {
-    const top = Math.round(w.getBoundingClientRect().top);
+    const top = w.offsetTop;
     let matchedKey = null;
     for (const key of linesMap.keys()) {
       if (Math.abs(key - top) <= 6) {
@@ -366,7 +366,7 @@ let savedOptions = {};
  */
 function scanAndAnimate(options) {
   const candidates = document.querySelectorAll(
-    'h1, h2, h3, h4, h5, h6, p, blockquote, .quote-text, .quote-author'
+    'h1, h2, .section-title, .hero-top-title, blockquote, .quote-text'
   );
 
   candidates.forEach(el => {

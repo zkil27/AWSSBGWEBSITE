@@ -37,7 +37,7 @@ export function initVideoHero() {
   let isAnimating = false;
 
   function getActiveVideo() {
-    return (isTheatrical && isMobilePortraitViewport() && mobileVideo) ? mobileVideo : video;
+    return (isTheatrical && isMobilePortraitViewport() && mobileVideo && mobileVideo.src) ? mobileVideo : video;
   }
 
   const updateCardState = () => {
@@ -70,13 +70,13 @@ export function initVideoHero() {
     if (active.paused) {
       userPaused = false;
       video.play().catch(() => {});
-      if (isTheatrical && isMobilePortraitViewport() && mobileVideo) {
+      if (isTheatrical && isMobilePortraitViewport() && mobileVideo && mobileVideo.src) {
         mobileVideo.play().catch(() => {});
       }
     } else {
       userPaused = true;
       video.pause();
-      if (mobileVideo) {
+      if (mobileVideo && mobileVideo.src) {
         mobileVideo.pause();
       }
     }
@@ -150,6 +150,13 @@ export function initVideoHero() {
 
     const isMobile = isMobilePortraitViewport();
     if (isMobile && mobileVideo) {
+      if (!mobileVideo.src) {
+        const dataSrc = mobileVideo.getAttribute('data-src') || 'assets/images/main-poster-v3-mobile.mp4';
+        const sourceEl = mobileVideo.querySelector('source');
+        if (sourceEl) sourceEl.src = dataSrc;
+        mobileVideo.src = dataSrc;
+        mobileVideo.load();
+      }
       if (video.currentTime && mobileVideo.duration) {
         mobileVideo.currentTime = video.currentTime % mobileVideo.duration;
       }
