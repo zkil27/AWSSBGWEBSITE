@@ -10998,7 +10998,7 @@ html:not([data-theme="dark"]) .kbd-modal-footer,
   position: relative;
   width: 100%;
   padding: clamp(80px, 9vw, 128px) 0;
-  background: var(--bg-0, var(--bg, #FAFBFC));
+  background: transparent;
   border-top: 1px solid var(--line-strong, rgba(0, 0, 0, 0.08));
   border-bottom: 1px solid var(--line-strong, rgba(0, 0, 0, 0.08));
   overflow: hidden;
@@ -11006,7 +11006,6 @@ html:not([data-theme="dark"]) .kbd-modal-footer,
 }
 
 html[data-theme="dark"] .about-bridge-section {
-  background: #090d16;
   border-top-color: rgba(255, 255, 255, 0.08);
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
@@ -11489,13 +11488,12 @@ html[data-theme="dark"] .blr-action {
 .why-join-section {
   position: relative;
   padding: clamp(72px, 8vw, 120px) 0;
-  background: var(--bg-white, #FFFFFF);
+  background: transparent;
   overflow: hidden;
   border-bottom: 1px solid var(--line, rgba(0, 0, 0, 0.08));
 }
 
 html[data-theme="dark"] .why-join-section {
-  background: #090d16;
   border-bottom-color: rgba(255, 255, 255, 0.07);
 }
 
@@ -11834,13 +11832,12 @@ html[data-theme="dark"] .btn-why-program:hover {
 .faq-section {
   position: relative;
   padding: clamp(72px, 8vw, 120px) 0;
-  background: var(--bg-white, #FFFFFF);
+  background: transparent;
   overflow: hidden;
   border-bottom: 1px solid var(--line, rgba(0, 0, 0, 0.08));
 }
 
 html[data-theme="dark"] .faq-section {
-  background: #090d16;
   border-bottom-color: rgba(255, 255, 255, 0.07);
 }
 
