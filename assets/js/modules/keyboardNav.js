@@ -70,7 +70,13 @@ export function toggleShortcutsModal(forceState) {
     modalOverlay.classList.add('open');
     modalOverlay.setAttribute('aria-hidden', 'false');
     const closeBtn = document.getElementById('kbdCloseBtn');
-    if (closeBtn) closeBtn.focus();
+    if (closeBtn) {
+      try {
+        closeBtn.focus({ preventScroll: true });
+      } catch (err) {
+        closeBtn.focus();
+      }
+    }
     showKeyActionToast('Keyboard Shortcuts [?]');
   } else {
     modalOverlay.classList.remove('open');
@@ -220,7 +226,11 @@ export function initKeyboardNav() {
           const nextIdx = key === 'ArrowDown'
             ? (idx + 1) % items.length
             : (idx - 1 + items.length) % items.length;
-          items[nextIdx].focus();
+          try {
+            items[nextIdx].focus({ preventScroll: true });
+          } catch (err) {
+            items[nextIdx].focus();
+          }
         }
         return;
       }

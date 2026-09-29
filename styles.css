@@ -350,6 +350,11 @@ body.staggered-menu-open header.nav {
   -webkit-backdrop-filter: none !important;
 }
 
+html[data-staggered-menu-open],
+body.staggered-menu-open {
+  overflow-x: hidden !important;
+}
+
 header.nav.scrolled {
   background: var(--nav-bg);
   border-bottom: 1px solid var(--line);

@@ -193,6 +193,16 @@ export async function initStaggeredMenu(config = {}) {
     if (tl) {
       tl.eventCallback('onComplete', () => {
         busy = false;
+        if (open) {
+          const activeItem = panel.querySelector('.sm-panel-item.active') || panel.querySelector('.sm-panel-item');
+          if (activeItem) {
+            try {
+              activeItem.focus({ preventScroll: true });
+            } catch (err) {
+              activeItem.focus();
+            }
+          }
+        }
       });
       tl.play(0);
     } else {
@@ -268,6 +278,13 @@ export async function initStaggeredMenu(config = {}) {
   function openMenu() {
     if (open) return;
     open = true;
+
+    // Reset any unintentional horizontal scroll position
+    if (window.scrollX !== 0 || document.documentElement.scrollLeft !== 0) {
+      window.scrollTo({ left: 0 });
+      document.documentElement.scrollLeft = 0;
+    }
+
     wrapper.setAttribute('data-open', 'true');
     document.documentElement.setAttribute('data-staggered-menu-open', 'true');
     document.body.classList.add('staggered-menu-open');
@@ -278,18 +295,18 @@ export async function initStaggeredMenu(config = {}) {
     playOpen();
     animateIcon(true);
     animateText(true);
-
-    setTimeout(() => {
-      if (open) {
-        const activeItem = panel.querySelector('.sm-panel-item.active') || panel.querySelector('.sm-panel-item');
-        if (activeItem) activeItem.focus();
-      }
-    }, 280);
   }
 
   function closeMenu() {
     if (!open) return;
     open = false;
+
+    // Reset any unintentional horizontal scroll position
+    if (window.scrollX !== 0 || document.documentElement.scrollLeft !== 0) {
+      window.scrollTo({ left: 0 });
+      document.documentElement.scrollLeft = 0;
+    }
+
     wrapper.removeAttribute('data-open');
     document.documentElement.removeAttribute('data-staggered-menu-open');
     document.body.classList.remove('staggered-menu-open');
@@ -302,7 +319,11 @@ export async function initStaggeredMenu(config = {}) {
     animateText(false);
 
     if (document.activeElement && panel.contains(document.activeElement)) {
-      toggleBtn.focus();
+      try {
+        toggleBtn.focus({ preventScroll: true });
+      } catch (err) {
+        toggleBtn.focus();
+      }
     }
   }
 
