@@ -58,5 +58,11 @@ export const faqs = [
     q: 'How do I get there, and what spaces are in the venue?',
     a: 'The summit is held at the Biñan People’s Center Auditorium in Biñan City, Laguna. It utilizes two dedicated event spaces: the Summit Stage (4th Floor Auditorium) for keynote and technical sessions, and the SS Community Hub (2nd Floor) for sponsor booths, partner showcases, networking, and the interactive photobooth.',
     pending: false
+  },
+  {
+    id: 'faq-stay-updated',
+    q: 'How can I stay updated on event announcements?',
+    a: 'Follow us on our social media channels — Facebook, Instagram, and LinkedIn — for the latest updates, speaker reveals, and reminders leading up to the summit. You can also check your email for registration updates through Luma. For direct inquiries, reach out to us at scd.southsummit@gmail.com.',
+    pending: false
   }
 ];
