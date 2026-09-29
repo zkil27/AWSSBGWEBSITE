@@ -199,7 +199,7 @@
 }
 
 .item-wrapper.is-keynote .lt-name {
-  font-size: clamp(16px, 1.35vw, 20px);
+  font-size: clamp(14px, 1.15vw, 17px);
 }
 
 .item-wrapper .lt-role {

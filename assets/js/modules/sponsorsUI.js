@@ -3,7 +3,7 @@
  * AWS Student Community Day: South Summit 2026
  * Hero Showcase + Infinite Marquee Stream with Direct Organization Labels
  */
-import { sponsors } from '../data/sponsors.js?v=20260929-ccc-logo';
+import { sponsors } from '../data/sponsors.js?v=20260929-partner-assets';
 import { isLowSpec } from './perfManager.js';
 import { updateMarqueeBounds } from './computeGrid.js';
 
@@ -76,9 +76,11 @@ function renderMarqueeChip(partner) {
   const logoSrc = escapeHTML(partner.imgUrl || 'assets/images/south-summit-logo.svg');
   const tier = partner.tier || 'pro';
   const tierLabel = tier === 'pro' ? 'PRO PARTNER' : 'LITE PARTNER';
+  const tierBadge = tier === 'pro' ? 'PRO' : 'LITE';
 
   return `
     <div class="marquee-chip chip-${color} marquee-chip--${tier}" title="${name}" aria-label="${name} - ${tierLabel}">
+      <span class="marquee-chip-tier ${tier}">${tierBadge}</span>
       <div class="marquee-chip-logo-wrap">
         <img class="marquee-chip-logo"
              src="${logoSrc}"
@@ -182,6 +184,12 @@ export function initSponsors() {
   initSpotlightEffect();
 
   // 3. Populate and duplicate Marquee tracks by category
+  const proCountEl = document.getElementById('proPartnersCount');
+  if (proCountEl) proCountEl.textContent = `(${proPartners.length})`;
+
+  const liteCountEl = document.getElementById('litePartnersCount');
+  if (liteCountEl) liteCountEl.textContent = `(${litePartners.length})`;
+
   // Track 1: Pro Partners (Marquee Left)
   if (track1 && proPartners.length > 0) {
     track1.innerHTML = buildMarqueeLoopHTML(proPartners);

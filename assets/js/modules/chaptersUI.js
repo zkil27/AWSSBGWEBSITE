@@ -34,7 +34,6 @@ function chapterCardHTML(c) {
     <div class="chapter-card" data-no-split="true">
       <!-- 1. Top Header: Name of the Org on Top (Player Plate) -->
       <div class="chapter-card-header">
-        <div class="chapter-header-bevel" aria-hidden="true"></div>
         <h4 class="chapter-org-name" title="${name}">${name}</h4>
       </div>
 
@@ -47,14 +46,6 @@ function chapterCardHTML(c) {
                loading="lazy"
                decoding="async"
                onerror="this.onerror=null;this.src='assets/images/south-summit-logo.svg';">
-        </div>
-        <!-- Decorative notch pips matching reference card divider -->
-        <div class="chapter-deco-notch" aria-hidden="true">
-          <span class="notch-pip"></span>
-          <span class="notch-pip"></span>
-          <span class="notch-pip notch-pip--center"></span>
-          <span class="notch-pip"></span>
-          <span class="notch-pip"></span>
         </div>
       </div>
 

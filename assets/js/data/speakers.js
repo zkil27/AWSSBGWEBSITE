@@ -4,6 +4,17 @@
  */
 export const speakers = [
   {
+    "id": "speaker-indaleen-quinsayas",
+    "name": "Indaleen Quinsayas",
+    "role": "AWS SBG PUP Biñan",
+    "sessionTitle": "Opening Keynote: Welcome Remarks",
+    "abstract": "Indaleen Quinsayas represents AWS Student Builder Group - PUP Biñan, delivering the Opening Keynote and Welcome Remarks to kick off AWS Student Community Day: South Summit 2026.",
+    "status": "KEYNOTE",
+    "picUrl": "assets/images/speakers/silhouette.svg",
+    "linkedInUrl": "",
+    "isComingSoon": false
+  },
+  {
     "id": "speaker-isaeus-asi-guiang",
     "name": "Isaeus (Asi) Guiang",
     "role": "AWS User Groups Leader Philippines & Community Builder · Former AWS SBG Lead & Captain · Head of Operations & Communications, AWSUG.PH",
@@ -39,23 +50,12 @@ export const speakers = [
   {
     "id": "speaker-jared-remulta",
     "name": "Jared Remulta",
-    "role": "Speaker · Tech Community Leader",
+    "role": "Chief Technology Officer · PROLOOK",
     "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Jared Remulta joins the flagship panel discussion on 'Build. Grow. Lead', exploring how tech communities, peer mentorship, and student builder initiatives foster leadership and open doors for tech careers.",
+    "abstract": "Jared Remulta is Chief Technology Officer at PROLOOK. He joins the flagship panel discussion on 'Build. Grow. Lead', exploring how tech communities, peer mentorship, and student builder initiatives foster leadership and open doors for tech careers.",
     "status": "PANEL",
     "picUrl": "assets/images/speakers/jared-e-remulta.webp",
     "linkedInUrl": "",
-    "isComingSoon": false
-  },
-  {
-    "id": "speaker-gaile-espinosa",
-    "name": "Gaile Espinosa",
-    "role": "Country Lead of AWS Cloud Club Philippines · Cloud and AI Consultant at Tutorials Dojo",
-    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Gaile Espinosa is the Country Lead of AWS Cloud Club Philippines and Cloud and AI Consultant at Tutorials Dojo. She joins the flagship panel discussion on 'Build. Grow. Lead' to share how student leadership, grassroots community building, and proactive tech exploration create career breakthroughs.",
-    "status": "PANEL",
-    "picUrl": "assets/images/speakers/gaile-espinosa.webp",
-    "linkedInUrl": "https://www.linkedin.com/in/gailespns/",
     "isComingSoon": false
   },
   {
@@ -66,6 +66,17 @@ export const speakers = [
     "abstract": "Nina is a community builder with Data Engineering Pilipinas (DEP) and Data Engineering Team Lead at eCloudvalley Philippines, an AWS Premier Partner. She joins the flagship panel discussion on 'Build. Grow. Lead' to share insights on engineering leadership, cloud data platforms, and community-driven professional growth.",
     "status": "PANEL",
     "picUrl": "assets/images/speakers/karenina-comia.webp",
+    "linkedInUrl": "",
+    "isComingSoon": false
+  },
+  {
+    "id": "speaker-neil-riego",
+    "name": "Neil Riego",
+    "role": "Speaker · Tech Community Leader",
+    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
+    "abstract": "Neil Riego joins the flagship panel discussion on 'Build. Grow. Lead', sharing perspectives on technical leadership, community empowerment, and career growth pathways in the evolving cloud and AI landscape.",
+    "status": "PANEL",
+    "picUrl": "assets/images/speakers/silhouette.svg",
     "linkedInUrl": "",
     "isComingSoon": false
   }

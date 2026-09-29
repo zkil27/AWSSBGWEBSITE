@@ -17,7 +17,7 @@
       rel="stylesheet">
   </noscript>
   <link rel="stylesheet" href="theme.css?v=20260911-rect">
-  <link rel="stylesheet" href="styles.css?v=20260911-sponsors-v3">
+  <link rel="stylesheet" href="styles.css?v=20260929-banner-glow">
   <link rel="stylesheet" href="assets/css/staggeredMenu.css?v=20260911-rect">
   <link rel="stylesheet" href="assets/css/grainient.css">
   <link rel="stylesheet" href="assets/css/masonry.css">
@@ -479,16 +479,34 @@
             <!-- Dual-Track Marquee Wrapper with Gradient Masks -->
             <div class="sponsors-marquee-shell" aria-label="Partner and University Chapter Stream">
               <!-- Track 1: Pro Partners (Marquee Left) -->
-              <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
-                <div class="marquee-track" id="marqueeTrack1">
-                  <!-- Populated dynamically by sponsorsUI.js -->
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag pro">
+                    <span class="tag-dot" aria-hidden="true"></span>
+                    PRO PARTNERS
+                  </span>
+                  <span class="marquee-tier-count font-mono" id="proPartnersCount">(12)</span>
+                </div>
+                <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
+                  <div class="marquee-track" id="marqueeTrack1">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
                 </div>
               </div>
 
               <!-- Track 2: Lite Partners (Marquee Right) -->
-              <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
-                <div class="marquee-track" id="marqueeTrack2">
-                  <!-- Populated dynamically by sponsorsUI.js -->
+              <div class="marquee-track-group">
+                <div class="marquee-track-header">
+                  <span class="marquee-tier-tag lite">
+                    <span class="tag-dot" aria-hidden="true"></span>
+                    LITE PARTNERS
+                  </span>
+                  <span class="marquee-tier-count font-mono" id="litePartnersCount">(7)</span>
+                </div>
+                <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
+                  <div class="marquee-track" id="marqueeTrack2">
+                    <!-- Populated dynamically by sponsorsUI.js -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -1019,10 +1037,10 @@
                 <div class="ar-hud-center">
                   <nav class="ar-category-pills" aria-label="Speaker categories">
                     <button type="button" class="ar-pill active" data-target="all" id="pillAll">
-                      All (6)
+                      All (7)
                     </button>
                     <button type="button" class="ar-pill" data-target="keynotes" id="pillKeynotes">
-                      <span class="pill-dot orange"></span>Keynotes (3)
+                      <span class="pill-dot orange"></span>Keynotes (4)
                     </button>
                     <button type="button" class="ar-pill" data-target="panels" id="pillPanels">
                       <span class="pill-dot purple"></span>Panel Discussion (3)
@@ -1242,7 +1260,7 @@
       </div>
 
       <!-- Giant Display Banner: SOUTH SUMMIT 2026 -->
-      <div class="foot-giant-banner" id="footGiantBanner" role="region" aria-label="South Summit 2026">
+      <div class="foot-giant-banner" id="footGiantBanner" aria-label="South Summit 2026">
         <span class="foot-giant-word foot-giant-south">SOUTH</span>
         <span class="foot-giant-word foot-giant-summit">SUMMIT</span>
         <span class="foot-giant-word foot-giant-year">2026</span>

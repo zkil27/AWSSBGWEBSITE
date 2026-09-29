@@ -1683,8 +1683,12 @@ html[data-theme="light"] #program {
   --bp-line-strong: rgba(0, 0, 0, 0.22);
   
   --bp-card-bg: #ffffff;
-  --bp-card-border: rgba(0, 0, 0, 0.15);
-  --bp-card-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+  --bp-card-border: rgba(0, 0, 0, 0.09);
+  --bp-card-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.05),
+    0 20px 48px rgba(0, 0, 0, 0.07),
+    0 40px 84px rgba(0, 0, 0, 0.06);
   --bp-card-header-border: rgba(0, 0, 0, 0.08);
   
   --bp-row-border-left: rgba(0, 0, 0, 0.12);
@@ -1730,8 +1734,12 @@ html[data-theme="dark"] #program {
   --bp-line-strong: rgba(255, 255, 255, 0.35);
   
   --bp-card-bg: #0d1527;
-  --bp-card-border: rgba(68, 179, 254, 0.16);
-  --bp-card-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25);
+  --bp-card-border: rgba(255, 255, 255, 0.08);
+  --bp-card-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.16),
+    0 20px 50px rgba(0, 0, 0, 0.22),
+    0 40px 96px rgba(0, 0, 0, 0.26);
   --bp-card-header-border: rgba(255, 255, 255, 0.08);
   
   --bp-row-border-left: rgba(68, 179, 254, 0.2);
@@ -2214,6 +2222,7 @@ html.bp-active .blueprint-panel--schedule {
   justify-content: flex-start;
   box-sizing: border-box;
   align-self: center;
+  overflow: visible !important;
 }
 
 .bp-meta--schedule {
@@ -2336,7 +2345,9 @@ html.bp-active .blueprint-panel--schedule .schedule-container {
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
+  overflow: visible !important;
+  padding: 8px 12px 18px;
+  margin: -8px -12px -18px;
 }
 
 /* Two-column block split */
@@ -2374,7 +2385,7 @@ html.bp-active .sched-blocks-split {
   width: 100%;
 }
 
-/* Stage block cards: architectural broadsheet editorial layout */
+/* Stage block cards: architectural broadsheet editorial layout with responsive hover glow */
 .sched-block {
   display: flex;
   flex-direction: column;
@@ -2385,8 +2396,33 @@ html.bp-active .sched-blocks-split {
   overflow: hidden;
   padding: clamp(16px, 2vh, 24px) clamp(18px, 2.4vw, 36px);
   position: relative;
-  box-shadow: var(--bp-card-shadow, 0 10px 30px rgba(0, 0, 0, 0.12));
+  box-shadow: var(--bp-card-shadow);
   box-sizing: border-box;
+  isolation: isolate;
+  background-clip: padding-box;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sched-block.block-morning:hover {
+  border-color: rgba(252, 153, 7, 0.32);
+  box-shadow: 
+    var(--bp-card-shadow),
+    0 0 28px -4px rgba(252, 153, 7, 0.14);
+}
+
+.sched-block.block-afternoon:hover {
+  border-color: rgba(167, 89, 255, 0.32);
+  box-shadow: 
+    var(--bp-card-shadow),
+    0 0 28px -4px rgba(167, 89, 255, 0.14);
+}
+
+.sched-block.block-morning:hover .sched-block-pill.morning {
+  box-shadow: 0 0 12px rgba(252, 153, 7, 0.5);
+}
+
+.sched-block.block-afternoon:hover .sched-block-pill.afternoon {
+  box-shadow: 0 0 12px rgba(167, 89, 255, 0.5);
 }
 
 html.bp-active .sched-block {
@@ -2470,31 +2506,104 @@ html.bp-active .sched-block-rows {
   justify-content: space-around;
 }
 
-/* Each row: clean horizontal editorial divider, no spine line, no dot */
+/* Each row: refined interactive broadsheet capsule with smooth stage accents */
 .blueprint-panel--schedule .sched-row {
   position: relative;
-  margin: 0;
-  padding: clamp(10px, 1.4vh, 18px) 0;
+  margin: 2px clamp(-10px, -0.8vw, -14px);
+  padding: clamp(10px, 1.3vh, 15px) clamp(10px, 0.8vw, 14px);
   display: grid;
   grid-template-columns: clamp(84px, 7.5vw, 108px) minmax(0, 1fr);
   gap: clamp(14px, 1.8vw, 24px);
   align-items: start;
-  border-left: none;
+  border: 1px solid transparent;
   border-bottom: 1px solid var(--bp-row-border-bottom, rgba(0, 0, 0, 0.06));
-  border-radius: 0;
-  transition: background-color 0.15s ease;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 
+    background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, background;
 }
 
 .blueprint-panel--schedule .sched-row:last-child {
-  border-bottom: none;
+  border-bottom-color: transparent;
 }
 
+/* Sleek cybernetic indicator bar on the left edge */
 .blueprint-panel--schedule .sched-row::before {
-  display: none;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 14%;
+  bottom: 14%;
+  width: 3.5px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: scaleY(0.3);
+  transform-origin: center;
+  transition: 
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.24s ease;
+  pointer-events: none;
+  z-index: 2;
 }
 
+.blueprint-panel--schedule .block-morning .sched-row::before {
+  background: var(--orange);
+  box-shadow: 0 0 10px rgba(252, 153, 7, 0.75);
+}
+
+.blueprint-panel--schedule .block-afternoon .sched-row::before {
+  background: var(--purple);
+  box-shadow: 0 0 10px rgba(167, 89, 255, 0.75);
+}
+
+/* General row hover elevation */
 .blueprint-panel--schedule .sched-row:hover {
-  background: var(--bp-row-hover, rgba(0, 0, 0, 0.02));
+  z-index: 2;
+  transform: translateX(4px);
+}
+
+.blueprint-panel--schedule .sched-row:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* Morning Stage row hover - Amber / Orange Theme */
+.blueprint-panel--schedule .block-morning .sched-row:hover {
+  background: linear-gradient(90deg, rgba(252, 153, 7, 0.08) 0%, rgba(252, 153, 7, 0.02) 65%, transparent 100%);
+  border-color: rgba(252, 153, 7, 0.22);
+  box-shadow: 
+    0 4px 16px -2px rgba(252, 153, 7, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .block-morning .sched-row:hover {
+  background: linear-gradient(90deg, rgba(252, 153, 7, 0.14) 0%, rgba(252, 153, 7, 0.035) 60%, rgba(252, 153, 7, 0.005) 100%);
+  border-color: rgba(252, 153, 7, 0.28);
+  box-shadow: 
+    0 6px 22px -2px rgba(0, 0, 0, 0.35),
+    0 0 16px -2px rgba(252, 153, 7, 0.18);
+}
+
+/* Afternoon Stage row hover - Electric Violet / Purple Theme */
+.blueprint-panel--schedule .block-afternoon .sched-row:hover {
+  background: linear-gradient(90deg, rgba(167, 89, 255, 0.08) 0%, rgba(167, 89, 255, 0.02) 65%, transparent 100%);
+  border-color: rgba(167, 89, 255, 0.22);
+  box-shadow: 
+    0 4px 16px -2px rgba(167, 89, 255, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .block-afternoon .sched-row:hover {
+  background: linear-gradient(90deg, rgba(167, 89, 255, 0.14) 0%, rgba(167, 89, 255, 0.035) 60%, rgba(167, 89, 255, 0.005) 100%);
+  border-color: rgba(167, 89, 255, 0.28);
+  box-shadow: 
+    0 6px 22px -2px rgba(0, 0, 0, 0.35),
+    0 0 16px -2px rgba(167, 89, 255, 0.18);
 }
 
 .blueprint-panel--schedule .sched-row .time {
@@ -2508,14 +2617,32 @@ html.bp-active .sched-block-rows {
   gap: 3px;
   padding-top: 2px;
   white-space: nowrap;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blueprint-panel--schedule .sched-row:hover .time {
+  transform: scale(1.025);
+  transform-origin: left center;
 }
 
 .blueprint-panel--schedule .block-morning .sched-row .time .t-val {
   color: var(--orange-text, var(--orange));
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .blueprint-panel--schedule .block-afternoon .sched-row .time .t-val {
   color: var(--purple-text, var(--purple));
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .block-morning .sched-row:hover .time .t-val {
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(252, 153, 7, 0.65), 0 0 2px rgba(252, 153, 7, 0.9);
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .block-afternoon .sched-row:hover .time .t-val {
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(167, 89, 255, 0.65), 0 0 2px rgba(167, 89, 255, 0.9);
 }
 
 .t-dur {
@@ -2530,6 +2657,16 @@ html.bp-active .sched-block-rows {
   border: none;
   padding: 0;
   margin: 0;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.blueprint-panel--schedule .sched-row:hover .t-dur {
+  color: var(--bp-text-strong, #000000);
+  opacity: 0.85;
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .t-dur {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .what-header {
@@ -2586,6 +2723,16 @@ html.bp-active .sched-block-rows {
   color: var(--bp-text-strong, #000000);
   line-height: 1.25;
   display: inline;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.blueprint-panel--schedule .sched-row:hover .what b {
+  color: var(--bp-text-strong, #000000);
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .what b {
+  color: #ffffff;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
 }
 
 .blueprint-panel--schedule .sched-row .what span {
@@ -2595,6 +2742,15 @@ html.bp-active .sched-block-rows {
   line-height: 1.45;
   display: block;
   margin-top: 3px;
+  transition: color 0.2s ease;
+}
+
+.blueprint-panel--schedule .sched-row:hover .what span {
+  color: var(--bp-text-strong, #111827);
+}
+
+html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .what span {
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* Inline speaker chips with crisp editorial styling */
@@ -2650,10 +2806,26 @@ html.bp-active .sched-block-rows {
   .blueprint-panel--schedule .sched-row {
     grid-template-columns: 78px minmax(0, 1fr);
     gap: 12px;
-    padding: 12px 0;
+    padding: 10px 8px;
+    margin: 2px -8px;
   }
   .blueprint-panel--schedule .sched-block {
     padding: 18px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blueprint-panel--schedule .sched-row,
+  .blueprint-panel--schedule .sched-row:hover,
+  .blueprint-panel--schedule .sched-row .time,
+  .blueprint-panel--schedule .sched-row:hover .time,
+  .sched-block,
+  .sched-block:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+  .blueprint-panel--schedule .sched-row::before {
+    transition: none !important;
   }
 }
 
@@ -2790,8 +2962,9 @@ html:not(.bp-active) .blueprint-panel--agenda:hover {
     -webkit-backdrop-filter: blur(16px) saturate(1.25);
     backdrop-filter: blur(16px) saturate(1.25);
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 12px 30px rgba(0, 0, 0, 0.22) !important;
     border-radius: 16px;
+    isolation: isolate;
   }
 
   html[data-theme="light"] .blueprint-panel--agenda {
@@ -2799,7 +2972,8 @@ html:not(.bp-active) .blueprint-panel--agenda:hover {
     -webkit-backdrop-filter: blur(16px) saturate(1.25);
     backdrop-filter: blur(16px) saturate(1.25);
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+    isolation: isolate;
   }
 }
 
@@ -2994,18 +3168,22 @@ html:not(.bp-active) .blueprint-pin {
     border: none !important;
     box-shadow: none !important;
   }
-}
+
   /* Frosted glass for schedule block cards on mobile */
   .blueprint-panel--schedule .sched-block {
     background: rgba(13, 21, 39, 0.85) !important;
     -webkit-backdrop-filter: blur(16px) saturate(1.25);
     backdrop-filter: blur(16px) saturate(1.25);
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+    isolation: isolate;
   }
 
   html[data-theme="light"] .blueprint-panel--schedule .sched-block {
     background: rgba(255, 255, 255, 0.88) !important;
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+    isolation: isolate;
   }
 }
 
@@ -5044,6 +5222,47 @@ html[data-theme="dark"] .marquee-chip:hover {
   z-index: 3;
 }
 
+/* Tier badge tag on each marquee chip */
+.marquee-chip-tier {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1.2;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-chip-tier.pro {
+  background: rgba(252, 153, 7, 0.12);
+  color: var(--orange-text, #C2410C);
+  border: 1px solid rgba(252, 153, 7, 0.28);
+}
+
+html[data-theme="dark"] .marquee-chip-tier.pro {
+  background: rgba(252, 153, 7, 0.2);
+  color: #FFAE42;
+  border-color: rgba(252, 153, 7, 0.4);
+}
+
+.marquee-chip-tier.lite {
+  background: rgba(7, 227, 131, 0.12);
+  color: var(--green-text, #047857);
+  border: 1px solid rgba(7, 227, 131, 0.28);
+}
+
+html[data-theme="dark"] .marquee-chip-tier.lite {
+  background: rgba(7, 227, 131, 0.2);
+  color: #34D399;
+  border-color: rgba(7, 227, 131, 0.4);
+}
+
 .marquee-chip-logo-wrap {
   width: 100%;
   flex: 1 1 0;
@@ -5135,9 +5354,18 @@ html[data-theme="dark"] .marquee-chip-name {
     font-size: 10px;
     line-height: 1.2;
   }
+  .marquee-chip-tier {
+    top: 7px;
+    right: 7px;
+    font-size: 7.5px;
+    padding: 1px 5px;
+  }
 }
 
 @media (max-width: 580px) {
+  .marquee-track-header {
+    padding: 0 14px;
+  }
   .marquee-chip {
     width: 130px;
     height: 130px;
@@ -5155,6 +5383,12 @@ html[data-theme="dark"] .marquee-chip-name {
   .marquee-chip-name {
     font-size: 9.5px;
     line-height: 1.2;
+  }
+  .marquee-chip-tier {
+    top: 5px;
+    right: 5px;
+    font-size: 7px;
+    padding: 1px 4px;
   }
 }
 
@@ -5530,7 +5764,8 @@ footer.site-footer[data-theme="dark"] {
 /* ==========================================================================
    GIANT FOOTER DISPLAY BANNER: "SOUTH SUMMIT 2026"
    ========================================================================== */
-.foot-giant-banner {
+.foot-giant-banner,
+#footGiantBanner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -5538,16 +5773,44 @@ footer.site-footer[data-theme="dark"] {
   width: 100%;
   padding: clamp(20px, 3.2vw, 36px) 0;
   margin: clamp(32px, 4.5vw, 52px) 0 clamp(20px, 3vw, 34px);
-  border-top: 1px solid var(--footer-banner-border);
-  border-bottom: 1px solid var(--footer-banner-border);
-  border-left: none !important;
-  border-right: none !important;
+  border: none !important;
   outline: none !important;
+  box-shadow: none !important;
   position: relative;
   cursor: default;
   user-select: none;
-  transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.foot-giant-banner:focus,
+.foot-giant-banner:focus-visible,
+#footGiantBanner:focus,
+#footGiantBanner:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Glowing upper and lower lines only — zero side borders, zero rectangle */
+.foot-giant-banner::before,
+.foot-giant-banner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Upper line (glowing top line) */
+.foot-giant-banner::before {
+  top: 0;
+}
+
+/* Lower line (glowing bottom line) */
+.foot-giant-banner::after {
+  bottom: 0;
 }
 
 .foot-giant-word {
@@ -5564,75 +5827,108 @@ footer.site-footer[data-theme="dark"] {
               transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Light Mode Idle */
+/* Light Mode Idle: Clean hairline dividers + crisp typography, no initial glow */
+html:not([data-theme="dark"]) .foot-giant-banner::before,
+html:not([data-theme="dark"]) .foot-giant-banner::after,
+[data-theme="light"] .foot-giant-banner::before,
+[data-theme="light"] .foot-giant-banner::after {
+  background: rgba(15, 23, 42, 0.12);
+  box-shadow: none;
+}
+
 html:not([data-theme="dark"]) .foot-giant-south,
 html:not([data-theme="dark"]) .foot-giant-summit,
 [data-theme="light"] .foot-giant-south,
 [data-theme="light"] .foot-giant-summit {
-  color: #000000;
+  color: #0F172A;
+  text-shadow: none;
 }
+
 html:not([data-theme="dark"]) .foot-giant-year,
 [data-theme="light"] .foot-giant-year {
   color: #0284C7;
+  text-shadow: none;
 }
 
-/* Light Mode Hover Animation (Keep only upper and lower line illumination) */
-@media (hover: hover) and (pointer: fine) {
-  html:not([data-theme="dark"]) .foot-giant-banner:hover,
-  [data-theme="light"] .foot-giant-banner:hover {
-    border-top-color: #0284C7;
-    border-bottom-color: #0284C7;
-    border-left: none !important;
-    border-right: none !important;
-    box-shadow: 0 -3px 8px -2px rgba(2, 132, 199, 0.25), 0 3px 8px -2px rgba(2, 132, 199, 0.25);
-  }
-  html:not([data-theme="dark"]) .foot-giant-banner:hover .foot-giant-word,
-  [data-theme="light"] .foot-giant-banner:hover .foot-giant-word {
-    color: #0284C7;
-    text-shadow: 0 0 22px rgba(2, 132, 199, 0.45), 0 0 45px rgba(2, 132, 199, 0.22);
-  }
-  html:not([data-theme="dark"]) .foot-giant-word:hover,
-  [data-theme="light"] .foot-giant-word:hover {
-    transform: scale(1.02);
-  }
+/* Dark Mode Idle: Clean hairline dividers + subtle typography, no initial glow */
+html[data-theme="dark"] .foot-giant-banner::before,
+html[data-theme="dark"] .foot-giant-banner::after,
+[data-theme="dark"] .foot-giant-banner::before,
+[data-theme="dark"] .foot-giant-banner::after {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
 }
 
-/* Dark Mode Idle */
 html[data-theme="dark"] .foot-giant-south,
 html[data-theme="dark"] .foot-giant-summit,
 [data-theme="dark"] .foot-giant-south,
 [data-theme="dark"] .foot-giant-summit {
   color: #384353;
+  text-shadow: none;
 }
+
 html[data-theme="dark"] .foot-giant-year,
 [data-theme="dark"] .foot-giant-year {
   color: #38BDF8;
+  text-shadow: none;
 }
 
-/* Dark Mode Hover Animation (Keep only upper and lower line illumination) */
+/* Interactive Hover Feedback (Clean upper/lower line + text glow on hover only) */
 @media (hover: hover) and (pointer: fine) {
+  html:not([data-theme="dark"]) .foot-giant-banner:hover,
+  [data-theme="light"] .foot-giant-banner:hover,
   html[data-theme="dark"] .foot-giant-banner:hover,
   [data-theme="dark"] .foot-giant-banner:hover {
-    border-top-color: #38BDF8;
-    border-bottom-color: #38BDF8;
-    border-left: none !important;
-    border-right: none !important;
-    box-shadow: 0 -3px 8px -2px rgba(56, 189, 248, 0.35), 0 3px 8px -2px rgba(56, 189, 248, 0.35);
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
+
+  html:not([data-theme="dark"]) .foot-giant-banner:hover::before,
+  html:not([data-theme="dark"]) .foot-giant-banner:hover::after,
+  [data-theme="light"] .foot-giant-banner:hover::before,
+  [data-theme="light"] .foot-giant-banner:hover::after {
+    background: #0284C7;
+    box-shadow: 0 0 10px rgba(2, 132, 199, 0.8), 0 0 20px rgba(2, 132, 199, 0.4);
+  }
+
+  html:not([data-theme="dark"]) .foot-giant-banner:hover .foot-giant-south,
+  html:not([data-theme="dark"]) .foot-giant-banner:hover .foot-giant-summit,
+  [data-theme="light"] .foot-giant-banner:hover .foot-giant-south,
+  [data-theme="light"] .foot-giant-banner:hover .foot-giant-summit {
+    color: #0284C7;
+    text-shadow: 0 0 20px rgba(2, 132, 199, 0.55), 0 0 40px rgba(2, 132, 199, 0.3);
+  }
+
+  html:not([data-theme="dark"]) .foot-giant-banner:hover .foot-giant-year,
+  [data-theme="light"] .foot-giant-banner:hover .foot-giant-year {
+    color: #0284C7;
+    text-shadow: 0 0 24px rgba(2, 132, 199, 0.9), 0 0 48px rgba(2, 132, 199, 0.45);
+  }
+
+  html[data-theme="dark"] .foot-giant-banner:hover::before,
+  html[data-theme="dark"] .foot-giant-banner:hover::after,
+  [data-theme="dark"] .foot-giant-banner:hover::before,
+  [data-theme="dark"] .foot-giant-banner:hover::after {
+    background: #38BDF8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 1), 0 0 26px rgba(56, 189, 248, 0.65);
+  }
+
   html[data-theme="dark"] .foot-giant-banner:hover .foot-giant-south,
   html[data-theme="dark"] .foot-giant-banner:hover .foot-giant-summit,
   [data-theme="dark"] .foot-giant-banner:hover .foot-giant-south,
   [data-theme="dark"] .foot-giant-banner:hover .foot-giant-summit {
-    color: #CBD5E1;
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    color: #FFFFFF;
+    text-shadow: 0 0 22px rgba(56, 189, 248, 0.8), 0 0 44px rgba(56, 189, 248, 0.45);
   }
+
   html[data-theme="dark"] .foot-giant-banner:hover .foot-giant-year,
   [data-theme="dark"] .foot-giant-banner:hover .foot-giant-year {
     color: #38BDF8;
-    text-shadow: 0 0 25px rgba(56, 189, 248, 0.85), 0 0 50px rgba(56, 189, 248, 0.5);
+    text-shadow: 0 0 28px rgba(56, 189, 248, 1), 0 0 55px rgba(56, 189, 248, 0.75);
   }
-  html[data-theme="dark"] .foot-giant-word:hover,
-  [data-theme="dark"] .foot-giant-word:hover {
+
+  .foot-giant-word:hover {
     transform: scale(1.02);
   }
 }
@@ -7065,9 +7361,9 @@ html[data-theme="dark"] .foot-giant-year,
   position: relative;
   width: 100%;
   min-height: 58px;
-  background: linear-gradient(180deg, #065f46 0%, #064e3b 100%);
+  background: #064e3b;
   border-bottom: 2px solid var(--green, #07e383);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(6, 78, 59, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7079,10 +7375,7 @@ html[data-theme="dark"] .foot-giant-year,
 }
 
 .chapter-header-bevel {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.24), transparent 75%);
+  display: none;
 }
 
 .chapter-org-name,
@@ -7113,7 +7406,7 @@ html[data-theme="dark"] .foot-giant-year,
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 14px 14px 6px;
+  padding: 14px;
   box-sizing: border-box;
   background: rgba(5, 150, 105, 0.04);
   flex-shrink: 0;
@@ -7154,12 +7447,7 @@ html[data-theme="dark"] .foot-giant-year,
 /* Decorative Notch / Pips Bar */
 .chapter-deco-notch,
 #card-chapters .chapter-deco-notch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 0 2px;
-  width: 100%;
+  display: none !important;
 }
 
 .notch-pip {
@@ -7307,9 +7595,9 @@ html[data-theme="dark"] #card-chapters .chapter-card:hover {
 
 html[data-theme="dark"] .chapter-card-header,
 html[data-theme="dark"] #card-chapters .chapter-card-header {
-  background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
+  background: #031b14;
   border-bottom-color: var(--green, #07e383);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 3px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 html[data-theme="dark"] .chapter-org-name,
@@ -9698,8 +9986,8 @@ html.in-page-transition {
    KEYBOARD ACCESSIBILITY & SHORTCUTS ENGINE
    ========================================================================== */
 
-/* Universal Focus Visible */
-:focus-visible {
+/* Universal Focus Visible (excluding decorative giant footer banner) */
+:focus-visible:not(.foot-giant-banner):not(#footGiantBanner):not(.foot-giant-word) {
   outline: 2px solid var(--blue, #38BDF8) !important;
   outline-offset: 3px !important;
 }

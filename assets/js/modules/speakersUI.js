@@ -386,19 +386,8 @@ export function initSpeakers() {
             const linkedin = s.linkedInUrl
                 || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(name)}`;
 
-            // Harmonious heights calibrated for balanced 3-column greedy packing (6 speakers)
-            // Col 0: Asi (460) + Karenina (380) = 840px
-            // Col 1: Trisha (440) + Gaile (400) = 840px
-            // Col 2: Kevin (420) + Jared (420) = 840px
-            let targetH = 360;
-            if (s.id === 'speaker-isaeus-asi-guiang') targetH = 460;
-            else if (s.id === 'speaker-trisha-pelagio') targetH = 440;
-            else if (s.id === 'speaker-gaile-espinosa') targetH = 400;
-            else if (s.id === 'speaker-jared-remulta') targetH = 420;
-            else if (s.id === 'speaker-kevin-john-ventura' || s.id === 'speaker-talk3-tba') targetH = 420;
-            else if (s.id === 'speaker-karenina-comia' || s.id === 'speaker-panel-tba-1') targetH = 380;
-            else if (isKeynote) targetH = 440;
-            else targetH = 360;
+            // Uniform height across all speaker cards for a clean, perfectly aligned grid
+            const targetH = 420;
 
             return {
                 id: s.id || `speaker-${s.originalIndex ?? index}`,
@@ -859,17 +848,22 @@ export function initSpeakers() {
         `;
     }
 
+    const indaleenSpeaker = speakers.find(s => s.id === 'speaker-indaleen-quinsayas');
+    const indaleenIdx = indaleenSpeaker ? speakers.findIndex(s => s.id === indaleenSpeaker.id) : 0;
+
     const isaeusSpeaker = speakers.find(s => s.id === 'speaker-isaeus-asi-guiang');
-    const isaeusIdx = isaeusSpeaker ? speakers.findIndex(s => s.id === isaeusSpeaker.id) : 0;
+    const isaeusIdx = isaeusSpeaker ? speakers.findIndex(s => s.id === isaeusSpeaker.id) : 1;
 
     const trishaSpeaker = speakers.find(s => s.id === 'speaker-trisha-pelagio');
-    const trishaIdx = trishaSpeaker ? speakers.findIndex(s => s.id === trishaSpeaker.id) : 1;
+    const trishaIdx = trishaSpeaker ? speakers.findIndex(s => s.id === trishaSpeaker.id) : 2;
 
     const talk3Speaker = speakers.find(s => s.id === 'speaker-kevin-john-ventura' || s.id === 'speaker-talk3-tba');
-    const talk3Idx = talk3Speaker ? speakers.findIndex(s => s.id === talk3Speaker.id) : 2;
+    const talk3Idx = talk3Speaker ? speakers.findIndex(s => s.id === talk3Speaker.id) : 3;
 
-    if (schedKeynotesGrid && isaeusSpeaker) {
-        schedKeynotesGrid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(isaeusSpeaker, isaeusIdx) + '</div>';
+    if (schedKeynotesGrid && (indaleenSpeaker || isaeusSpeaker)) {
+        const spk = indaleenSpeaker || isaeusSpeaker;
+        const idx = indaleenSpeaker ? indaleenIdx : isaeusIdx;
+        schedKeynotesGrid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(spk, idx) + '</div>';
     }
     if (schedTalk1Grid && isaeusSpeaker) {
         schedTalk1Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(isaeusSpeaker, isaeusIdx) + '</div>';
@@ -884,7 +878,7 @@ export function initSpeakers() {
         schedPanelsGrid.innerHTML = '<div class="speaker-inline-row">' + panels.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
     }
     if (schedSessionsGrid) {
-        const afternoonKeynotes = keynotes.filter(s => s.id !== 'speaker-isaeus-asi-guiang');
+        const afternoonKeynotes = keynotes.filter(s => s.id !== 'speaker-isaeus-asi-guiang' && s.id !== 'speaker-indaleen-quinsayas');
         schedSessionsGrid.innerHTML = '<div class="speaker-inline-row">' + afternoonKeynotes.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
     }
 
