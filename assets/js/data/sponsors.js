@@ -110,7 +110,7 @@ export const sponsors = [
     location: 'Calamba, Laguna',
     track: 'Academic Department Partner',
     color: 'blue',
-    imgUrl: 'assets/images/sponsors and partners/CCC logo.jpg',
+    imgUrl: 'assets/images/sponsors and partners/CCC logo.png',
     url: '#'
   },
   {

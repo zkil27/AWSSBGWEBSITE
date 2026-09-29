@@ -156,6 +156,10 @@ export function initVideoHero() {
       if (!userPaused) {
         mobileVideo.play().catch(() => {});
       }
+    } else {
+      if (!userPaused) {
+        video.play().catch(() => {});
+      }
     }
 
     // Activate backdrop scrim
@@ -210,9 +214,10 @@ export function initVideoHero() {
       if (mobileVideo.currentTime && video.duration) {
         video.currentTime = mobileVideo.currentTime % video.duration;
       }
-      if (!userPaused) {
-        video.play().catch(() => {});
-      }
+      mobileVideo.pause();
+    }
+    if (!userPaused) {
+      video.play().catch(() => {});
     }
 
     if (backdrop) backdrop.classList.remove('is-active');
@@ -349,16 +354,24 @@ export function initVideoHero() {
     mobileVideo.addEventListener('pause', updateCardState);
   }
 
+  // Explicitly ensure muted properties to satisfy mobile autoplay policies
+  video.muted = true;
+  video.defaultMuted = true;
+  if (mobileVideo) {
+    mobileVideo.muted = true;
+    mobileVideo.defaultMuted = true;
+  }
+
   if (prefersReduced) {
     video.pause();
     if (mobileVideo) mobileVideo.pause();
     updateCardState();
   } else {
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.then(updateCardState).catch(() => {
-        updateCardState();
-      });
+    video.play().then(updateCardState).catch(() => {
+      updateCardState();
+    });
+    if (mobileVideo) {
+      mobileVideo.play().catch(() => {});
     }
   }
 

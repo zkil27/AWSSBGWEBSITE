@@ -109,10 +109,69 @@ function initBackToTop() {
 }
 
 /**
+ * Handle special footer navigation targets (Organizers, Core Team, Merch).
+ */
+function initFooterNavInteractions() {
+    const footer = document.getElementById('siteFooter');
+    if (!footer) return;
+
+    footer.addEventListener('click', (e) => {
+        const item = e.target.closest('.foot-nav-item');
+        if (!item) return;
+
+        const page = item.getAttribute('data-page');
+        const target = item.getAttribute('data-target');
+
+        if (page === 'merch') {
+            e.preventDefault();
+            showMerchNotice();
+            return;
+        }
+
+        if (page === 'about' && target) {
+            e.preventDefault();
+            if (window.showPage) {
+                window.showPage('about', true, true);
+            }
+            setTimeout(() => {
+                const cardId = target === 'chapters' ? 'card-chapters' : 'card-directors';
+                const card = document.getElementById(cardId);
+                if (card) {
+                    const tab = card.querySelector('.sb-card-tab');
+                    if (tab && !card.classList.contains('is-active')) {
+                        tab.click();
+                    }
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 350);
+        }
+    });
+}
+
+function showMerchNotice() {
+    let toast = document.getElementById('footerMerchToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'footerMerchToast';
+        toast.className = 'footer-merch-toast font-mono';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.appendChild(toast);
+    }
+    toast.textContent = 'Official summit merch drops closer to October 7!';
+    toast.classList.add('visible');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+        toast.classList.remove('visible');
+    }, 3200);
+}
+
+/**
  * Bootstraps all footer ledger & kinetic marquee interactions.
  */
 export function initFooterLedger() {
     initMatrixDecryption();
     initTelemetryCountdown();
     initBackToTop();
+    initFooterNavInteractions();
 }

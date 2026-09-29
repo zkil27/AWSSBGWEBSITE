@@ -294,8 +294,8 @@
                 muted 
                 loop 
                 playsinline 
+                webkit-playsinline
                 preload="auto"
-                poster="assets/images/event-primer.webp"
                 aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster"
               >
                 <source src="assets/images/main-poster-v3.mp4" type="video/mp4">
@@ -306,9 +306,11 @@
               <video 
                 class="hero-video-player hero-video-mobile" 
                 id="heroVideoPlayerMobile" 
+                autoplay
                 muted 
                 loop 
                 playsinline 
+                webkit-playsinline
                 preload="auto"
                 aria-label="AWS Student Community Day: South Summit 2026 Official Motion Poster (Mobile Portrait)"
               >
@@ -1181,67 +1183,87 @@
   <footer class="site-footer" id="siteFooter">
     <div class="wrap">
       <div class="foot-ledger-grid">
-        <!-- Col 1: Brand & Mission -->
+        <!-- Col 1: Brand & Details -->
         <div class="foot-col-brand">
           <div class="brand" style="display:flex; align-items:center; gap:10px;">
             <img class="chip" src="assets/images/south-summit-logo.svg" alt="South Summit 2026" width="36" height="36">
             <div class="brand-text">
-              SCD SOUTH SUMMIT 2026
-              <span>AWS STUDENT BUILDER GROUPS</span>
+              AWS SCD SOUTH SUMMIT 2026
+              <span class="brand-subtext">AWS STUDENT BUILDER GROUPS</span>
             </div>
           </div>
           <p class="foot-mission">
-            The flagship student-led cloud conference across CALABARZON. Empowering future builders, developers, and leaders through Cloud and AI.
+            The flagship student-led cloud conference across <b>CALABARZON</b>. Empowering future student builders, developers, and leaders through <b>Cloud and AI</b>.
           </p>
+
+          <!-- Key-value event metadata table -->
+          <div class="foot-event-meta font-mono">
+            <div class="foot-meta-row">
+              <span class="foot-meta-label">VENUE</span>
+              <span class="foot-meta-val">Biñan People's Center, Laguna</span>
+            </div>
+            <div class="foot-meta-row">
+              <span class="foot-meta-label">DATE</span>
+              <span class="foot-meta-val">Wednesday &bull; October 7, 2026</span>
+            </div>
+            <div class="foot-meta-row">
+              <span class="foot-meta-label">TIME</span>
+              <span class="foot-meta-val">10:00 AM &mdash; 05:30 PM</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Col 2: Navigation -->
+        <!-- Col 2: 01 EXPLORE -->
         <div class="foot-col">
-          <h6 class="foot-header">Explore</h6>
-          <nav class="foot-nav-links" aria-label="Footer navigation">
+          <h6 class="foot-header"><span class="foot-col-num">01</span> EXPLORE</h6>
+          <nav class="foot-nav-links" aria-label="Explore navigation">
             <button type="button" class="foot-nav-item" data-page="home">Home</button>
             <button type="button" class="foot-nav-item" data-page="about">About</button>
           </nav>
         </div>
 
-        <!-- Col 3: Event -->
+        <!-- Col 3: 02 PROGRAM -->
         <div class="foot-col">
-          <h6 class="foot-header">Event</h6>
-          <nav class="foot-nav-links" aria-label="Event navigation">
+          <h6 class="foot-header"><span class="foot-col-num">02</span> PROGRAM</h6>
+          <nav class="foot-nav-links" aria-label="Program navigation">
             <a href="#program" class="foot-nav-item" data-section="program">Schedule</a>
             <a href="#sponsors" class="foot-nav-item" data-section="sponsors">Sponsors</a>
             <a href="#venue" class="foot-nav-item" data-section="venue">Venue</a>
-            <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener" class="foot-nav-item">Register</a>
+            <button type="button" class="foot-nav-item" data-page="about" data-target="chapters">Organizers</button>
+            <button type="button" class="foot-nav-item" data-page="about" data-target="directors">Core Team</button>
+            <a href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener noreferrer" class="foot-nav-item">Register</a>
           </nav>
         </div>
 
-        <!-- Col 4: Social Channels -->
+        <!-- Col 4: 03 CONNECT -->
         <div class="foot-col">
-          <h6 class="foot-header">Connect</h6>
+          <h6 class="foot-header"><span class="foot-col-num">03</span> CONNECT</h6>
           <nav class="foot-social-links" aria-label="Social media channels">
-            <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="blue" aria-label="AWS SCD South Summit Facebook">Facebook</a>
-            <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="green" aria-label="AWS SCD South Summit TikTok">TikTok</a>
-            <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="purple" aria-label="AWS SCD South Summit LinkedIn">LinkedIn</a>
-            <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="social-link-item" data-brand="pink" aria-label="AWS SCD South Summit Instagram">Instagram</a>
-            <a href="mailto:partners@awsscd2026.org" class="social-link-item" data-brand="orange" aria-label="Email AWS SCD South Summit Partners">Contact Us</a>
+            <a href="https://www.facebook.com/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" aria-label="AWS SCD South Summit Facebook">Facebook <span class="foot-arrow">&#8599;</span></a>
+            <a href="https://www.linkedin.com/company/awsscdsouth" target="_blank" rel="noopener noreferrer" class="social-link-item" aria-label="AWS SCD South Summit LinkedIn">LinkedIn <span class="foot-arrow">&#8599;</span></a>
+            <a href="https://www.instagram.com/awsscd_southsummit/" target="_blank" rel="noopener noreferrer" class="social-link-item" aria-label="AWS SCD South Summit Instagram">Instagram <span class="foot-arrow">&#8599;</span></a>
+            <a href="https://www.tiktok.com/@awsscdsouth?_r=1&amp;_t=ZS-99tFZjvILjj" target="_blank" rel="noopener noreferrer" class="social-link-item" aria-label="AWS SCD South Summit TikTok">TikTok <span class="foot-arrow">&#8599;</span></a>
           </nav>
         </div>
       </div>
 
-      <!-- Foot Bottom Bar -->
+      <!-- Giant Display Banner: SOUTH SUMMIT 2026 -->
+      <div class="foot-giant-banner" id="footGiantBanner" role="region" aria-label="South Summit 2026">
+        <span class="foot-giant-word foot-giant-south">SOUTH</span>
+        <span class="foot-giant-word foot-giant-summit">SUMMIT</span>
+        <span class="foot-giant-word foot-giant-year">2026</span>
+      </div>
+
+      <!-- Foot Bottom Utility Bar -->
       <div class="foot-bottom">
         <div class="foot-bottom-left font-mono">
-          <span>&copy; 2026 AWS Student Builder Groups · South Luzon</span>
+          <span>&copy; 2026 AWS Student Builder Groups &bull; South Luzon</span>
           <span class="foot-meta-sep" aria-hidden="true">|</span>
           <span class="foot-meta-tag">BUILD. GROW. LEAD.</span>
         </div>
         <div class="foot-bottom-right">
           <button type="button" class="btn-back-top font-mono" id="btnBackToTop" aria-label="Scroll back to top">
-            <span>BACK TO TOP</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="12" y1="19" x2="12" y2="5"></line>
-              <polyline points="5 12 12 5 19 12"></polyline>
-            </svg>
+            BACK TO TOP &uarr;
           </button>
         </div>
       </div>
