@@ -209,31 +209,16 @@ export function initKeyboardNav() {
     const speakerModal = document.getElementById('speakerModal');
     if (speakerModal && speakerModal.classList.contains('open')) return;
 
-    // 3. STAGGERED MENU OPEN TRAVERSAL: [1]-[5], ArrowUp/Down
-    const isMenuOpen = document.documentElement.getAttribute('data-staggered-menu-open') === 'true';
-    if (isMenuOpen) {
-      if (['1', '2', '3', '4', '5'].includes(key)) {
-        e.preventDefault();
-        const item = document.querySelector(`.sm-panel-item[data-index="${key}"]`);
-        if (item) item.click();
-        return;
+    // 3. IN-NAVBAR DIRECT TRAVERSAL: [1]-[5]
+    if (['1', '2', '3', '4', '5'].includes(key)) {
+      e.preventDefault();
+      const item = document.querySelector(`.nav-item[data-index="${key}"]`);
+      if (item) {
+        item.click();
+        const label = item.querySelector('.nav-item-line')?.textContent || `Item ${key}`;
+        showKeyActionToast(`Navigated: ${label} [${key}]`);
       }
-      if (key === 'ArrowDown' || key === 'ArrowUp') {
-        e.preventDefault();
-        const items = Array.from(document.querySelectorAll('.sm-panel-item'));
-        if (items.length > 0) {
-          const idx = items.indexOf(document.activeElement);
-          const nextIdx = key === 'ArrowDown'
-            ? (idx + 1) % items.length
-            : (idx - 1 + items.length) % items.length;
-          try {
-            items[nextIdx].focus({ preventScroll: true });
-          } catch (err) {
-            items[nextIdx].focus();
-          }
-        }
-        return;
-      }
+      return;
     }
 
     // 4. SCROLL KEYS: ArrowDown, ArrowUp, ArrowLeft, ArrowRight, PageDown, PageUp, Space, Home, End
@@ -316,12 +301,15 @@ export function initKeyboardNav() {
 
     // 5. QUICK ACCESS BUTTON SHORTCUTS (Single Key)
 
-    // [M]: Toggle Navigation Menu Drawer
+    // [M]: Focus Primary Navigation Links
     if (keyUpper === 'M') {
       e.preventDefault();
-      const smToggle = document.querySelector('.sm-toggle');
-      if (smToggle) smToggle.click();
-      showKeyActionToast('Navigation Menu [M]');
+      const targetNav = document.querySelector('.nav-links .nav-item.active') ||
+                        document.querySelector('.nav-links .nav-item');
+      if (targetNav) {
+        targetNav.focus();
+        showKeyActionToast('Navigation Focus [M]');
+      }
       return;
     }
 
