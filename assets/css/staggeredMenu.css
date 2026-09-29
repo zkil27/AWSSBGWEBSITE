@@ -11,6 +11,20 @@
   --sm-purple: var(--purple);
 }
 
+/* Responsive brand title & CTA text switches */
+.brand-title-compact {
+  display: none;
+}
+.brand-title-full {
+  display: inline;
+}
+.cta-text-compact {
+  display: none;
+}
+.cta-text-full {
+  display: inline;
+}
+
 /* Header layout containers */
 .header-left {
   display: flex;
@@ -295,44 +309,145 @@ html[data-theme="dark"] .char-default {
 @media (max-width: 980px) {
   header.nav {
     height: auto !important;
-    min-height: var(--nav-h, 94px);
-    padding-bottom: 6px;
+    min-height: 80px !important;
+    padding-top: 2px !important;
+    padding-bottom: 5px !important;
   }
 
+  /* 2-Row Locked Grid: Row 1 = Brand + Actions; Row 2 = Navigation Links */
   .nav-inner {
-    flex-wrap: wrap;
-    padding: 8px 16px 4px 16px !important;
-    gap: 8px;
-    height: auto;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    grid-template-areas:
+      "brand actions"
+      "links links" !important;
+    align-items: center !important;
+    padding: 6px clamp(10px, 3vw, 16px) 3px clamp(10px, 3vw, 16px) !important;
+    row-gap: 5px !important;
+    column-gap: 8px !important;
+    height: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
+  /* ROW 1 LEFT: Home Button (Logo + Event Name) */
   .header-left {
-    order: 1;
+    grid-area: brand;
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
 
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(6px, 1.8vw, 10px);
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .brand .chip {
+    width: clamp(26px, 6.5vw, 32px);
+    height: clamp(26px, 6.5vw, 32px);
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 2.7vw, 12.5px);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    color: var(--text-strong);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .brand-text .brand-sub {
+    display: none !important;
+  }
+
+  /* ROW 1 RIGHT: Register Now Button + Night/Dark Mode Switch */
   .header-right {
-    order: 2;
-    margin-left: auto;
+    grid-area: actions;
     display: flex !important;
     align-items: center;
-    gap: 8px;
+    justify-content: flex-end;
+    gap: clamp(5px, 1.5vw, 8px) !important;
+    flex-shrink: 0;
+    min-width: 0;
+    margin-left: auto;
   }
 
   .header-right .nav-cta-btn {
     display: inline-flex !important;
-    height: 32px !important;
-    min-height: 32px !important;
-    padding: 0 12px !important;
-    font-size: 11.5px !important;
+    align-items: center;
+    justify-content: center;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 clamp(8px, 2vw, 12px) !important;
+    font-size: clamp(10.5px, 2.6vw, 12px) !important;
+    font-weight: 700 !important;
     border-radius: 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
   }
 
-  /* Segmented in-navbar strip on Mobile (No boxes, kinetic text roll) */
+  .header-divider {
+    display: none !important;
+  }
+
+  /* Compact theme toggle on mobile */
+  .header-right .theme-toggle {
+    width: 48px !important;
+    height: 28px !important;
+    padding: 2px !important;
+    border-radius: 7px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .header-right .theme-toggle-track {
+    padding: 0 5px !important;
+  }
+
+  .header-right .theme-toggle svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .header-right .theme-toggle-thumb {
+    top: 2.5px !important;
+    left: 2.5px !important;
+    width: 21px !important;
+    height: 21px !important;
+    border-radius: 5px !important;
+  }
+
+  html[data-theme="dark"] .header-right .theme-toggle-thumb {
+    transform: translateX(20px) !important;
+  }
+
+  /* ROW 2: Segmented in-navbar strip (01 HOME, 02 ABOUT, 03 SCHEDULE, 04 VENUE) */
   .nav-links {
-    order: 3;
-    width: 100%;
-    margin-top: 2px;
-    padding: 2px 0 2px 0;
+    grid-area: links;
+    width: 100% !important;
+    margin-top: 1px;
+    padding: 2px 0 !important;
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: none;
@@ -355,8 +470,8 @@ html[data-theme="dark"] .char-default {
   }
 
   .nav-item {
-    padding: 6px 8px;
-    font-size: 12px;
+    padding: 5px 6px;
+    font-size: 11.5px;
     gap: 5px;
     white-space: nowrap;
     background: none !important;
@@ -382,26 +497,52 @@ html[data-theme="dark"] .char-default {
   }
 }
 
-@media (max-width: 480px) {
-  .nav-list {
-    gap: 2px;
+/* Micro screens / Compact Phones (<= 385px, e.g. iPhone SE, 360px Android) */
+@media (max-width: 385px) {
+  .brand-title-full {
+    display: none !important;
+  }
+  .brand-title-compact {
+    display: inline !important;
   }
 
   .nav-item {
-    padding: 5px 6px;
-    font-size: 11px;
-    gap: 4px;
+    padding: 4px 4px;
+    font-size: 10.5px;
+    gap: 3px;
   }
 
   .nav-item-num {
-    font-size: 10px;
+    font-size: 9.5px;
   }
 }
 
-@media (max-width: 360px) {
+/* Ultra-compact Phones (<= 340px, e.g. iPhone SE 1st gen, small wearables) */
+@media (max-width: 340px) {
+  .cta-text-full {
+    display: none !important;
+  }
+  .cta-text-compact {
+    display: inline !important;
+  }
+
+  .header-right .theme-toggle {
+    width: 44px !important;
+    height: 26px !important;
+  }
+
+  .header-right .theme-toggle-thumb {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  html[data-theme="dark"] .header-right .theme-toggle-thumb {
+    transform: translateX(18px) !important;
+  }
+
   .nav-item {
-    padding: 4px 4px;
-    font-size: 10px;
-    gap: 3px;
+    padding: 4px 2px;
+    font-size: 9.5px;
+    gap: 2px;
   }
 }

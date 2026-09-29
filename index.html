@@ -65,7 +65,11 @@
       <div class="header-left">
         <button class="brand" data-page="home" aria-label="Go to home page">
           <img class="chip" src="assets/images/south-summit-logo.svg" alt="AWS Student Community Day: South Summit 2026" width="36" height="36">
-          <div class="brand-text">AWS SCD: SOUTH SUMMIT 2026<span>AWS STUDENT BUILDER GROUPS</span></div>
+          <div class="brand-text">
+            <span class="brand-title-full">AWS SCD: SOUTH SUMMIT 2026</span>
+            <span class="brand-title-compact">AWS SCD 2026</span>
+            <span class="brand-sub">AWS STUDENT BUILDER GROUPS</span>
+          </div>
         </button>
       </div>
 
@@ -101,7 +105,10 @@
 
       <div class="header-right">
         <a class="btn btn-primary nav-cta-btn" href="https://lu.ma/f8knjt7n" target="_blank"
-          rel="noopener">Register Now</a>
+          rel="noopener">
+          <span class="cta-text-full">Register Now</span>
+          <span class="cta-text-compact">Register</span>
+        </a>
 
         <div class="header-divider" aria-hidden="true"></div>
 
@@ -323,7 +330,7 @@
             <!-- Compact Minimal Architectural Status Bar -->
             <div class="broadside-status-bar font-mono" id="countdown">
               <div class="status-venue">
-                <span>BI&Ntilde;AN AUDITORIUM &middot; 9:30 AM PHT</span>
+                <span>BI&Ntilde;AN PEOPLE'S CENTER &middot; 9:30 AM PHT</span>
               </div>
               <div class="status-countdown">
                 <span class="status-countdown-label">STARTS IN</span>
@@ -471,7 +478,6 @@
                     <span class="tag-dot" aria-hidden="true"></span>
                     PRO PARTNERS
                   </span>
-                  <span class="marquee-tier-count font-mono" id="proPartnersCount">(12)</span>
                 </div>
                 <div class="marquee-row marquee-row--left" aria-label="Pro Partners">
                   <div class="marquee-track" id="marqueeTrack1">
@@ -487,7 +493,6 @@
                     <span class="tag-dot" aria-hidden="true"></span>
                     LITE PARTNERS
                   </span>
-                  <span class="marquee-tier-count font-mono" id="litePartnersCount">(7)</span>
                 </div>
                 <div class="marquee-row marquee-row--right" aria-label="Lite Partners">
                   <div class="marquee-track" id="marqueeTrack2">
@@ -815,15 +820,24 @@
             <div class="venue-canvas-footer">
               <span class="venue-canvas-caption font-mono" id="venueCanvasCaption">01 / MAIN STAGE AUDITORIUM &middot; LEVEL 04</span>
               <div class="venue-canvas-nav">
-                <button type="button" class="venue-canvas-btn venue-nav-prev" id="venuePrevBtn" aria-label="Previous space view">
+                <button type="button" class="venue-canvas-btn venue-nav-prev" id="venuePrevBtn" aria-label="Previous space view" title="Previous view">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="15 18 9 12 15 6"></polyline>
                   </svg>
                 </button>
                 <span class="venue-canvas-counter font-mono" id="venueGalleryCounter">01 / 04</span>
-                <button type="button" class="venue-canvas-btn venue-nav-next" id="venueNextBtn" aria-label="Next space view">
+                <button type="button" class="venue-canvas-btn venue-nav-next" id="venueNextBtn" aria-label="Next space view" title="Next view">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+                <button type="button" class="venue-canvas-btn venue-nav-pause is-playing" id="venuePauseBtn" aria-label="Pause slideshow" title="Pause slideshow (5s interval)">
+                  <svg class="venue-icon-pause" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                    <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                  </svg>
+                  <svg class="venue-icon-play" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <polygon points="6 4 20 12 6 20 6 4"></polygon>
                   </svg>
                 </button>
               </div>
@@ -924,9 +938,19 @@
             <span class="eyebrow-text">REGISTRATION // OCTOBER 7, 2026</span>
           </div>
           <h2 class="register-heading">Claim your summit spot.</h2>
-          <p class="register-summary">
-            Free admission for student builders, cloud enthusiasts, and aspiring tech leaders across South Luzon. Join approximately 200 fellow student builders, student leaders, and technology advocates for a full-day immersive experience focused on inspiration, accessibility, innovation, and community.
-          </p>
+          <div class="register-summary register-summary-block">
+            <p class="register-lead">
+              Free admission for student builders, cloud enthusiasts, and aspiring tech leaders across South Luzon.
+            </p>
+            <p class="register-body">
+              Join approximately 200 fellow student builders, student leaders, and technology advocates for a full-day immersive experience focused on inspiration, accessibility, innovation, and community.
+            </p>
+          </div>
+          <div class="register-meta-pills font-mono" aria-label="Event highlights">
+            <span class="reg-pill">Free Admission</span>
+            <span class="reg-pill">200 Builders</span>
+            <span class="reg-pill">Full-Day Summit</span>
+          </div>
           <div class="register-action-group">
             <a class="btn btn-register-main font-mono" href="https://lu.ma/f8knjt7n" target="_blank" rel="noopener">
               <span>Register on Luma &rarr;</span>

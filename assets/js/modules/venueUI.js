@@ -79,21 +79,53 @@ function initVenueGallery() {
 
   const prevBtn = document.getElementById('venuePrevBtn');
   const nextBtn = document.getElementById('venueNextBtn');
+  const pauseBtn = document.getElementById('venuePauseBtn');
   const counterEl = document.getElementById('venueGalleryCounter');
   const captionEl = document.getElementById('venueCanvasCaption');
   const spaceItems = Array.from(document.querySelectorAll('.venue-space-row, .venue-space-item, .venue-floor-clickable'));
+  const mediaStage = gallery.closest('.venue-media-stage') || gallery;
 
   let currentIndex = 0;
   const total = slides.length;
   let autoTimer = null;
-  const AUTO_INTERVAL_MS = 6000;
+  const AUTO_INTERVAL_MS = 5000;
+  let isUserPaused = false;
+  let isHoveredOrFocused = false;
 
   // If only 1 image, hide navigation buttons
   if (total <= 1) {
     if (prevBtn) prevBtn.style.display = 'none';
     if (nextBtn) nextBtn.style.display = 'none';
     if (counterEl) counterEl.style.display = 'none';
+    if (pauseBtn) pauseBtn.style.display = 'none';
     return;
+  }
+
+  function updatePauseButtonUI() {
+    if (!pauseBtn) return;
+    if (isUserPaused) {
+      pauseBtn.classList.add('is-paused');
+      pauseBtn.classList.remove('is-playing');
+      pauseBtn.setAttribute('aria-label', 'Resume slideshow (5s interval)');
+      pauseBtn.setAttribute('title', 'Resume slideshow (5s interval)');
+      pauseBtn.setAttribute('aria-pressed', 'true');
+    } else {
+      pauseBtn.classList.remove('is-paused');
+      pauseBtn.classList.add('is-playing');
+      pauseBtn.setAttribute('aria-label', 'Pause slideshow');
+      pauseBtn.setAttribute('title', 'Pause slideshow (5s interval)');
+      pauseBtn.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  function toggleUserPause() {
+    isUserPaused = !isUserPaused;
+    if (isUserPaused) {
+      stopAutoTimer();
+    } else {
+      startAutoTimer();
+    }
+    updatePauseButtonUI();
   }
 
   function goToSlide(newIndex) {
@@ -138,11 +170,6 @@ function initVenueGallery() {
       item.classList.toggle('active-floor', isActive);
       item.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
-
-    // Pause auto-advance when attendee navigates to the interactive map
-    if (activeSlide && activeSlide.classList.contains('venue-map-slide')) {
-      pauseAutoTimer();
-    }
   }
 
   // Prev / Next button clicks
@@ -150,7 +177,9 @@ function initVenueGallery() {
     prevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       goToSlide(currentIndex - 1);
-      restartAutoTimer();
+      if (!isUserPaused) {
+        restartAutoTimer();
+      }
     });
   }
 
@@ -158,7 +187,17 @@ function initVenueGallery() {
     nextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       goToSlide(currentIndex + 1);
-      restartAutoTimer();
+      if (!isUserPaused) {
+        restartAutoTimer();
+      }
+    });
+  }
+
+  // Pause button click
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleUserPause();
     });
   }
 
@@ -168,7 +207,9 @@ function initVenueGallery() {
       const targetIdx = parseInt(item.dataset.venueTarget, 10);
       if (!isNaN(targetIdx)) {
         goToSlide(targetIdx);
-        restartAutoTimer();
+        if (!isUserPaused) {
+          restartAutoTimer();
+        }
       }
     };
 
@@ -186,11 +227,14 @@ function initVenueGallery() {
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       goToSlide(currentIndex - 1);
-      restartAutoTimer();
+      if (!isUserPaused) restartAutoTimer();
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       goToSlide(currentIndex + 1);
-      restartAutoTimer();
+      if (!isUserPaused) restartAutoTimer();
+    } else if ((e.key === ' ' || e.key === 'k' || e.key === 'K') && e.target === gallery) {
+      e.preventDefault();
+      toggleUserPause();
     }
   });
 
@@ -202,7 +246,7 @@ function initVenueGallery() {
     if (e.touches && e.touches.length > 0) {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
-      pauseAutoTimer();
+      stopAutoTimer();
     }
   }, { passive: true });
 
@@ -219,13 +263,17 @@ function initVenueGallery() {
           goToSlide(currentIndex - 1); // Swipe right = prev
         }
       }
-      restartAutoTimer();
+      if (!isUserPaused) {
+        restartAutoTimer();
+      }
     }
   }, { passive: true });
 
   // Auto-advance Timer (pauses on hover or focus)
   function startAutoTimer() {
     stopAutoTimer();
+    if (isUserPaused) return;
+
     autoTimer = setInterval(() => {
       goToSlide(currentIndex + 1);
     }, AUTO_INTERVAL_MS);
@@ -238,25 +286,47 @@ function initVenueGallery() {
     }
   }
 
-  function pauseAutoTimer() {
-    stopAutoTimer();
-  }
-
   function restartAutoTimer() {
     stopAutoTimer();
-    startAutoTimer();
+    if (!isUserPaused) {
+      startAutoTimer();
+    }
   }
 
-  gallery.addEventListener('mouseenter', pauseAutoTimer);
-  gallery.addEventListener('mouseleave', startAutoTimer);
-  gallery.addEventListener('focusin', pauseAutoTimer);
-  gallery.addEventListener('focusout', startAutoTimer);
+  // Hover and focus listeners (only for devices with fine pointer / hover capability)
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover) {
+    mediaStage.addEventListener('mouseenter', () => {
+      isHoveredOrFocused = true;
+      if (!isUserPaused) stopAutoTimer();
+    });
+
+    mediaStage.addEventListener('mouseleave', () => {
+      isHoveredOrFocused = false;
+      if (!isUserPaused) startAutoTimer();
+    });
+  }
+
+  mediaStage.addEventListener('focusin', () => {
+    isHoveredOrFocused = true;
+    if (!isUserPaused) stopAutoTimer();
+  });
+
+  mediaStage.addEventListener('focusout', (e) => {
+    if (!mediaStage.contains(e.relatedTarget)) {
+      isHoveredOrFocused = false;
+      if (!isUserPaused) startAutoTimer();
+    }
+  });
 
   // Check prefers-reduced-motion
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced) {
+  if (prefersReduced) {
+    isUserPaused = true;
+  } else {
     startAutoTimer();
   }
+  updatePauseButtonUI();
 
   // Initialize first slide state
   goToSlide(0);
