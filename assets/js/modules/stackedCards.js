@@ -107,6 +107,10 @@ function updateAriaStates() {
       tab.setAttribute('aria-expanded', String(isActive));
       tab.setAttribute('title', isActive ? 'Click to collapse this section' : 'Click to expand this section');
     }
+    const actionTxt = card.querySelector('.sb-action-text');
+    if (actionTxt) {
+      actionTxt.textContent = isActive ? 'COLLAPSE' : 'EXPLORE';
+    }
   });
 }
 

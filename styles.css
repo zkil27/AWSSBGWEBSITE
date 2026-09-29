@@ -7059,115 +7059,6 @@ html[data-theme="dark"] .foot-giant-year,
   padding-bottom: 0;
 }
 
-/* ==========================================================================
-   TRUE SERIOUS.BUSINESS FULL-BLEED STACKED BANDS (ABOUT PAGE)
-   ========================================================================== */
-
-/* Full-Bleed Stacked Deck Container */
-.about-stacked-deck {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding-bottom: 0;
-}
-
-/* ── Click-to-Expand Stacked Band Accordion ─────────────────────────────── */
-/*
- * Each .sb-band has:
- *   .sb-card-tab   — always-visible clickable header strip
- *   .sb-card-body  — the full original section content, hidden when collapsed
- *
- * Clicking the tab expands the band to show .sb-card-body.
- * Only one band is active (.is-active) at a time.
- */
-.sb-band {
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  border-top: 2px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  /* transitions managed in the animation block below */
-}
-
-/* The always-visible clickable tab strip */
-.sb-card-tab {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 clamp(24px, 5.5vw, 84px);
-  min-height: 76px;
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-  transition: background-color 0.2s ease;
-  overflow: visible;
-  box-sizing: border-box;
-}
-
-.sb-card-tab:hover {
-  background-color: rgba(0, 0, 0, 0.035);
-}
-
-.sb-card-tab:focus-visible {
-  outline: 2px solid var(--sbg-orange, #ff9900);
-  outline-offset: -2px;
-}
-
-.sb-card-tab-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-.sb-card-state-pill {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.08);
-  color: inherit;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.sb-band.is-active .sb-card-state-pill {
-  background: rgba(0, 0, 0, 0.13);
-}
-
-.sb-card-chevron {
-  font-size: 1.4rem;
-  line-height: 1;
-  opacity: 0.55;
-  margin-left: auto;
-  display: inline-block;
-  flex-shrink: 0;
-  /* transition managed in animation block below */
-}
-
-.sb-band.is-active .sb-card-chevron {
-  transform: rotate(90deg);
-  opacity: 0.85;
-}
-
-.sb-card-label {
-  font-family: var(--font-display, var(--font-sans));
-  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-  margin: 0;
-  color: inherit;
-  overflow: visible;
-  /* transition managed in animation block below */
-}
-
 /* Rolling text on accordion card hover */
 .sb-card-label.sb-card-label-roll {
   display: inline-flex;
@@ -7176,6 +7067,7 @@ html[data-theme="dark"] .foot-giant-year,
   line-height: 1.6em !important;
   vertical-align: middle;
   padding: 4px 0;
+  white-space: nowrap !important;
 }
 
 .sb-roll-char {
@@ -7241,7 +7133,12 @@ html[data-theme="dark"] .foot-giant-year,
   width: 100%;
   position: relative;
   box-sizing: border-box;
+  background: var(--bg-0, #ffffff);
   transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-theme="dark"] .about-stacked-deck {
+  background: #090d16;
 }
 
 /* Each band */
@@ -7250,8 +7147,58 @@ html[data-theme="dark"] .foot-giant-year,
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  border-top: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+  background: var(--bg-1, #ffffff);
   transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.35s ease,
+              border-color 0.25s ease,
               box-shadow 0.3s ease;
+}
+
+html[data-theme="dark"] .sb-band {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d121f;
+}
+
+/* Ambient Ethereal Glow */
+.sb-band::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse 65% 85% at 88% 50%, var(--band-accent-glow, transparent), transparent 70%),
+              linear-gradient(90deg, var(--band-accent-tint, transparent) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.sb-band:hover::before {
+  opacity: 1;
+}
+
+/* Left Accent Hairline Notch */
+.sb-band::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--band-accent, var(--blue));
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+}
+
+.sb-band:hover::after,
+.sb-band.is-active::after {
+  opacity: 1;
+  transform: scaleY(1);
 }
 
 /* Tab header */
@@ -7259,38 +7206,292 @@ html[data-theme="dark"] .foot-giant-year,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(28px, 6vw, 84px);
+  padding: 0 clamp(24px, 5.5vw, 84px);
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
   user-select: none;
   position: relative;
+  z-index: 2;
   transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              background-color 0.2s ease;
+              background-color 0.25s ease;
 }
 
-/* Typography */
+.sb-card-tab:hover {
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+html[data-theme="dark"] .sb-card-tab:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Inner 4-column layout */
+.sb-tab-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: clamp(16px, 3vw, 40px);
+}
+
+/* 1. Index Column */
+.sb-tab-idx {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 58px;
+  flex-shrink: 0;
+}
+
+.sb-tab-num {
+  font-family: var(--font-mono);
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--band-accent, currentColor);
+  transition: font-size 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sb-tab-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--muted, #64748b);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* 2. Main Column */
+.sb-tab-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.sb-tab-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
 .sb-card-label {
   font-family: var(--font-display, var(--font-sans));
   font-weight: 800;
   letter-spacing: -0.035em;
-  line-height: 1;
+  line-height: 1.1;
   margin: 0;
-  color: inherit;
+  color: #0f172a;
   transition: font-size 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              letter-spacing 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+              color 0.25s ease;
+}
+
+html[data-theme="dark"] .sb-card-label {
+  color: #f8fafc;
+}
+
+.sb-tab-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--band-accent-tint, rgba(0, 0, 0, 0.06));
+  color: var(--band-accent);
+  border: 1px solid var(--band-accent-border, rgba(0, 0, 0, 0.12));
+  white-space: nowrap;
+}
+
+.sb-tab-teaser {
+  font-family: var(--font-sans);
+  font-size: clamp(0.85rem, 1.1vw, 0.98rem);
+  color: var(--text-muted, #64748b);
+  margin: 6px 0 0 0;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 680px;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+html[data-theme="dark"] .sb-tab-teaser {
+  color: #94a3b8;
+}
+
+/* 3. Preview Column (Exhibition Preview) */
+.sb-tab-preview {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sb-preview-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sb-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-muted, #64748b);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] .sb-chip {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Speaker Avatar Stack */
+.sb-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.sb-stack-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  margin-left: -8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.sb-stack-avatar:first-child {
+  margin-left: 0;
+}
+
+.sb-band:hover .sb-stack-avatar {
+  transform: translateX(-2px);
+}
+
+html[data-theme="dark"] .sb-stack-avatar {
+  border-color: #0f1422;
+}
+
+.sb-stack-more {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--band-accent);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: -8px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="dark"] .sb-stack-more {
+  border-color: #0f1422;
+}
+
+/* Department Dots for Core Team */
+.sb-dept-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sb-dept-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--dot-color, #a855f7);
+  box-shadow: 0 0 6px var(--dot-color);
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.sb-band:hover .sb-dept-dot {
+  transform: scale(1.2);
+}
+
+/* 4. Action Column */
+.sb-tab-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.sb-action-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted, #64748b);
+  transition: color 0.2s ease;
+}
+
+.sb-band:hover .sb-action-text {
+  color: var(--band-accent);
+}
+
+.sb-action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.12));
+  background: rgba(0, 0, 0, 0.03);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-strong, #0f172a);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+html[data-theme="dark"] .sb-action-btn {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+}
+
+.sb-band:hover .sb-action-btn {
+  border-color: var(--band-accent);
+  background: var(--band-accent);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px var(--band-accent-glow);
+  transform: scale(1.08);
 }
 
 /* Chevron */
 .sb-card-chevron {
-  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
+  font-size: 1.25rem;
   line-height: 1;
-  opacity: 0.55;
   display: inline-block;
-  flex-shrink: 0;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              font-size 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.3s ease;
+  transform: rotate(0deg);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sb-band.is-active .sb-card-chevron {
+  transform: rotate(90deg);
 }
 
 /* Card Body */
@@ -7329,18 +7530,15 @@ html[data-theme="dark"] .foot-giant-year,
 }
 
 .about-stacked-deck.all-collapsed .sb-card-label {
-  font-size: clamp(2rem, 4.2vw, 3.8rem);
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
 }
 
-.about-stacked-deck.all-collapsed .sb-card-chevron {
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  opacity: 0.5;
-  transform: rotate(0deg);
+.about-stacked-deck.all-collapsed .sb-tab-num {
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
 }
 
-.about-stacked-deck.all-collapsed .sb-band:hover .sb-card-chevron {
-  opacity: 0.95;
-  transform: translateX(10px);
+.about-stacked-deck.all-collapsed .sb-tab-teaser {
+  opacity: 0.85;
 }
 
 .about-stacked-deck.all-collapsed .sb-card-body {
@@ -7352,37 +7550,59 @@ html[data-theme="dark"] .foot-giant-year,
 
 /* ── Expanded States ───────────────────────────────────────────────────── */
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) {
-  height: 76px;
+  height: 80px;
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-tab {
-  height: 76px;
-  min-height: 76px;
+  height: 80px;
+  min-height: 80px;
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-label {
-  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+}
+
+.about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-tab-num {
+  font-size: 1.4rem;
+}
+
+.about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-tab-teaser {
+  display: none;
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) .sb-card-chevron {
   transform: rotate(0deg);
-  opacity: 0.6;
-  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-tab {
-  height: 76px;
-  min-height: 76px;
+  height: 84px;
+  min-height: 84px;
+  background: var(--bg-0, #ffffff);
+  border-bottom: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+}
+
+html[data-theme="dark"] .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-tab {
+  background: #0d121f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-label {
-  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
 }
 
-.about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-card-chevron {
-  transform: rotate(90deg);
-  opacity: 0.85;
-  font-size: clamp(1.5rem, 2vw, 1.8rem);
+.about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-tab-num {
+  font-size: 1.5rem;
+}
+
+.about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-tab-teaser {
+  display: none;
+}
+
+.about-stacked-deck:not(.all-collapsed) .sb-band.is-active .sb-action-btn {
+  background: var(--band-accent);
+  border-color: var(--band-accent);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px var(--band-accent-glow);
 }
 
 .sb-band.is-active {
@@ -7396,59 +7616,74 @@ html[data-theme="dark"] .foot-giant-year,
               opacity 0.45s ease 0.12s;
 }
 
-/* SCD Signature Logo Colorways (Matching Brand Chip)
- * Card 0 (Top / 12 o'clock): Purple  #AD5CFD
- * Card 1 (Right / 3 o'clock): Blue   #42B2FE
- * Card 2 (Bottom / 6 o'clock): Green #00E681
- * Card 3 (Left / 9 o'clock): Pink    #FE55EB
- */
+/* 4 Signature Colorways */
 .sb-band-purple {
-  background-color: #AD5CFD;
-  color: #18181b;
-  border-top-color: #8b3df5;
+  --band-accent: #a855f7;
+  --band-accent-glow: rgba(168, 85, 247, 0.16);
+  --band-accent-tint: rgba(168, 85, 247, 0.04);
+  --band-accent-border: rgba(168, 85, 247, 0.28);
+}
+html[data-theme="dark"] .sb-band-purple {
+  --band-accent: #c084fc;
+  --band-accent-glow: rgba(192, 132, 252, 0.22);
+  --band-accent-tint: rgba(192, 132, 252, 0.06);
+  --band-accent-border: rgba(192, 132, 252, 0.35);
 }
 
 .sb-band-blue {
-  background-color: #42B2FE;
-  color: #18181b;
-  border-top-color: #0284c7;
+  --band-accent: #0284c7;
+  --band-accent-glow: rgba(2, 132, 199, 0.16);
+  --band-accent-tint: rgba(2, 132, 199, 0.04);
+  --band-accent-border: rgba(2, 132, 199, 0.28);
+}
+html[data-theme="dark"] .sb-band-blue {
+  --band-accent: #38bdf8;
+  --band-accent-glow: rgba(56, 189, 248, 0.22);
+  --band-accent-tint: rgba(56, 189, 248, 0.06);
+  --band-accent-border: rgba(56, 189, 248, 0.35);
 }
 
 .sb-band-green {
-  background-color: #00E681;
-  color: #18181b;
-  border-top-color: #059669;
+  --band-accent: #059669;
+  --band-accent-glow: rgba(5, 150, 105, 0.16);
+  --band-accent-tint: rgba(5, 150, 105, 0.04);
+  --band-accent-border: rgba(5, 150, 105, 0.28);
+}
+html[data-theme="dark"] .sb-band-green {
+  --band-accent: #34d399;
+  --band-accent-glow: rgba(52, 211, 153, 0.22);
+  --band-accent-tint: rgba(52, 211, 153, 0.06);
+  --band-accent-border: rgba(52, 211, 153, 0.35);
 }
 
 .sb-band-pink {
-  background-color: #FE55EB;
-  color: #18181b;
-  border-top-color: #db2777;
+  --band-accent: #db2777;
+  --band-accent-glow: rgba(219, 39, 119, 0.16);
+  --band-accent-tint: rgba(219, 39, 119, 0.04);
+  --band-accent-border: rgba(219, 39, 119, 0.28);
+}
+html[data-theme="dark"] .sb-band-pink {
+  --band-accent: #f472b6;
+  --band-accent-glow: rgba(244, 114, 182, 0.22);
+  --band-accent-tint: rgba(244, 114, 182, 0.06);
+  --band-accent-border: rgba(244, 114, 182, 0.35);
 }
 
 /* Backward compatibility aliases */
 .sb-band-lilac {
-  background-color: #AD5CFD;
-  color: #18181b;
-  border-top-color: #8b3df5;
+  --band-accent: #a855f7;
 }
 
 .sb-band-white {
-  background-color: #42B2FE;
-  color: #18181b;
-  border-top-color: #0284c7;
+  --band-accent: #0284c7;
 }
 
 .sb-band-yellow {
-  background-color: #00E681;
-  color: #18181b;
-  border-top-color: #059669;
+  --band-accent: #059669;
 }
 
 .sb-band-dark {
-  background-color: #FE55EB;
-  color: #18181b;
-  border-top-color: #db2777;
+  --band-accent: #db2777;
 }
 
 /* Band Inner Layout */
@@ -8101,69 +8336,96 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
 
 #card-directors .director-filter-pill[data-target="executive"],
 .director-filter-pill[data-target="executive"] {
-  background: #0f1523 !important;
+  background: var(--dept-exec, #b155ff) !important;
   color: #ffffff !important;
   border: none !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.28), 
-    inset 0 0 0 1px rgba(255, 255, 255, 0.16), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2), 
     0 2px 6px rgba(0, 0, 0, 0.12),
-    0 6px 16px rgba(0, 0, 0, 0.22);
+    0 6px 16px rgba(177, 85, 255, 0.28) !important;
 }
 
 #card-directors .director-filter-pill[data-target="finance"],
 .director-filter-pill[data-target="finance"] {
-  background: linear-gradient(165deg, #44b3fe 0%, #1fcbbe 52%, #07e383 100%) !important;
-  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--green, #07e383) 100%) !important;
-  color: #ffffff !important;
+  background: var(--dept-fin, #00e581) !important;
+  color: #0b1a14 !important;
+  font-weight: 800;
   border: none !important;
-  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+  text-shadow: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25), 
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 6px 16px rgba(0, 229, 129, 0.28) !important;
 }
 
 #card-directors .director-filter-pill[data-target="creatives"],
 .director-filter-pill[data-target="creatives"] {
-  background: linear-gradient(165deg, #44b3fe 0%, #768bff 50%, #a759ff 100%) !important;
-  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--purple, #a759ff) 100%) !important;
+  background: var(--dept-crea, #d74355) !important;
   color: #ffffff !important;
   border: none !important;
-  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+  text-shadow: 0 1px 2px rgba(80, 0, 0, 0.4);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2), 
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 6px 16px rgba(215, 67, 85, 0.28) !important;
 }
 
 #card-directors .director-filter-pill[data-target="marketing"],
 .director-filter-pill[data-target="marketing"] {
-  background: linear-gradient(165deg, #07e383 0%, #1fd1cb 35%, #6395ff 68%, #a759ff 100%) !important;
-  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--purple, #a759ff) 100%) !important;
+  background: var(--dept-mark, #ff2cfd) !important;
   color: #ffffff !important;
   border: none !important;
-  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+  text-shadow: 0 1px 2px rgba(80, 0, 80, 0.5);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2), 
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 6px 16px rgba(255, 44, 253, 0.28) !important;
 }
 
 #card-directors .director-filter-pill[data-target="technology"],
 .director-filter-pill[data-target="technology"] {
-  background: linear-gradient(165deg, #a759ff 0%, #6395ff 32%, #1fd1cb 65%, #07e383 100%) !important;
-  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--green, #07e383) 100%) !important;
-  color: #ffffff !important;
+  background: var(--dept-tech, #44b2ff) !important;
+  color: #091322 !important;
+  font-weight: 800;
   border: none !important;
-  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+  text-shadow: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25), 
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 6px 16px rgba(68, 178, 255, 0.28) !important;
 }
 
 #card-directors .director-filter-pill[data-target="relations"],
 .director-filter-pill[data-target="relations"] {
-  background: linear-gradient(165deg, #a759ff 0%, #768bff 50%, #44b3fe 100%) !important;
-  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--blue, #44b3fe) 100%) !important;
-  color: #ffffff !important;
+  background: var(--dept-rel, #ffb800) !important;
+  color: #121826 !important;
+  font-weight: 800;
   border: none !important;
-  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+  text-shadow: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25), 
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 6px 16px rgba(255, 184, 0, 0.28) !important;
 }
 
 #card-directors .director-filter-pill[data-target="operations"],
 .director-filter-pill[data-target="operations"] {
-  background: linear-gradient(165deg, #07e383 0%, #1fcbbe 50%, #44b3fe 100%) !important;
-  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--blue, #44b3fe) 100%) !important;
+  background: var(--dept-ops, #ea6c37) !important;
   color: #ffffff !important;
   border: none !important;
-  text-shadow: 0 1px 2px rgba(10, 15, 25, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2), 
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 6px 16px rgba(234, 108, 55, 0.28) !important;
 }
 
 .director-filter-pill .filter-dot {
@@ -8258,102 +8520,95 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
    CORE TEAM: DEPARTMENT-COLORED TILES & UNIFIED READABILITY
    ========================================================= */
 
-/* 1. EXECUTIVE — Black */
+/* 1. EXECUTIVE — #b155ff */
 #card-directors .director-card.dept-executive,
 .director-card.dept-executive {
-  background: #0f1523;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  background: var(--dept-exec, #b155ff);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(177, 85, 255, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-executive:hover,
 .director-card.dept-executive:hover {
-  background: #0b101b;
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 20px 44px -8px rgba(0, 0, 0, 0.65);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 20px 44px -8px rgba(177, 85, 255, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 2. FINANCE — Blue (top) Green (bottom) */
+/* 2. FINANCE — #00e581 */
 #card-directors .director-card.dept-finance,
 .director-card.dept-finance {
-  background: linear-gradient(165deg, #44b3fe 0%, #1fcbbe 52%, #07e383 100%);
-  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--green, #07e383) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 28px rgba(7, 227, 131, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--dept-fin, #00e581);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 28px rgba(0, 229, 129, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-finance:hover,
 .director-card.dept-finance:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 44px -8px rgba(7, 227, 131, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 44px -8px rgba(0, 229, 129, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 3. CREATIVES — Blue (top) Purple (bottom) */
+/* 3. CREATIVES — #d74355 */
 #card-directors .director-card.dept-creatives,
 .director-card.dept-creatives {
-  background: linear-gradient(165deg, #44b3fe 0%, #768bff 50%, #a759ff 100%);
-  background: linear-gradient(165deg in oklch, var(--blue, #44b3fe) 0%, var(--purple, #a759ff) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 28px rgba(167, 89, 255, 0.28), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--dept-crea, #d74355);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(215, 67, 85, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-creatives:hover,
 .director-card.dept-creatives:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 44px -8px rgba(167, 89, 255, 0.52), 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 20px 44px -8px rgba(215, 67, 85, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 4. MARKETING — Green (top) Purple (bottom) */
+/* 4. MARKETING — #ff2cfd */
 #card-directors .director-card.dept-marketing,
 .director-card.dept-marketing {
-  background: linear-gradient(165deg, #07e383 0%, #1fd1cb 35%, #6395ff 68%, #a759ff 100%);
-  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--purple, #a759ff) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 28px rgba(167, 89, 255, 0.28), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--dept-mark, #ff2cfd);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(255, 44, 253, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-marketing:hover,
 .director-card.dept-marketing:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 44px -8px rgba(167, 89, 255, 0.52), 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 20px 44px -8px rgba(255, 44, 253, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 5. TECHNOLOGY — Purple (top) Green (bottom) */
+/* 5. TECHNOLOGY — #44b2ff */
 #card-directors .director-card.dept-technology,
 .director-card.dept-technology {
-  background: linear-gradient(165deg, #a759ff 0%, #6395ff 32%, #1fd1cb 65%, #07e383 100%);
-  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--green, #07e383) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 28px rgba(7, 227, 131, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--dept-tech, #44b2ff);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(68, 178, 255, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-technology:hover,
 .director-card.dept-technology:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 44px -8px rgba(7, 227, 131, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 20px 44px -8px rgba(68, 178, 255, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 6. RELATIONS — Purple (top) Blue (bottom) */
+/* 6. RELATIONS — #ffb800 */
 #card-directors .director-card.dept-relations,
 .director-card.dept-relations {
-  background: linear-gradient(165deg, #a759ff 0%, #768bff 50%, #44b3fe 100%);
-  background: linear-gradient(165deg in oklch, var(--purple, #a759ff) 0%, var(--blue, #44b3fe) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 28px rgba(68, 179, 254, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--dept-rel, #ffb800);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 28px rgba(255, 184, 0, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-relations:hover,
 .director-card.dept-relations:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 44px -8px rgba(68, 179, 254, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 44px -8px rgba(255, 184, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 7. OPERATIONS — Green (top) Blue (bottom) */
+/* 7. OPERATIONS — #ea6c37 */
 #card-directors .director-card.dept-operations,
 .director-card.dept-operations {
-  background: linear-gradient(165deg, #07e383 0%, #1fcbbe 50%, #44b3fe 100%);
-  background: linear-gradient(165deg in oklch, var(--green, #07e383) 0%, var(--blue, #44b3fe) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 28px rgba(68, 179, 254, 0.26), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--dept-ops, #ea6c37);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(234, 108, 55, 0.32), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 #card-directors .director-card.dept-operations:hover,
 .director-card.dept-operations:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 44px -8px rgba(68, 179, 254, 0.48), 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 20px 44px -8px rgba(234, 108, 55, 0.55), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 #card-directors .director-card-top {
@@ -8652,65 +8907,17 @@ html[data-theme="dark"] #card-chapters .chapter-socials a:hover {
 }
 
 /* Stacked Deck & Manifesto: Preserved Brand Colorways (Invariant across Light/Dark Themes) */
-html[data-theme="dark"] .about-stacked-deck .sb-band,
-html[data-theme="dark"] .about-stacked-deck .sb-band:not(.is-active),
-html[data-theme="dark"] .about-stacked-deck .sb-band.is-active {
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-band-purple,
-html[data-theme="dark"] .about-stacked-deck .sb-band-purple:not(.is-active),
-html[data-theme="dark"] #card-manifesto.sb-band-purple,
-html[data-theme="dark"] #card-manifesto {
-  background-color: #AD5CFD !important;
-  background-image: none !important;
-  border-top-color: #8b3df5 !important;
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-band-blue,
-html[data-theme="dark"] .about-stacked-deck .sb-band-blue:not(.is-active),
-html[data-theme="dark"] #card-lineup.sb-band-blue {
-  background-color: #42B2FE !important;
-  border-top-color: #0284c7 !important;
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-band-green,
-html[data-theme="dark"] .about-stacked-deck .sb-band-green:not(.is-active),
-html[data-theme="dark"] #card-chapters.sb-band-green {
-  background-color: #00E681 !important;
-  border-top-color: #059669 !important;
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-band-pink,
-html[data-theme="dark"] .about-stacked-deck .sb-band-pink:not(.is-active),
-html[data-theme="dark"] #card-directors.sb-band-pink {
-  background-color: #FE55EB !important;
-  border-top-color: #db2777 !important;
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-card-tab {
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-card-tab:hover {
-  background-color: rgba(0, 0, 0, 0.04) !important;
+/* Stacked Deck: Dark Theme Ambient Glows & Contrast Calibration */
+html[data-theme="dark"] .about-stacked-deck .sb-band {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 html[data-theme="dark"] .about-stacked-deck .sb-card-label {
-  color: #18181b !important;
+  color: #f8fafc !important;
 }
 
 html[data-theme="dark"] .about-stacked-deck .sb-card-chevron {
-  color: #18181b !important;
-}
-
-html[data-theme="dark"] .about-stacked-deck .sb-card-state-pill {
-  background: rgba(0, 0, 0, 0.13) !important;
-  color: #18181b !important;
+  color: inherit !important;
 }
 
 /* Manifesto Dark Mode Compatible Styling */
@@ -8771,11 +8978,17 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
   }
 }
 
-/* Tablet Responsiveness */
+/* Tablet Responsiveness (<= 1024px) */
 @media (max-width: 1024px) {
   .sb-card-tab {
-    padding: 0 24px;
+    padding: 0 clamp(16px, 3.5vw, 28px);
     min-height: 68px;
+  }
+  .sb-tab-inner {
+    gap: clamp(14px, 2.5vw, 24px);
+  }
+  .sb-tab-preview {
+    display: none !important;
   }
   .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) {
     height: 68px;
@@ -8794,12 +9007,62 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
   }
 }
 
-/* Mobile Responsiveness */
+/* Mid-Tablet & Phablet Breakpoint (<= 768px) */
+@media (max-width: 768px) {
+  .sb-action-text {
+    display: none !important;
+  }
+  .sb-tab-teaser {
+    display: none !important;
+  }
+  .sb-tab-headline {
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+/* Mobile Responsiveness (<= 640px) */
 @media (max-width: 640px) {
   .sb-card-tab {
     padding: 0 16px;
     min-height: 64px;
   }
+  .sb-tab-inner {
+    gap: 10px;
+  }
+  .sb-tab-idx {
+    min-width: 32px;
+  }
+  .sb-tab-num {
+    font-size: 1.35rem !important;
+  }
+  .sb-tab-tag {
+    display: none !important;
+  }
+  .sb-card-label {
+    font-size: 1.22rem !important;
+    white-space: nowrap !important;
+  }
+  .about-stacked-deck.all-collapsed .sb-card-label {
+    font-size: clamp(1.4rem, 6vw, 1.85rem) !important;
+  }
+  .about-stacked-deck.all-collapsed .sb-tab-num {
+    font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important;
+  }
+  .sb-tab-pill {
+    font-size: 9px;
+    padding: 2px 7px;
+    white-space: nowrap !important;
+  }
+  .sb-action-btn {
+    width: 34px;
+    height: 34px;
+  }
+  .sb-action-btn .sb-card-chevron {
+    font-size: 1.15rem;
+  }
+
   .about-stacked-deck:not(.all-collapsed) .sb-band:not(.is-active) {
     height: 64px;
   }
@@ -9891,44 +10154,44 @@ html[data-theme="dark"] #card-manifesto .about-outcomes .sq {
 
 .dept-badge-exec,
 .dept-badge-executive {
-  background: rgba(252, 153, 7, 0.14);
-  color: var(--orange-text);
+  background: rgba(177, 85, 255, 0.16);
+  color: #b155ff;
 }
 
 .dept-badge-tech,
 .dept-badge-technology {
-  background: rgba(68, 179, 254, 0.14);
-  color: var(--blue-text);
+  background: rgba(68, 178, 255, 0.16);
+  color: #1a9eef;
 }
 
 .dept-badge-crea,
 .dept-badge-creatives {
-  background: rgba(167, 89, 255, 0.14);
-  color: var(--purple-text, #7C3AED);
+  background: rgba(215, 67, 85, 0.16);
+  color: #d74355;
 }
 
 .dept-badge-ops,
 .dept-badge-operations {
-  background: rgba(7, 227, 131, 0.16);
-  color: var(--green-text, #059669);
+  background: rgba(234, 108, 55, 0.16);
+  color: #ea6c37;
 }
 
 .dept-badge-mktg,
 .dept-badge-marketing {
-  background: rgba(167, 89, 255, 0.14);
-  color: var(--purple-text, #7C3AED);
+  background: rgba(255, 44, 253, 0.16);
+  color: #e51ae3;
 }
 
 .dept-badge-rels,
 .dept-badge-relations {
-  background: rgba(68, 179, 254, 0.14);
-  color: var(--blue-text);
+  background: rgba(255, 184, 0, 0.18);
+  color: #c98e00;
 }
 
 .dept-badge-fin,
 .dept-badge-finance {
-  background: rgba(7, 227, 131, 0.16);
-  color: var(--green-text, #059669);
+  background: rgba(0, 229, 129, 0.18);
+  color: #00aa60;
 }
 
 .director-role-badge {

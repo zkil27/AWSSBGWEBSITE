@@ -13,6 +13,15 @@
   --pink: #fe57ea;
   --ink-block: #161C24;
 
+  /* Core Team Department Color Tokens */
+  --dept-exec: #b155ff;
+  --dept-ops: #ea6c37;
+  --dept-rel: #ffb800;
+  --dept-fin: #00e581;
+  --dept-tech: #44b2ff;
+  --dept-mark: #ff2cfd;
+  --dept-crea: #d74355;
+
   /* Grid — shared cell size for line grid + colored boxes */
   --grid-size: 52px;
   --grid-line: 1px;
