@@ -195,6 +195,8 @@ function isExcluded(el) {
     '.director-card, .directors-grid, #card-directors, ' +
     '.lineup-wall, .lineup-tile, .roster-spotlight-card, #card-lineup, ' +
     '.sponsor-card, .sponsors-grid, .marquee-track, .marquee-chip, .marquee, ' +
+    '.why-join-section, #why-join, .why-pillar-card, ' +
+    '.faq-section, #faq, .faq-list, .faq-item, .faq-q, ' +
     '.modal, .s-modal, .modal-backdrop'
   );
 

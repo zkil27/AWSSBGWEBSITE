@@ -575,6 +575,29 @@ export function initStackedCards() {
   window.collapseAllStackedCards = collapseAll;
   window.toggleStackedCard = toggleCard;
 
+  // Handle Home page About Bridge direct deep-link triggers
+  document.addEventListener('click', (e) => {
+    const bridgeItem = e.target.closest('[data-bridge-card]');
+    if (!bridgeItem) return;
+    e.preventDefault();
+    const cardIdx = parseInt(bridgeItem.getAttribute('data-bridge-card'), 10);
+    if (!isNaN(cardIdx)) {
+      if (window.showPage) {
+        window.showPage('about', true, true);
+      }
+      setTimeout(() => {
+        activateCard(cardIdx, true);
+        const deck = getDeck();
+        if (deck) {
+          const cardList = getCards();
+          if (cardList[cardIdx]) {
+            cardList[cardIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }, 140);
+    }
+  });
+
   // Check for deep link hash
   const hash = window.location.hash.toLowerCase();
   let initialIndex = -1;

@@ -259,6 +259,8 @@ export function initRouter() {
             let sectionId = rawSec;
             if (sectionId === 'agenda' || sectionId === 'schedule') sectionId = 'program';
             if (sectionId === 'venues') sectionId = 'venue';
+            if (sectionId === 'why' || sectionId === 'benefits' || sectionId === 'whyjoin') sectionId = 'why-join';
+            if (sectionId === 'faqs') sectionId = 'faq';
 
             const targetSelector = '#' + sectionId;
             const el = document.querySelector(targetSelector);

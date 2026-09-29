@@ -26,6 +26,7 @@ import { initPixelTransition, initSplashPixelTransition } from './modules/pixelT
 import { initFooterLedger } from './modules/footerLedger.js';
 import { initVideoHero } from './modules/videoHero.js';
 import { initKeyboardNav } from './modules/keyboardNav.js';
+import { initFAQ } from './modules/faqUI.js';
 
 // Detect hardware & network constraints immediately
 initPerfManager();
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDirectors();
     initSponsors();
     initVenueUI();
+    initFAQ();
     initFooterLedger();
 
     // 3. Reactive background animation (sits behind all content)
