@@ -277,36 +277,19 @@ html {
 body {
   position: relative;
   background-color: var(--bg);
-  /* Grid lines + ambient corner gradients are painted in the body background stack.
-     Grid lines sit above the ambient glows, so the 1px grid pattern cleanly
-     overlays the soft color gradients. Ambient corner gradients are fixed to
-     the viewport so they frame the entire website across all pages and scrolls,
-     matching the event primer poster aesthetic. */
+  /* Grid lines are painted in the body background stack. */
   background-image:
-    /* ---- grid lines (top of stack) ---- */
     linear-gradient(var(--line) var(--grid-line), transparent var(--grid-line)),
-    linear-gradient(90deg, var(--line) var(--grid-line), transparent var(--grid-line)),
-    /* ---- ambient corner glows (poster gradient aura) ---- */
-    radial-gradient(ellipse 65% 55% at 0% 0%, var(--ambient-tl) 0%, rgba(68, 179, 254, 0.06) 40%, transparent 70%),
-    radial-gradient(ellipse 60% 50% at 100% 0%, var(--ambient-tr) 0%, rgba(254, 87, 234, 0.05) 40%, transparent 70%),
-    radial-gradient(ellipse 60% 55% at 100% 100%, var(--ambient-br) 0%, rgba(7, 227, 131, 0.06) 40%, transparent 75%),
-    radial-gradient(ellipse 55% 45% at 0% 100%, var(--ambient-bl) 0%, rgba(68, 179, 254, 0.04) 40%, transparent 70%);
+    linear-gradient(90deg, var(--line) var(--grid-line), transparent var(--grid-line));
   background-repeat:
-    repeat, repeat,
-    no-repeat, no-repeat, no-repeat, no-repeat;
+    repeat, repeat;
   background-position:
     left 0 top 0,
-    left 0 top 0,
-    0 0,
-    100% 0,
-    100% 100%,
-    0 100%;
+    left 0 top 0;
   background-size:
-    var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size),
-    100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
   background-attachment:
-    scroll, scroll,
-    fixed, fixed, fixed, fixed;
+    scroll, scroll;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 17px;

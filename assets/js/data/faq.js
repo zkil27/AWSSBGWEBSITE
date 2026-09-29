@@ -35,20 +35,23 @@ export const faqs = [
     pending: false
   },
   {
-    id: 'faq-meals-certs-equipment',
-    q: 'Are meals, certificates, or equipment provided or required?',
-    // PENDING: confirm exactly what is provided (meals/snacks, certificates,
-    // whether attendees must bring a laptop) before publishing a firm answer.
+    id: 'faq-food',
+    q: 'Will meals or food be provided?',
+    a: 'Light snacks and drinking water will be provided for registered attendees. Heavy meals (such as lunch) are not covered, but attendees are welcome to explore various affordable dining options and eateries within walking distance of the Biñan People’s Center.',
+    pending: false
+  },
+  {
+    id: 'faq-certificates',
+    q: 'Will attendees receive a certificate of participation?',
+    // PENDING: to be confirmed by the organizing committee.
     a: '',
     pending: true
   },
   {
     id: 'faq-what-to-bring',
     q: 'What should I bring?',
-    // PENDING: confirm the required/recommended items (e.g. valid school ID,
-    // registration QR code, laptop, etc.).
-    a: '',
-    pending: true
+    a: 'Just yourself! Because South Summit 2026 is a seminar-style conference featuring keynotes, talks, and networking sessions, bringing a laptop or special equipment is not required. Just bring a valid school or government ID for venue check-in, along with your phone (for your Luma registration pass) or a notebook if you wish to take notes.',
+    pending: false
   },
   {
     id: 'faq-getting-there-contact',

@@ -5,79 +5,79 @@
 export const speakers = [
   {
     "id": "speaker-indaleen-quinsayas",
-    "name": "Indaleen Quinsayas",
-    "role": "AWS SBG PUP Biñan",
+    "name": "To Be Revealed",
+    "role": "Opening Keynote Speaker · AWS Student Builder Group",
     "sessionTitle": "Opening Keynote: Welcome Remarks",
-    "abstract": "Indaleen Quinsayas represents AWS Student Builder Group - PUP Biñan, delivering the Opening Keynote and Welcome Remarks to kick off AWS Student Community Day: South Summit 2026.",
+    "abstract": "The official keynote speaker representing AWS Student Builder Groups delivering the Opening Keynote and Welcome Remarks will be revealed soon.",
     "status": "KEYNOTE",
     "picUrl": "assets/images/speakers/silhouette.svg",
     "linkedInUrl": "",
-    "isComingSoon": false
+    "isComingSoon": true
   },
   {
     "id": "speaker-isaeus-asi-guiang",
-    "name": "Isaeus (Asi) Guiang",
-    "role": "AWS User Groups Leader Philippines & Community Builder · Former AWS SBG Lead & Captain · Head of Operations & Communications, AWSUG.PH",
+    "name": "To Be Revealed",
+    "role": "Keynote Speaker #1 · Community Builder & Former AWS SBG Captain",
     "sessionTitle": "Talk #1: Built by Community: From Student Builder to Tech Professional",
-    "abstract": "Isaeus (Asi) Guiang is an AWS User Groups Leader Philippines, AWS Community Builder, and Head of Operations & Communications at AWSUG.PH. As a former AWS Student Builder Group Lead and Captain, he delivers Talk #1 sharing his journey transitioning from student builder to tech professional, and how active community involvement shapes career pathways.",
+    "abstract": "The keynote speaker sharing their journey from student builder to tech professional and community leadership pathways will be unveiled soon.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/isaeus-asi-guiang.webp",
-    "linkedInUrl": "https://www.linkedin.com/in/isaeus-guiang/",
-    "isComingSoon": false
+    "picUrl": "assets/images/speakers/silhouette.svg",
+    "linkedInUrl": "",
+    "isComingSoon": true
   },
   {
     "id": "speaker-trisha-pelagio",
-    "name": "Trisha Pelagio",
-    "role": "Solutions Architect at Amazon Web Services (AWS) | Machine Learning | Cloud Computing",
+    "name": "To Be Revealed",
+    "role": "Keynote Speaker #2 · Solutions Architect, AWS (Machine Learning & Cloud)",
     "sessionTitle": "Talk #2: Building Smarter Systems with AI and Cloud",
-    "abstract": "Trisha Pelagio is a Solutions Architect at Amazon Web Services (AWS) specializing in Machine Learning and Cloud Computing. She presents the Women in Tech Keynote (Talk #2), exploring practical patterns for building smarter systems with AI and cloud architecture while championing diversity and inclusion in technology.",
+    "abstract": "The Women in Tech Keynote speaker exploring practical patterns for building smarter systems with AI and cloud architecture will be unveiled soon.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/trisha-pelagio.webp",
-    "linkedInUrl": "https://www.linkedin.com/in/trishapelagio/",
-    "isComingSoon": false
+    "picUrl": "assets/images/speakers/silhouette.svg",
+    "linkedInUrl": "",
+    "isComingSoon": true
   },
   {
     "id": "speaker-kevin-john-ventura",
-    "name": "Kevin John Ventura",
-    "role": "Senior Engineering Manager · Stratpoint Technologies, Inc.",
+    "name": "To Be Revealed",
+    "role": "Keynote Speaker #3 · Senior Engineering Leader (Cloud & Agentic AI)",
     "sessionTitle": "Talk #3: Human in the Loop: Preparing People for an AI-Driven Future",
-    "abstract": "Kevin John Ventura brings 15 years of experience across Web, Cloud, DevOps & Agentic AI Engineering delivering scalable platforms. He delivers the AI Adoption Session (Talk #3) on 'Human in the Loop', exploring how developers and organizations can prepare workforce capability and systems for an AI-driven future.",
+    "abstract": "The AI Adoption Keynote speaker delivering 'Human in the Loop' on organizational readiness, platform scale, and workforce transformation will be unveiled soon.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/kevin-john-ventura.webp",
+    "picUrl": "assets/images/speakers/silhouette.svg",
     "linkedInUrl": "",
-    "isComingSoon": false
+    "isComingSoon": true
   },
   {
     "id": "speaker-jared-remulta",
-    "name": "Jared Remulta",
-    "role": "Chief Technology Officer · PROLOOK",
+    "name": "To Be Revealed",
+    "role": "Panelist · Technology Executive & Community Mentor",
     "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Jared Remulta is Chief Technology Officer at PROLOOK. He joins the flagship panel discussion on 'Build. Grow. Lead', exploring how tech communities, peer mentorship, and student builder initiatives foster leadership and open doors for tech careers.",
-    "status": "PANEL",
-    "picUrl": "assets/images/speakers/jared-e-remulta.webp",
-    "linkedInUrl": "",
-    "isComingSoon": false
-  },
-  {
-    "id": "speaker-karenina-comia",
-    "name": "Karenina Marie Frances M. Comia",
-    "role": "Lead Data Engineer · Data Engineering Pilipinas | Team Lead, eCloudvalley Philippines",
-    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Nina is a community builder with Data Engineering Pilipinas (DEP) and Data Engineering Team Lead at eCloudvalley Philippines, an AWS Premier Partner. She joins the flagship panel discussion on 'Build. Grow. Lead' to share insights on engineering leadership, cloud data platforms, and community-driven professional growth.",
-    "status": "PANEL",
-    "picUrl": "assets/images/speakers/karenina-comia.webp",
-    "linkedInUrl": "",
-    "isComingSoon": false
-  },
-  {
-    "id": "speaker-neil-riego",
-    "name": "Neil Riego",
-    "role": "Speaker · Tech Community Leader",
-    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
-    "abstract": "Neil Riego joins the flagship panel discussion on 'Build. Grow. Lead', sharing perspectives on technical leadership, community empowerment, and career growth pathways in the evolving cloud and AI landscape.",
+    "abstract": "The industry technology leader joining our flagship panel discussion on tech career acceleration and leadership will be unveiled soon.",
     "status": "PANEL",
     "picUrl": "assets/images/speakers/silhouette.svg",
     "linkedInUrl": "",
-    "isComingSoon": false
+    "isComingSoon": true
+  },
+  {
+    "id": "speaker-karenina-comia",
+    "name": "To Be Revealed",
+    "role": "Panelist · Lead Data Engineer & Community Builder",
+    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
+    "abstract": "The cloud data engineering leader joining our flagship panel discussion on engineering platforms and community growth will be unveiled soon.",
+    "status": "PANEL",
+    "picUrl": "assets/images/speakers/silhouette.svg",
+    "linkedInUrl": "",
+    "isComingSoon": true
+  },
+  {
+    "id": "speaker-neil-riego",
+    "name": "To Be Revealed",
+    "role": "Panelist · Cloud & Tech Community Leader",
+    "sessionTitle": "Panel Discussion: Build. Grow. Lead: How Community Shapes Careers in Tech",
+    "abstract": "The technical community leader joining our flagship panel discussion on career pathways and tech leadership will be unveiled soon.",
+    "status": "PANEL",
+    "picUrl": "assets/images/speakers/silhouette.svg",
+    "linkedInUrl": "",
+    "isComingSoon": true
   }
 ];

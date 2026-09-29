@@ -41,7 +41,7 @@ function renderItem(item, i) {
       <h3 class="faq-q-heading">
         <button type="button" class="faq-q" id="${btnId}" aria-expanded="false" aria-controls="${panelId}">
           <span class="faq-q-left">
-            <span class="faq-q-num font-mono">0${i + 1}</span>
+            <span class="faq-q-num font-mono">${String(i + 1).padStart(2, '0')}</span>
             <span class="faq-q-text">${escapeHTML(item.q)}</span>
             ${statusBadge}
           </span>
