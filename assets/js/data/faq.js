@@ -35,25 +35,34 @@ export const faqs = [
     pending: false
   },
   {
-    id: 'faq-meals-certs-equipment',
-    q: 'Are meals, certificates, or equipment provided or required?',
-    // PENDING: confirm exactly what is provided (meals/snacks, certificates,
-    // whether attendees must bring a laptop) before publishing a firm answer.
+    id: 'faq-food',
+    q: 'Will meals or food be provided?',
+    a: 'Light snacks and drinking water will be provided for registered attendees. Heavy meals (such as lunch) are not covered, but attendees are welcome to explore various affordable dining options and eateries within walking distance of the Biñan People’s Center.',
+    pending: false
+  },
+  {
+    id: 'faq-certificates',
+    q: 'Will attendees receive a certificate of participation?',
+    // PENDING: to be confirmed by the organizing committee.
     a: '',
     pending: true
   },
   {
     id: 'faq-what-to-bring',
     q: 'What should I bring?',
-    // PENDING: confirm the required/recommended items (e.g. valid school ID,
-    // registration QR code, laptop, etc.).
-    a: '',
-    pending: true
+    a: 'Just yourself! Because South Summit 2026 is a seminar-style conference featuring keynotes, talks, and networking sessions, bringing a laptop or special equipment is not required. Just bring a valid school or government ID for venue check-in, along with your phone (for your Luma registration pass) or a notebook if you wish to take notes.',
+    pending: false
   },
   {
     id: 'faq-getting-there-contact',
     q: 'How do I get there, and what spaces are in the venue?',
     a: 'The summit is held at the Biñan People’s Center Auditorium in Biñan City, Laguna. It utilizes two dedicated event spaces: the Summit Stage (4th Floor Auditorium) for keynote and technical sessions, and the SS Community Hub (2nd Floor) for sponsor booths, partner showcases, networking, and the interactive photobooth.',
+    pending: false
+  },
+  {
+    id: 'faq-stay-updated',
+    q: 'How can I stay updated on event announcements?',
+    a: 'Follow us on our social media channels — Facebook, Instagram, and LinkedIn — for the latest updates, speaker reveals, and reminders leading up to the summit. You can also check your email for registration updates through Luma. For direct inquiries, reach out to us at scd.southsummit@gmail.com.',
     pending: false
   }
 ];

@@ -137,21 +137,9 @@ function lightCell(col, row, brightness, colorIndex) {
 }
 
 /* ============================== Sizing ================================== */
-let cachedMarqueeStartRow = -999;
-let cachedMarqueeEndRow = -999;
-
 export function updateMarqueeBounds() {
-  const marqueeEl = document.querySelector('.sponsors-marquee-shell');
-  if (marqueeEl) {
-    const marqueeRect = marqueeEl.getBoundingClientRect();
-    const scrollY = window.scrollY || window.pageYOffset || 0;
-    const docTop = marqueeRect.top + scrollY;
-    cachedMarqueeStartRow = Math.floor((docTop - 12) / gridSize);
-    cachedMarqueeEndRow = Math.ceil((docTop + marqueeRect.height + 12) / gridSize);
-  } else {
-    cachedMarqueeStartRow = -999;
-    cachedMarqueeEndRow = -999;
-  }
+  // Maintained for backward compatibility with external modules.
+  // Marquee/carousel occlusion is evaluated dynamically per frame in viewport coordinates.
 }
 
 function resize() {
@@ -178,7 +166,60 @@ function updateLitCells(dt) {
   }
 }
 
-function drawLitCells() {
+/**
+ * Detects carousel elements (e.g. Sponsors partner marquee, Venue gallery)
+ * and returns active viewport exclusion zones where tiles must not be drawn.
+ */
+function getCarouselExclusionZones() {
+  const zones = [];
+  
+  // 1. Sponsors marquee carousel (dual-track full-bleed partner stream)
+  const marqueeBlock = document.querySelector('.sponsors-marquee-block') || document.querySelector('.sponsors-marquee-shell');
+  if (marqueeBlock) {
+    const r = marqueeBlock.getBoundingClientRect();
+    if (r.bottom >= -40 && r.top <= viewH + 40) {
+      zones.push({
+        top: r.top - 20,
+        bottom: r.bottom + 24,
+        fullWidth: true
+      });
+    }
+  }
+
+  // 2. Venue interactive gallery carousel
+  const venueGallery = document.getElementById('venueGallery');
+  if (venueGallery) {
+    const r = venueGallery.getBoundingClientRect();
+    if (r.bottom >= -20 && r.top <= viewH + 20) {
+      zones.push({
+        top: r.top - 8,
+        bottom: r.bottom + 8,
+        left: r.left - 8,
+        right: r.right + 8,
+        fullWidth: false
+      });
+    }
+  }
+
+  return zones;
+}
+
+function isOccludedByCarousel(x, y, size, zones) {
+  if (!zones || zones.length === 0) return false;
+  const tileBottom = y + size;
+  const tileRight = x + size;
+  for (let i = 0; i < zones.length; i++) {
+    const z = zones[i];
+    if (tileBottom >= z.top && y <= z.bottom) {
+      if (z.fullWidth) return true;
+      if (tileRight >= z.left && x <= z.right) return true;
+    }
+  }
+  return false;
+}
+
+function drawLitCells(zones = null) {
+  const activeZones = zones || getCarouselExclusionZones();
   const size = gridSize - CFG.cellInset * 2;
   // Cells are stored in DOCUMENT space; subtract scroll to place them on the
   // fixed canvas so they stay locked to the CSS grid painted on <body>.
@@ -191,6 +232,7 @@ function drawLitCells() {
     const x = col * gridSize - scrollX + CFG.cellInset;
     const y = row * gridSize - scrollY + CFG.cellInset;
     if (x > viewW || y > viewH || x < -gridSize || y < -gridSize) continue;
+    if (isOccludedByCarousel(x, y, size, activeZones)) continue;
     const a = themeAlpha.cell * cell.b;
     ctx.fillStyle = rgba(colors[cell.c % colors.length], a);
     ctx.fillRect(x, y, size, size);
@@ -260,13 +302,15 @@ const ambientBlocks = [
    Spaced comfortably apart vertically so they frame the screen without ever touching content. */
 const mobileAmbientBlocks = [
   // Left edge (col 0)
-  { c: 0, r: 4, color: 4 },
-  { c: 0, r: 14, color: 0 },
+  { c: 0, r: 1, color: 2 },
+  { c: 0, r: 8, color: 4 },
+  { c: 0, r: 16, color: 0 },
   { c: 0, r: 25, color: 3 },
   { c: 0, r: 36, color: 1 },
   { c: 0, r: 47, color: 2 },
   // Right edge (col -1)
-  { c: -1, r: 9, color: 1 },
+  { c: -1, r: 2, color: 0 },
+  { c: -1, r: 10, color: 1 },
   { c: -1, r: 19, color: 2 },
   { c: -1, r: 30, color: 4 },
   { c: -1, r: 41, color: 0 },
@@ -277,8 +321,6 @@ const mobileAmbientBlocks = [
   targetC: b.c, targetR: b.r,
   lastAnimTs: Math.random() * 2000
 }));
-
-const CONTENT_SAFETY_BUFFER = 52; // px clearance: tiles must never come within 52px of center content
 
 /**
  * Returns the horizontal content bounds [left, right] of the central content area in viewport pixels.
@@ -319,16 +361,16 @@ function getGutterLimits() {
   const totalCols = Math.floor(currentW / gridSize);
   const bounds = getContentBounds();
 
-  // Left gutter: max safe column index so that (col + 1) * gridSize <= bounds.left - CONTENT_SAFETY_BUFFER
-  const maxSafeLeftCol = Math.max(-1, Math.floor((bounds.left - CONTENT_SAFETY_BUFFER) / gridSize) - 1);
+  // Left gutter: max safe column index so that (col + 1) * gridSize <= bounds.left
+  const maxSafeLeftCol = Math.max(0, Math.floor(bounds.left / gridSize) - 1);
 
-  // Right gutter: min safe column index so that col * gridSize >= bounds.right + CONTENT_SAFETY_BUFFER
+  // Right gutter: min safe column index so that col * gridSize >= bounds.right
   // In negative column index from the right edge (-1, -2, ...):
-  const minSafeRightCol = Math.ceil((bounds.right + CONTENT_SAFETY_BUFFER) / gridSize);
-  const minAllowedNegativeCol = Math.min(0, minSafeRightCol - totalCols);
+  const minSafeRightCol = Math.ceil(bounds.right / gridSize);
+  const minAllowedNegativeCol = Math.min(-1, minSafeRightCol - totalCols);
 
-  // Only viewports with substantial side margins (at least 2 full safe columns on each side) use the multi-column scatter
-  const hasWideGutters = currentW >= 1520 && maxSafeLeftCol >= 1 && minAllowedNegativeCol <= -2;
+  // Viewports with side margins (at least 1 full safe column on each side) use multi-column scatter
+  const hasWideGutters = currentW >= 1400 && maxSafeLeftCol >= 0 && minAllowedNegativeCol <= -1;
 
   return {
     bounds,
@@ -445,7 +487,8 @@ function updateAmbientBlocks(ts, dt) {
   return anyMoving;
 }
 
-function drawAmbientBlocks() {
+function drawAmbientBlocks(zones = null) {
+  const activeZones = zones || getCarouselExclusionZones();
   const { bounds, totalCols, hasWideGutters } = getGutterLimits();
   const blocks = hasWideGutters ? ambientBlocks : mobileAmbientBlocks;
   const opacity = hasWideGutters ? CFG.blockOpacity : CFG.mobileBlockOpacity;
@@ -467,8 +510,8 @@ function drawAmbientBlocks() {
     const tileLeft = Math.round(actualCol * gridSize - scrollX);
     const tileRight = tileLeft + size;
 
-    // Content exclusion check: if the tile enters or comes closer than CONTENT_SAFETY_BUFFER to the content in the middle, DO NOT DRAW IT
-    if (tileRight > (bounds.left - CONTENT_SAFETY_BUFFER) && tileLeft < (bounds.right + CONTENT_SAFETY_BUFFER)) {
+    // Content exclusion check: if wide gutter tiles enter central content, do not draw
+    if (hasWideGutters && tileRight > bounds.left && tileLeft < bounds.right) {
       continue;
     }
     
@@ -478,11 +521,15 @@ function drawAmbientBlocks() {
       
       // Culling
       if (actualRow < startVisRow || actualRow > startVisRow + visRows) continue;
-      if (actualRow >= cachedMarqueeStartRow && actualRow <= cachedMarqueeEndRow) continue;
 
       // Snap to full integers to eliminate sub-pixel jitter/blur during movement
       const x = Math.round(actualCol * gridSize - scrollX);
       const y = Math.round(actualRow * gridSize - scrollY);
+
+      // Carousel occlusion guard: never draw ambient tiles behind the carousel
+      if (isOccludedByCarousel(x, y, size, activeZones)) {
+        continue;
+      }
 
       // Wrap-around bounds guard for rendering
       if (x > viewW || x < -gridSize) continue;
@@ -538,11 +585,13 @@ function frame(ts) {
   const blocksMoving = updateAmbientBlocks(ts, dt);
   updateLitCells(dt);
 
+  const zones = getCarouselExclusionZones();
+
   // Z-index ordering from back to front:
   // 1. Lit Grid Cells (cursor glow)
-  drawLitCells();
+  drawLitCells(zones);
   // 2. Ambient Blocks (on top of everything so the cursor glow goes behind them)
-  drawAmbientBlocks();
+  drawAmbientBlocks(zones);
 
   // If on low-spec device or touch without hover: once boot sweep finishes and lit cells decay,
   // freeze into static state to eliminate continuous 60fps canvas drain.
@@ -606,8 +655,9 @@ function maybePaintStatic() {
   if (!ctx) return;
   if (!reducedMotion && running) return;
   ctx.clearRect(0, 0, viewW, viewH);
-  drawLitCells();
-  drawAmbientBlocks();
+  const zones = getCarouselExclusionZones();
+  drawLitCells(zones);
+  drawAmbientBlocks(zones);
 }
 
 /* ============================== Setup =================================== */

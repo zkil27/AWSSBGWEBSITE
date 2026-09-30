@@ -46,7 +46,7 @@ let isModalOpen = false;
 let closeSpeakerTimeout = null;
 
 export function openSpeakerModal(speaker, tileTheme = '') {
-    if (!speaker || speaker.isComingSoon || speaker.name === 'Coming Soon') return;
+    if (!speaker) return;
     const modal = document.getElementById('speakerModal');
     if (!modal) return;
 
@@ -80,13 +80,15 @@ export function openSpeakerModal(speaker, tileTheme = '') {
         modalCard.classList.add(finalTheme, 'sm-pass-card');
     }
 
-    const name = speaker?.name || 'Speaker Name';
-    const isComingSoon = speaker?.isComingSoon || name === 'Coming Soon';
-    const role = isComingSoon ? '' : (speaker?.role || 'Speaker Role · Company');
-    const status = speaker?.status
-        || (speaker?.sessionTitle?.toLowerCase().includes('keynote')
-            ? 'KEYNOTE'
-            : (speaker?.sessionTitle?.toLowerCase().includes('panel') ? 'PANEL' : 'SPEAKER'));
+    const isComingSoon = Boolean(speaker?.isComingSoon || speaker?.name === 'Coming Soon' || speaker?.name === 'To Be Revealed');
+    const name = isComingSoon ? 'To Be Revealed' : (speaker?.name || 'Speaker Name');
+    const role = speaker?.role || (isComingSoon ? 'Speaker Announcement Dropping Soon' : 'Speaker Role · Company');
+    const status = isComingSoon
+        ? `${speaker?.status || 'SPEAKER'} // TO BE REVEALED`
+        : (speaker?.status
+            || (speaker?.sessionTitle?.toLowerCase().includes('keynote')
+                ? 'KEYNOTE'
+                : (speaker?.sessionTitle?.toLowerCase().includes('panel') ? 'PANEL' : 'SPEAKER')));
 
     const nameEl = document.getElementById('smName');
     if (nameEl) nameEl.textContent = name;
@@ -94,13 +96,14 @@ export function openSpeakerModal(speaker, tileTheme = '') {
     const roleEl = document.getElementById('smRole');
     if (roleEl) {
         roleEl.textContent = role;
-        roleEl.style.display = isComingSoon ? 'none' : '';
+        roleEl.style.display = '';
     }
 
     const badgeEl = document.getElementById('smBadge');
     if (badgeEl) {
         badgeEl.textContent = status;
-        badgeEl.className = `sc-status-badge ${status.toLowerCase()} sm-badge-pill`;
+        const baseStatus = (speaker?.status || 'SPEAKER').toLowerCase();
+        badgeEl.className = `sc-status-badge ${baseStatus} sm-badge-pill`;
     }
 
     const sessionEl = document.getElementById('smSession');
@@ -112,17 +115,15 @@ export function openSpeakerModal(speaker, tileTheme = '') {
 
     const bioEl = document.getElementById('smBio');
     if (bioEl) {
-        bioEl.innerHTML = isComingSoon
-            ? 'Official speaker announcement coming soon.'
-            : (speaker?.abstract
-                || 'A brief biography highlighting their journey into tech, their work with Cloud & AI, and community contributions.');
+        bioEl.innerHTML = speaker?.abstract
+            || 'The official speaker identity and comprehensive biography for this session will be officially unveiled soon across our community channels.';
     }
 
     const avatarEl = document.getElementById('smAvatar');
     if (avatarEl) {
         avatarEl.className = `sm-avatar-img${isComingSoon ? ' is-silhouette' : ''}`;
-        avatarEl.src = speaker?.picUrl || FALLBACK_AVATAR;
-        avatarEl.alt = name;
+        avatarEl.src = isComingSoon ? 'assets/images/speakers/silhouette.svg' : (speaker?.picUrl || FALLBACK_AVATAR);
+        avatarEl.alt = isComingSoon ? 'Speaker To Be Revealed' : name;
     }
 
     const linkedInBtn = document.getElementById('smLinkedIn');
@@ -409,7 +410,7 @@ export function initSpeakers() {
         }
 
         function renderLineupItem(item) {
-            const isComingSoon = item.speaker?.isComingSoon || item.name === 'Coming Soon';
+            const isComingSoon = Boolean(item.speaker?.isComingSoon || item.name === 'Coming Soon' || item.name === 'To Be Revealed');
             const linkedinMarkup = (!isComingSoon && item.linkedin && item.linkedin.includes('linkedin.com/in/')) ? `
               <a class="lt-li" href="${item.linkedin}" target="_blank" rel="noopener"
                  onclick="event.stopPropagation()" title="LinkedIn Profile" aria-label="${item.name} on LinkedIn">
@@ -417,22 +418,23 @@ export function initSpeakers() {
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.67a1.64 1.64 0 0 0-1.64 1.63c0 .91.73 1.64 1.64 1.64s1.64-.73 1.64-1.64c0-.9-.73-1.63-1.64-1.63Z"/>
                 </svg>
               </a>` : '';
-            const roleMarkup = (isComingSoon || !item.role) ? '' : `<span class="lt-role">${item.role}</span>`;
+            const roleMarkup = item.role ? `<span class="lt-role lt-role-tba">${item.role}</span>` : '';
 
             if (isComingSoon) {
                 const topic = item.speaker?.sessionTitle || 'Official speaker announcement coming soon.';
                 return `
                 <div class="item-img item-coming-soon" style="--tile-accent: var(--${item.color});">
-                  <img class="lt-photo is-silhouette" src="${item.img}" alt="${item.name}" loading="lazy" decoding="async"
-                       onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';this.classList.add('lt-photo-fallback')">
+                  <img class="lt-photo is-silhouette" src="${item.img}" alt="Speaker To Be Revealed" loading="lazy" decoding="async"
+                       onerror="this.onerror=null;this.src='assets/images/speakers/silhouette.svg';this.classList.add('lt-photo-fallback')">
                   <span class="lt-scrim" aria-hidden="true"></span>
                   <span class="sc-status-badge ${item.status.toLowerCase()}">${item.status}</span>
                   <span class="lt-tba-radar" title="Speaker announcement pending">
-                    <span class="lt-tba-dot"></span>Revealing Soon
+                    <span class="lt-tba-dot"></span>To Be Revealed
                   </span>
                   <span class="lt-info lt-info-tba">
-                    <span class="lt-tba-eyebrow font-mono">SPOTLIGHT PENDING</span>
-                    <h3 class="lt-name">Coming Soon</h3>
+                    <span class="lt-tba-eyebrow font-mono">${item.status} // TO BE REVEALED</span>
+                    <h3 class="lt-name">To Be Revealed</h3>
+                    ${roleMarkup}
                     <span class="lt-session-topic font-mono">${topic}</span>
                   </span>
                   <div class="color-overlay"></div>
@@ -469,7 +471,6 @@ export function initSpeakers() {
             renderItem: renderLineupItem,
             onItemClick: (e, item) => {
                 if (e.target.closest('.lt-li') || e.target.closest('a')) return;
-                if (item.speaker?.isComingSoon || item.name === 'Coming Soon') return;
                 openSpeakerModal(item.speaker, item.tileTheme);
             }
         });
@@ -839,10 +840,11 @@ export function initSpeakers() {
     // Render tiny inline cards for schedule on Home page
     function speakerInlineHTML(speaker, index) {
         const color = colors[index % colors.length];
-        const isComingSoon = speaker.isComingSoon || speaker.name === 'Coming Soon';
-        const name = speaker.name || `Speaker ${index + 1}`;
+        const isComingSoon = Boolean(speaker.isComingSoon || speaker.name === 'Coming Soon' || speaker.name === 'To Be Revealed');
+        const name = isComingSoon ? 'To Be Revealed' : (speaker.name || `Speaker ${index + 1}`);
         return `
         <div class="speaker-inline-card ${color}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}" title="${name}">
+          ${isComingSoon ? '<span class="speaker-inline-radar-dot"></span>' : ''}
           <span class="speaker-inline-name">${name}</span>
         </div>
         `;
@@ -891,11 +893,6 @@ export function initSpeakers() {
 
         const index = Number(card.dataset.speakerIndex);
         if (!Number.isNaN(index) && speakers[index]) {
-            const spk = speakers[index];
-            if (spk.isComingSoon || spk.name === 'Coming Soon') {
-                // Do not open details modal for unconfirmed speaker
-                return;
-            }
             const parentWithTile = card.closest('[class*="bg-tile-"]');
             const tileMatch = (card.className && card.className.match && card.className.match(/bg-tile-(orange|purple|green|blue|pink)/))
                 || (card.className && card.className.match && card.className.match(/\b(blue|green|pink)\b/))

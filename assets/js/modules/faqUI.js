@@ -31,7 +31,7 @@ function renderItem(item, i) {
   const answerHTML = isPending
     ? `<div class="faq-pending-notice">
          <p class="faq-answer-text faq-answer-pending">
-           Specific logistics for this item are currently being finalized by the organizing committee. Confirmed guidelines will be published prior to October 7, 2026.
+           Details on certificates of participation are still being finalized by the organizing committee. We&rsquo;ll update this page and notify registered attendees once confirmed &mdash; expect an announcement before event day.
          </p>
        </div>`
     : `<p class="faq-answer-text">${escapeHTML(item.a)}</p>`;
@@ -41,7 +41,7 @@ function renderItem(item, i) {
       <h3 class="faq-q-heading">
         <button type="button" class="faq-q" id="${btnId}" aria-expanded="false" aria-controls="${panelId}">
           <span class="faq-q-left">
-            <span class="faq-q-num font-mono">0${i + 1}</span>
+            <span class="faq-q-num font-mono">${String(i + 1).padStart(2, '0')}</span>
             <span class="faq-q-text">${escapeHTML(item.q)}</span>
             ${statusBadge}
           </span>
