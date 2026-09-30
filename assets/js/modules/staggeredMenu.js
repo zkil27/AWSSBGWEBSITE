@@ -189,8 +189,18 @@ export async function initStaggeredMenu(config = {}) {
     }
   });
 
-  // Listen for scroll & route changes
-  window.addEventListener('scroll', syncActiveNav, { passive: true });
+  // Listen for scroll & route changes with rAF throttle to prevent layout thrashing
+  let navScrollTicking = false;
+  function onScrollNav() {
+    if (!navScrollTicking) {
+      navScrollTicking = true;
+      requestAnimationFrame(() => {
+        syncActiveNav();
+        navScrollTicking = false;
+      });
+    }
+  }
+  window.addEventListener('scroll', onScrollNav, { passive: true });
   window.addEventListener('popstate', syncActiveNav);
 
   const origShowPage = window.showPage;

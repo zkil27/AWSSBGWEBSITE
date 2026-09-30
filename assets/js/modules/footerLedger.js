@@ -10,7 +10,7 @@
  */
 
 const CYBER_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#@$%&*/+';
-const EVENT_DATE = new Date('2026-10-07T08:00:00+08:00');
+const EVENT_DATE = new Date('2026-10-07T09:30:00+08:00');
 
 /**
  * Initialize Matrix character decryption scramble on footer navigation items.

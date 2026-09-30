@@ -2007,7 +2007,7 @@ html.bp-active .blueprint-pin {
   /* Clear the fixed nav at the top and the progress bar at the bottom so
      centered panels never collide with either. */
   padding-top: var(--nav-h);
-  padding-bottom: clamp(48px, 8vh, 88px);
+  padding-bottom: clamp(34px, 5.5vh, 64px);
   box-sizing: border-box;
   left: 0;
   top: 0;
@@ -2301,14 +2301,14 @@ html.bp-active .blueprint-panel--offset-down .bp-num::after { margin: clamp(20px
 
 /* ---- Schedule panel: grand editorial stage (maximum space) ---- */
 html.bp-active .blueprint-panel--schedule {
-  width: min(calc(100vw - 2 * clamp(40px, 5vw, 100px)), 1560px);
+  width: min(calc(100vw - 2 * clamp(32px, 4vw, 80px)), 1560px);
   max-width: 1560px;
-  min-width: min(860px, calc(100vw - 48px));
+  min-width: min(840px, calc(100vw - 48px));
   /* Dedicated clearance from agenda section giving Program Flow its own spotlight */
   margin-left: clamp(340px, 36vw, 760px);
   margin-right: 0;
-  height: calc(100vh - var(--nav-h) - clamp(72px, 9.5vh, 100px));
-  max-height: calc(100vh - var(--nav-h) - clamp(72px, 9.5vh, 100px));
+  height: calc(100vh - var(--nav-h) - clamp(44px, 6.5vh, 72px));
+  max-height: calc(100vh - var(--nav-h) - clamp(44px, 6.5vh, 72px));
   min-height: 0;
   padding: 0;
   margin-top: 0;
@@ -2327,8 +2327,8 @@ html.bp-active .blueprint-panel--schedule {
   flex-wrap: wrap;
   gap: 10px;
   width: 100%;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  padding-bottom: clamp(6px, 0.9vh, 10px);
+  margin-bottom: clamp(6px, 0.9vh, 10px);
   border-bottom: 1px solid var(--line-strong);
   flex-shrink: 0;
 }
@@ -2344,8 +2344,8 @@ html.bp-active .blueprint-panel--schedule {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 14px;
-  margin: 0 0 14px;
+  gap: 12px;
+  margin: 0 0 clamp(8px, 1.2vh, 14px);
   flex-shrink: 0;
 }
 
@@ -2359,12 +2359,12 @@ html.bp-active .blueprint-panel--schedule {
 .bp-sched-title {
   font-family: var(--font-display, var(--font-sans));
   font-weight: 800;
-  font-size: clamp(30px, 3vw, 44px);
-  line-height: 1.2;
+  font-size: clamp(26px, 2.7vw, 42px);
+  line-height: 1.15;
   letter-spacing: -0.025em;
   color: var(--text-strong);
   margin: 0;
-  padding-bottom: 6px;
+  padding-bottom: 2px;
   overflow: visible;
 }
 
@@ -2441,16 +2441,16 @@ html.bp-active .blueprint-panel--schedule .schedule-container {
   flex-direction: column;
   position: relative;
   overflow: visible !important;
-  padding: 8px 12px 18px;
-  margin: -8px -12px -18px;
+  padding: 4px 8px 6px;
+  margin: -4px -8px -6px;
 }
 
 /* Two-column block split */
 .sched-blocks-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: clamp(22px, 2.4vw, 36px);
-  row-gap: 20px;
+  column-gap: clamp(16px, 2vw, 32px);
+  row-gap: 16px;
   transition: all 0.25s ease;
 }
 
@@ -2458,6 +2458,7 @@ html.bp-active .sched-blocks-split {
   flex: 1 1 0;
   min-height: 0;
   height: 100%;
+  grid-template-rows: minmax(0, 1fr);
 }
 
 @media (max-width: 900px) {
@@ -2489,7 +2490,7 @@ html.bp-active .sched-blocks-split {
   border: 1px solid var(--bp-card-border, rgba(0, 0, 0, 0.15));
   border-radius: 16px;
   overflow: hidden;
-  padding: clamp(16px, 2vh, 24px) clamp(18px, 2.4vw, 36px);
+  padding: clamp(12px, 1.5vh, 20px) clamp(14px, 1.8vw, 28px);
   position: relative;
   box-shadow: var(--bp-card-shadow);
   box-sizing: border-box;
@@ -2523,6 +2524,7 @@ html.bp-active .sched-blocks-split {
 html.bp-active .sched-block {
   height: 100%;
   min-height: 0;
+  max-height: 100%;
 }
 
 
@@ -2531,7 +2533,7 @@ html.bp-active .sched-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 12px;
+  padding-bottom: clamp(6px, 1vh, 10px);
   border-bottom: 1px solid var(--bp-card-header-border, rgba(0, 0, 0, 0.08));
   margin-bottom: 0;
   flex-shrink: 0;
@@ -2598,21 +2600,77 @@ html[data-theme="light"] .sched-block-pill.afternoon {
 html.bp-active .sched-block-rows {
   flex: 1 1 0;
   min-height: 0;
-  justify-content: space-around;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167, 89, 255, 0.3) transparent;
+  padding-right: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(2px, 0.5vh, 6px);
+}
+
+/* Morning Stage: 4 sessions gracefully maximize the full card space with balanced vertical distribution */
+html.bp-active .block-morning .sched-block-rows {
+  scrollbar-color: rgba(252, 153, 7, 0.3) transparent;
+  justify-content: space-between;
+  gap: clamp(4px, 1vh, 12px);
+  height: 100%;
+}
+
+html.bp-active .block-morning .sched-row {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  align-content: center;
+  padding: clamp(6px, 1.4vh, 18px) clamp(8px, 0.8vw, 14px);
+}
+
+/* Afternoon Stage: 7 sessions expand smoothly to fill space without overflow */
+html.bp-active .block-afternoon .sched-block-rows {
+  justify-content: space-between;
+  height: 100%;
+}
+
+html.bp-active .block-afternoon .sched-row {
+  flex: 1 0 auto;
+  min-height: fit-content;
+  display: grid;
+  align-content: center;
+}
+
+html.bp-active .sched-block-rows::-webkit-scrollbar {
+  width: 4px;
+}
+
+html.bp-active .sched-block-rows::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.bp-active .block-afternoon .sched-block-rows::-webkit-scrollbar-thumb {
+  background: rgba(167, 89, 255, 0.3);
+  border-radius: 4px;
+}
+
+html.bp-active .block-morning .sched-block-rows::-webkit-scrollbar-thumb {
+  background: rgba(252, 153, 7, 0.3);
+  border-radius: 4px;
 }
 
 /* Each row: refined interactive broadsheet capsule with smooth stage accents */
 .blueprint-panel--schedule .sched-row {
   position: relative;
-  margin: 2px clamp(-10px, -0.8vw, -14px);
-  padding: clamp(10px, 1.3vh, 15px) clamp(10px, 0.8vw, 14px);
+  margin: 1px clamp(-8px, -0.6vw, -12px);
+  padding: clamp(5px, 0.8vh, 10px) clamp(8px, 0.6vw, 12px);
   display: grid;
-  grid-template-columns: clamp(84px, 7.5vw, 108px) minmax(0, 1fr);
-  gap: clamp(14px, 1.8vw, 24px);
+  grid-template-columns: clamp(74px, 6.5vw, 98px) minmax(0, 1fr);
+  gap: clamp(10px, 1.2vw, 18px);
   align-items: start;
   border: 1px solid transparent;
   border-bottom: 1px solid var(--bp-row-border-bottom, rgba(0, 0, 0, 0.06));
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: 
     background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
@@ -2703,14 +2761,14 @@ html[data-theme="dark"] .blueprint-panel--schedule .block-afternoon .sched-row:h
 
 .blueprint-panel--schedule .sched-row .time {
   font-family: var(--font-mono);
-  font-size: clamp(13.5px, 1.1vw, 16px);
+  font-size: clamp(12.5px, 0.95vw, 15px);
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.2;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding-top: 2px;
+  gap: 2px;
+  padding-top: 1px;
   white-space: nowrap;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2743,7 +2801,7 @@ html[data-theme="dark"] .blueprint-panel--schedule .block-afternoon .sched-row:h
 .t-dur {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--muted-2, #64748b);
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -2812,11 +2870,11 @@ html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .t-dur {
 
 .blueprint-panel--schedule .sched-row .what b {
   font-family: var(--font-display, var(--font-sans));
-  font-size: clamp(15px, 1.2vw, 19px);
+  font-size: clamp(13.5px, 1.05vw, 16.5px);
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--bp-text-strong, #000000);
-  line-height: 1.25;
+  line-height: 1.22;
   display: inline;
   transition: color 0.2s ease, text-shadow 0.2s ease;
 }
@@ -2832,11 +2890,11 @@ html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .what b {
 
 .blueprint-panel--schedule .sched-row .what span {
   font-family: var(--font-sans);
-  font-size: clamp(12.5px, 0.9vw, 14px);
+  font-size: clamp(11.5px, 0.82vw, 13px);
   color: var(--bp-muted, #4b5563);
-  line-height: 1.45;
+  line-height: 1.35;
   display: block;
-  margin-top: 3px;
+  margin-top: 2px;
   transition: color 0.2s ease;
 }
 
@@ -2850,16 +2908,23 @@ html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .what span {
 
 /* Inline speaker chips with crisp editorial styling */
 .blueprint-panel--schedule .sched-speakers-inline {
-  margin-top: 8px;
+  margin-top: 4px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
+}
+
+.blueprint-panel--schedule .sched-speakers-inline:empty,
+.blueprint-panel--schedule .speaker-inline-row:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .blueprint-panel--schedule .speaker-inline-card {
   margin-top: 0;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 2.5px 8px;
+  border-radius: 5px;
   border: 1px solid var(--bp-chip-border, rgba(0, 0, 0, 0.14));
   background: var(--bp-chip-bg, #f8fafc);
   cursor: pointer;
@@ -2887,7 +2952,7 @@ html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .what span {
 
 .blueprint-panel--schedule .speaker-inline-name {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   max-width: 28ch;
   white-space: nowrap;
@@ -2932,11 +2997,14 @@ html[data-theme="dark"] .blueprint-panel--schedule .sched-row:hover .what span {
 html.bp-active .blueprint-progress {
   display: block;
   position: absolute;
-  left: max(clamp(40px, 5vw, 100px), calc((100vw - 1560px) / 2));
-  right: max(clamp(40px, 5vw, 100px), calc((100vw - 1560px) / 2));
-  bottom: clamp(28px, 5vh, 56px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 2 * clamp(40px, 5vw, 100px)), 1560px);
+  bottom: clamp(14px, 2.2vh, 26px);
   height: 3px;
   background: var(--bp-progress-bg, rgba(0, 0, 0, 0.15));
+  border-radius: 999px;
+  overflow: hidden;
   z-index: 3;
 }
 
@@ -2946,6 +3014,7 @@ html.bp-active .blueprint-progress {
   width: 0%;
   background: linear-gradient(90deg, var(--orange) 0%, var(--purple) 50%, var(--green) 100%);
   box-shadow: 0 0 10px rgba(167, 89, 255, 0.6);
+  border-radius: 999px;
   transform-origin: left center;
   transition: background-color .3s ease;
 }
@@ -2960,8 +3029,8 @@ html.bp-active .blueprint-hint {
   align-items: center;
   gap: 10px;
   position: absolute;
-  right: max(clamp(40px, 5vw, 100px), calc((100vw - 1560px) / 2));
-  bottom: clamp(44px, 7vh, 84px);
+  right: max(clamp(40px, 5vw, 100px), calc((100% - 1560px) / 2));
+  bottom: clamp(24px, 4vh, 46px);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 13px;
@@ -2990,6 +3059,127 @@ html.bp-active .blueprint-pin.bp-engaged .blueprint-hint {
 
 @media (prefers-reduced-motion: reduce) {
   .blueprint-hint .bp-hint-arrow { animation: none; }
+}
+
+/* Responsive adaptations for compact desktop/laptop viewports */
+@media (max-height: 820px) and (min-width: 980px) {
+  html.bp-active .blueprint-panel--schedule {
+    height: calc(100vh - var(--nav-h) - 44px);
+    max-height: calc(100vh - var(--nav-h) - 44px);
+  }
+  .bp-meta--schedule {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  .bp-sched-headline-row {
+    margin: 0 0 6px;
+  }
+  .bp-sched-title {
+    font-size: clamp(22px, 2.2vw, 30px);
+  }
+  .sched-block {
+    padding: 10px clamp(12px, 1.4vw, 20px);
+  }
+  .sched-block-header {
+    padding-bottom: 5px;
+  }
+  .blueprint-panel--schedule .block-afternoon .sched-row {
+    padding: 4px 8px;
+    margin: 1px -8px;
+  }
+  .blueprint-panel--schedule .block-morning .sched-row {
+    padding: clamp(6px, 1.2vh, 12px) 8px;
+    margin: 1px -8px;
+  }
+  .blueprint-panel--schedule .sched-row .what b {
+    font-size: 13.5px;
+  }
+  .blueprint-panel--schedule .sched-row .what span {
+    font-size: 11.5px;
+    line-height: 1.3;
+  }
+  .blueprint-panel--schedule .sched-speakers-inline {
+    margin-top: 3px;
+    gap: 3px;
+  }
+  .blueprint-panel--schedule .speaker-inline-card {
+    padding: 2px 6px;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 980px) {
+  html.bp-active .blueprint-panel--schedule {
+    height: calc(100vh - var(--nav-h) - 36px);
+    max-height: calc(100vh - var(--nav-h) - 36px);
+  }
+  .bp-meta--schedule {
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+  }
+  .bp-sched-headline-row {
+    margin: 0 0 4px;
+  }
+  .bp-sched-title {
+    font-size: 20px;
+  }
+  .sched-block {
+    padding: 8px 12px;
+  }
+  .sched-block-header {
+    padding-bottom: 4px;
+  }
+  .sched-block-pill {
+    font-size: 10px;
+    padding: 1px 5px;
+  }
+  .sched-block-label {
+    font-size: 11px;
+  }
+  .sched-block-time-range {
+    font-size: 10px;
+  }
+  .blueprint-panel--schedule .block-afternoon .sched-row {
+    padding: 2.5px 6px;
+    margin: 1px -6px;
+  }
+  .blueprint-panel--schedule .block-morning .sched-row {
+    padding: clamp(5px, 1vh, 10px) 6px;
+    margin: 1px -6px;
+  }
+  .blueprint-panel--schedule .sched-row .time {
+    font-size: 12px;
+  }
+  .t-dur {
+    font-size: 9px;
+  }
+  .blueprint-panel--schedule .sched-row .what b {
+    font-size: 12.5px;
+  }
+  .blueprint-panel--schedule .sched-row .what span {
+    font-size: 11px;
+    line-height: 1.25;
+  }
+  .blueprint-panel--schedule .speaker-inline-card {
+    padding: 1.5px 5px;
+  }
+  .blueprint-panel--schedule .speaker-inline-name {
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 1160px) and (min-width: 980px) {
+  .sched-blocks-split {
+    column-gap: 14px;
+  }
+  .sched-block {
+    padding: clamp(10px, 1.4vh, 16px) 14px;
+  }
+  .blueprint-panel--schedule .sched-row {
+    grid-template-columns: 74px minmax(0, 1fr);
+    gap: 10px;
+    padding: 5px 6px;
+    margin: 1px -6px;
+  }
 }
 
 /* ---- Vertical fallback (no html.bp-active): touch / reduced-motion / narrow.
@@ -3050,12 +3240,12 @@ html:not(.bp-active) .blueprint-panel--agenda:hover {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel--agenda {
     padding: 24px 22px;
-    background: rgba(13, 21, 39, 0.78) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(1.25);
-    backdrop-filter: blur(16px) saturate(1.25);
+    background: rgba(13, 21, 39, 0.94) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 12px 30px rgba(0, 0, 0, 0.22) !important;
     border-radius: 16px;
@@ -3063,9 +3253,9 @@ html:not(.bp-active) .blueprint-panel--agenda:hover {
   }
 
   html[data-theme="light"] .blueprint-panel--agenda {
-    background: rgba(255, 255, 255, 0.82) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(1.25);
-    backdrop-filter: blur(16px) saturate(1.25);
+    background: rgba(255, 255, 255, 0.95) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06) !important;
     isolation: isolate;
@@ -3073,9 +3263,9 @@ html:not(.bp-active) .blueprint-panel--agenda:hover {
 }
 
 html[data-theme="light"]:not(.bp-active) .blueprint-panel--agenda {
-  background: rgba(255, 255, 255, 0.82) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(1.25);
-  backdrop-filter: blur(16px) saturate(1.25);
+  background: rgba(255, 255, 255, 0.95) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
@@ -3094,7 +3284,7 @@ html:not(.bp-active) .bp-cover-figure {
   display: none;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel--agenda > .bp-num,
   .bp-cover-figure {
     display: none !important;
@@ -3107,7 +3297,7 @@ html:not(.bp-active) .bp-meta {
   margin-bottom: 16px;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .bp-meta {
     gap: 12px;
     padding-bottom: 12px;
@@ -3124,7 +3314,7 @@ html:not(.bp-active) .blueprint-panel--agenda h3 {
   color: var(--text-strong);
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel--agenda h3 {
     font-family: var(--font-display, var(--font-sans));
     font-size: 20px;
@@ -3143,7 +3333,7 @@ html:not(.bp-active) .blueprint-panel--agenda p {
   margin: 0;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel--agenda p {
     color: var(--muted);
     font-size: 14.5px;
@@ -3159,7 +3349,7 @@ html:not(.bp-active) .blueprint-panel--intro {
   display: none !important;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel--intro {
     display: none !important;
   }
@@ -3172,7 +3362,7 @@ html:not(.bp-active) .blueprint-panel {
   box-sizing: border-box;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel {
     width: 100% !important;
     max-width: 100% !important;
@@ -3182,30 +3372,12 @@ html:not(.bp-active) .blueprint-panel {
 
 /* Live WebGL Shader Canvas: active and visible on mobile to project living chromatic waves */
 html:not(.bp-active) .bp-shader-canvas {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  pointer-events: none;
-  z-index: 0;
-  display: block !important;
-  border-radius: 0 !important;
-  overflow: hidden;
-  opacity: 0.88;
+  display: none !important;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .bp-shader-canvas {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    pointer-events: none;
-    z-index: 0;
-    display: block !important;
-    border-radius: 0 !important;
-    overflow: hidden;
-    opacity: 0.88;
+    display: none !important;
   }
 }
 
@@ -3216,7 +3388,7 @@ html:not(.bp-active) .blueprint-hint {
   display: none !important;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .bp-curve-stroke-wrap,
   .blueprint-progress,
   .blueprint-hint {
@@ -3241,7 +3413,7 @@ html:not(.bp-active) .blueprint-pin {
   overflow: hidden;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-pin {
     position: relative !important;
     width: 100% !important;
@@ -3264,18 +3436,20 @@ html:not(.bp-active) .blueprint-pin {
     box-shadow: none !important;
   }
 
-  /* Frosted glass for schedule block cards on mobile */
+  /* Solid high-contrast cards for schedule block cards on mobile (zero blur lag) */
   .blueprint-panel--schedule .sched-block {
-    background: rgba(13, 21, 39, 0.85) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(1.25);
-    backdrop-filter: blur(16px) saturate(1.25);
+    background: rgba(13, 21, 39, 0.94) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
     isolation: isolate;
   }
 
   html[data-theme="light"] .blueprint-panel--schedule .sched-block {
-    background: rgba(255, 255, 255, 0.88) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
     isolation: isolate;
@@ -3294,7 +3468,7 @@ html:not(.bp-active) .blueprint-panel--schedule .bp-sched-title {
   overflow: visible;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 980px) {
   .blueprint-panel--schedule .bp-sched-title {
     font-family: var(--font-display, var(--font-sans));
     font-weight: 800;
@@ -3959,6 +4133,8 @@ html[data-theme="light"] .venue-space-row {
 @media (max-width: 960px) {
   #venue {
     min-height: auto;
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 800px;
   }
   .section-venue {
     padding: clamp(72px, 10vh, 120px) 0 clamp(80px, 12vh, 140px);
@@ -6852,6 +7028,7 @@ html[data-theme="dark"] .foot-giant-year,
 [data-reveal].is-revealed {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
 
 /* Cards/list items in a group stagger like the compute-grid boot sweep. The
@@ -6865,6 +7042,15 @@ html[data-theme="dark"] .foot-giant-year,
 /* Once revealed, drop will-change so the browser doesn't keep a layer around. */
 [data-reveal].reveal-done {
   will-change: auto;
+}
+
+/* Mobile & tablet safeguards: never maintain persistent composited GPU layer
+   allocations on mobile devices during fast scroll. Setting will-change: auto
+   prevents GPU tile buffer exhaustion, font glyph cache evictions, and tile tearing. */
+@media (max-width: 980px) {
+  [data-reveal] {
+    will-change: auto !important;
+  }
 }
 
 
@@ -10678,9 +10864,7 @@ html.in-page-transition {
 }
 
 .speaker-inline-card.is-coming-soon {
-  cursor: pointer;
-  opacity: 0.92;
-  border-style: dashed;
+  display: none !important;
 }
 
 .speaker-inline-radar-dot {
@@ -10898,6 +11082,12 @@ kbd {
   background: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.3);
   color: var(--btn-top-hover-text, #080B11);
+}
+
+@media (max-width: 980px), (hover: none), (pointer: coarse) {
+  .btn-kbd-help {
+    display: none !important;
+  }
 }
 
 /* Keyboard Action Feedback Toast */
@@ -11953,10 +12143,16 @@ html[data-theme="dark"] .faq-section {
   display: grid;
   grid-template-columns: 1fr 1.55fr;
   gap: clamp(40px, 6vw, 84px);
-  align-items: start;
+  align-items: center;
 }
 
-/* Left Column: Aside with Sticky Anchor */
+/* Left Column: Vertically centered aside to balance with accordion items */
+.faq-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .faq-aside-sticky {
   position: sticky;
   top: 104px;
@@ -11981,7 +12177,7 @@ html[data-theme="dark"] .faq-title {
   font-size: clamp(14.5px, 1.05vw, 16.5px);
   line-height: 1.65;
   color: var(--muted, #4B5563);
-  margin: 0 0 32px 0;
+  margin: 0;
   max-width: 44ch;
 }
 
@@ -12002,6 +12198,8 @@ html[data-theme="dark"] .faq-list {
 .faq-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   transition: background 0.2s ease;
+  transform: none;
+  will-change: auto;
 }
 
 html[data-theme="dark"] .faq-item {
@@ -12034,6 +12232,10 @@ html[data-theme="dark"] .faq-item.is-open {
   text-align: left;
   color: var(--text, #0B0F19);
   transition: color 0.2s ease;
+  transform: none;
+  will-change: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html[data-theme="dark"] .faq-q {
@@ -12071,6 +12273,7 @@ html[data-theme="dark"] .faq-q:focus-visible {
   font-weight: 700;
   color: var(--muted, #94a3b8);
   flex-shrink: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 .faq-q-text {
@@ -12079,6 +12282,8 @@ html[data-theme="dark"] .faq-q:focus-visible {
   font-weight: 600;
   line-height: 1.35;
   color: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Status Badge for pending questions */
@@ -12200,6 +12405,7 @@ html[data-theme="dark"] .faq-answer-pending {
   .faq-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+    align-items: start;
   }
   .faq-aside-sticky {
     position: static;

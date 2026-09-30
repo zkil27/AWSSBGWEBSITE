@@ -43,9 +43,8 @@ export const faqs = [
   {
     id: 'faq-certificates',
     q: 'Will attendees receive a certificate of participation?',
-    // PENDING: to be confirmed by the organizing committee.
-    a: '',
-    pending: true
+    a: 'Yes. All registered attendees who check in and attend the sessions will receive an official digital Certificate of Participation. Certificates will be issued and sent to your registered email address following the conclusion of the summit.',
+    pending: false
   },
   {
     id: 'faq-what-to-bring',
@@ -56,13 +55,13 @@ export const faqs = [
   {
     id: 'faq-getting-there-contact',
     q: 'How do I get there, and what spaces are in the venue?',
-    a: 'The summit is held at the Biñan People’s Center Auditorium in Biñan City, Laguna. It utilizes two dedicated event spaces: the Summit Stage (4th Floor Auditorium) for keynote and technical sessions, and the SS Community Hub (2nd Floor) for sponsor booths, partner showcases, networking, and the interactive photobooth.',
+    a: 'The summit is held at the Biñan People’s Center Auditorium in Biñan City, Laguna. We will be posting detailed commuter and navigation guides on our official social media channels to help attendees easily travel to the venue. The summit utilizes two dedicated event spaces: the Summit Stage (4th Floor Auditorium) for keynote and technical sessions, and the SS Community Hub (2nd Floor) for sponsor booths, partner showcases, networking, and the interactive photobooth.',
     pending: false
   },
   {
     id: 'faq-stay-updated',
     q: 'How can I stay updated on event announcements?',
-    a: 'Follow us on our social media channels — Facebook, Instagram, and LinkedIn — for the latest updates, speaker reveals, and reminders leading up to the summit. You can also check your email for registration updates through Luma. For direct inquiries, reach out to us at scd.southsummit@gmail.com.',
+    a: 'Follow us on our social media channels — Facebook, Instagram, LinkedIn, and TikTok — for the latest updates, speaker reveals, and reminders leading up to the summit. You can also check your email for registration updates through Luma. For direct inquiries, reach out to us at scd.southsummit@gmail.com.',
     pending: false
   }
 ];

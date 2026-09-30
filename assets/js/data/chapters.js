@@ -35,7 +35,7 @@ export const chapters = [
     imgUrl: 'assets/images/organizations/AWS SBG - UPHSL.webp'
   },
   {
-    name: 'AWS SBG – Cavite State University – Main',
+    name: 'AWS SBG - Spade',
     university: 'CvSU Indang Main Campus',
     facebookUrl: 'https://www.facebook.com/awsccspade',
     email: '',

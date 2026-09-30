@@ -170,6 +170,14 @@ function initVenueGallery() {
       item.classList.toggle('active-floor', isActive);
       item.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
+
+    // 5. Lazy-load interactive map iframe on demand when Slide 4 is viewed
+    if (activeSlide && activeSlide.classList.contains('venue-map-slide')) {
+      const mapIframe = activeSlide.querySelector('iframe');
+      if (mapIframe && mapIframe.dataset.src && (!mapIframe.src || mapIframe.src === 'about:blank' || mapIframe.getAttribute('src') === 'about:blank')) {
+        mapIframe.src = mapIframe.dataset.src;
+      }
+    }
   }
 
   // Prev / Next button clicks
@@ -269,10 +277,12 @@ function initVenueGallery() {
     }
   }, { passive: true });
 
-  // Auto-advance Timer (pauses on hover or focus)
+  let isSectionInView = false;
+
+  // Auto-advance Timer (only runs when venue section is in view, and not hovered/paused)
   function startAutoTimer() {
     stopAutoTimer();
-    if (isUserPaused) return;
+    if (isUserPaused || !isSectionInView || isHoveredOrFocused) return;
 
     autoTimer = setInterval(() => {
       goToSlide(currentIndex + 1);
@@ -288,7 +298,7 @@ function initVenueGallery() {
 
   function restartAutoTimer() {
     stopAutoTimer();
-    if (!isUserPaused) {
+    if (!isUserPaused && isSectionInView) {
       startAutoTimer();
     }
   }
@@ -303,7 +313,7 @@ function initVenueGallery() {
 
     mediaStage.addEventListener('mouseleave', () => {
       isHoveredOrFocused = false;
-      if (!isUserPaused) startAutoTimer();
+      if (!isUserPaused && isSectionInView) startAutoTimer();
     });
   }
 
@@ -315,7 +325,7 @@ function initVenueGallery() {
   mediaStage.addEventListener('focusout', (e) => {
     if (!mediaStage.contains(e.relatedTarget)) {
       isHoveredOrFocused = false;
-      if (!isUserPaused) startAutoTimer();
+      if (!isUserPaused && isSectionInView) startAutoTimer();
     }
   });
 
@@ -323,7 +333,22 @@ function initVenueGallery() {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) {
     isUserPaused = true;
+  }
+
+  // Viewport visibility observer: activate timer only while looking at the venue section
+  if ('IntersectionObserver' in window) {
+    const venueObserver = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      isSectionInView = !!(entry && entry.isIntersecting);
+      if (isSectionInView) {
+        startAutoTimer();
+      } else {
+        stopAutoTimer();
+      }
+    }, { threshold: 0.1 });
+    venueObserver.observe(mediaStage);
   } else {
+    isSectionInView = true;
     startAutoTimer();
   }
   updatePauseButtonUI();

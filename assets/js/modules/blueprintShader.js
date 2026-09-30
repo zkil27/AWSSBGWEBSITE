@@ -36,8 +36,9 @@ export function initBlueprintShader() {
     grainientInstance = null;
   }
 
-  // On low-spec devices or slow mobile connections, skip WebGL compilation and use CSS gradient
-  if (isLowSpec()) {
+  // On mobile screens, touch devices, or low-spec hardware, skip WebGL compilation and use the CSS gradient backdrop
+  const isTouchOrMobile = window.innerWidth <= 980 || !window.matchMedia('(pointer: fine)').matches;
+  if (isLowSpec() || isTouchOrMobile) {
     container.classList.add('bp-css-gradient');
     return null;
   }
@@ -70,27 +71,6 @@ export function initBlueprintShader() {
     zoom: 0.9,
     lightMode: false
   });
-
-  // Observe vertical scroll on mobile/stacked view to drive scroll progress
-  const section = document.getElementById('program');
-  if (section) {
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (document.documentElement.classList.contains('bp-active')) return;
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(() => {
-          const rect = section.getBoundingClientRect();
-          const total = rect.height - window.innerHeight;
-          if (total > 0) {
-            const progress = Math.max(0, Math.min(1, -rect.top / total));
-            setShaderScroll(progress);
-          }
-          ticking = false;
-        });
-      }
-    }, { passive: true });
-  }
 
   return grainientInstance;
 }

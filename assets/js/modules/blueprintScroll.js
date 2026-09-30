@@ -171,7 +171,7 @@ function updateCurve(scroll, isMobile = false) {
 
   const viewportHeight = window.innerHeight;
   const viewportWidth = window.innerWidth;
-  const currentSectionTop = isMobile ? documentOffsetTop(section) : sectionTop;
+  const currentSectionTop = isMobile ? (cachedMobileTop || (cachedMobileTop = documentOffsetTop(section))) : sectionTop;
   const enterStart = currentSectionTop - viewportHeight;
   const enterDistance = isMobile ? Math.min(viewportHeight * 0.85, 600) : Math.min(viewportHeight * 0.95, 850);
   const currentY = scroll - enterStart;
@@ -195,9 +195,7 @@ function updateCurve(scroll, isMobile = false) {
     if (Math.abs(arch - lastArch) >= 0.5) {
       lastArch = arch;
       const w = viewportWidth;
-      const h = isMobile
-        ? Math.max(viewportHeight * 3, (pin ? pin.scrollHeight : 0) + 2000, 25000)
-        : viewportHeight + 200;
+      const h = isMobile ? 35000 : viewportHeight + 200;
       const curveD = `M 0,${arch} Q ${w / 2},${-arch} ${w},${arch}`;
       const clipD = `${curveD} L ${w},${h} L 0,${h} Z`;
 
@@ -409,9 +407,30 @@ function deactivate() {
 
 let mobileListening = false;
 let mobileRaf = 0;
+let cachedMobileTop = 0;
+
+function measureMobileTop() {
+  if (section) {
+    cachedMobileTop = documentOffsetTop(section);
+  }
+}
 
 function handleMobileScroll() {
   if (!mobileListening) return;
+  const scrollY = window.scrollY;
+
+  // Once the user has scrolled past the top entrance curve into the section or towards venue,
+  // the curve is settled (flat). Bypass rAF, SVG path computations, and layout work completely.
+  if (cachedMobileTop > 0 && scrollY > cachedMobileTop + 700) {
+    if (lastArch !== 0 && pin) {
+      lastArch = 0;
+      pin.style.clipPath = '';
+      pin.style.webkitClipPath = '';
+      if (strokeWrapEl) strokeWrapEl.style.opacity = '0';
+    }
+    return;
+  }
+
   if (mobileRaf) return;
   mobileRaf = requestAnimationFrame(() => {
     mobileRaf = 0;
@@ -424,7 +443,9 @@ function handleMobileScroll() {
 function activateMobile() {
   if (mobileListening) return;
   mobileListening = true;
+  measureMobileTop();
   window.addEventListener('scroll', handleMobileScroll, { passive: true });
+  window.addEventListener('resize', measureMobileTop, { passive: true });
   updateCurve(window.scrollY, true);
 }
 
@@ -432,6 +453,7 @@ function deactivateMobile() {
   if (!mobileListening) return;
   mobileListening = false;
   window.removeEventListener('scroll', handleMobileScroll);
+  window.removeEventListener('resize', measureMobileTop);
   if (mobileRaf) {
     cancelAnimationFrame(mobileRaf);
     mobileRaf = 0;
@@ -441,6 +463,7 @@ function deactivateMobile() {
     pin.style.webkitClipPath = '';
   }
   lastArch = -1;
+  cachedMobileTop = 0;
 }
 
 /** Expose synchronous measurement for page transitions to query accurate geometry. */

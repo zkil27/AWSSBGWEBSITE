@@ -837,14 +837,16 @@ export function initSpeakers() {
         renderRoster(true); // initial staggered entrance
     }
 
-    // Render tiny inline cards for schedule on Home page
+    // Render tiny inline cards for schedule on Home page (only when confirmed/announced)
     function speakerInlineHTML(speaker, index) {
-        const color = colors[index % colors.length];
+        if (!speaker) return '';
         const isComingSoon = Boolean(speaker.isComingSoon || speaker.name === 'Coming Soon' || speaker.name === 'To Be Revealed');
-        const name = isComingSoon ? 'To Be Revealed' : (speaker.name || `Speaker ${index + 1}`);
+        // Omit "To Be Revealed" placeholders from the schedule for now
+        if (isComingSoon) return '';
+        const color = colors[index % colors.length];
+        const name = speaker.name || `Speaker ${index + 1}`;
         return `
-        <div class="speaker-inline-card ${color}${isComingSoon ? ' is-coming-soon' : ''}" data-speaker-index="${index}" title="${name}">
-          ${isComingSoon ? '<span class="speaker-inline-radar-dot"></span>' : ''}
+        <div class="speaker-inline-card ${color}" data-speaker-index="${index}" title="${name}">
           <span class="speaker-inline-name">${name}</span>
         </div>
         `;
@@ -865,23 +867,29 @@ export function initSpeakers() {
     if (schedKeynotesGrid && (indaleenSpeaker || isaeusSpeaker)) {
         const spk = indaleenSpeaker || isaeusSpeaker;
         const idx = indaleenSpeaker ? indaleenIdx : isaeusIdx;
-        schedKeynotesGrid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(spk, idx) + '</div>';
+        const html = speakerInlineHTML(spk, idx);
+        schedKeynotesGrid.innerHTML = html ? '<div class="speaker-inline-row">' + html + '</div>' : '';
     }
     if (schedTalk1Grid && isaeusSpeaker) {
-        schedTalk1Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(isaeusSpeaker, isaeusIdx) + '</div>';
+        const html = speakerInlineHTML(isaeusSpeaker, isaeusIdx);
+        schedTalk1Grid.innerHTML = html ? '<div class="speaker-inline-row">' + html + '</div>' : '';
     }
     if (schedTalk2Grid && trishaSpeaker) {
-        schedTalk2Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(trishaSpeaker, trishaIdx) + '</div>';
+        const html = speakerInlineHTML(trishaSpeaker, trishaIdx);
+        schedTalk2Grid.innerHTML = html ? '<div class="speaker-inline-row">' + html + '</div>' : '';
     }
     if (schedTalk3Grid && talk3Speaker) {
-        schedTalk3Grid.innerHTML = '<div class="speaker-inline-row">' + speakerInlineHTML(talk3Speaker, talk3Idx) + '</div>';
+        const html = speakerInlineHTML(talk3Speaker, talk3Idx);
+        schedTalk3Grid.innerHTML = html ? '<div class="speaker-inline-row">' + html + '</div>' : '';
     }
     if (schedPanelsGrid) {
-        schedPanelsGrid.innerHTML = '<div class="speaker-inline-row">' + panels.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
+        const html = panels.map((s) => speakerInlineHTML(s, s.originalIndex)).filter(Boolean).join('');
+        schedPanelsGrid.innerHTML = html ? '<div class="speaker-inline-row">' + html + '</div>' : '';
     }
     if (schedSessionsGrid) {
         const afternoonKeynotes = keynotes.filter(s => s.id !== 'speaker-isaeus-asi-guiang' && s.id !== 'speaker-indaleen-quinsayas');
-        schedSessionsGrid.innerHTML = '<div class="speaker-inline-row">' + afternoonKeynotes.map((s) => speakerInlineHTML(s, s.originalIndex)).join('') + '</div>';
+        const html = afternoonKeynotes.map((s) => speakerInlineHTML(s, s.originalIndex)).filter(Boolean).join('');
+        schedSessionsGrid.innerHTML = html ? '<div class="speaker-inline-row">' + html + '</div>' : '';
     }
 
     function handleCardClick(e) {

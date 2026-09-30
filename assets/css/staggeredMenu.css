@@ -83,6 +83,60 @@
    IN-NAVBAR PRIMARY NAVIGATION
    ========================================================= */
 
+@media (min-width: 981px) {
+  .nav-inner {
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    align-items: center !important;
+    column-gap: clamp(12px, 2vw, 24px) !important;
+    max-width: var(--container);
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 clamp(20px, 3.5vw, 40px);
+    box-sizing: border-box;
+  }
+
+  .header-left {
+    grid-column: 1;
+    justify-self: start;
+    min-width: 0;
+  }
+
+  .nav-links {
+    grid-column: 2;
+    justify-self: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    z-index: 5;
+  }
+
+  .header-right {
+    grid-column: 3;
+    justify-self: end;
+    min-width: 0;
+  }
+}
+
+/* Medium desktop / iPad landscape breakpoint (981px - 1160px):
+   Ensure left and right columns remain comfortably balanced without displacing center nav */
+@media (min-width: 981px) and (max-width: 1160px) {
+  .brand-title-full {
+    display: none !important;
+  }
+  .brand-title-compact {
+    display: inline !important;
+  }
+  .brand-text .brand-sub {
+    display: none !important;
+  }
+  .nav-list {
+    gap: 12px;
+  }
+}
+
 .nav-links {
   position: relative;
   display: flex;
@@ -467,6 +521,13 @@ html[data-theme="dark"] .char-default {
     justify-content: space-around;
     gap: 4px;
     padding: 0 2px;
+  }
+
+  .nav-item-wrap {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
   }
 
   .nav-item {
