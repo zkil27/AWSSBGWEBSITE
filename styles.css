@@ -1948,6 +1948,7 @@ html.bp-active #program {
   background-color: transparent !important;
   background-image: none !important;
   height: calc(100vh + var(--bp-extra, 0px));
+  height: calc(100dvh + var(--bp-extra, 0px));
   padding: 0;
   position: relative;
   margin-top: clamp(60px, 8vh, 120px);
@@ -2000,6 +2001,7 @@ html.bp-active .bp-content-wrap {
    while the panels pan across. */
 html.bp-active .blueprint-pin {
   height: 100vh;
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -2010,6 +2012,7 @@ html.bp-active .blueprint-pin {
   padding-bottom: clamp(34px, 5.5vh, 64px);
   box-sizing: border-box;
   left: 0;
+  right: 0;
   top: 0;
   background-color: var(--bp-backdrop-base, #f5edfc);
   transition: background-color 0.3s ease;
@@ -2019,12 +2022,19 @@ html.bp-active .blueprint-pin {
 html.bp-active .blueprint-pin.is-before {
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 /* Inside the pin window: fixed to the viewport so it holds while we pan. */
 html.bp-active .blueprint-pin.is-pinned {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 /* After the pin window: parked at the bottom of the section. */
@@ -2032,6 +2042,9 @@ html.bp-active .blueprint-pin.is-after {
   position: absolute;
   top: auto;
   bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -2270,7 +2283,6 @@ html[data-theme="dark"] html.bp-active .blueprint-panel.is-focused .bp-num {
 
 .bp-agenda-body {
   max-width: 42ch;
-  will-change: transform;
 }
 
 .blueprint-panel--agenda h3 {
@@ -2292,12 +2304,12 @@ html[data-theme="dark"] html.bp-active .blueprint-panel.is-focused .bp-num {
   margin: 0;
 }
 
-/* Offset-down panels: numeral sits after the copy for a mirrored rhythm.
-   The accent bar renders above the numeral here, so it needs top clearance
-   from the glyph (the tight line-height would otherwise let it crowd the "02"). */
-html.bp-active .blueprint-panel--offset-down { flex-direction: column-reverse; justify-content: flex-start; }
-html.bp-active .blueprint-panel--offset-down .bp-num { margin: clamp(16px, 3vh, 40px) 0 0; }
-html.bp-active .blueprint-panel--offset-down .bp-num::after { margin: clamp(20px, 3vh, 36px) 0 0; }
+/* Offset-down panels: keep consistent editorial hierarchy (numeral on top)
+   while maintaining the staggered top vertical offset. */
+html.bp-active .blueprint-panel--offset-down {
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
 /* ---- Schedule panel: grand editorial stage (maximum space) ---- */
 html.bp-active .blueprint-panel--schedule {
@@ -2612,33 +2624,35 @@ html.bp-active .sched-block-rows {
   gap: clamp(2px, 0.5vh, 6px);
 }
 
-/* Morning Stage: 4 sessions gracefully maximize the full card space with balanced vertical distribution */
+/* Morning Stage: 5 sessions gracefully distribute across the card space */
 html.bp-active .block-morning .sched-block-rows {
   scrollbar-color: rgba(252, 153, 7, 0.3) transparent;
   justify-content: space-between;
-  gap: clamp(4px, 1vh, 12px);
+  gap: clamp(3px, 0.6vh, 8px);
   height: 100%;
 }
 
 html.bp-active .block-morning .sched-row {
-  flex: 1 1 0;
-  min-height: 0;
+  flex: 1 1 auto;
+  min-height: fit-content;
   display: grid;
   align-content: center;
-  padding: clamp(6px, 1.4vh, 18px) clamp(8px, 0.8vw, 14px);
+  padding: clamp(5px, 0.9vh, 12px) clamp(8px, 0.8vw, 14px);
 }
 
-/* Afternoon Stage: 7 sessions expand smoothly to fill space without overflow */
+/* Afternoon Stage: 10 sessions expand smoothly with clean scrolling */
 html.bp-active .block-afternoon .sched-block-rows {
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: clamp(2px, 0.4vh, 6px);
   height: 100%;
 }
 
 html.bp-active .block-afternoon .sched-row {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   min-height: fit-content;
   display: grid;
   align-content: center;
+  padding: clamp(4px, 0.6vh, 8px) clamp(8px, 0.6vw, 12px);
 }
 
 html.bp-active .sched-block-rows::-webkit-scrollbar {
@@ -10892,12 +10906,11 @@ html.in-page-transition {
    PERFORMANCE & LOW-SPEC MOBILE OPTIMIZATIONS
    ========================================================================== */
 
-/* 1. Paint containment for heavy off-screen sections to drastically reduce initial render & scroll costs */
-#why-join,
+/* 1. Paint containment for heavy off-screen sections to drastically reduce initial render & scroll costs
+   (Excluded: sections preceding and including #program to preserve pixel-perfect scroll-pinning measurements) */
 #sponsors,
 #venue,
 .quote-band,
-#about-bridge,
 #faq,
 #register,
 #about-speakers-roster,
@@ -10906,13 +10919,6 @@ html.in-page-transition {
 .footer-ledger {
   content-visibility: auto;
   contain-intrinsic-size: 1px 750px;
-}
-
-@media (max-width: 1024px) {
-  #program {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 750px;
-  }
 }
 
 /* 2. Low-Spec Hardware & Touch Fallbacks */

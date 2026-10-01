@@ -31,13 +31,16 @@ export function initPerfManager() {
   const isMobileViewport = window.innerWidth <= 768;
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Classify Device Tier
+  // Classify Device Tier:
+  // Low: budget phones, <=2 CPU cores, <=2GB RAM, or slow 2G/3G connections
+  // Mid: mid-range devices (3-4 cores or mobile viewports)
+  // High: standard desktops & laptops (>=4 cores, >=4GB RAM)
   if (memory <= 2 || cores <= 2 || isSlowNet) {
     deviceTier = 'low';
     lowSpec = true;
-  } else if (memory <= 4 || cores <= 4 || (isCoarse && isMobileViewport)) {
+  } else if (memory < 4 || cores < 4 || (isCoarse && isMobileViewport)) {
     deviceTier = 'mid';
-    lowSpec = true;
+    lowSpec = false;
   } else {
     deviceTier = 'high';
     lowSpec = false;

@@ -123,17 +123,14 @@ function measure() {
   clipPathEl = document.getElementById('bpCurveClipPath');
   strokePathEl = document.getElementById('bpCurveStrokePath');
   strokeWrapEl = document.querySelector('.bp-curve-stroke-wrap');
+  forceRedraw = true;
 }
 
-/** Absolute distance from the document top, walking offsetParent chain. */
+/** Absolute distance from the document top, computed reliably via getBoundingClientRect + scroll. */
 function documentOffsetTop(el) {
-  let top = 0;
-  let node = el;
-  while (node) {
-    top += node.offsetTop;
-    node = node.offsetParent;
-  }
-  return top;
+  if (!el) return 0;
+  const rect = el.getBoundingClientRect();
+  return Math.round(rect.top + (window.scrollY || window.pageYOffset || 0));
 }
 
 /* ============================== Rendering =============================== */
@@ -217,9 +214,41 @@ function updateCurve(scroll, isMobile = false) {
   }
 }
 
+let lastRenderedScroll = -999999;
+let forceRedraw = false;
+
 /** Map the given (smoothed) scroll value to the track transform + progress. */
 function render(scroll) {
   if (!active || !track) return;
+
+  // Auto-synchronize sectionTop when approaching the section to absorb any dynamic
+  // height shifts from lazily-loaded images, fonts, or responsive embeds above.
+  if (pinState === 'is-before' && section) {
+    const rect = section.getBoundingClientRect();
+    if (rect.top > 0) {
+      const liveTop = Math.round(rect.top + (window.scrollY || window.pageYOffset || 0));
+      if (Math.abs(liveTop - sectionTop) > 2) {
+        sectionTop = liveTop;
+        forceRedraw = true;
+      }
+    }
+  }
+
+  // Culling & idle bypass: if scroll hasn't meaningfully changed since last paint, skip DOM writes.
+  if (!forceRedraw && Math.abs(scroll - lastRenderedScroll) < 0.25) {
+    return;
+  }
+
+  // Offscreen culling: if user is far above or far below #program and already parked, skip expensive panel transforms.
+  const isFarAbove = scroll < sectionTop - window.innerHeight - 150;
+  const isFarBelow = scroll > sectionTop + range + window.innerHeight + 150;
+  if (!forceRedraw && ((pinState === 'is-before' && isFarAbove) || (pinState === 'is-after' && isFarBelow))) {
+    lastRenderedScroll = scroll;
+    return;
+  }
+
+  forceRedraw = false;
+  lastRenderedScroll = scroll;
 
   setPinState(scroll);
 

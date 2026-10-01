@@ -151,7 +151,7 @@ export function initVideoHero() {
     const isMobile = isMobilePortraitViewport();
     if (isMobile && mobileVideo) {
       if (!mobileVideo.src) {
-        const dataSrc = mobileVideo.getAttribute('data-src') || 'assets/images/main-poster-v3-mobile.mp4';
+        const dataSrc = mobileVideo.getAttribute('data-src') || 'assets/images/main-poster-v4-mobile.mp4';
         const sourceEl = mobileVideo.querySelector('source');
         if (sourceEl) sourceEl.src = dataSrc;
         mobileVideo.src = dataSrc;
