@@ -16,14 +16,14 @@ export const speakers = [
   },
   {
     "id": "speaker-isaeus-asi-guiang",
-    "name": "To Be Revealed",
+    "name": "Isaeus \"Asi\" Guiang",
     "role": "Keynote Speaker #1 · Community Builder & Former AWS SBG Captain",
     "sessionTitle": "Talk #1: Built by Community: From Student Builder to Tech Professional",
-    "abstract": "The keynote speaker sharing their journey from student builder to tech professional and community leadership pathways will be unveiled soon.",
+    "abstract": "Sharing his journey from student builder to tech professional, and the community leadership pathways that shaped it.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/silhouette.svg",
+    "picUrl": "assets/images/speakers/isaeus-asi-guiang.webp",
     "linkedInUrl": "",
-    "isComingSoon": true
+    "isComingSoon": false
   },
   {
     "id": "speaker-trisha-pelagio",

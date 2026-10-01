@@ -2612,32 +2612,35 @@ html.bp-active .sched-block-rows {
   gap: clamp(2px, 0.5vh, 6px);
 }
 
-/* Morning Stage: 4 sessions gracefully maximize the full card space with balanced vertical distribution */
+/* Both stages: rows keep their natural height and stack from the top, so a
+   shorter stage (morning) never stretches its rows to match the taller one */
 html.bp-active .block-morning .sched-block-rows {
   scrollbar-color: rgba(252, 153, 7, 0.3) transparent;
-  justify-content: space-between;
-  gap: clamp(4px, 1vh, 12px);
-  height: 100%;
 }
 
-html.bp-active .block-morning .sched-row {
-  flex: 1 1 0;
-  min-height: 0;
-  display: grid;
-  align-content: center;
-  padding: clamp(6px, 1.4vh, 18px) clamp(8px, 0.8vw, 14px);
-}
-
-/* Afternoon Stage: 7 sessions expand smoothly to fill space without overflow */
+html.bp-active .block-morning .sched-block-rows,
 html.bp-active .block-afternoon .sched-block-rows {
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 100%;
 }
 
+html.bp-active .block-morning .sched-row,
 html.bp-active .block-afternoon .sched-row {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   min-height: fit-content;
   display: grid;
+  align-content: center;
+}
+
+/* Fill the card whether or not the blueprint pan is active: the rows area takes
+   the card's leftover height and each row shares it equally */
+.blueprint-panel--schedule .sched-block > .sched-block-rows {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.blueprint-panel--schedule .sched-block-rows > .sched-row {
+  flex: 1 1 auto;
   align-content: center;
 }
 
