@@ -1,0 +1,60 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Required for GitHub OIDC -> AWS (no long-lived access keys)
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-s3
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Zero-build site: publish only the files the page actually serves
+      # (not node_modules, docs, tools, scripts, etc.).
+      - name: Stage site files
+        run: |
+          mkdir -p _site
+          cp index.html styles.css theme.css awssbg-logo.svg _site/
+          cp -r assets _site/assets
+
+      # Images/media rarely change -> long cache. CSS/JS aren't fingerprinted
+      # (JS not at all), so keep them short; HTML always revalidates.
+      - name: Sync media
+        run: |
+          aws s3 sync _site "s3://${{ vars.S3_BUCKET }}" --delete \
+            --exclude "index.html" --exclude "*.css" --exclude "*.js" \
+            --cache-control "public, max-age=86400"
+      - name: Sync CSS and JS
+        run: |
+          aws s3 sync _site "s3://${{ vars.S3_BUCKET }}" \
+            --exclude "*" --include "*.css" --include "*.js" \
+            --cache-control "public, max-age=300"
+
+      - name: Upload index.html
+        run: |
+          aws s3 cp _site/index.html "s3://${{ vars.S3_BUCKET }}/index.html" \
+            --cache-control "no-cache" --content-type "text/html; charset=utf-8"
+
+      # Optional: only runs if a CloudFront distribution is configured
+      - name: Invalidate CloudFront
+        if: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/index.html" "/styles.css" "/theme.css" "/assets/js/*" "/assets/css/*"
