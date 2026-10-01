@@ -27,25 +27,25 @@ export const speakers = [
   },
   {
     "id": "speaker-trisha-pelagio",
-    "name": "To Be Revealed",
+    "name": "Trisha Pelagio",
     "role": "Keynote Speaker #2 · Solutions Architect, AWS (Machine Learning & Cloud)",
     "sessionTitle": "Talk #2: Building Smarter Systems with AI and Cloud",
-    "abstract": "The Women in Tech Keynote speaker exploring practical patterns for building smarter systems with AI and cloud architecture will be unveiled soon.",
+    "abstract": "Our Women in Tech keynote, exploring practical patterns for building smarter systems with AI and cloud architecture.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/silhouette.svg",
+    "picUrl": "assets/images/speakers/trisha-pelagio.webp",
     "linkedInUrl": "",
-    "isComingSoon": true
+    "isComingSoon": false
   },
   {
     "id": "speaker-kevin-john-ventura",
-    "name": "To Be Revealed",
+    "name": "Kevin John Ventura",
     "role": "Keynote Speaker #3 · Senior Engineering Leader (Cloud & Agentic AI)",
     "sessionTitle": "Talk #3: Human in the Loop: Preparing People for an AI-Driven Future",
-    "abstract": "The AI Adoption Keynote speaker delivering 'Human in the Loop' on organizational readiness, platform scale, and workforce transformation will be unveiled soon.",
+    "abstract": "Our AI Adoption keynote, 'Human in the Loop', on organizational readiness, platform scale, and workforce transformation.",
     "status": "KEYNOTE",
-    "picUrl": "assets/images/speakers/silhouette.svg",
+    "picUrl": "assets/images/speakers/kevin-john-ventura.webp",
     "linkedInUrl": "",
-    "isComingSoon": true
+    "isComingSoon": false
   },
   {
     "id": "speaker-jared-remulta",
