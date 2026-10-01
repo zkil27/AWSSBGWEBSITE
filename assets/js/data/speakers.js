@@ -7,7 +7,7 @@ export const speakers = [
     "id": "speaker-indaleen-quinsayas",
     "name": "To Be Revealed",
     "role": "Opening Keynote Speaker · AWS Student Builder Group",
-    "sessionTitle": "Opening Keynote: Welcome Remarks",
+    "sessionTitle": "Opening Keynote / Welcome Remarks",
     "abstract": "The official keynote speaker representing AWS Student Builder Groups delivering the Opening Keynote and Welcome Remarks will be revealed soon.",
     "status": "KEYNOTE",
     "picUrl": "assets/images/speakers/silhouette.svg",

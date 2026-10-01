@@ -174,18 +174,6 @@ export const sponsors = [
     url: '#'
   },
   {
-    id: 'partner-pro-cvsu-elits',
-    name: 'CvSU Elite League of Information Technology Students',
-    tier: 'pro',
-    role: 'Pro Partner',
-    institution: 'Cavite State University',
-    location: 'Indang, Cavite',
-    track: 'IT Student Organization',
-    color: 'green',
-    imgUrl: 'assets/images/sponsors and partners/ELITS.png',
-    url: '#'
-  },
-  {
     id: 'partner-pro-beradove',
     name: 'AWS Student Builder Group Beredove',
     tier: 'pro',

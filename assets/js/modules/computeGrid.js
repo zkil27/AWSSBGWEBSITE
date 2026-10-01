@@ -144,6 +144,9 @@ export function updateMarqueeBounds() {
 
 function resize() {
   if (!canvas || !ctx) return;
+  cachedGutterLimits = null;
+  cachedMarqueeEl = null;
+  cachedVenueGalleryEl = null;
   viewW = window.innerWidth;
   viewH = window.innerHeight;
   dpr = Math.min(window.devicePixelRatio || 1, isLowSpec() ? 1 : (viewW <= 768 ? 1.5 : CFG.dprCap));
@@ -170,13 +173,18 @@ function updateLitCells(dt) {
  * Detects carousel elements (e.g. Sponsors partner marquee, Venue gallery)
  * and returns active viewport exclusion zones where tiles must not be drawn.
  */
+let cachedMarqueeEl = null;
+let cachedVenueGalleryEl = null;
+
 function getCarouselExclusionZones() {
   const zones = [];
   
   // 1. Sponsors marquee carousel (dual-track full-bleed partner stream)
-  const marqueeBlock = document.querySelector('.sponsors-marquee-block') || document.querySelector('.sponsors-marquee-shell');
-  if (marqueeBlock) {
-    const r = marqueeBlock.getBoundingClientRect();
+  if (!cachedMarqueeEl) {
+    cachedMarqueeEl = document.querySelector('.sponsors-marquee-block') || document.querySelector('.sponsors-marquee-shell');
+  }
+  if (cachedMarqueeEl) {
+    const r = cachedMarqueeEl.getBoundingClientRect();
     if (r.bottom >= -40 && r.top <= viewH + 40) {
       zones.push({
         top: r.top - 20,
@@ -187,9 +195,11 @@ function getCarouselExclusionZones() {
   }
 
   // 2. Venue interactive gallery carousel
-  const venueGallery = document.getElementById('venueGallery');
-  if (venueGallery) {
-    const r = venueGallery.getBoundingClientRect();
+  if (!cachedVenueGalleryEl) {
+    cachedVenueGalleryEl = document.getElementById('venueGallery');
+  }
+  if (cachedVenueGalleryEl) {
+    const r = cachedVenueGalleryEl.getBoundingClientRect();
     if (r.bottom >= -20 && r.top <= viewH + 20) {
       zones.push({
         top: r.top - 8,
@@ -353,10 +363,13 @@ function getContentBounds() {
   return { left, right: currentW - left, width: maxW };
 }
 
+let cachedGutterLimits = null;
+
 /**
  * Determines safe gutter columns and whether wide gutters are available.
  */
 function getGutterLimits() {
+  if (cachedGutterLimits) return cachedGutterLimits;
   const currentW = viewW || window.innerWidth;
   const totalCols = Math.floor(currentW / gridSize);
   const bounds = getContentBounds();
@@ -372,16 +385,17 @@ function getGutterLimits() {
   // Viewports with side margins (at least 1 full safe column on each side) use multi-column scatter
   const hasWideGutters = currentW >= 1400 && maxSafeLeftCol >= 0 && minAllowedNegativeCol <= -1;
 
-  return {
+  return (cachedGutterLimits = {
     bounds,
     totalCols,
     maxSafeLeftCol,
     minAllowedNegativeCol,
     hasWideGutters
-  };
+  });
 }
 
 function resetAmbientBlockTargets() {
+  cachedGutterLimits = null;
   const { hasWideGutters, maxSafeLeftCol, minAllowedNegativeCol } = getGutterLimits();
   const blocks = hasWideGutters ? ambientBlocks : mobileAmbientBlocks;
   for (const b of blocks) {
