@@ -2612,8 +2612,8 @@ html.bp-active .sched-block-rows {
   gap: clamp(2px, 0.5vh, 6px);
 }
 
-/* Both stages: rows keep their natural height and stack from the top, so a
-   shorter stage (morning) never stretches its rows to match the taller one */
+/* Both stages: rows share the card's full height equally (never shorter than
+   their content), so neither stage leaves empty space at the bottom */
 html.bp-active .block-morning .sched-block-rows {
   scrollbar-color: rgba(252, 153, 7, 0.3) transparent;
 }
@@ -2626,7 +2626,7 @@ html.bp-active .block-afternoon .sched-block-rows {
 
 html.bp-active .block-morning .sched-row,
 html.bp-active .block-afternoon .sched-row {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   min-height: fit-content;
   display: grid;
   align-content: center;
